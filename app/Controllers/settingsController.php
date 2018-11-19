@@ -302,10 +302,24 @@ class settingsController extends Controller {
     
     
     
-    
+    public function others($request,$response){
+        
+        if($request->getMethod() == 'GET'){
+            return $this->view->render($response,'admin/settings/others.twig');
+        }
+        
+        
+       if($request->getMethod() == 'POST'){
 
-    
-    
+               $options = new options();
+               foreach($request->getParams() as $key => $value) {
+                    $options->update_option($key,$value);               
+               }
+            $this->flash->addMessage('success','تم تحديث المعلومات بنجاح');
+            return $response->withRedirect($this->router->pathFor('settings.others'));
+         }
+        
+    }
     
     
     

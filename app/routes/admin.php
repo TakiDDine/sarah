@@ -84,6 +84,7 @@ $app->group('/wp-admin', function () use($app) {
         $app->any('/home[/]', \App\Controllers\settingsController::class .':home')->setName('settings.home');
         $app->any('/account[/]', \App\Controllers\settingsController::class .':account')->setName('settings.account');
         $app->any('/footer[/]', \App\Controllers\settingsController::class .':footer')->setName('settings.footer');
+        $app->any('/others[/]', \App\Controllers\settingsController::class .':others')->setName('settings.others');
     });
     
     

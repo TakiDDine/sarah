@@ -38,6 +38,9 @@
 	<script type="text/javascript" src="{{website_assets}}javascripts/bootstrap.min.js"></script>
 	<script type="text/javascript" src="{{website_assets}}javascripts/jquery.touchSwipe.min.js"></script>
 
+
+{{ 'other_head_scripts'|options|raw }}
+
 <style>
 .social-sharing .icon {
     padding: 0px 35px 30px 10px;
@@ -727,7 +730,7 @@ $(document).ready(function(){
 });
 </script>
 	
-			
+{{ 'other_footer_scripts'|options|raw }}
 </body>
 </html>
 

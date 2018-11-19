@@ -1,0 +1,123 @@
+{% extends "admin/layout.twig" %}
+{% block title %}   اعدادات البريد الإلكتروني   {% endblock %}
+{% block content %}
+
+<!-- Main content -->
+<div class="content-wrapper">
+
+
+				<!-- Page header -->
+				<div class="page-header page-header-transparent">
+					<div class="page-header-content">
+						<div class="page-title">
+							<h1> <span class="text-semibold">اعدادات أخرى </span></h1>
+						</div>
+					</div>
+				</div>
+				<!-- /page header -->
+
+
+<!-- Content area -->
+<div class="content">
+		
+		{% include "admin/elements/flash.twig" %}
+
+
+<div class="col-md-8">
+	<div class="panel panel-flat ">
+		<div class="panel-body">
+			<form class="form-horizontal" method="post" action="{{path_for('settings.others')}}">
+				<fieldset class="content-group">
+					<div class="form-group">
+						<label class="control-label"> اضافة أكواد html/css/js في أعلى الموقع </label>
+						<textarea  class="form-control" name="other_head_scripts" cols="30" rows="10">{{ 'other_head_scripts'|options }}</textarea>
+					</div>
+				</fieldset>
+				<div class="text-right">
+					<button type="submit" class="btn btn-primary">تحديث <i class="icon-arrow-left13 position-right"></i></button>
+				</div>
+			</form>
+		</div>
+	</div>
+   
+   
+   
+	<div class="panel panel-flat ">
+		<div class="panel-body">
+			<form class="form-horizontal" method="post" action="{{path_for('settings.others')}}">
+				<fieldset class="content-group">
+					<div class="form-group">
+						<label class="control-label"> اضافة أكواد html/css/js في أسفل الموقع </label>
+						<textarea  class="form-control" name="other_footer_scripts" cols="30" rows="10">{{ 'other_footer_scripts'|options }}</textarea>
+					</div>
+				</fieldset>
+				<div class="text-right">
+					<button type="submit" class="btn btn-primary">تحديث <i class="icon-arrow-left13 position-right"></i></button>
+				</div>
+			</form>
+		</div>
+	</div>
+   </div>
+   <div class="col-md-4">
+<div class="panel">
+								<div class="panel-body">
+									<h5 class="content-group">
+										<span class="label label-flat label-rounded label-icon border-grey text-grey mr-10">
+											<i class="icon-info3"></i>
+										</span>
+
+											هل تحتاج مساعدة ؟
+										
+									</h5>
+
+
+									<ul class="list list-icons">
+										<li>
+											<i class="icon-checkmark-circle text-success position-left"></i>
+											<b>الخانة الأولى</b>
+											<br>
+											<p class="mg10">تضع فيها الأكواد التي تريد أن تظهر بين وسمي 
+											
+											<br>
+											&lt;head&gt;&lt;/head&gt;</p>
+										</li>
+										<li>
+											<i class="icon-checkmark-circle text-success position-left"></i>
+											<b>الخانة الثانية</b>
+											<br>
+											<p class="mg10">
+											    تضع فيها الأكواد التي تريد ان تظهر قبل وسم
+											    <br>
+                                        &lt;/body&gt;
+
+											    
+											    
+											    
+											</p>
+										</li>                                        
+								            <li>
+											<i class="icon-checkmark-circle text-success position-left"></i>
+											<b>تنبيه</b>
+											<br>
+											<p class="mg10">
+											قبل اضافة اية اكواد تأكد من أنها من مواقع آمنة ، اضافة اكواد غير آمنة قد يؤثر على حماية موقعك
+											 </p>
+										</li>
+										
+										
+
+									</ul>
+								</div>                     
+        </div>
+        
+							
+
+</div>
+    </div>
+   
+   
+   
+    </div>
+
+
+{% endblock %}	
