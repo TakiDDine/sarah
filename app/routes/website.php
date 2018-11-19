@@ -20,6 +20,12 @@ $app->group('/', function () use($app) {
         $app->get('contact[/]', \App\Controllers\website\ContactController::class .':index')->setName('website.contact');
         $app->post('contact', \App\Controllers\website\ContactController::class .':create')->setName('website.contact.post');
 
+            $app->get('wishlist-to-card[/]', \App\Controllers\website\WishListController::class .':alltocart')->setName('wishlist-to-card');
+
+    
+    
+        
+        
         // Auth
         $app->get('login[/]', \App\Controllers\website\AuthController::class .':login_get')->setName('website.login');
         $app->post('login', \App\Controllers\website\AuthController::class .':login_post')->setName('website.login.post');

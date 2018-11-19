@@ -77,10 +77,10 @@ public function create ($request,$response){
         $user_id = $_SESSION['auth-user'];
     }
 
-    $post_id = $request->getParam('post_id');
-    $author = $request->getParam('author');
-    $email  = $request->getParam('email');
-    $body   = $request->getParam('body');
+    $post_id = clean($request->getParam('post_id'));
+    $author = clean($request->getParam('author'));
+    $email  = clean($request->getParam('email'));
+    $body   = clean($request->getParam('body'));
     
     Comments::create([
         'user_id' => $user_id,

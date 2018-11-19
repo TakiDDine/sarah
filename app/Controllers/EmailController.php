@@ -25,9 +25,9 @@ class EmailController extends Controller {
             if($request->getMethod() == 'POST'){
             
                 
-                $body       = $request->getParam('body');
-                $reciever    = $request->getParam('reciever_email');                
-                $subject    = $request->getParam('subject');                
+                $body       = clean($request->getParam('body'));
+                $reciever   = clean($request->getParam('reciever_email'));
+                $subject    = clean($request->getParam('subject'));
                 
                 $this->db->table('inbox')->insert([
                     'reciever_email'=> $reciever,

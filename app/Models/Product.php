@@ -29,6 +29,12 @@ class Product extends model{
         return $gallery;
         
     }
+
+    
+    public function discounte(){
+        return '-'.ceil((($this->price - $this->discount_price)*100) /$this->price).'%' ;
+    }
+    
     
     public function gallery(){
         return explode('//', $this->gallery); 

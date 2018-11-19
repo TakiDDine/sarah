@@ -191,7 +191,7 @@ $app->group('/wp-admin', function () use($app) {
         $app->any('/view/{id}[/]', \App\Controllers\MediaController::class .':view')->setName('media.view');
         $app->post('/upload[/]', \App\Controllers\MediaController::class .':upload')->setName('media.upload');
         $app->any('/delete[/]', \App\Controllers\MediaController::class .':delete')->setName('media.delete');
-        $app->get('blukdelete[/]', \App\Controllers\MediaController::class .':blukdelete')->setName('media.blukdelete');
+        $app->get('/blukdelete[/]', \App\Controllers\MediaController::class .':blukdelete')->setName('media.blukdelete');
     });
     
     
@@ -263,7 +263,7 @@ $app->group('/wp-admin', function () use($app) {
         $app->any('/edit/{id}[/]', \App\Controllers\ProductsController::class .':edit')->setName('products.edit');
         $app->get('/delete/{id}[/]', \App\Controllers\ProductsController::class .':delete')->setName('products.delete');
         $app->get('/duplicate/{id}[/]', \App\Controllers\ProductsController::class .':duplicate')->setName('products.duplicate');
-        $app->get('/blukdelete[/]', \App\Controllers\PagesController::class .':blukdelete')->setName('products.blukdelete');
+        $app->get('/blukdelete[/]', \App\Controllers\ProductsController::class .':blukdelete')->setName('products.blukdelete');
         $app->group('/categories', function () use ($app) {
             $app->any('[/]', \App\Controllers\ProductsCategoriesController::class .':index')->setName('products.categories');
             $app->get('/edit/{id}[/]', \App\Controllers\ProductsCategoriesController::class .':edit')->setName('products.categories.edit');

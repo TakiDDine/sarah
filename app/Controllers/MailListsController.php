@@ -14,7 +14,7 @@ class MailListsController extends Controller {
     }
     
     public function add($request,$response) {
-        $this->db->table('mail_list')->insert(['email'=>$request->getParam('email')]);
+        $this->db->table('mail_list')->insert(['email'=>clean($request->getParam('email'))]);
         $this->flash->addMessage('email_list','تم الإشتراك في القائمة البريدية بنجاح');
         return $response->withStatus(302)->withHeader('Location', $this->router->urlFor('website.home'));
     }

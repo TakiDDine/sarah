@@ -77,8 +77,8 @@ class FaqsController  extends Controller {
             }
             if($request->getMethod() == 'POST'){
         
-                $question = $request->getParam('question');
-                $answer = $request->getParam('answer');
+                $question = clean($request->getParam('question'));
+                $answer = clean($request->getParam('answer'));
                 Faqs::create([
                     'question' => $question,
                     'answer'   => $answer

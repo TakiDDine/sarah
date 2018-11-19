@@ -160,17 +160,22 @@ class settingsController extends Controller {
     
     public function general($request,$response) {
        
-        
-        if(isset($_FILES['logo']) and !empty($_FILES['logo']['name'])) {
-            $logo = new files();
-            $logo =  $logo->upload_avatar($this->container->conf['dir.general'],$_FILES['logo']);
+        if($request->getParam('validate') == 'general_settings'){
+        if($request->getParam('logochanged') == 'true') {
+            if(isset($_FILES['logo']) and !empty($_FILES['logo']['name'])) {
+                $logo = new files();
+                $logo =  $logo->upload_avatar($this->container->conf['dir.general'],$_FILES['logo']);
+                Options::update_option('logo',$logo); 
+            }
         }
         
-        if(isset($_FILES['favicon']) and !empty($_FILES['favicon']['name'])) {
-            $favicon = new files();
-            $favicon =  $favicon->upload_avatar($this->container->conf['dir.general'],$_FILES['favicon']);
-        }    
-
+        if($request->getParam('faviconchanged') == 'true') {
+            if(isset($_FILES['favicon']) and !empty($_FILES['favicon']['name'])) {
+                $favicon = new files();
+                $favicon =  $favicon->upload_avatar($this->container->conf['dir.general'],$_FILES['favicon']);
+                Options::update_option('favicon',$favicon);
+            }    
+        }
             
             
             
@@ -180,13 +185,7 @@ class settingsController extends Controller {
         $options = $options->pluck('name');
         $options =  array_combine($options->toArray(),$options->toArray());
         
-        if($request->getParam('validate') == 'general_settings'){
-            
-            
-            
-             Options::update_option('favicon',$favicon);
-             Options::update_option('logo',$logo); 
-            
+        
              Options::update_option('name',$request->getParam('name'));
              Options::update_option('description',$request->getParam('description'));
              Options::update_option('keywords',$request->getParam('keywords'));

@@ -39,7 +39,6 @@ class SearchController extends \App\Controllers\Controller{
                     ->orWhere('name', 'LIKE', "%$search%")
                     ->skip($skip)
                     ->take($limit)
-//                    ->orderBy('created_at', 'desc')    
                     ->get();    
 
                $count = count($products);

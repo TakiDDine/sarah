@@ -137,6 +137,7 @@ class PagesController extends Controller {
     
     public function blukdelete($request,$response){
         $users = Page::truncate();
+        delete_folders_files($this->container->conf['dir.pages']);
         $this->flash->addMessage('success', 'تم حذف كل الصفحات بنجاح');
         return $response->withStatus(302)->withHeader('Location', $this->router->urlFor('pages'));
     }

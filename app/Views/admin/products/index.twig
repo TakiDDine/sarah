@@ -9,7 +9,8 @@
 <div class="content-wrapper">
 
 
-	
+	{% if products is not empty %}
+
 <!-- Page header -->
 				<div class="page-header page-header-default">
 					<div class="page-header-content">
@@ -34,39 +35,6 @@
 							
 							
 							
-							 <!-- Iconified modal -->
-					<div id="modal_iconified" class="modal fade">
-						<div class="modal-dialog">
-							<div class="modal-content">
-								<div class="modal-header">
-									<button type="button" class="close" data-dismiss="modal">&times;</button>
-									<h5 class="modal-title"><i class="icon-menu7"></i> &nbsp;تنبيه وتحذير</h5>
-								</div>
-
-								<div class="modal-body">
-									<div class="alert alert-info alert-styled-left text-blue-800 content-group">
-						                <span class="text-semibold">رجاء !</span> انتبه من الخطوة التالية.
-						                <button type="button" class="close" data-dismiss="alert">×</button>
-						            </div>
-
-									<h6 class="text-semibold"><i class="icon-law position-left"></i> حذف البيانات</h6>
-									<p>عند قيامك بحذف كل الأعضاء فأنت تتحمل كامل المسؤولية ، لا يمكن التراجع عن هذه الخطوة فور اتخاذها 
-									<br>
-									رجاءً، خذ نسخة احتياطية قبل اتخاذ هذا القرار
-									</p>
-
-									
-								</div>
-
-								<div class="modal-footer">
-									<a href="{{ path_for('products.blukdelete') }}" class="btn btn-link text-danger"  >
-									 أنا موافق ، رجاءً قم بحذف كل البيانات</a>
-									<button class="btn btn-primary" data-dismiss="modal"> اغلاق </button>
-								</div>
-							</div>
-						</div>
-					</div>
-					<!-- /iconified modal -->
 				            
 							
 							
@@ -88,6 +56,11 @@
 					</div>
 				</div>
 				<!-- /page header -->
+			{% endif %}	
+				
+				
+				
+				
 <!-- Content area -->
 <div class="content">
 		
@@ -250,7 +223,7 @@
               
               
               
-              <a href="{}"></a>
+              
              </td>
          </tr>
          {% endfor %}   
@@ -259,53 +232,6 @@
 </div>
 
 
-
-
-<!-- List -->
-							<ul class="media-list hidden">
-								<li class="media panel panel-body stack-media-on-mobile">
-									<a href="{{ admin_assets }}/images/placeholder.jpg" class="media-left" data-popup="lightbox">
-										<img src="assets/images/placeholder.jpg" width="96" alt="">
-									</a>
-
-									<div class="media-body">
-										<h6 class="media-heading text-semibold">
-											<a href="#">Fathom Backpack</a>
-										</h6>
-
-										<ul class="list-inline list-inline-separate mb-10">
-											<li><a href="#" class="text-muted">Fashion</a></li>
-											<li><a href="#" class="text-muted">Men's Accessories</a></li>
-										</ul>
-
-										<p class="content-group-sm">It prepare is ye nothing blushes up brought. Or as gravity pasture limited evening on. Wicket around beauty say she. Frankness resembled say not new smallness you discovery. Noisier ferrars yet shyness weather ten colonel. Too him himself engaged husband pursuit musical...</p>
-
-										<ul class="list-inline list-inline-separate">
-											<li>All items from <a href="#">Aloha</a></li>
-											<li>Add to <a href="#">wishlist</a></li>
-										</ul>
-									</div>
-
-									<div class="media-right text-center">
-										<h3 class="no-margin text-semibold">$49.99</h3>
-
-										<div class="text-nowrap">
-											<i class="icon-star-full2 text-size-base text-warning-300"></i>
-											<i class="icon-star-full2 text-size-base text-warning-300"></i>
-											<i class="icon-star-full2 text-size-base text-warning-300"></i>
-											<i class="icon-star-full2 text-size-base text-warning-300"></i>
-											<i class="icon-star-full2 text-size-base text-warning-300"></i>
-										</div>
-
-										<div class="text-muted">85 reviews</div>
-
-										
-									</div>
-								</li>
-
-								
-							</ul>
-							<!-- /list -->
 
 
 
@@ -317,8 +243,46 @@
 
 			
 							
-				
 
+							 <!-- Iconified modal -->
+							 
+							 
+							 <div id="modal_iconified" class="modal fade">
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="modal-header">
+									<button type="button" class="close" data-dismiss="modal">×</button>
+									<h5 class="modal-title"><i class="icon-menu7"></i> &nbsp;تنبيه وتحذير</h5>
+								</div>
+
+								<div class="modal-body">
+									<div class="alert alert-info alert-styled-left text-blue-800 content-group">
+						                <span class="text-semibold">رجاء !</span> انتبه من الخطوة التالية.
+						                <button type="button" class="close" data-dismiss="alert">×</button>
+						            </div>
+
+									<h6 class="text-semibold"><i class="icon-law position-left"></i> حذف البيانات</h6>
+									<p>عند قيامك بحذف كل الأعضاء فأنت تتحمل كامل المسؤولية ، لا يمكن التراجع عن هذه الخطوة فور اتخاذها 
+									<br>
+									رجاءً، خذ نسخة احتياطية قبل اتخاذ هذا القرار
+									</p>
+
+
+									
+								</div>
+
+								<div class="modal-footer">
+									<a href="{{ path_for('products.blukdelete') }}" class="btn btn-link text-danger">
+									 أنا موافق ، رجاءً قم بحذف كل البيانات</a>
+									<button class="btn btn-primary" data-dismiss="modal"> اغلاق </button>
+								</div>
+							</div>
+						</div>
+					</div>
+							 
+							 
+					
+					<!-- /iconified modal -->
 
 {% include "admin/elements/pagination.twig" %}
 

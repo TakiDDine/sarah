@@ -91,16 +91,11 @@
     }
     
     /*
-    *
-    *   Deleting all files from a folder 
-    *   example usage , glob("path/to/temp/*");
-    *   If you want to remove 'hidden' files like .htaccess, you have to use
-    *   glob('path/to/temp/{,.}*', GLOB_BRACE);
+    *   Deleting all files ( and the hidden files also) from a folder   
     */
     function delete_folders_files($path){
-        
-    
-        $files = glob($path); // get all file names
+        $path = rtrim($path, '/').'/{,.}*';
+        $files = glob($path, GLOB_BRACE); // get all file names
         foreach($files as $file){ // iterate files
           if(is_file($file))
             unlink($file); // delete file

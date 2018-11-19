@@ -9,6 +9,7 @@ use \App\Classes\files;
 use \App\Models\Emails;
 use \App\Models\WishList;
 use \App\Models\Product;
+use \App\Models\Cart;
 
 class WishListController extends \App\Controllers\Controller{
   
@@ -27,7 +28,23 @@ class WishListController extends \App\Controllers\Controller{
     }
     
     
-    
+    public function alltocart($request,$response) {
+     
+       $wishlist = WishList::where('user_id',$_SESSION['auth-user'])->get()->toArray();
+        
+        
+       foreach($wishlist as $item ) {
+            Cart::create([
+                'user_id' => $_SESSION['auth-user'],
+                'productID' => $item['productID'] ,
+                'quantity' => 1
+            ]);
+            $this->flash->addMessage('success','تم إضافة جميع المنتجات الى السلة');
+            return $response->withStatus(302)->withHeader('Location', $this->router->urlFor('website.wishlist'));
+
+       }
+        
+    }
     
     public function add($request,$response,$args) {
         $id = rtrim($args['id'], '/');

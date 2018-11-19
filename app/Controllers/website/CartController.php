@@ -36,7 +36,7 @@ class CartController extends \App\Controllers\Controller{
         Cart::create([
             'user_id' => $_SESSION['auth-user'],
             'productID' => $id ,
-            'quantity' => $request->getParam('quantity')
+            'quantity' => clean($request->getParam('quantity'))
         ]);
         $this->flash->addMessage('success_cart','');
         return $response->withStatus(302)->withHeader('Location', $this->router->urlFor('website.product',['id'=>$id]));

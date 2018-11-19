@@ -36,56 +36,7 @@ class MediaController extends Controller {
             ]);
         
     }
-    
-    /*
-    public function show($request,$response,$args) {
-        
-        $ads = ads::find($args['id']);
-
-        if($request->getMethod() == 'POST'){ 
-             
-        $statue = 0;
-        $url = " ";
-        $htmlCode = " ";
-        
-        $name =  " ";
-        if($request->getParam('isAdChanged') == 'true') {
-                $ad = " ";
-                
-                
-                if(isset($_FILES['image']) and !empty($_FILES['image']['name'])) {
-
-                    $files = new files();
-                    $path = $this->container->conf['dir.ads'];
-                    $file = $_FILES['image'];
-
-                    // Upload
-                    $ad =  $files->upload_avatar($path,$file);
-                }  
-                
-                unlink($this->container->conf['dir.ads'].$ads->image);
-                $ads->image = $ad;
-            }
-
-
-        if($request->getParam('active') == 'active') {
-            $statue = 1;
-        }
-        
-        
-        $ads->name = $name;
-        $ads->url = $url;
-        $ads->statue = $statue;
-        $ads->htmlcode = $htmlCode;
-        $ads->area = $request->getParam('areaUndetected');
-        $ads->save();
-        $this->flash->addMessage('success','تم تحديث الإعلان بنجاح');
-        return $response->withRedirect($this->router->pathFor('ads.show', ['id'=> $ads->id , 'ads' => $ads]));
-        }
-        
-        return $this->container->view->render($response,'admin/ads/show.twig',['ads'=>$ads]); 
-    }
-    */
+   
     
   
     public function upload($request,$response) {
@@ -126,12 +77,15 @@ class MediaController extends Controller {
     }
     
     public function blukdelete($request,$response){
-        Media::turncate();
-        $this->flash->addMessage('success', 'تم حذف كل  الميديا بنجاح');
         
-        // Delete All the images
+        // Clean the media Table in database
+        Media::truncate();
         
-        return $response->withStatus(302)->withHeader('Location', $this->router->urlFor('ads'));
+        // Delete all the files in media folder 
+        delete_folders_files($this->container->conf['dir.media']);
+        
+        // Return to media page
+        return $response->withStatus(302)->withHeader('Location', $this->router->urlFor('media'));
     }
     
     

@@ -94,19 +94,27 @@
 												</tr>
 											</thead>
 											<tbody>
-												<tr id="5957039302" class="odd">
+											
+											{% for item in cart %}
+												<tr id="itemtosell" class="odd">
 													<td class="td-product" >
-														<a href="product.html" title="">Digital equipment</a>
+														<a href="{{path_for('website.product',{id : item.productID})}}" >
+														{{item.name}}
+														</a>
 													</td>
-													<td class="money" ><span class="money" >$259.00</span></td>
-													<td class="quantity ">1</td>
-													<td class="total" ><span class="money">$259.00</span></td>
+													<td class="money" ><span class="money" >{{item.discount_price}}</span></td>
+													<td class="quantity">{{item.quantity}}</td>
+													<td class="total" >$</td>
 												</tr>
+								            {% endfor %}
+								            
 											</tbody>
+											
+											
 											<tfoot>
 												<tr class="order_summary order_total">
 													<td class="td-label" colspan="3">Total</td>
-													<td class="total" ><span class="money" >$292.90</span> </td>
+													<td class="total" ><span class="money alltotaltopay" >$292.90</span> </td>
 												</tr>
 											</tfoot>
 										</table>

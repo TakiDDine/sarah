@@ -39,76 +39,10 @@ class CouponsController extends Controller {
                     if($request->getMethod() == 'GET'){
                         return $this->container->view->render($response,'admin/coupons/create.twig');
                     }
-//
-//                    if($request->getMethod() == 'POST'){
-//
-//                        $title = $request->getParam('title');
-//                        $post_content = $request->getParam('post_content');
-//
-//                        $post_thumbnail = " ";
-//
-//
-//                          if(isset($_FILES['post_thumbnail']) and !empty($_FILES['post_thumbnail']['name'])) {
-//                                    $files = new files();
-//                                    $path = $this->container->conf['dir.pages'];
-//                                    $file = $_FILES['post_thumbnail'];
-//                                    $post_thumbnail =  $files->upload_avatar($path,$file);
-//                           }  
-//
-//
-//                        Page::create([
-//                            'title' => $title,
-//                            'content'  => $post_content,
-//                            'thumbnail' => $post_thumbnail,
-//                            'author' => $_SESSION['auth-admin'],
-//                            'statue' => '1',
-//                            'type' => 'post',
-//                            'categoryID' => $request->getParam('postCategory')
-//                        ]);
-//
-//                        $this->flash->addMessage('success','تم اضافة المقالة بنجاح');
-//                        return $response->withRedirect($this->router->pathFor('pages'));        
-//                  }
-
-            }
+        }
 
         public function edit($request,$response,$args) {
-//                $id = rtrim($args['id'], '/');
-//                $Post = Page::find($id);
-//                $files = new files();
-//
-//
-//                if($request->getMethod() == 'GET'){       
-//                    return $this->container->view->render($response,'admin/pages/edit.twig',['post'=>$Post]);
-//                }
-//
-//                if($request->getMethod() == 'POST'){
-//
-//                   if($request->getParam('thumbnailChanged') == 'true') {
-//
-//                        $thumbnail = " ";
-//                        if(isset($_FILES['post_thumbnail']) and !empty($_FILES['post_thumbnail']['name'])) {
-//
-//                            // Upload
-//                            $thumbnail =  $files->upload_avatar($this->container->conf['dir.pages'],$_FILES['post_thumbnail']);
-//                        }  
-//
-//                        unlink($this->container->conf['dir.pages'].$Post->thumbnail);
-//                        $Post->thumbnail = $thumbnail;
-//
-//                    }        
-//
-//                    $Post->title                = $request->getParam('title');
-//                    $Post->content              = $request->getParam('post_content');
-//                    $Post->statue               = '1';
-//                    $Post->slug                 = $request->getParam('slug');
-//                    $Post->categoryID           = $request->getParam('postCategory');
-//                    $Post->save();
-//
-//                    $this->flash->addMessage('success', 'تم تعديل المقالة بنجاح');
-//                    return $response->withRedirect($this->container->router->pathFor('pages.edit',['id'=>$id]));   
-//
-//                }
+
 
 
             }

@@ -31,6 +31,7 @@
 					<div class="row">
 						<div id="col-main" class="clearfix">
 							<div class="page">
+							{% if user %} 
 								<div class="table-cart">
 									<div class="wrap-table">
 										<table class="cart-items haft-border">
@@ -75,8 +76,19 @@
 											</tbody>
 										</table>
 									</div>
-									<p>You must <a href="login.html">Sign In</a> or <a href="register.html">Register</a>.</p>
+									
+									<a href="{{path_for('wishlist-to-card')}}" class="btn add-to-cart">Add all to my cart</a>
+									<br/>
+									<br/>
+									
 								</div>
+								
+								{% else %}
+								
+								
+									<p>You must <a href="login.html">Sign In</a> or <a href="register.html">Register</a>.</p>
+									
+									{% endif %}
 							</div>
 						</div>
 					</div>

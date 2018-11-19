@@ -28,10 +28,10 @@ class AuthController extends \App\Controllers\Controller{
     
     public function login_post($request,$response) {
        
-        $name       = $request->getParam('first_name') ;
-        $email      = $request->getParam('last_name') ;
-        $phone      = $request->getParam('email');
-        $body       = $request->getParam('password') ;
+        $name       = clean($request->getParam('first_name'));
+        $email      = clean($request->getParam('last_name'));
+        $phone      = clean($request->getParam('email'));
+        $body       = clean($request->getParam('password'));
 
         Emails::create([
             'name' => $name,
@@ -48,10 +48,10 @@ class AuthController extends \App\Controllers\Controller{
     
     public function register_post($request,$response) {
         
-        $first_name     = $request->getParam('first_name') ;
-        $last_name      = $request->getParam('last_name') ;
-        $email          = $request->getParam('email');
-        $password       = $request->getParam('password') ;
+        $first_name     = clean($request->getParam('first_name'));
+        $last_name      = clean($request->getParam('last_name'));
+        $email          = clean($request->getParam('email'));
+        $password       = clean($request->getParam('password'));
 
         $full_name = $first_name.' '.$last_name;
         $username = string_To_Uri($full_name);

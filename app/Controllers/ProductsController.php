@@ -213,7 +213,7 @@ class ProductsController extends Controller{
     
     public function blukdelete($request,$response){
         $users = Product::truncate();
-        $this->flash->addMessage('success', 'تم حذف كل المنتجات بنجاح');
+        delete_folders_files($this->container->conf['dir.products']);
         return $response->withStatus(302)->withHeader('Location', $this->router->urlFor('products'));
     }
     

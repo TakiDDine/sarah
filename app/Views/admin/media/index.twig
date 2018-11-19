@@ -46,7 +46,7 @@
 								</div>
 
 								<div class="modal-footer">
-									<a href="{{path_for('faqs.blukdelete')}}" class="btn btn-link text-danger"  >
+									<a href="{{path_for('media.blukdelete')}}" class="btn btn-link text-danger"  >
 									 أنا موافق ، رجاءً قم بحذف كل البيانات</a>
 									<button class="btn btn-primary" data-dismiss="modal"> اغلاق </button>
 								</div>
@@ -59,6 +59,47 @@
     </div>
 </div>
 <!-- /page header -->
+
+
+
+
+
+	
+			<style>
+    .empty_state_icon {
+    font-size: 176px;
+    opacity: 0.1;
+}
+    </style>
+			<div class="empty_state text-center">
+			    
+			<i class="icon-library2 empty_state_icon"></i>
+		<h4> 
+        مرحبا !
+		    يبدوا انك لم ترفع اية وسائط لحد الآن ، او انك قمت بحذفها <br>
+عند رفعك لوسائط جديدة  ستظهر هنا
+		</h4>
+		<a href="javascript:void(0);" class="btn bg-blue btn-labeled heading-btn showUploader2"><b><i class="icon-plus3"></i></b>
+            
+           رفع ملف جديد
+            </a>
+		
+		
+		
+			</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -178,6 +219,10 @@ $('#uploader').submit(function(evt) {
 
 <script>    
 $(".showUploader").click(function() {
+    $(".uploader_sec").show();
+});
+$(".showUploader2").click(function() {
+    $(".empty_state").remove();
     $(".uploader_sec").show();
 });
     

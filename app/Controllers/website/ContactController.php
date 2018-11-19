@@ -16,10 +16,10 @@ class ContactController extends \App\Controllers\Controller{
     
     public function create($request,$response) {
        
-        $name       = $request->getParam('contact')['name'] ;
-        $email      = $request->getParam('contact')['email'] ;
-        $phone      = $request->getParam('contact')['phone'] ;
-        $body       = $request->getParam('contact')['body'] ;
+        $name       = clean($request->getParam('contact')['name']);
+        $email      = clean($request->getParam('contact')['email']);
+        $phone      = clean($request->getParam('contact')['phone']);
+        $body       = clean($request->getParam('contact')['body']);
 
         Emails::create([
             'name' => $name,

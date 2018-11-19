@@ -141,6 +141,7 @@ class PostsController extends Controller {
    
     public function blukdelete($request,$response){
         Post::truncate();
+        delete_folders_files($this->container->conf['dir.posts']);
         return $response->withStatus(302)->withHeader('Location', $this->router->urlFor('posts'));
     }   
 }

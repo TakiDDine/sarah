@@ -78,11 +78,11 @@ class ProductController extends \App\Controllers\Controller{
     public function rate ($request,$response,$args) {
         
         // Secure Me please
-        $product_id     = $request->getParam('product_id');
+        $product_id     = clean($request->getParam('product_id'));
         $user_id        = $_SESSION['auth-user'];
-        $review         = $request->getParam('review');
-        $title          = $request->getParam('title');
-        $rating         = $request->getParam('rating');
+        $review         = clean($request->getParam('review'));
+        $title          = clean($request->getParam('title'));
+        $rating         = clean($request->getParam('rating'));
         
         
         // check if there is no rating first of all.

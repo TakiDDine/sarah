@@ -65,8 +65,6 @@
 											<div class="banner-content">
 												<div class="banner-1">
 													<a href="collections-all.html">
-													
-													
 														<img src="{{url.slider}}{{'HOME_SLIDER_RIGHT_TOP'|options }}" alt="">
 													</a>
 												</div>
@@ -144,6 +142,7 @@
 												<div class="content_product col-sm-2">
 													<div class="row-container product list-unstyled clearfix">
 														<div class="row-left">
+                                                                    
 																		<a href="{{ path_for('website.product', {'id': products[i].id}) }}" class="hoverBorder container_item">
 																			<div class="hoverBorderWrapper">
 																				<img src="{{url.products}}{{ products[i].ThumbnailsImages().1}}" class="not-rotation img-responsive front" >
@@ -151,6 +150,9 @@
 																				<img src="{{url.products}}{{ products[i].ThumbnailsImages().2}}" class="rotation img-responsive" >
 																			</div>
 																		</a>
+																		<span class="sale_banner">
+																<span class="sale_text">{{products[i].discounte()}}</span>
+															</span>
 																		<div class="hover-mask">
 																			<div class="group-mask">
 																				<div class="inner-mask">
@@ -168,7 +170,8 @@
 																	<div class="row-right animMix">
 																		<div class="product-title"><a class="title-5" href="{{ path_for('website.product', {'id': products[i].id}) }}">{{products[i].name}}</a></div>
 																		<div class="product-price">
-																			<span class="price_sale">{{products[i].price}}$</span>
+																			<span class="price_sale">{{products[i].discount_price}}$</span>
+																			<del class="price_compare">{{products[i].price}}$</del>
 																		</div>
 																	</div>
 													</div>
@@ -274,6 +277,9 @@
 																				<img src="{{url.products}}{{ BLOCK_CAT_1[i].ThumbnailsImages().2}}" class="rotation img-responsive" >
 																			</div>
 																		</a>
+																		<span class="sale_banner">
+																<span class="sale_text">{{products[i].discounte()}}</span>
+															</span>
 																		<div class="hover-mask">
 																			<div class="group-mask">
 																				<div class="inner-mask">

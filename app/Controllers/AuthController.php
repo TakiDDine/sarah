@@ -21,8 +21,8 @@ class AuthController extends Controller {
         $login_form = $request->getParam('validate');
         if($login_form == 'customer_login'){
                 $auth = $this->container->auth->attempt(
-                    $request->getParam('user_login'),
-                    $request->getParam('pass_login'),
+                    clean($request->getParam('user_login')),
+                    clean($request->getParam('pass_login')),
                     'user'
                 );
                 if($auth) {
@@ -38,8 +38,8 @@ class AuthController extends Controller {
         
         
         $auth = $this->container->auth->attempt(
-            $request->getParam('user_login'),
-            $request->getParam('pass_login'),
+            clean($request->getParam('user_login')),
+            clean($request->getParam('pass_login')),
             'admin'
         );
         if($auth) {
@@ -166,9 +166,9 @@ class AuthController extends Controller {
        $validator = $this->validator;
 
         // Clean the inputs first!
-       $password            =  $request->getParam('password');
-       $confirmPassword     =  $request->getParam('confirmPassword'); 
-       $token               =  $request->getParam('reset_token'); 
+       $password            =  clean($request->getParam('password'));
+       $confirmPassword     =  clean($request->getParam('confirmPassword')); 
+       $token               =  clean($request->getParam('reset_token')); 
         
 
         // التأكد من أن الحقول غير فارغة

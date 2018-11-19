@@ -67,6 +67,9 @@
     .product .product-title {
     margin-bottom: -12px;
 }
+    a.hoverBorder.container_item {
+    max-height: 250px;
+}
 </style>
 
 </head>
@@ -729,6 +732,32 @@ $(document).ready(function(){
 
 });
 </script>
+
+<script>
+$(document).ready(function(){
+       
+        var totalo = 0;
+        $( "#order_details #itemtosell").each(function() {
+           var price = $(this).find( "span.money" ).text();
+           var qts   = $(this).find( ".quantity" ).text();
+            
+            $(this).find( ".total" ).append(price*qts);
+            
+            totalo += price*qts;
+        });
+$( ".alltotaltopay").html('$'+totalo);
+    
+    
+});
+</script>
+
+
+
+
+
+
+
+
 	
 {{ 'other_footer_scripts'|options|raw }}
 </body>

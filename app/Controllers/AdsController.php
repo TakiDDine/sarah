@@ -74,28 +74,28 @@ class AdsController extends Controller {
             }
 
 
-        if($request->getParam('active') == 'active') {
+        if(clean($request->getParam('active')) == 'active') {
             $statue = 1;
         }
         
         // do not forget to clean this one before sending
-        if(!empty($request->getParam('link'))){
-            $url = $request->getParam('link');
+        if(!empty(clean($request->getParam('link')))){
+            $url = clean($request->getParam('link'));
         }
         
         // do not forget to clean this one before sending
         if(!empty($request->getParam('codehtml'))){
-            $htmlCode = $request->getParam('codehtml');
+            $htmlCode = clean($request->getParam('codehtml'));
         }
         if(!empty($request->getParam('name'))){
-            $name = $request->getParam('name');
+            $name = clean($request->getParam('name'));
         }
         
         $ads->name = $name;
         $ads->url = $url;
         $ads->statue = $statue;
         $ads->htmlcode = $htmlCode;
-        $ads->area = $request->getParam('areaUndetected');
+        $ads->area = clean($request->getParam('areaUndetected'));
         $ads->save();
         $this->flash->addMessage('success','تم تحديث الإعلان بنجاح');
         return $response->withRedirect($this->router->pathFor('ads.show', ['id'=> $ads->id , 'ads' => $ads]));
@@ -123,7 +123,7 @@ class AdsController extends Controller {
         $url = " ";
         // do not forget to clean this one before sending
         if(!empty($request->getParam('link'))){
-            $url = $request->getParam('link');
+            $url = clean($request->getParam('link'));
         }
         
         
@@ -131,7 +131,7 @@ class AdsController extends Controller {
         $htmlCode = " ";
         // do not forget to clean this one before sending
         if(!empty($request->getParam('codehtml'))){
-            $htmlCode = $request->getParam('codehtml');
+            $htmlCode = clean($request->getParam('codehtml'));
         }
         
         $ads = " ";
@@ -173,9 +173,9 @@ class AdsController extends Controller {
         return $response->withStatus(302)->withHeader('Location', $this->router->urlFor('ads'));
     }
     
-        public function blukdelete($request,$response){
-        ads::turncate();
-        $this->flash->addMessage('success', 'تم حذف كل  الإعلانات بنجاح');
+    public function blukdelete($request,$response){
+        ads::truncate();
+        delete_folders_files($this->container->conf['dir.undetected']);
         return $response->withStatus(302)->withHeader('Location', $this->router->urlFor('ads'));
     }
     
