@@ -1,0 +1,158 @@
+{% extends "admin/layout.twig" %}
+
+{% block title %} اضافة مقالة جديدة {% endblock %}
+
+
+{% block content %}
+    
+            
+<style>
+.editslugbtn {
+    background: white;
+    border: 1px solid #cac5c5;
+    border-radius: 3px;
+    font-size: 12px;
+    width: 36px;
+    display: inline-block;
+    text-align: center;
+    color: #797d7c;
+}
+.editslugbtn:hover {
+    background: #efecec;
+    border: 1px solid #adadad;
+    border-radius: 3px;
+    font-size: 12px;
+}
+</style> 
+				<!-- Content area -->
+				<div class="content">
+			
+
+				<!-- Page header -->
+				<div class="page-header page-header-transparent">
+					<div class="page-header-content">
+						<div class="page-title">
+							<h1> <span class="text-semibold">ارسال اميل جديد</span></h1>
+						</div>
+
+                    
+						
+					</div>
+				</div>
+				<!-- /page header -->
+			
+
+			        {% include "admin/elements/flash.twig" %}
+
+<div class="col-md-12">								
+
+<form  enctype="multipart/form-data" id="user_form" method='post' action="{{ path_for('inbox.create') }}">
+<input type="hidden"  name="thumbnailChanged" id="isAdChanged" value="false" />
+ 
+ 
+ 
+
+
+
+<div class="col-md-8">								
+<div class="form-group">
+                <label class="control-label">اميل المستقبل </label>
+                <input type="text" class="form-control" name="reciever_email" placeholder="اميل المستقبل" value="{{old.reciever_email}}" />
+</div>
+<div class="form-group">
+                <label class="control-label"> عنوان الإميل </label>
+                <input type="text" class="form-control" name="subject" placeholder=" عنوان الإميل" value="{{old.subject}}" />
+</div>	
+		
+<textarea name="body" id="posteditor"  >{{old.body}}</textarea>
+
+<br>
+<button type="submit" class="btn btn-block btn-primary">ارسال الإميل <i class="icon-arrow-left13 position-right"></i></button>
+
+</div>					
+					
+
+        <div class="col-md-4">
+         
+        <div class="panel">
+								<div class="panel-body">
+									<h5 class="content-group">
+										<span class="label label-flat label-rounded label-icon border-grey text-grey mr-10">
+											<i class="icon-info3"></i>
+										</span>
+
+											هل تحتاج مساعدة ؟
+										
+									</h5>
+
+
+									<ul class="list list-icons">
+										<li>
+											<i class="icon-checkmark-circle text-success position-left"></i>
+											<b>اميل المستقبل</b>
+											<br>
+											<p class="mg10">هو اميل الشخص الذي سترسل له الرسالة</p>
+										</li>
+										<li>
+											<i class="icon-checkmark-circle text-success position-left"></i>
+											<b>عنوان الإميل </b>
+											<br>
+											<p class="mg10">العنوان سيظهر للمستخدم قبل فتح الرسالة في علبته</p>
+										</li>                                        
+								            <li>
+											<i class="icon-checkmark-circle text-success position-left"></i>
+											<b>نص الرسالة</b>
+											<br>
+											<p class="mg10"> هو الرسالة التي سترسلها ،  تكتب الرسالة في الخانة الثالثة </p>
+										</li>
+										
+									<li>
+								<i class="icon-checkmark-circle text-success position-left"></i>
+											<b>ارسال الرسالة</b>
+											<br>
+											<p class="mg10">
+											   اضغط ارسال الرسالة ، الزر باللون الأزرق عند انتهائك من أجل ارسالها
+											</p>
+										</li>										
+										
+
+									</ul>
+								</div>                     
+        </div>
+ 
+            
+        
+            
+            
+
+            
+
+        </div>
+ </form>
+ </div>
+</div>
+<!-- /content area -->
+
+
+
+
+
+ <script src="{{ admin_assets }}ckeditor/ckeditor.js"></script>
+      <script>
+//                          CKEDITOR.replace('posteditor');
+
+CKEDITOR.replace( 'posteditor', {
+    language: 'ar',
+}); 
+
+    </script>
+    
+    
+    
+    
+    
+
+
+    
+
+{% endblock %}

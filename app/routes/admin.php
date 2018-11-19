@@ -56,6 +56,20 @@ $app->group('/wp-admin', function () use($app) {
         $app->get('blukdelete[/]', \App\Controllers\MailController::class .':blukdelete')->setName('Mail.blukdelete');
     });
     
+
+    /*
+    *   INBOX System
+    */
+    $app->group('/inbox', function () use ($app) {
+        $app->get('[/]', \App\Controllers\EmailController::class .':index')->setName('inbox');
+        $app->any('/create[/]', \App\Controllers\EmailController::class .':create')->setName('inbox.create');
+        $app->any('/edit/{id}[/]', \App\Controllers\EmailController::class .':edit')->setName('inbox.edit');
+        $app->any('/delete/{id}[/]', \App\Controllers\EmailController::class .':delete')->setName('inbox.delete');
+        $app->any('/blukdelete[/]', \App\Controllers\EmailController::class .':blukdelete')->setName('inbox.blukdelete');
+    });
+
+
+
     /*
     *    Settings System
     */

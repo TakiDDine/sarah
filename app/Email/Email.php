@@ -61,6 +61,10 @@ class Email {
         }
     }
      
+    public function send_Email (){
+        return $this->sendEmail();
+    }
+    
     
     public function Registration_Email (){
         $message = file_get_contents(__DIR__.'/email.html'); 
