@@ -1,0 +1,48 @@
+{% extends "website/layout.twig" %}
+{% block title %} Cart {% endblock %}
+
+
+{% block content %}
+    
+    
+<style>
+.h1404 {
+    font-size: 155px;
+    margin-top: 65px;
+    color: #e04a3f;
+}
+body .page-404-content .page-404-content-wrapper {
+    position: relative;
+    padding-bottom: 75px;
+}
+body .page-404-content .page-404-content-wrapper #page-404 h2, body .page-404-content .page-404-content-wrapper #page-404 .h2 {
+    color: #232323;
+}
+body .page-404-content .page-404-content-wrapper #page-404 p {
+    color: #232323;
+}
+</style>
+
+	<section class="page-404-content">
+  <div class="page-404-content-wrapper">
+    <div class="dis_table">
+      <div class="dis_tablecell">
+        <div class="container">
+          <div class="row">
+            <div class="page-404-content-inner">          
+              <div id="page-404" class="">
+                <div class="notfound-image">
+                    <h1 class="h1404">404</h1>
+                </div>
+                <h2>Oops! Page Not Found</h2>
+                <p class="subtext">The link you clicked might be corrupted, or the page may have been removed. You can back to homepage by clicking this button.</p>
+                <a class="btn" href="/">Back to homepage</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>    
+  </div>
+</section>
+{% endblock %}

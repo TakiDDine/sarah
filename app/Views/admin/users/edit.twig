@@ -1,0 +1,422 @@
+{% extends "admin/layout.twig" %}
+
+{% block title %}                الأعضاء |    {{ user.username}}  {% endblock %}
+
+
+{% block content %}
+    
+<style>
+
+.avatar-preview {
+    background: #e8e0e0;
+    width: 150px;
+    height: 150px;
+    overflow: hidden;
+    display: inline-block;
+    border-radius: 15454px;
+    box-shadow: 0 5px 15px -8px rgba(0, 0, 0, 0.24), 0 8px 10px -5px rgba(0, 0, 0, 0.2);
+}
+
+.avatar-preview img {
+    width: 100%; 
+    height: 100%;
+}
+</style>
+
+
+
+
+
+
+
+				<!-- Content area -->
+				<div class="content">
+
+			
+			<!-- Page header -->
+				<div class="page-header page-header-transparent">
+					<div class="page-header-content">
+						<div class="page-title">
+							<h1> <span class="text-semibold">تعديل الحساب</span></h1>
+						</div>
+                    
+<div class="heading-elements">
+
+</div>
+ </div>
+    </div>
+    
+
+						        {% include "admin/elements/flash.twig" %}
+
+
+<!-- تعديل البيانات الشخصية للمستخدم -->
+<div class="col-md-9">								
+<form  enctype="multipart/form-data" id="user_form" method='post' action="{{ path_for('users.edit', {'username': user.username}) }}">
+
+<!-- صورة الحساب -->		
+<div class="panel panel-flat">
+    <div class="panel-heading">
+        <h5 class="panel-title">صورة الحساب</h5>
+    </div>
+    <div class="panel-body">
+        <div class="row">
+            <center>
+                <div class="avatar-preview"><img id='profile_avatar' src="{{user.avatar}}" class="img-circle" /></div>
+            </center>
+            <br>
+            <br>
+            <center>
+                <label for="avatarUploadPreview" class="btn btn-danger btn-rounded"><i class="icon-image2 position-left"></i> اختيار الصورة</label>
+            </center>
+            
+            <p class="text-center text-muted">الصيغ المسموح بها : png, jpg</p>
+            <input name="avatar" id="avatarUploadPreview" accept="image/jpg, image/jpeg, image/png" style="visibility:hidden;" type="file" />
+        <input type="hidden" name="isAvatarChanged" id="isAvatarChanged" value="false" />
+        </div>
+    </div>
+</div>
+<!--// صورة الحساب -->					
+					
+
+<!-- المعلومات الشخصية -->			
+<div class="panel panel-flat">
+    <div class="panel-heading">
+        <h5 class="panel-title">تعديل المعلومات الشخصية</h5>
+        <p>لا تقلق ، كل المعلومات آمنة ، لا نشاركها مع أية جهة</p>
+    </div>
+    <input type="hidden" name="validate" value="update-general-user-info">
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-md-12">
+                <fieldset>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>اسم المستخدم:</label>
+                                <input type="text" class="form-control" value="{{user.username}}" name="username" placeholder="@username">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>الإسم الكامل:</label>
+                                <input type="text" class="form-control" value="{{user.full_name}}" name="full_name" placeholder="اسمك الحقيقي الكامل">
+                            </div>
+                        </div>                        
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>البريد الإلكتروني:</label>
+                                <input type="text" class="form-control" value="{{user.email}}" name="email" placeholder="البريد الإلكتروني">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>رقم الهاتف :</label>
+                                <input type="text" class="form-control" value='{{user.phone}}' name="phone" placeholder="رقم الهاتف">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>الدولة:</label>
+                                <select style="width:100%;" class="country" name="country">
+                                    {% for key,country in countries %}
+                                        <option value="{{key}}">{{country}}</option>
+                                     {% endfor %}   
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>تاريخ الميلاد:</label>
+                                <input type="date" placeholder="ادخل تاريخ الميلاد" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="display-block">الجنس:</label>
+                        <label class="radio-inline">
+							<input type="radio" value='male' class="styled" name="gender" {% if user.gender  == 'male' %} checked="checked" {% endif %}>
+												مذكر
+								</label>
+                        <label class="radio-inline">
+							<input type="radio" value='female' class="styled" name="gender" {% if user.gender  == 'female' %} checked="checked" {% endif %}>
+												أنثى
+						</label>
+                    </div>
+                    <div class="form-group">
+                        <label>نبذة تعريفية:</label>
+                        <textarea name="description" class='form-control' cols="5" rows="5" placeholder="ادخل النبذة التعريفية هنا">{{user.description}}</textarea>
+                    </div>
+                </fieldset>
+            </div>
+        </div>
+    </div>
+</div>
+<!--// المعلومات الشخصية -->						
+					
+					
+<!-- كلمة المرور -->										
+<div class="panel panel-flat">
+    <div class="panel-heading">
+        <h3 class="panel-title">تعديل كلمة المرور</h3>
+        <p>تذكر ، كلمة المرور يجب ان تكون قوية وغير متداولة ، من أجل حمايتك !</p>
+    </div>
+    <div class="panel-body">
+        <fieldset class="content-group">
+            <div class="col-md-9">
+                <div class="form-group">
+                    <div class="input-group">
+                        <input type="password" class="form-control" id="password" name="password" placeholder="ادخل هنا كلمة المرور الجديدة" />
+                        <div class="input-group-btn">
+                            <button type="button" onclick="tooglePassword()" class="btn btn-default"><i class="icon-eye"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <a onclick="password_generator()" class="btn btn-primary">انشاء كلمة مرور قوية </a>
+            </div>
+        </fieldset>
+    </div>
+</div>
+<!--// كلمة المرور -->
+
+<!-- السوشيال ميديا -->
+<div class="panel panel-flat">
+    <div class="panel-heading">
+        <h3 class="panel-title">روابط السوشيال ميديا</h3>
+    </div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="form-group">
+                <label class="control-label col-lg-2">الفيسبوك</label>
+                <div class="col-lg-10">
+                    <input type="text" class="form-control" value="{{user.facebook}}" name="facebook" placeholder="facebook">
+                </div>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="form-group">
+                <label class="control-label col-lg-2">تويتر</label>
+                <div class="col-lg-10">
+                    <input type="text" class="form-control" value="{{user.twitter}}" name="twitter" placeholder="twitter">
+                </div>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="form-group">
+                <label class="control-label col-lg-2">يوتيوب</label>
+                <div class="col-lg-10">
+                    <input type="text" class="form-control" value='{{user.youtube}}' name="youtube" placeholder="youtube">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--// السوشيال ميديا -->
+
+
+<!-- تحديث البيانات -->
+<div class="text-right">
+<button type="submit" class="btn btn-block btn-primary">تحديث البيانات <i class="icon-arrow-left13 position-right"></i></button>
+</div>
+<!--// تحديث البيانات -->            
+</form> 
+
+
+              
+</div>					
+<!--// تعديل البيانات الشخصية للمستخدم -->
+
+
+
+
+
+
+<div class="col-md-3">
+
+							<!-- Navigation widget -->
+							<div class="panel panel-white">
+								<div class="panel-heading ">
+									<h6 class="panel-title">الحساب</h6>
+								</div>
+
+								<div class="list-group no-border no-padding-top">
+								
+								
+								
+									<a onclick="document.getElementById('blockuserForm').submit();" class="list-group-item text-indigo-400"><i class="icon-user-cancel"></i> حظر الحساب</a>
+									
+        					
+									
+									
+									
+									
+									
+									<a onclick="document.getElementById('ActivateuserForm').submit();" class="list-group-item text-success"><i class="icon-user-check"></i> تفعيل الحساب</a>
+									<a onclick="document.getElementById('DeleteuserForm').submit();" class="list-group-item text-danger"><i class="icon-user-minus"></i>  حذف الحساب</a>
+									
+								</div>
+							</div>
+							<!-- /navigation widget -->
+
+							<!-- Upload file widget -->
+							<div class="panel panel-white">
+								<div class="panel-heading">
+									<h6 class="panel-title">تعيين المستخدم ك :</h6>
+								</div>
+
+								<div class="panel-body">
+									 <select style="width:100%;" class="role">
+                                        <option value="#">مستخدم عادي</option>
+                                        <option value="#">مدير</option>
+                                        <option value="#">مسؤول</option>
+                                        <option value="#">كاتب</option>
+                                        <option value="#">مراقب</option>
+                                </select>
+								</div>
+							</div>
+							<!-- /upload widget -->
+
+
+							<!-- List of files -->
+							<div class="panel panel-white">
+								<div class="panel-heading">
+									<h6 class="text-semibold panel-title">
+										تحميل نسخة من المعلومات
+									</h6>
+
+									
+								</div>
+
+								<div class="list-group no-border">
+									<a href="#" class="list-group-item">
+										<i class="icon-file-pdf"></i> تحميل pdf 
+									</a>
+
+									<a href="#" class="list-group-item">
+										<i class="icon-file-excel"></i> تحميل csv 
+									</a>
+								</div>
+							</div>
+							<!-- /list of files -->
+
+        
+        
+        
+        <form action="{{ path_for('users.edit', {'username': user.username}) }}" id="ActivateuserForm" method="post">
+           <input type="hidden" name="validate" value="ActivateUser">
+        </form>
+        
+        
+        <form action="{{ path_for('users.edit', {'username': user.username}) }}" id="blockuserForm" method="post">
+           <input type="hidden" name="validate" value="blockUser">
+        </form>
+        
+        
+        <form action="{{ path_for('users.edit', {'username': user.username}) }}" id="DeleteuserForm" method="post">
+            <input type="hidden" name="validate" value="DeleteUser">
+        </form>
+        
+        
+        
+        
+
+</div>
+
+
+
+				</div>
+				<!-- /content area -->
+
+<!-- set the select -->		
+<script> $('.country').select2({ placeholder: 'الدولة',}); </script>
+				
+<!-- change the value of selected Country to user's country -->
+<script> $(document).ready(function() { $(".country").select2().val("{{user.country}}").trigger("change") }); </script>		
+
+        
+
+<!-- set the select -->		
+<script> $('.role').select2({ placeholder: 'تعيين المستخدم',}); </script>
+				
+<!-- change the value of selected Country to user's country -->
+<!--<script> $(document).ready(function() { $(".role").select2().val("{{user.country}}").trigger("change") }); </script>-->
+
+
+
+
+
+
+			
+<!-- show the image when changed -->									
+<script>
+function readURL(input) {
+
+if (input.files && input.files[0]) {
+var reader = new FileReader();
+
+reader.onload = function (e) {
+$('#profile_avatar').attr('src', e.target.result);
+}
+
+reader.readAsDataURL(input.files[0]);
+}
+}
+$("#avatarUploadPreview").change(function(){
+readURL(this);
+$("#isAvatarChanged").val("true");
+});        
+</script>
+
+
+<!-- Create a Strong Password -->
+<script>
+function password_generator( len ) {
+    var length = (len)?(len):(10);
+    var string = "abcdefghijklmnopqrstuvwxyz"; //to upper 
+    var numeric = '0123456789';
+    var punctuation = '!@#$%^&*()_+~`|}{[]\:;?><,./-=';
+    var password = "";
+    var character = "";
+    var crunch = true;
+    while( password.length<length ) {
+        entity1 = Math.ceil(string.length * Math.random()*Math.random());
+        entity2 = Math.ceil(numeric.length * Math.random()*Math.random());
+        entity3 = Math.ceil(punctuation.length * Math.random()*Math.random());
+        hold = string.charAt( entity1 );
+        hold = (password.length%2==0)?(hold.toUpperCase()):(hold);
+        character += hold;
+        character += numeric.charAt( entity2 );
+        character += punctuation.charAt( entity3 );
+        password = character;
+    }
+    password=password.split('').sort(function(){return 0.5-Math.random()}).join('');
+    $("#password").val(password.substr(0,len));
+}
+</script>
+
+
+<!-- Toggle Password Visibility -->
+<script>
+function tooglePassword() {
+    var x = document.getElementById("password");
+    if (x.type === "password") {
+        x.type = "text";
+    } else {
+        x.type = "password";
+    }
+}
+       
+</script>
+
+
+
+
+{% endblock %}

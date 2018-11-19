@@ -1,0 +1,174 @@
+{% extends "admin/layout.twig" %}
+{% block title %}     {% endblock %}
+{% block content %}	
+
+
+
+
+<!-- Main content -->
+<div class="content-wrapper">
+
+
+				<!-- Page header -->
+				<div class="page-header page-header-transparent">
+					<div class="page-header-content">
+						<div class="page-title">
+							<h1> <span class="text-semibold">تفاصيل الطلب #{{order.id}}</span></h1>
+							
+						</div>
+					</div>
+				</div>
+				<!-- /page header -->
+
+
+<!-- Content area -->
+<div class="content">
+			        {% include "admin/elements/flash.twig" %}
+			  <div class="row">
+			      <div class="col-md-8">
+    <div class="panel panel-flat">
+        <div class="panel-body">
+            <form method="post" action="{{path_for('products.categories.edit' ,  {id : categorie.id})}}">
+               <div class="col-md-6">
+                <fieldset class="content-group">
+                    <legend class="text-bold">عام</legend>
+                    
+                    <div class="form-group">
+                        تاريخ الإنشاء : 
+                        <label class="control-label">{{order.created_at}} </label>
+                    </div>
+                    
+                    <div class="form-group">
+                        الحالة : 
+                        <label class="control-label">{{order.get_statue()}} </label>
+                    </div>
+                </fieldset>			
+                </div>
+                <div class="col-md-6">
+                <fieldset class="content-group">
+                    <legend class="text-bold">الفاتورة</legend>
+                    
+                    <div class="form-group">
+                        الإسم الكامل : 
+                        <label class="control-label">{{order.full_name()}} </label>
+                    </div>
+                    
+                    <div class="form-group">
+                        الشركة : 
+                        <label class="control-label">{{order.company}} </label>
+                    </div>
+                     <div class="form-group">
+                        سطر العنوان 1  : 
+                        <label class="control-label">{{order.adressLine1}} </label>
+                    </div>
+                     <div class="form-group">
+                      سطر العنوان 2  : 
+                        <label class="control-label">{{order.adressLine2}} </label>
+                    </div>
+                     <div class="form-group">
+                        المدينة : 
+                        <label class="control-label">{{order.city}} </label>
+                    </div>
+                     <div class="form-group">
+                       الرمز البريدي / ZIP  : 
+                        <label class="control-label">{{order.postalCode}} </label>
+                    </div>
+                     <div class="form-group">
+                       الدولة  : 
+                        <label class="control-label">{{order.country}} </label>
+                    </div>
+                     <div class="form-group">
+                        المحافظة : 
+                        <label class="control-label">{{order.state}} </label>
+                    </div>
+                     <div class="form-group">
+                        البريد الإلكتروني : 
+                        <label class="control-label">{{order.email}} </label>
+                    </div>
+                     <div class="form-group">
+                        الهاتف : 
+                        <label class="control-label">{{order.phone}} </label>
+                    </div>
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                  
+                </fieldset>			
+                </div>	
+            </form>
+    </div>        
+		</div>	      
+			</div>      
+			      
+		  <div class="col-md-4">	
+		   <div class="panel panel-flat">
+        <div class="panel-body">
+              <fieldset class="content-group">
+                    <legend class="text-bold">ملاحظات</legend>
+                    {{order.notes}}
+            </fieldset>              
+               </div>
+              </div>        
+	</div> 
+   </div>
+   
+   
+   
+   
+{% if products is not empty %}
+<div class="col-md-8">
+<div class="panel panel-flat">
+    <table class="table table-striped " >
+        <thead>
+            <tr>
+                <th><b>العنصر</b></th>
+                <th><b>التكلفة</b></th>
+                <th><b>الكمية</b></th>
+                <th><b>الإجمالي</b></th>
+            </tr>
+        </thead>
+        <tbody>  
+        {% for item in products %}
+         <tr>
+            <td> <a href="#">#{{ item.id }}  {{ item.full_name() }}</a>    </td>
+            <td>{{ item.created_at }}</td>
+            <td>{{ item.get_statue() }}</td>
+            <td>{{ item.total }}</td>
+         </tr>
+         {% endfor %}   
+        </tbody>       
+    </table>
+</div>
+</div>
+{% endif %}
+   
+   
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% endblock %}

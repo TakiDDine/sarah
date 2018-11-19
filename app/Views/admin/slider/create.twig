@@ -1,0 +1,163 @@
+{% extends "admin/layout.twig" %}
+{% block title %} انشاء سلايدر جديد {% endblock %}
+
+{% block content %}	
+
+
+<!-- Main content -->
+<div class="content-wrapper">
+
+
+<!-- Page header -->
+<div class="page-header page-header-transparent">
+    <div class="page-header-content">
+        <div class="page-title">
+            <h1><span class="text-semibold">اضافة سلاديدر جديد</span></h1>
+        </div>
+    </div>
+</div>
+    
+    
+    
+<!-- Content area -->
+<div class="content">
+		
+
+	<div class="panel panel-flat col-md-8">
+		
+			<form class="form-horizontal" enctype='multipart/form-data' method="post" action="{{path_for('slider.create')}}" />
+
+
+		<div class="panel-body">
+				<fieldset class="content-group">
+			
+
+               
+					<div class="form-group">
+						<label class="control-label col-lg-3">صورة الاعلان</label>
+						<div class="col-lg-3">
+							   <label for="avatarUploadPreview" class="btn btn-danger btn-rounded"><i class="icon-image2 position-left"></i> اختيار الصورة </label>
+							   <input name="image" id="avatarUploadPreview" accept="image/jpg, image/jpeg, image/png" style="visibility:hidden;" type="file" />
+						</div>
+						
+					</div>
+					<div class="form-group">
+						<label class="control-label col-lg-3">رابط السلايدر </label>
+						<div class="col-lg-9">
+							<input type="text" class="form-control" name="link">
+						</div>
+					</div>
+					
+					
+					
+	
+				</fieldset>
+				<div class="text-right">
+					<button type="submit" class="btn btn-primary" >اضافة السلايدر<i class="icon-arrow-left13 position-right"></i></button>
+				</div>
+			
+		</div>
+	</form>
+
+
+	</div>
+
+    <div class="col-md-4">
+   
+        
+							
+						
+							
+						
+							
+							
+        
+        <style>
+        .ads-preview img {
+    width: 100%;
+}
+        </style>
+        <div class="panel panel-flat"  style="display:none;" id="ads-show"> 
+        <div class="panel-heading">
+            معاينة صورة السلايدر
+            <div  class="heading-elements"  >
+            
+            <ul class="icons-list">
+                <li style="display:none" id='delete-ad'><a onclick="clean()" ><i class="icon-cross2 position-right" ></i> حذف الصورة </a></li>
+            </ul>
+            
+            
+            
+            </div>
+            
+            
+        </div>
+    <div class="panel-body">
+       
+        <div class="row">
+            <center>
+                <div class="ads-preview"><img id='profile_avatar' src=""  /></div>
+            </center>
+    </div>
+    </div>
+</div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+    </div>
+    
+    
+    
+    
+    			
+<!-- show the image when changed -->									
+
+
+<script>
+function clean () {
+document.getElementById("avatarUploadPreview").value = "";
+document.getElementById("ads-show").style.display = 'none';    
+}
+
+</script>
+
+
+<script>
+    
+function readURL(input) {
+
+if (input.files && input.files[0]) {
+var reader = new FileReader();
+
+reader.onload = function (e) {
+$('#profile_avatar').attr('src', e.target.result);
+}
+
+reader.readAsDataURL(input.files[0]);
+}
+}
+$("#avatarUploadPreview").change(function(){
+readURL(this);
+    $("#ads-show").show();
+    $("#delete-ad").show();
+});        
+</script>
+
+<!-- set the select -->		
+<script> $('.areaUndetected').select2({ placeholder: 'تحديد مكان الإعلان',}); </script>
+
+		
+{% endblock %}	
+

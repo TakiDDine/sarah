@@ -1,0 +1,212 @@
+{% extends "admin/layout.twig" %}
+{% block content %}
+
+
+<!-- Main content -->
+<div class="content-wrapper">
+
+
+
+<!-- Page header -->
+<div class="page-header page-header-transparent">
+    <div class="page-header-content">
+        <div class="page-title">
+        </div>
+
+        <div class="heading-elements">
+           {% if media is not empty %}
+            <a href="javascript:void(0);" class="btn bg-blue btn-labeled heading-btn showUploader"><b>
+            <i class="icon-plus3"></i></b> رفع ملف جديد</a>
+            
+ <a href="javascript:void(0);" data-toggle="modal" data-target="#modal_iconified" class="btn bg-danger btn-labeled heading-btn"><b><i class="icon-trash"></i></b> حذف كل الملفات في الوسائط </a>
+                        
+                        
+		            <!-- Iconified modal -->
+					<div id="modal_iconified" class="modal fade">
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="modal-header">
+									<button type="button" class="close" data-dismiss="modal">&times;</button>
+									<h5 class="modal-title"><i class="icon-menu7"></i> &nbsp;تنبيه وتحذير</h5>
+								</div>
+
+								<div class="modal-body">
+									<div class="alert alert-info alert-styled-left text-blue-800 content-group">
+						                <span class="text-semibold">رجاء !</span> انتبه من الخطوة التالية.
+						                <button type="button" class="close" data-dismiss="alert">×</button>
+						            </div>
+
+									<h6 class="text-semibold"><i class="icon-law position-left"></i> حذف البيانات</h6>
+									<p>عند قيامك بحذف كل الأعضاء فأنت تتحمل كامل المسؤولية ، لا يمكن التراجع عن هذه الخطوة فور اتخاذها 
+									<br>
+									رجاءً، خذ نسخة احتياطية قبل اتخاذ هذا القرار
+									</p>
+
+									
+								</div>
+
+								<div class="modal-footer">
+									<a href="{{path_for('faqs.blukdelete')}}" class="btn btn-link text-danger"  >
+									 أنا موافق ، رجاءً قم بحذف كل البيانات</a>
+									<button class="btn btn-primary" data-dismiss="modal"> اغلاق </button>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- /iconified modal -->
+           {% endif %} 
+        </div>
+    </div>
+</div>
+<!-- /page header -->
+
+
+
+
+
+
+<style>
+.uploader_input {
+    display: inline-block !important;
+}    
+    .container.uploader_sec {
+    padding: 100px 0;display: none;
+}
+</style>
+<!-- File Uploader -->
+<div class="container uploader_sec">
+    <div class="row">
+    
+    <form method="POST" id="uploader" enctype="multipart/form-data">
+       <center>
+       <div id="submitResult"></div>
+        <input type="file" name="file" class='uploader_input' />
+<!--        <button type="subb" class="btn btn-primary btn-ladda btn-ladda-spinner ladda-button" data-spinner-color="#333" data-style="zoom-in"><span class="ladda-label">رفع الملف</span><span class="ladda-spinner"></span></button>-->
+
+        <input type="submit" value="رفع الملف" class="btn btn-primary btn-ladda-spinner ladda-button" />
+        </center>
+    </form>
+    </div>
+</div>
+<!--// File Uploader -->
+
+<!--<button type="button" class="btn btn-default btn-ladda btn-ladda-spinner ladda-button" data-spinner-color="#333" data-style="zoom-in"><span class="ladda-label">Spinner</span><span class="ladda-spinner"></span></button>-->
+
+<!-- Content area -->
+<div class="content">
+			        {% include "admin/elements/flash.twig" %}
+
+
+
+
+
+
+{% if media is not empty %}
+
+<div class="panel panel-flat" style="margin-top:35px;">
+        <table class="table media-table">
+            <thead>
+                <tr>
+                    <th><b>اسم الملف</b></th>
+                    <th><b>نوع الملف</b></th>
+                    <th><b>تاريخ الرفع</b></th>
+                    <th><b>  الرابط المباشر </b></th>
+                    <th class="text-center"><b>حذف</b></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in media %}
+                <tr id='{{item.id}}'>
+                    <td>{{item.name}}</td>
+                    <td>{{item.post_mime_type}}</td>
+                    <td>{{item.created_at.toDateTimeString()|makeNiceTime}}</td>
+                    <td><a href="{{url.media}}{{item.name}}" target="_blank">اضغط هنا</a></td>
+                    <td class="text-center">
+                        <a id='DeleteMedia' data-id='{{item.id}}' class="text-danger"><i class="icon-trash"></i><b> حذف  </b></a>
+                    </td>
+                </tr>
+                {% endfor  %}
+            </tbody>
+            
+        </table>
+        
+    </div>
+
+
+
+
+
+
+{% include "admin/elements/pagination.twig" %}
+</div>
+{% endif %}
+
+<style>
+    tr.new {
+    background: whitesmoke;
+}
+</style>
+
+<script>    
+//  submit Page  -------------------------------------------------------
+$('#uploader').submit(function(evt) {
+        evt.preventDefault();
+        var formData = new FormData(this);
+        $.ajax({
+        type: 'POST',
+        url: '{{url.base}}{{path_for("media.upload")}}',
+        data:formData,
+        cache:false,
+        contentType: false,
+        processData: false,
+         beforeSend: function(data) {
+            $("#submitResult").html('جاري رفع الملف المرجوا الإنتظار رجاءً');
+        },
+        success: function(data) {
+           $("#submitResult").html('تم رفع الملف بنجاح');
+           $(".media-table tbody").prepend(data)
+        },
+        error: function(data) {
+            $("#submitResult").html("حصل خطأ ما ، المرجوا المحاولة من جديد");
+        }
+        });
+});    
+</script>
+
+
+
+
+<script>    
+$(".showUploader").click(function() {
+    $(".uploader_sec").show();
+});
+    
+    
+$(".media-table #DeleteMedia").click(function() {
+    var id = $(this).data("id");
+    
+    $.ajax({
+        type: "POST",
+        url: "{{url.base}}{{path_for('media.delete')}}",
+        data: { 
+            id: $(this).data("id"), // < note use of 'this' here
+        },
+        success: function(result) {
+            $("#"+id+"").remove();
+        },
+        error: function(result) {
+            alert('error');
+        }
+    });
+    
+});
+    
+</script>
+
+
+
+
+
+
+</div>
+{% endblock %}

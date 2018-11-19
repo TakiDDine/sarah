@@ -1,0 +1,153 @@
+{% extends "website/layout.twig" %}
+{% block title %} Login {% endblock %}
+
+
+{% block content %}
+
+
+<style>
+                        .main-content {
+        padding-top: 55px;        padding-bottom: 55px;
+
+}
+
+
+                        </style>
+
+	<!-- Main Content -->
+<div class="page-container" id="PageContainer">
+		<main class="main-content" id="MainContent" role="main">
+			<section class="collection-heading heading-content ">
+				<div class="container">
+              <form action="{{path_for('website.order')}}" method="POST">
+				  <div class="row">
+
+
+                      
+                   <div class="col-md-6">
+                       <h1>Billing details</h1>        
+
+                    <div class="form-group field">
+                        <label for="first_name">First name *</label>
+                        <input type="text" id="first_name" value="{{old.first_name}}" name="first_name" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="last_name">Last name *</label>
+                        <input type="text" id="last_name" value="{{old.last_name}}" name="last_name" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="company_name">Company name (optional)</label>
+                        <input type="text" id="company_name" value="{{old.company_name}}" name="company_name" class="form-control">
+                    </div>        
+                    <div class="form-group">
+                        <label for="country">Country *</label>
+                        <input type="text" id="country" value="{{old.country}}" name="country" class="form-control">
+                    </div>  
+                    <div class="form-group">
+                        <label for="adressLine1">Street address *</label>
+                        <input type="text" id="adressLine1" value="{{old.adressLine1}}" name="adressLine1" class="form-control">
+                        <br>
+                         <input type="text" id="adressLine2" value="{{old.adressLine2}}" name="adressLine2" class="form-control">
+                    </div>  
+                    <div class="form-group">
+                        <label for="City">Town / City *</label>
+                        <input type="text" id="City" value="{{old.City}}" name="City" class="form-control">
+                    </div>  
+                    <div class="form-group">
+                        <label for="State">State *</label>
+                        <input type="text" id="State" value="{{old.State}}" name="State" class="form-control">
+                    </div>  
+                    <div class="form-group">
+                        <label for="Postcode">Postcode / ZIP *</label>
+                        <input type="text" id="Postcode" value="{{old.Postcode}}" name="Postcode" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="Phone">Phone  *</label>
+                        <input type="text" id="Phone" value="{{old.Phone }}" name="Phone" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="Email">Email address  *</label>
+                        <input type="text" id="Email" value="{{old.Email }}" name="Email" class="form-control">
+                    </div>
+
+                   </div>
+                   <div class="col-md-6">
+                       <h1>Additional information</h1>
+                       <label for="notes"> Order notes (optional)</label>
+                       <textarea name="notes" id="notes" cols="30" rows="10" class="form-control"></textarea>
+                       
+                       
+                       <br>
+                       <br>
+                       <br>
+                       
+                       
+                       
+                       <h1>ITEMS IN CART</h1>
+                         <table id="order_details">
+											<thead>
+												<tr>
+													<th>Product</th>
+													<th>Price</th>
+													<th class="center">Quantity</th>
+													<th class="total">Total</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr id="5957039302" class="odd">
+													<td class="td-product" >
+														<a href="product.html" title="">Digital equipment</a>
+													</td>
+													<td class="money" ><span class="money" >$259.00</span></td>
+													<td class="quantity ">1</td>
+													<td class="total" ><span class="money">$259.00</span></td>
+												</tr>
+											</tbody>
+											<tfoot>
+												<tr class="order_summary order_total">
+													<td class="td-label" colspan="3">Total</td>
+													<td class="total" ><span class="money" >$292.90</span> </td>
+												</tr>
+											</tfoot>
+										</table>
+
+                       
+                       
+                       
+                   </div>
+                    </div>
+                    
+                  
+
+                    
+                    
+                    
+                    
+                    <div class="row">
+                       <div class="col-md-6">
+                        <button type="submit" class="btn">Procced To payement</button>
+                        </div>
+                    </div>
+                    
+                    
+                   </form> 
+                    
+                </div>
+            </section>
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+			
+		</main>
+	</div>
+{% endblock %}	

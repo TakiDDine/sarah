@@ -1,0 +1,118 @@
+{% extends "admin/layout.twig" %}
+
+{% block title %} اضافة سؤال جديد {% endblock %}
+
+
+{% block content %}
+ 
+				<!-- Content area -->
+				<div class="content">
+
+				<!-- Page header -->
+				<div class="page-header page-header-transparent">
+					<div class="page-header-content">
+						<div class="page-title">
+							<h1> <span class="text-semibold">اضافة سؤال جديد </span></h1>
+						</div>
+					</div>
+				</div>
+				<!-- /page header -->
+			
+
+			        {% include "admin/elements/flash.twig" %}
+
+<div class="col-md-12">								
+
+<form method='post' action="{{ path_for('faqs.create') }}">
+<div class="col-md-9">		
+       						
+        <div class="form-group">
+                <label class="control-label">   رمز القسيمة     </label>
+                <input type="text" id="postitlte" class="form-control" name="question" placeholder="رمز القسيمة" value="" />
+        </div>
+        <div class="form-group">
+                <textarea name="excerpt" class="form-control" cols="5" rows="4" placeholder="الوصف (إختياري)" ></textarea>
+        </div>
+        
+            
+
+							<!-- Latest posts -->
+							<div class="panel panel-flat">
+								<div class="panel-heading">
+									<h6 class="panel-title">بيانات القسيمة</h6>
+									<div class="heading-elements">
+										<ul class="icons-list">
+					                		<li><a data-action="collapse"></a></li>
+					                		<li><a data-action="reload"></a></li>
+					                		<li><a data-action="close"></a></li>
+					                	</ul>
+				                	</div>
+			                	</div>
+
+								<div class="panel-body">
+									<div class="row">
+										<div class="form-group">
+                <label class="control-label">   رمز القسيمة     </label>
+                <input type="text" id="postitlte" class="form-control" name="question" placeholder="رمز القسيمة" value="" />
+        </div>
+<div class="form-group">
+                <label class="control-label">   رمز القسيمة     </label>
+                <input type="text" id="postitlte" class="form-control" name="question" placeholder="رمز القسيمة" value="" />
+        </div>
+
+
+
+									</div>
+								</div>
+							</div>
+							<!-- /latest posts -->         
+
+  
+    
+</div>					
+
+<div class="col-md-3">
+<button type="submit" class="btn btn-block btn-primary">نشر السؤال <i class="icon-arrow-left13 position-right"></i></button>
+<br>
+<div class="panel panel-white">
+    <div class="panel-heading">
+        <h6 class="panel-title"> تصنيف السؤال </h6>
+    </div>
+    <div class="panel-body">
+         <select  name="postCategory" style="width:100%;" class="postCategory">
+            <option value="not_speci">غير محدد بعد</option>
+                {% for categorie in categories %}
+                <option value="{{categorie.id}}">{{categorie.name}}</option>
+                {% endfor %} 
+          </select>
+    </div>
+</div>
+ </div>
+ 
+ 
+ </form>
+ </div>
+</div>
+<!-- /content area -->
+
+
+
+<!-- set the select -->		
+<script> $('.postCategory').select2({ placeholder: 'تحديد تصنيف السؤال',}); </script>
+
+
+<script src="{{ admin_assets }}ckeditor/ckeditor.js"></script>
+<script>
+CKEDITOR.replace( 'posteditor', {
+    language: 'ar',
+}); 
+</script>
+    
+    
+    
+    
+    
+    
+    
+
+{% endblock %}

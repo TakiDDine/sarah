@@ -1,0 +1,162 @@
+{% extends "admin/layout.twig" %}
+{% block title %} الإعلانات {% endblock %}
+
+{% block content %}	
+
+
+<!-- Main content -->
+<div class="content-wrapper">
+
+
+				<!-- Page header -->
+				<div class="page-header page-header-transparent">
+					<div class="page-header-content">
+						<div class="page-title">
+							<h1> <span class="text-semibold">الإعلانات</span></h1>
+						</div>
+                    
+<div class="heading-elements">
+{% if ads is not empty %}
+<a href="{{ path_for('ads.create') }}" class="btn bg-blue btn-labeled heading-btn"><b><i class="icon-plus3"></i></b> اضافة اعلان جديد</a>
+
+                        <a href="javascript:void(0);" data-toggle="modal" data-target="#modal_iconified" class="btn bg-danger btn-labeled heading-btn"><b><i class="icon-trash"></i></b> حذف كل الإعلانات</a>
+
+
+
+<!-- Iconified modal -->
+					<div id="modal_iconified" class="modal fade">
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="modal-header">
+									<button type="button" class="close" data-dismiss="modal">&times;</button>
+									<h5 class="modal-title"><i class="icon-menu7"></i> &nbsp;تنبيه وتحذير</h5>
+								</div>
+
+								<div class="modal-body">
+									<div class="alert alert-info alert-styled-left text-blue-800 content-group">
+						                <span class="text-semibold">رجاء !</span> انتبه من الخطوة التالية.
+						                <button type="button" class="close" data-dismiss="alert">×</button>
+						            </div>
+
+									<h6 class="text-semibold"><i class="icon-law position-left"></i> حذف البيانات</h6>
+									<p>عند قيامك بحذف كل الأعضاء فأنت تتحمل كامل المسؤولية ، لا يمكن التراجع عن هذه الخطوة فور اتخاذها 
+									<br>
+									رجاءً، خذ نسخة احتياطية قبل اتخاذ هذا القرار
+									</p>
+
+									<hr>
+
+									<p><i class="icon-mention position-left"></i>
+									 تنبيه : الحساب الخاص بالمدير العام للموقع لا يمكن حذفه
+									 </p>
+								</div>
+
+								<div class="modal-footer">
+									<a href="{{path_for('ads.blukdelete')}}" class="btn btn-link text-danger"  >
+									 أنا موافق ، رجاءً قم بحذف كل البيانات</a>
+									<button class="btn btn-primary" data-dismiss="modal"> اغلاق </button>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- /iconified modal -->
+                        
+                        
+                        
+                        
+                        
+
+
+
+{% endif %}
+</div>
+ </div>
+    </div>
+    
+    
+    
+
+<!-- Content area -->
+<div class="content">
+		
+		{% include "admin/elements/flash.twig" %}
+		
+		
+		
+		
+			{% if ads is empty %}
+			
+			<style>
+    .empty_state_icon {
+    font-size: 176px;
+    opacity: 0.1;
+}
+    </style>
+			<div class="empty_state text-center">
+			    
+			<i class="icon-folder-open2 empty_state_icon"></i>
+		<h4> 
+        مرحبا !
+		    لا توجد لديك أية اعلانات حالياً ، يمكنك اضافة إعلانات جديدة 
+		</h4>
+		<a href="{{ path_for('ads.create') }}" class="btn bg-blue btn-labeled heading-btn"><b><i class="icon-plus3"></i></b> اضافة اعلان جديد</a>
+
+			</div>
+		
+		
+		
+		
+		{% endif %}
+		
+	{% if ads is not empty %}
+
+		
+<div class="panel panel-flat">
+    <table class="table table-striped" >
+        <thead>
+            <tr>
+                <th><b>#</b></th>
+                <th class="col-md-2"><b>عنوان الإعلان</b></th>
+                <th><b>تاريخ الإنشاء</b></th>
+                <th><b>الحالة</b></th>
+                <th class="text-center"><b>تعديل</b></th>
+            </tr>
+        </thead>
+        <tbody>  
+        {% for ad in ads %}
+         <tr>
+             <td>{{ ad.id }}</td>
+            <td>
+               {{ ad.name}}
+            </td>
+             <td>{{ ad.created_at|dateOnly }}</td>
+             <td>{{ ad.statue|adsatue }}</td>
+             <td class="text-center">
+              <a href="{{ path_for('ads.show', {'id': ad.id}) }}" class="text-primary-600">
+                  <i class="icon-pencil7 position-left"></i>تعديل </a>
+                  
+               <a href="{{ path_for('ads.delete', {'id': ad.id}) }}" class="text-danger-600" style="margin-right:15px;">
+                  <i class="icon-cross2 position-left"></i>حذف  </a>
+             </td>
+         </tr>
+         {% endfor %}   
+        </tbody>
+        <tfoot>
+            <tr>
+                <th><b>#</b></th>
+                <th class="col-md-2"><b>عنوان الإعلان</b></th>
+                <th><b>تاريخ الإنشاء</b></th>
+                <th><b>الحالة</b></th>
+                <th class="text-center"><b>تعديل</b></th>
+            </tr>
+        </tfoot>
+    </table>
+</div>
+{% endif %}
+	{% include "admin/elements/pagination.twig" %}
+
+    </div>
+</div>
+
+{% endblock %}	
+

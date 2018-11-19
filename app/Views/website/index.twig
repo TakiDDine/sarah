@@ -1,0 +1,754 @@
+{% extends "website/layout.twig" %}
+{% block title %} Home Page {% endblock %}
+
+
+{% block content %}
+	<!-- Main Content -->
+	<div class="page-container" id="PageContainer">
+		<main class="main-content" id="MainContent" role="main">
+		
+			<div class="index-section index-section-slideshow">
+				<div data-section-id="1490952756465" data-section-type="slideshow-section">
+					<section class="home_slideshow main-slideshow">
+						<div class="home-slideshow-wrapper">
+							<div class="container">
+								<div class="row">
+								
+								
+								
+								
+									<div class="group-home-slideshow">
+										<div class="home-slideshow-inner col-sm-8">
+											<div class="home-slideshow">
+												<div id="home_main-slider" class="carousel slide  main-slider">
+													<ol class="carousel-indicators">
+														<li data-target="#home_main-slider" data-slide-to="0" class="carousel-1"></li>
+														<li data-target="#home_main-slider" data-slide-to="1" class="carousel-2 active"></li>
+													</ol>
+													
+													
+													
+													
+													<div class="carousel-inner">
+													
+										{% for slide in slider %}
+										    
+
+										<div class="item image {% if loop.first %}active{% endif %}">
+                                        <a href="{{ slide.link }}">
+
+                                        <img src="{{url.slider}}{{ slide.image }}" >
+                                        </a>
+                                                        </div>
+										
+  
+                                            {% endfor %}	
+													
+                                       
+                                        
+
+														
+														
+														
+														
+													</div>
+													<a class="left carousel-control" href="#home_main-slider" data-slide="prev">
+														<span class="icon-prev"></span>
+													</a>
+													<a class="right carousel-control" href="#home_main-slider" data-slide="next">
+														<span class="icon-next"></span>
+													</a>
+												</div>
+											</div>
+										</div>
+										<div class="home-banner-inner col-sm-4">
+											<div class="banner-content">
+												<div class="banner-1">
+													<a href="collections-all.html">
+													
+													
+														<img src="{{url.slider}}{{'HOME_SLIDER_RIGHT_TOP'|options }}" alt="">
+													</a>
+												</div>
+												<div class="banner-2">
+													<a href="collections-all.html">
+														<img src="{{url.slider}}{{'HOME_SLIDER_RIGHT_BOTTOM'|options }}" alt="">
+													</a>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</section>
+				</div>
+			</div>
+			
+			
+			<div class="index-section index-section-banner">
+					<section class="home_banner_layout">
+						<div class="home_banner_wrapper">
+							<div class="container">
+								<div class="row">
+									<div class="home_banner_inner">
+										<div class="home_banner_content">
+											<div class="col-sm-12 banner_item">
+                                                    {% for ad in ads %}
+                                                    {% if ad.area == 'home_1' %}
+                                                                                                        
+                                                            {% if ad.htmlcode is not empty %}
+                                                                {% autoescape %}
+                                                                    {{ad.htmlcode|raw}}
+                                                                {% endautoescape %}
+                                                            {% endif %}
+
+                                                            {% if ad.url is not empty %}
+                                                            <a href="{{ad.url}}">
+                                                            {% endif %}
+
+                                                            {% if ad.image is not empty %}
+                                                            <img src="{{ads_url}}{{ad.image}}" alt="">
+                                                            {% endif %}
+
+                                                            {% if ad.url is not empty %}
+                                                            </a>
+                                                            {% endif %}
+
+                                                    {% endif %}
+                                                    {% endfor %}
+
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</section>
+			</div>
+			
+			<div class="shopify-section index-section index-section-prosli">
+				<div data-section-id="1490952827558" data-section-type="prosli-section">
+					<section class="home_prosli_layout">
+						<div class="home_prosli_wrapper">
+							<div class="container">
+								<div class="row">
+									<div class="prosli_group">
+										<div class="page-title">
+											<h2>{{ 'BLOCK_NAME_1'|options }}</h2>
+										</div>
+										<div class="home_prosli_inner">
+											<div class="home_prosli_content">
+											{% for i in 0..11 %}
+
+												<div class="content_product col-sm-2">
+													<div class="row-container product list-unstyled clearfix">
+														<div class="row-left">
+																		<a href="{{ path_for('website.product', {'id': products[i].id}) }}" class="hoverBorder container_item">
+																			<div class="hoverBorderWrapper">
+																				<img src="{{url.products}}{{ products[i].ThumbnailsImages().1}}" class="not-rotation img-responsive front" >
+																				<div class="mask"></div>
+																				<img src="{{url.products}}{{ products[i].ThumbnailsImages().2}}" class="rotation img-responsive" >
+																			</div>
+																		</a>
+																		<div class="hover-mask">
+																			<div class="group-mask">
+																				<div class="inner-mask">
+																					<div class="group-actionbutton">
+																						<ul class="quickview-wishlist-wrapper">
+																							<li class="wishlist hidden-xs">
+																								<a class="wish-list"><span class="hidden-xs"><i class="fa fa-heart" title="Wishlist"></i></span></a>
+																							</li>
+																						</ul>
+																					</div>
+																				</div>
+																			</div>
+																		</div>
+																	</div>
+																	<div class="row-right animMix">
+																		<div class="product-title"><a class="title-5" href="{{ path_for('website.product', {'id': products[i].id}) }}">{{products[i].name}}</a></div>
+																		<div class="product-price">
+																			<span class="price_sale">{{products[i].price}}$</span>
+																		</div>
+																	</div>
+													</div>
+												</div>
+												{% endfor %}
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</section>
+				</div>
+			</div>
+
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<div class="index-section index-section-banner">
+				<section class="home_banner_layout">
+						<div class="home_banner_wrapper">
+							<div class="container">
+								<div class="row">
+									<div class="home_banner_inner">
+										<div class="home_banner_content">
+											<div class="col-sm-12 banner_item">
+												{% for ad in ads %}
+                                                    {% if ad.area == 'home_2' %}
+                                                                                                        
+                                                            {% if ad.htmlcode is not empty %}
+                                                                {% autoescape %}
+                                                                    {{ad.htmlcode|raw}}
+                                                                {% endautoescape %}
+                                                            {% endif %}
+
+                                                            {% if ad.url is not empty %}
+                                                            <a href="{{ad.url}}">
+                                                            {% endif %}
+
+                                                            {% if ad.image is not empty %}
+                                                            <img src="{{ads_url}}{{ad.image}}" alt="">
+                                                            {% endif %}
+
+                                                            {% if ad.url is not empty %}
+                                                            </a>
+                                                            {% endif %}
+
+                                                    {% endif %}
+                                                    {% endfor %}
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</section>
+			</div>
+			<div class="index-section index-section-protab1">
+				<section class="home_protab1_layout">
+						<div class="home_protab1_wrapper">
+							<div class="container">
+								<div class="row">
+									<div class="home_protab1_inner">
+										<div class="home_protab1_content">
+											<div class="protab1_top page-top">
+												<div class="page-title">
+													<img src="assets/images/home1_icon-fa.png" alt="">
+													<h2>Fashions</h2>
+												</div>
+											</div>
+											<div class="protab1_bottom">
+												<div class="protab1_banner">
+													<a href=""><img src="{{url.general}}{{ 'BLOCK_IMAGE_2'|options }}" alt=""></a>
+												</div>
+												<div class="tab-content">
+													<div class="tab-pane active" id="home_protab1_tab_1">
+													
+														<div class="protab1_item">
+														    
+														    
+									{% for i in 0..10 %}
+					    
+													 
+															<div class="content_product">
+																<div class="row-container product list-unstyled clearfix">
+																	<div class="row-left">
+																		<a href="{{ path_for('website.product', {'id': BLOCK_CAT_1[i].id}) }}" class="hoverBorder container_item">
+																			<div class="hoverBorderWrapper">
+																				<img src="{{url.products}}{{ BLOCK_CAT_1[i].ThumbnailsImages().1}}" class="not-rotation img-responsive front" >
+																				<div class="mask"></div>
+																				<img src="{{url.products}}{{ BLOCK_CAT_1[i].ThumbnailsImages().2}}" class="rotation img-responsive" >
+																			</div>
+																		</a>
+																		<div class="hover-mask">
+																			<div class="group-mask">
+																				<div class="inner-mask">
+																					<div class="group-actionbutton">
+																						<ul class="quickview-wishlist-wrapper">
+																							<li class="wishlist hidden-xs">
+																								<a class="wish-list"><span class="hidden-xs"><i class="fa fa-heart" title="Wishlist"></i></span></a>
+																							</li>
+																						</ul>
+																					</div>
+																				</div>
+																			</div>
+																		</div>
+																	</div>
+																	<div class="row-right animMix">
+																		<div class="product-title"><a class="title-5" href="{{ path_for('website.product', {'id': BLOCK_CAT_1[i].id}) }}">{{BLOCK_CAT_1[i].name}}</a></div>
+																		<div class="product-price">
+																			<span class="price_sale">{{BLOCK_CAT_1[i].price}}$</span>
+																		</div>
+																	</div>
+																</div>
+															</div>
+													{% endfor %}	
+														</div>
+														
+													</div>
+													
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</section>
+			</div>
+			<div class="index-section index-section-banner">
+				<div data-section-id="1491192677181" data-section-type="banner-section">
+					<section class="home_banner_layout">
+						<div class="home_banner_wrapper">
+							<div class="container">
+								<div class="row">
+									<div class="home_banner_inner">
+										<div class="home_banner_content">
+											<div class="col-sm-12 banner_item">
+												{% for ad in ads %}
+                                                    {% if ad.area == 'home_3' %}
+                                                                                                        
+                                                            {% if ad.htmlcode is not empty %}
+                                                                {% autoescape %}
+                                                                    {{ad.htmlcode|raw}}
+                                                                {% endautoescape %}
+                                                            {% endif %}
+
+                                                            {% if ad.url is not empty %}
+                                                            <a href="{{ad.url}}">
+                                                            {% endif %}
+
+                                                            {% if ad.image is not empty %}
+                                                            <img src="{{ads_url}}{{ad.image}}" alt="">
+                                                            {% endif %}
+
+                                                            {% if ad.url is not empty %}
+                                                            </a>
+                                                            {% endif %}
+
+                                                    {% endif %}
+                                                    {% endfor %}
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</section>
+				</div>
+			</div>
+			<div class="index-section index-section-protab1">
+				<div data-section-id="1490953841934" data-section-type="protab1-section">
+					<section class="home_protab1_layout">
+						<div class="home_protab1_wrapper">
+							<div class="container">
+								<div class="row">
+									<div class="home_protab1_inner">
+										<div class="home_protab1_content">
+											<div class="protab1_top page-top">
+												<div class="page-title">
+													<img src="assets/images/home1_icon-spo.png" alt="">
+													<h2>Sport</h2>
+												</div>
+												
+											</div>
+											<div class="protab1_bottom">
+												<div class="protab1_banner">
+													<a href=""><img src="{{url.general}}{{ 'BLOCK_IMAGE_3'|options }}" ></a>
+												</div>
+												<div class="tab-content">
+													<div class="tab-pane active" id="home_protab2_tab_1">
+														<div class="protab1_item">
+															{% for product in BLOCK_CAT_3 %} 
+															<div class="content_product">
+																<div class="row-container product list-unstyled clearfix">
+																	<div class="row-left">
+																		<a href="{{ path_for('website.product', {'id': product.id}) }}" class="hoverBorder container_item">
+																			<div class="hoverBorderWrapper">
+																				<img src="{{url.products}}{{ product.ThumbnailsImages().1}}" class="not-rotation img-responsive front" >
+																				<div class="mask"></div>
+																				<img src="{{url.products}}{{ product.ThumbnailsImages().2}}" class="rotation img-responsive" >
+																			</div>
+																		</a>
+																		<div class="hover-mask">
+																			<div class="group-mask">
+																				<div class="inner-mask">
+																					<div class="group-actionbutton">
+																						<ul class="quickview-wishlist-wrapper">
+																							<li class="wishlist hidden-xs">
+																								<a class="wish-list"><span class="hidden-xs"><i class="fa fa-heart" title="Wishlist"></i></span></a>
+																							</li>
+																						</ul>
+																					</div>
+																				</div>
+																			</div>
+																		</div>
+																	</div>
+																	<div class="row-right animMix">
+																		<div class="product-title"><a class="title-5" href="{{ path_for('website.product', {'id': product.id}) }}">{{product.name}}</a></div>
+																		<div class="product-price">
+																			<span class="price_sale">{{product.price}}$</span>
+																		</div>
+																	</div>
+																</div>
+															</div>
+													{% endfor %}
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</section>
+				</div>
+			</div>
+			<div class="index-section index-section-banner">
+				<div data-section-type="banner-section">
+					<section class="home_banner_layout">
+						<div class="home_banner_wrapper">
+							<div class="container">
+								<div class="row">
+									<div class="home_banner_inner">
+										<div class="home_banner_content">
+											<div class="col-sm-12 banner_item">
+												{% for ad in ads %}
+                                                    {% if ad.area == 'home_4' %}
+                                                                                                        
+                                                            {% if ad.htmlcode is not empty %}
+                                                                {% autoescape %}
+                                                                    {{ad.htmlcode|raw}}
+                                                                {% endautoescape %}
+                                                            {% endif %}
+
+                                                            {% if ad.url is not empty %}
+                                                            <a href="{{ad.url}}">
+                                                            {% endif %}
+
+                                                            {% if ad.image is not empty %}
+                                                            <img src="{{ads_url}}{{ad.image}}" alt="">
+                                                            {% endif %}
+
+                                                            {% if ad.url is not empty %}
+                                                            </a>
+                                                            {% endif %}
+
+                                                    {% endif %}
+                                                    {% endfor %}
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</section>
+				</div>
+			</div>
+			<div class="index-section index-section-protab1">
+				<div data-section-type="protab1-section">
+					<section class="home_protab1_layout">
+						<div class="home_protab1_wrapper">
+							<div class="container">
+								<div class="row">
+									<div class="home_protab1_inner">
+										<div class="home_protab1_content">
+											<div class="protab1_top page-top">
+												<div class="page-title">
+													<img src="assets/images/home1_icon-el.png" alt="">
+													<h2>Electronic</h2>
+												</div>
+											</div>
+											<div class="protab1_bottom">
+												<div class="protab1_banner">
+													<a href=""><img src="{{url.general}}{{ 'BLOCK_IMAGE_4'|options }}" alt=""></a>
+												</div>
+												<div class="tab-content">
+													<div class="tab-pane active" id="home_protab3_tab_1">
+														<div class="protab1_item">
+															{% for product in BLOCK_CAT_4 %} 
+															<div class="content_product">
+																<div class="row-container product list-unstyled clearfix">
+																	<div class="row-left">
+																		<a href="{{ path_for('website.product', {'id': product.id}) }}" class="hoverBorder container_item">
+																			<div class="hoverBorderWrapper">
+																				<img src="{{url.products}}{{ product.ThumbnailsImages().1}}" class="not-rotation img-responsive front" >
+																				<div class="mask"></div>
+																				<img src="{{url.products}}{{ product.ThumbnailsImages().2}}" class="rotation img-responsive" >
+																			</div>
+																		</a>
+																		<div class="hover-mask">
+																			<div class="group-mask">
+																				<div class="inner-mask">
+																					<div class="group-actionbutton">
+																						<ul class="quickview-wishlist-wrapper">
+																							<li class="wishlist hidden-xs">
+																								<a class="wish-list"><span class="hidden-xs"><i class="fa fa-heart" title="Wishlist"></i></span></a>
+																							</li>
+																						</ul>
+																					</div>
+																				</div>
+																			</div>
+																		</div>
+																	</div>
+																	<div class="row-right animMix">
+																		<div class="product-title"><a class="title-5" href="{{ path_for('website.product', {'id': product.id}) }}">{{product.name}}</a></div>
+																		<div class="product-price">
+																			<span class="price_sale">{{product.price}}$</span>
+																		</div>
+																	</div>
+																</div>
+															</div>
+													{% endfor %}
+														</div>
+													</div>
+													
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</section>
+				</div>
+			</div>
+			<div class="index-section index-section-banner">
+				<div  data-section-type="banner-section">
+					<section class="home_banner_layout">
+						<div class="home_banner_wrapper">
+							<div class="container">
+								<div class="row">
+									<div class="home_banner_inner">
+										<div class="home_banner_content">
+											<div class="col-sm-12 banner_item">
+												{% for ad in ads %}
+                                                    {% if ad.area == 'home_5' %}
+                                                                                                        
+                                                            {% if ad.htmlcode is not empty %}
+                                                                {% autoescape %}
+                                                                    {{ad.htmlcode|raw}}
+                                                                {% endautoescape %}
+                                                            {% endif %}
+
+                                                            {% if ad.url is not empty %}
+                                                            <a href="{{ad.url}}">
+                                                            {% endif %}
+
+                                                            {% if ad.image is not empty %}
+                                                            <img src="{{ads_url}}{{ad.image}}" alt="">
+                                                            {% endif %}
+
+                                                            {% if ad.url is not empty %}
+                                                            </a>
+                                                            {% endif %}
+
+                                                    {% endif %}
+                                                    {% endfor %}
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</section>
+				</div>
+			</div>
+			<div class="index-section index-section-protab1">
+				<div data-section-type="protab1-section">
+					<section class="home_protab1_layout">
+						<div class="home_protab1_wrapper">
+							<div class="container">
+								<div class="row">
+									<div class="home_protab1_inner">
+										<div class="home_protab1_content">
+											<div class="protab1_top page-top">
+												<div class="page-title">
+													<img src="assets/images/home1_di.png" alt="">
+													<h2>Digital</h2>
+												</div>
+											</div>
+											<div class="protab1_bottom">
+												<div class="protab1_banner">
+													<a><img src="{{url.general}}{{ 'BLOCK_IMAGE_5'|options }}" alt=""></a>
+												</div>
+												<div class="tab-content">
+													<div class="tab-pane active" id="home_protab4_tab_1">
+														<div class="protab1_item">
+															{% for product in BLOCK_CAT_5 %} 
+															<div class="content_product">
+																<div class="row-container product list-unstyled clearfix">
+																	<div class="row-left">
+																		<a href="{{ path_for('website.product', {'id': product.id}) }}" class="hoverBorder container_item">
+																			<div class="hoverBorderWrapper">
+																				<img src="{{url.products}}{{ product.ThumbnailsImages().1}}" class="not-rotation img-responsive front" >
+																				<div class="mask"></div>
+																				<img src="{{url.products}}{{ product.ThumbnailsImages().2}}" class="rotation img-responsive" >
+																			</div>
+																		</a>
+																		<div class="hover-mask">
+																			<div class="group-mask">
+																				<div class="inner-mask">
+																					<div class="group-actionbutton">
+																						<ul class="quickview-wishlist-wrapper">
+																							<li class="wishlist hidden-xs">
+																								<a class="wish-list"><span class="hidden-xs"><i class="fa fa-heart" title="Wishlist"></i></span></a>
+																							</li>
+																						</ul>
+																					</div>
+																				</div>
+																			</div>
+																		</div>
+																	</div>
+																	<div class="row-right animMix">
+																		<div class="product-title"><a class="title-5" href="{{ path_for('website.product', {'id': product.id}) }}">{{product.name}}</a></div>
+																		<div class="product-price">
+																			<span class="price_sale">{{product.price}}$</span>
+																		</div>
+																	</div>
+																</div>
+															</div>
+													{% endfor %}
+															
+														</div>
+													</div>
+													
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</section>
+				</div>
+			</div>
+			<div class="index-section index-section-banner">
+				<div data-section-type="banner-section">
+					<section class="home_banner_layout">
+						<div class="home_banner_wrapper">
+							<div class="container">
+								<div class="row">
+									<div class="home_banner_inner">
+										<div class="home_banner_content">
+											<div class="col-sm-12 banner_item">
+												{% for ad in ads %}
+                                                    {% if ad.area == 'home_6' %}
+                                                                                                        
+                                                            {% if ad.htmlcode is not empty %}
+                                                                {% autoescape %}
+                                                                    {{ad.htmlcode|raw}}
+                                                                {% endautoescape %}
+                                                            {% endif %}
+
+                                                            {% if ad.url is not empty %}
+                                                            <a href="{{ad.url}}">
+                                                            {% endif %}
+
+                                                            {% if ad.image is not empty %}
+                                                            <img src="{{ads_url}}{{ad.image}}" alt="">
+                                                            {% endif %}
+
+                                                            {% if ad.url is not empty %}
+                                                            </a>
+                                                            {% endif %}
+
+                                                    {% endif %}
+                                                    {% endfor %}
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</section>
+				</div>
+			</div>
+			<div class="index-section index-section-protab1">
+				<div>
+					<section class="home_protab1_layout">
+						<div class="home_protab1_wrapper">
+							<div class="container">
+								<div class="row">
+									<div class="home_protab1_inner">
+										<div class="home_protab1_content">
+											<div class="protab1_top page-top">
+												<div class="page-title">
+													<img src="assets/images/home1_fu.png" alt="">
+													<h2>Furniture</h2>
+												</div>
+												
+											</div>
+											<div class="protab1_bottom">
+												<div class="protab1_banner">
+													<a href=""><img src="{{url.general}}{{ 'BLOCK_IMAGE_6'|options }}" alt=""></a>
+												</div>
+												<div class="tab-content">
+													<div class="tab-pane active" id="home_protab5_tab_1">
+														<div class="protab1_item">
+															{% for product in BLOCK_CAT_6 %} 
+															<div class="content_product">
+																<div class="row-container product list-unstyled clearfix">
+																	<div class="row-left">
+																		<a href="{{ path_for('website.product', {'id': product.id}) }}" class="hoverBorder container_item">
+																			<div class="hoverBorderWrapper">
+																				<img src="{{url.products}}{{ product.ThumbnailsImages().1}}" class="not-rotation img-responsive front" >
+																				<div class="mask"></div>
+																				<img src="{{url.products}}{{ product.ThumbnailsImages().2}}" class="rotation img-responsive" >
+																			</div>
+																		</a>
+																		<div class="hover-mask">
+																			<div class="group-mask">
+																				<div class="inner-mask">
+																					<div class="group-actionbutton">
+																						<ul class="quickview-wishlist-wrapper">
+																							<li class="wishlist hidden-xs">
+																								<a class="wish-list"><span class="hidden-xs"><i class="fa fa-heart" title="Wishlist"></i></span></a>
+																							</li>
+																						</ul>
+																					</div>
+																				</div>
+																			</div>
+																		</div>
+																	</div>
+																	<div class="row-right animMix">
+																		<div class="product-title"><a class="title-5" href="{{ path_for('website.product', {'id': product.id}) }}">{{product.name}}</a></div>
+																		<div class="product-price">
+																			<span class="price_sale">{{product.price}}$</span>
+																		</div>
+																	</div>
+																</div>
+															</div>
+													{% endfor %}
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</section>
+				</div>
+			</div>
+			
+		</main>
+	</div>
+{% endblock %}
+

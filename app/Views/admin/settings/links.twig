@@ -1,0 +1,66 @@
+{% extends "admin/layout.twig" %}
+{% block title %}   اعدادات الروابط   {% endblock %}
+{% block content %}
+
+<!-- Main content -->
+<div class="content-wrapper">
+
+
+				<!-- Page header -->
+				<div class="page-header page-header-transparent">
+					<div class="page-header-content">
+						<div class="page-title">
+							<h1> <span class="text-semibold">اعدادات الروابط </span></h1>
+						</div>
+					</div>
+				</div>
+				<!-- /page header -->
+
+
+<!-- Content area -->
+<div class="content">
+		
+
+	<div class="panel panel-flat ">
+
+		<div class="panel-body">
+			<form class="form-horizontal" method="post" action="{{path_for('settings.email')}}">
+				<fieldset class="content-group">
+				
+		
+					
+					<div class="form-group">
+						<label class="control-label col-lg-2"> رابط الأدمن </label>
+						<div class="col-lg-9">
+							<input type="text" class="form-control" value="wp-admin" name="User" />
+						</div>
+					</div>	
+					<div class="form-group">
+						<label class="control-label col-lg-2">رابط المدونة</label>
+						<div class="col-lg-9">
+							<input type="text" class="form-control" value="blog" name="Password" />
+						</div>
+					</div>																	
+						
+					<div class="form-group">
+						<label class="control-label col-lg-2">رابط المتجر</label>
+						<div class="col-lg-9">
+							<input type="text" class="form-control" value="Shop" name="Password" />
+						</div>
+					</div>	
+					
+					
+				</fieldset>
+				<div class="text-right">
+					<input type="hidden" name="validate" value="email_settings">
+					<button type="submit" class="btn btn-primary">تحديث المعلومات<i class="icon-arrow-left13 position-right"></i></button>
+				</div>
+			</form>
+		</div>
+	</div>
+    </div>
+</div>
+<!-- set the select -->		
+<script> $('.role').select2({ placeholder: 'تعيين المستخدم',}); </script>
+	
+{% endblock %}	

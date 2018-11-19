@@ -1,0 +1,177 @@
+{% extends "admin/layout.twig" %}
+{% block title %} تعديل السلايدر {% endblock %}
+
+{% block content %}	
+
+
+<!-- Main content -->
+<div class="content-wrapper">
+
+
+<!-- Page header -->
+<div class="page-header page-header-transparent">
+    <div class="page-header-content">
+        <div class="page-title">
+            <h1><span class="text-semibold">تعديل السلايدر </span></h1>
+        </div>
+    </div>
+</div>
+    
+    
+    
+<!-- Content area -->
+<div class="content">
+		
+{% include "admin/elements/flash.twig" %}
+	<div class="panel panel-flat col-md-8">
+		
+
+
+		<div class="panel-body">
+			<form class="form-horizontal" enctype='multipart/form-data' method="post" action="{{ path_for('slider.edit', {'id': slider.id}) }}" />
+			
+			<input type="hidden" id='isAdChanged' name="isAdChanged" value="false" />
+			
+				<fieldset class="content-group">
+					<div class="form-group">
+						<label class="control-label col-lg-3">صورة السلادير</label>
+						<div class="col-lg-3">
+							   <label for="avatarUploadPreview" class="btn btn-danger btn-rounded"><i class="icon-image2 position-left"></i> اختيار صورة جديدة </label>
+							   <input name="image" id="avatarUploadPreview" accept="image/jpg, image/jpeg, image/png" style="visibility:hidden;" type="file" />
+						</div>
+						
+						
+						
+						
+					</div>
+					
+					<div class="form-group">
+						<label class="control-label col-lg-3">رابط السلايدر </label>
+						<div class="col-lg-9">
+							<input type="text" class="form-control" name="link">
+						</div>
+					</div>
+					
+					
+				</fieldset>
+				<div class="text-right">
+					<button type="submit" class="btn btn-primary" >تحديث السلايدر<i class="icon-arrow-left13 position-right"></i></button>
+				</div>
+		
+		</div>
+				<div id="submitResult"></div>
+
+	</div>
+
+    <div class="col-md-4">
+	
+							</form>		
+        
+        <style>
+        .ads-preview img {
+    width: 100%;
+}
+        </style>
+        
+        
+        
+        <div class="panel panel-flat" {% if slider.image  == " "  %}  style="display:none;" {% endif %}  id="ads-show"> 
+        <div class="panel-heading">
+            معاينة السلايدر
+            <div  class="heading-elements"  >
+            
+            <ul class="icons-list">
+                <li style="display:none" id='delete-ad'><a onclick="clean()" ><i class="icon-cross2 position-right" ></i> حذف الصورة </a></li>
+                {% if slider.image  != " "  %}
+                    <li ><a id='deleteoldad'><i class="icon-cross2 position-right" ></i> حذف الصورة </a></li>
+                {% endif %}
+            </ul>
+            
+            
+        
+            </div>
+            
+            
+        </div>
+    <div class="panel-body">
+       <div class="ads-preview"><img id='profile_avatar' src="{{url.slider}}{{slider.image}}"  /></div>
+    </div>
+</div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+    </div>
+    
+    
+    
+    
+    			
+<!-- show the image when changed -->									
+
+
+<script>
+function clean () {
+document.getElementById("avatarUploadPreview").value = "";
+document.getElementById("ads-show").style.display = 'none';    
+}
+
+</script>
+
+<script>
+$("#deleteoldad").click(function(){
+    $("#isAdChanged").val("true");
+    $("#ads-show").hide();
+    $("#deleteoldad").remove();
+
+});
+</script>
+
+
+
+
+
+<script>
+    
+function readURL(input) {
+
+if (input.files && input.files[0]) {
+var reader = new FileReader();
+
+reader.onload = function (e) {
+$('#profile_avatar').attr('src', e.target.result);
+}
+
+reader.readAsDataURL(input.files[0]);
+}
+}
+$("#avatarUploadPreview").change(function(){
+readURL(this);
+    $("#isAdChanged").val("true");
+    $("#ads-show").show();
+    $("#delete-ad").show();
+});        
+</script>
+
+<!-- set the select -->		
+<script> $('.areaUndetected').select2({ placeholder: 'تحديد مكان الإعلان',}); </script>
+				
+<!-- change the value of selected Country to user's country -->
+<script> $(document).ready(function() { $(".areaUndetected").select2().val("{{ads.area}}").trigger("change") }); </script>		
+	
+	
+	
+	
+{% endblock %}	
+

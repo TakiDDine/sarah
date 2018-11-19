@@ -1,0 +1,170 @@
+{% extends "admin/layout.twig" %}
+
+{% block title %} انشاء صفحة جديدة {% endblock %}
+
+
+{% block content %}
+    
+ 
+
+				<!-- Content area -->
+				<div class="content">
+			
+
+				<!-- Page header -->
+				<div class="page-header page-header-transparent">
+					<div class="page-header-content">
+						<div class="page-title">
+							<h1>تحرير المقالة</h1>
+						</div>
+
+						
+					</div>
+				</div>
+				<!-- /page header -->
+			
+
+			        {% include "admin/elements/flash.twig" %}
+
+<div class="col-md-12">								
+
+<form  enctype="multipart/form-data" id="user_form" method='post' action="{{ path_for('posts.edit', {id :post.id }) }}">
+<input type="hidden"  name="thumbnailChanged" id="thumbnailChanged" value="false" />
+ 
+
+
+<div class="col-md-9">
+    <div class="form-group">
+        <input type="text" class="form-control" name="title" placeholder="عنوان المقالة" value="{{post.title}}" />
+    </div>
+    <div class="form-group">	
+        <textarea name="post_content" id="posteditor" class="cke_rtl" >{{post.content}}</textarea>
+    </div>					
+</div>
+
+
+<!-- sidebar -->
+<div class="col-md-3">
+    <button type="submit" class="btn btn-block btn-primary">تحديث المقالة <i class="icon-arrow-left13 position-right"></i></button>
+    <br>
+    <!-- post categories -->
+    <div class="panel panel-white">
+        <div class="panel-heading">
+            <h6 class="panel-title"> تصنيف المقالة </h6>
+        </div>
+
+        <div class="panel-body">
+             <select  name="postCategory" style="width:100%;" class="postCategory">
+                <option value="0">غير محدد بعد</option>
+                    {% for categorie in categories %}
+                    <option value="{{categorie.id}}">{{categorie.name}}</option>
+                    {% endfor %} 
+              </select>
+        </div>
+    </div>
+    <!-- post categories -->
+    
+    <!-- post Thumbnail -->
+    <div class="panel panel-white">
+                <div class="panel-heading ">
+                    <h6 class="panel-title">الصورة البارزة </h6>
+                    <div class="heading-elements" >
+                        <ul class="icons-list">
+                        {% if post.thumbnail  != " "  %}
+                            <li><a id="deleteImage"><i class="icon-cross2 position-right"></i> حذف الصورة </a></li>
+                        {% endif %}
+                        </ul>
+                    </div>
+                </div>
+                <div class="panel-body">
+                
+                <!-- preview thumbnail -->
+                <div class="preview-thumbnail" >
+                   {% if post.thumbnail  != " "  %} <img src="{{url.posts}}{{post.thumbnail}}"   id="post_thumbnail"  /> {% endif %}
+                </div>
+                
+                <!-- thumbnail tools -->
+                <div class="thumbnail-tools" {% if post.thumbnail  != " "  %} style="display:none;" {% endif %}>
+                  <label for="Upload-thumbnail"  ><i class="icon-image2 position-left"></i> اختيار الصورة </label>
+                  <input name="post_thumbnail" id="Upload-thumbnail" accept="image/jpg, image/jpeg, image/png" type="file" />  
+                </div>
+                <!-- thumbnail tools -->
+ 
+                </div>
+            </div>
+            
+            
+            
+
+            
+
+        </div>
+ </form>
+ </div>
+</div>
+<!-- /content area -->
+
+<style>
+.preview-thumbnail img {
+    width: 100%;
+    margin-bottom: 25px;
+}
+#Upload-thumbnail {
+    display: none;
+}
+</style>
+
+
+<script src="{{ admin_assets }}ckeditor/ckeditor.js"></script>
+<script>
+CKEDITOR.replace( 'posteditor', {
+    language: 'ar',
+}); 
+</script>
+    
+
+<!-- set the select -->		
+<script> $('.postCategory').select2({ placeholder: 'تحديد تصنيف المنتوج',}); </script>
+
+<!-- change the value of selected Country to user's country -->
+<script> $(document).ready(function() { $(".postCategory").select2().val("{{post.categoryID}}").trigger("change") }); </script>		
+	
+<script>
+    
+function readURL(input) {
+
+if (input.files && input.files[0]) {
+var reader = new FileReader();
+
+reader.onload = function (e) {
+$('.preview-thumbnail img').attr('src', e.target.result);
+}
+reader.readAsDataURL(input.files[0]);
+}
+}
+    
+
+</script>
+
+<!-- حذف الصور -->
+<script>
+$("#deleteImage").click(function(){
+        $("#thumbnailChanged").val("true");          // تعين الحقل بأنه تم التغيير
+        $(".thumbnail-tools").show();         // اظهار الزر للرفع من جديد
+        $("#post_thumbnail").remove();   // مسح الصورة القديمة
+        $("#deleteImage").hide();               // اخفاء زر الحذف
+});
+</script>
+
+<!-- تغيير الصورة الجديدة -->
+<script>
+$("#Upload-thumbnail").change(function(){    
+    $('.preview-thumbnail').html('<img src="" id="post_thumbnail" /> ');  // اضافة الصورة الجديدة
+    $('.thumbnail-tools').hide();         // اخفاء زر اضافة صورة
+    $("#deleteImage").show();               // اظهار زر حذف صورة
+    readURL(this);                          // اظهار الصورة التي تم اختيارها
+    $("#thumbnailChanged").val("true");          // جعل القيمة تم تغييره
+});    
+</script>
+
+{% endblock %}

@@ -1,0 +1,117 @@
+{% extends "admin/layout.twig" %}
+{% block title %} السلايدر {% endblock %}
+
+{% block content %}	
+
+
+<!-- Main content -->
+<div class="content-wrapper">
+
+
+				<!-- Page header -->
+				<div class="page-header page-header-transparent">
+					<div class="page-header-content">
+						<div class="page-title">
+							<h1> <span class="text-semibold">السلايدر</span></h1>
+						</div>
+                    
+<div class="heading-elements">
+{% if slides is not empty %}
+<a href="{{ path_for('slider.create') }}" class="btn bg-blue btn-labeled heading-btn"><b><i class="icon-plus3"></i></b> اضافة سلايدر جديد</a>
+{% endif %}
+</div>
+ </div>
+    </div>
+    
+    
+    
+
+<!-- Content area -->
+<div class="content">
+		
+		{% include "admin/elements/flash.twig" %}
+		
+		
+		
+		
+			{% if slides is empty %}
+			
+			<style>
+    .empty_state_icon {
+    font-size: 176px;
+    opacity: 0.1;
+}
+    </style>
+			<div class="empty_state text-center">
+			    
+			<i class="icon-folder-open2 empty_state_icon"></i>
+		<h4> 
+        مرحبا !
+		    لا توجد لديك أية سلايدرات حالياً ، يمكنك اضافة إعلانات جديدة 
+		</h4>
+		<a href="{{ path_for('slider.create') }}" class="btn bg-blue btn-labeled heading-btn"><b><i class="icon-plus3"></i></b>
+            اضافة سلايدر جديد</a>
+
+			</div>
+		
+		
+		
+		
+		{% endif %}
+		
+	{% if slides is not empty %}
+
+
+<style>
+.slider-box {
+    max-width: 280px;
+    overflow: hidden;
+    height: 120px;
+}
+
+.slider-box img {
+    width: 100%;
+}    
+</style>
+		
+<div class="panel panel-flat">
+    <table class="table table-striped" >
+        <thead>
+            <tr>
+                <th><b>#</b></th>
+                <th><b> السلايدر</b></th>
+                <th><b>تاريخ الإنشاء</b></th>
+                <th class="text-center"><b>تعديل</b></th>
+            </tr>
+        </thead>
+        <tbody>  
+        {% for slide in slides %}
+         <tr>
+             <td>{{ slide.id }}</td>
+            <td>
+             <div class="slider-box">
+              <img src="{{url.slider }}{{ slide.image}}" alt="">
+               </div>
+            </td>
+             <td>{{ slide.created_at|dateOnly }}</td>
+             <td class="text-center">
+              <a href="{{ path_for('slider.edit', {'id': slide.id}) }}" class="text-primary-600">
+                  <i class="icon-pencil7 position-left"></i>تعديل </a>
+                  
+               <a href="{{ path_for('slider.delete', {'id': slide.id}) }}" class="text-danger-600" style="margin-right:15px;">
+                  <i class="icon-cross2 position-left"></i>حذف  </a>
+             </td>
+         </tr>
+         {% endfor %}   
+        </tbody>
+        
+    </table>
+</div>
+{% endif %}
+	{% include "admin/elements/pagination.twig" %}
+
+    </div>
+</div>
+
+{% endblock %}	
+

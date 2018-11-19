@@ -1,0 +1,211 @@
+{% extends "admin/layout.twig" %}
+
+{% block title %} اضافة مقالة جديدة {% endblock %}
+
+
+{% block content %}
+    
+            
+<style>
+.editslugbtn {
+    background: white;
+    border: 1px solid #cac5c5;
+    border-radius: 3px;
+    font-size: 12px;
+    width: 36px;
+    display: inline-block;
+    text-align: center;
+    color: #797d7c;
+}
+.editslugbtn:hover {
+    background: #efecec;
+    border: 1px solid #adadad;
+    border-radius: 3px;
+    font-size: 12px;
+}
+</style> 
+				<!-- Content area -->
+				<div class="content">
+			
+
+				<!-- Page header -->
+				<div class="page-header page-header-transparent">
+					<div class="page-header-content">
+						<div class="page-title">
+							<h1> <span class="text-semibold">اضافة مقالة جديدة</span></h1>
+						</div>
+
+						
+					</div>
+				</div>
+				<!-- /page header -->
+			
+
+			        {% include "admin/elements/flash.twig" %}
+
+<div class="col-md-12">								
+
+<form  enctype="multipart/form-data" id="user_form" method='post' action="{{ path_for('posts.create') }}">
+<input type="hidden"  name="thumbnailChanged" id="isAdChanged" value="false" />
+ 
+
+<div class="col-md-9">								
+<div class="form-group">
+                <label class="control-label">عنوان المقالة</label>
+                <input type="text" id="postitlte" class="form-control" name="title" placeholder="عنوان المقالة" value="{{old.title}}" />
+          
+        
+
+            
+             
+             
+            </div>
+		
+		
+		<textarea name="post_content" id="posteditor"  >{{old.post_content}}</textarea>
+
+
+
+</div>					
+					
+
+        <div class="col-md-3">
+         <button type="submit" class="btn btn-block btn-primary">نشر المقالة <i class="icon-arrow-left13 position-right"></i></button>
+         <br>
+ 
+            
+            
+<div class="panel panel-white">
+    <div class="panel-heading">
+        <h6 class="panel-title"> تصنيف المقالة </h6>
+    </div>
+
+    <div class="panel-body">
+         <select  name="postCategory" style="width:100%;" class="postCategory">
+            <option value="not_speci">غير محدد بعد</option>
+                {% for categorie in categories %}
+                <option value="{{categorie.id}}">{{categorie.name}}</option>
+                {% endfor %} 
+          </select>
+    </div>
+</div>
+            
+            <div class="panel panel-white">
+                <div class="panel-heading ">
+                    <h6 class="panel-title">الصورة البارزة </h6>
+                </div>
+                <div class="panel-body ">
+                <div class="preview-thumbnail">
+                    <img src="" id="profile_avatar"  />
+                </div>
+                <label for="Upload-thumbnail" ><i class="icon-image2 position-left"></i> اختيار الصورة </label>
+            <input name="post_thumbnail" id="Upload-thumbnail" accept="image/jpg, image/jpeg, image/png" style="visibility:hidden;" type="file" />
+                </div>
+            </div>
+            
+            
+            
+
+            
+
+        </div>
+ </form>
+ </div>
+</div>
+<!-- /content area -->
+
+<style>
+.preview-thumbnail img {
+    width: 100%;
+    margin-bottom: 25px;
+}
+
+</style>		
+<script>
+    
+function readURL(input) {
+
+if (input.files && input.files[0]) {
+var reader = new FileReader();
+
+reader.onload = function (e) {
+$('.preview-thumbnail img').attr('src', e.target.result);
+}
+reader.readAsDataURL(input.files[0]);
+}
+}
+$("#Upload-thumbnail").change(function(){
+readURL(this);
+    $("#isAdChanged").val("true");
+});        
+</script>
+
+<!-- set the select -->		
+<script> $('.postCategory').select2({ placeholder: 'تحديد تصنيف المنتوج',}); </script>
+
+
+ <script src="{{ admin_assets }}ckeditor/ckeditor.js"></script>
+      <script>
+//                          CKEDITOR.replace('posteditor');
+
+CKEDITOR.replace( 'posteditor', {
+    language: 'ar',
+}); 
+
+    </script>
+    
+    
+    
+    
+    
+    
+
+<script>
+//setup before functions
+var typingTimer;                //timer identifier
+var doneTypingInterval = 5000;  //time in ms (5 seconds)
+
+//on keyup, start the countdown
+$('#postitlte').keyup(function(){
+    clearTimeout(typingTimer);
+    if ($('#postitlte').val()) {
+        typingTimer = setTimeout(doneTyping, doneTypingInterval);
+    }
+});
+
+//user is "finished typing," do something
+function doneTyping () {
+   var slug = $('#postitlte').val();
+    $('.the_show').show();
+   $('.the_show span').html("/{{CLEAN_URL_BASE}}{{path_for('website.blog')}}"+slug);
+   $('#the_link').attr("href", "/{{CLEAN_URL_BASE}}{{path_for('website.blog')}}"+slug);
+   $('#the_input').val(slug);
+}
+</script>
+
+<script>
+
+    
+$('.editslugbtn').click(function(){
+        $(".the_edit").show();
+        $(".the_show").hide();
+});      
+    
+    
+$('.the_cancel').click(function(){
+        $(".the_edit").hide();
+        $(".the_show").show();
+});      
+    
+    
+$('.the_change').click(function(){
+        $(".the_edit").hide();
+        $(".the_show").show();
+});      
+    
+</script>
+
+    
+    
+
+{% endblock %}

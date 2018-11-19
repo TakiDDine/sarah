@@ -1,0 +1,365 @@
+{% extends "website/layout.twig" %}
+{% block title %} Product {% endblock %}
+
+
+{% block content %}
+
+	<!-- Main Content -->
+	<div class="page-container" id="PageContainer">
+		<main class="main-content" id="MainContent" role="main">
+		
+        <section class="collection-heading heading-content ">
+            <div class="container">
+            {% include "admin/elements/flash.twig" %}
+                <div class="row">
+                    <div class="collection-wrapper">
+                        <h1 class="collection-title">
+                            <span>
+                                <a href="{{path_for('website.shop')}}" title="All Products">Products</a>
+                            </span>
+                        </h1>
+                        <div class="breadcrumb-group">
+                            <div class="breadcrumb clearfix">
+                                <span><a href="{{path_for('website.home')}}"><span>Home</span></a>
+                                </span>
+                                <span class="arrow-space">></span>
+                                <span>
+                                    <a href="{{path_for('website.shop')}}"><span>Products</span></a>
+                                </span>
+                                <span class="arrow-space">></span>
+                                <strong>{{ product.name }}</strong>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+			
+			
+			
+			
+			
+			<section class="product-detail-content">
+				<div class="detail-content-wrapper">
+					<div class="container">
+						<div class="row">
+							<div class="shopify-section">
+								<div class="detail-content-inner">
+									<div id="product" class="detail-content">
+										<div class="col-md-12 info-detail-pro clearfix">
+											<div class="col-md-5" id="product-image">
+												<div id="featuted-image" class="image featured">
+												   	{% for image in product.gallery() %}
+													<div class="image-item">
+														<a href="#" class="thumbnail" id="{{image}}"> 
+															<img src="{{url.products}}{{image}}" >
+														</a>
+													</div>
+													{% endfor %}
+												</div>
+											</div>
+											<div class="col-md-7" id="product-information">
+												<h1  class="title">{{ product.name }}</h1>
+												<div class="description">
+													{{ product.description }}
+												</div>
+												
+												
+												<div class="variants">
+													<div class="product-options ">
+														
+														<div class="product-price">
+															<h2 class="price" id="price-preview">
+															<span class="money">{{ product.price }}$</span>
+															</h2>
+														</div>
+														<div class="purchase-section multiple">
+														
+													
+                                                     
+                                                
+                                                
+                                                
+                                                
+                                                
+													
+														{% if not incart %}
+														<form action="{{path_for('cart.add',{id : product.id})}}" method="post" >
+															<div class="quantity-wrapper clearfix">
+																<div class="wrapper">
+																	<input  type="text" name="quantity" value="1" class="item-quantity">
+																</div>
+															</div>
+															<div class="purchase">
+															
+															{% if not user %} 
+															
+															<a href="#" class="btn add-to-cart"  data-toggle="tooltip" title="Please Login To add products to your cart !">add to cart</a>
+															
+															{% else %}
+																<button id="add-to-cart" class="btn add-to-cart" type="submit" name="add">add to cart</button>
+																{% endif %}
+																
+																<style>
+                                                                    .add-to-cart {
+    background: #e0493e !important;
+    color: #fff !important;
+    border: none !important;
+}
+                                                                </style>
+															</div>
+															</form>
+														{% endif %}
+														
+														
+															{% if incart %}
+															<div class="purchase">
+																<a  class="btn add-to-cart" href="{{path_for('cart.delete',{id : incart})}}"><i class="fa fa-shopping-bag"></i>Remove From cart</a>
+															</div>
+															{% endif %}
+															
+															
+															
+															
+														</div>
+													</div>
+												</div>
+												<div class="add-to-wishlist">
+                                                    {% if wish %}
+														<a style='background:#e04a3f;color:white;' 
+                                                href="{{url.base}}{{path_for('wishlist.delete',{id : product.id})}}" 
+                                                class="wish-list" title="wish list"><i class="fa fa-heart"></i></a>
+												    {% endif %}
+												    
+												    {% if not wish %}
+												    <a  
+												    
+												     {% if not user %} 
+                                                href="#" data-toggle="tooltip" title="Please Login To add products to your wish list !"
+                                                {% else %}
+                                                
+												    href="{{url.base}}{{path_for('wishlist.add',{id : product.id})}}" 
+												    {% endif %}
+												    
+												    class="wish-list" title="wish list"><i class="fa fa-heart"></i></a>
+												    {% endif %}
+												</div>
+												
+												<p class="">
+												   
+												</p>
+																								
+
+												
+												
+												
+												
+												
+												<div class="supports-fontface">
+													<div class="social-sharing is-clean">
+														<a target="_blank" href="http://www.facebook.com/sharer.php?u={{path_for('website.product', {id : product.id})}}" >
+															<span class="icon icon-facebook"></span>
+															<span class="share-count is-loaded">Share</span>     
+														</a>
+														<a target="_blank" href="http://twitter.com/share?url={{path_for('website.product', {id : product.id})}}">
+															<span class="icon icon-twitter"></span>
+															<span class="share-count is-loaded">Tweet</span>
+														</a>
+														<a target="_blank" href="http://pinterest.com/pin/create/link/?url={{path_for('website.product', {id : product.id})}}">
+															<span class="icon icon-pinterest"></span>
+															<span class="share-count is-loaded">Pin it</span>
+														</a>
+														<a target="_blank" href="product.html" >
+															<span class="icon icon-google-plus"></span>
+															<span class="share-count is-loaded">share</span>
+														</a>
+													</div>
+													
+													
+												 <a style="margin-top:25px;display: block;" href="#" onclick="active_review_form();return false">
+												 <span class="spr-starrating spr-badge-starrating"><i class="spr-icon spr-icon-star" style=""></i><i class="spr-icon spr-icon-star" style=""></i><i class="spr-icon spr-icon-star" style=""></i><i class="spr-icon spr-icon-star" style=""></i><i class="spr-icon spr-icon-star" style=""></i></span> <br>
+												 
+												 Write a review</a>
+
+												</div>
+												
+												
+																						
+
+												
+												
+												
+												
+											</div>
+										</div>
+										
+										
+
+										
+										
+										<div id="tabs-information" class="col-md-12">
+										<div class="spr-content" style="display:none;"> 
+										{% if allowRating %}
+<form method="post" action="{{path_for('product.rate')}}" class="new-review-form">
+<input type="hidden" name="review[rating]">
+<input type="hidden" name="product_id" value="{{product.id}}">
+<h3 class="spr-form-title">Write a review</h3>
+<fieldset class="spr-form-review">
+<div class="spr-form-review-rating">
+<label class="spr-form-label">Rating</label>
+<div class="spr-form-input spr-starrating ">
+<a href="#" class="spr-icon spr-icon-star spr-icon-star-empty" data-value="1">&nbsp;</a>
+<a href="#" class="spr-icon spr-icon-star spr-icon-star-empty" data-value="2">&nbsp;</a>
+<a href="#" class="spr-icon spr-icon-star spr-icon-star-empty" data-value="3">&nbsp;</a>
+<a href="#" class="spr-icon spr-icon-star spr-icon-star-empty" data-value="4">&nbsp;</a>
+<a href="#" class="spr-icon spr-icon-star spr-icon-star-empty" data-value="5">&nbsp;</a>
+</div>
+</div>
+<div class="spr-form-review-title">
+<label class="spr-form-label" for="review_title">Review Title</label>
+<input class="spr-form-input spr-form-input-text " id="review_title" type="text" name="title" placeholder="Give your review a title">
+</div>
+<div class="spr-form-review-body">
+<label class="spr-form-label" for="review_body">Body of Review <span class="spr-form-review-body-charactersremaining">(1500)</span></label>
+<div class="spr-form-input">
+<textarea class="spr-form-input spr-form-input-textarea " id="review_body" name="review" rows="10" placeholder="Write your comments here"></textarea>
+
+</div>
+</div>
+</fieldset>
+<fieldset class="spr-form-actions">
+<input type="submit" class="spr-button spr-button-primary button button-primary btn btn-primary" value="Submit Review">
+</fieldset>
+</form>
+{% endif %}
+										</div>
+										
+										
+										
+										
+										
+										
+										
+											{% if reviews is not empty%}
+											<div class="information_content panel panel-default">
+												<div class="panel-heading" role="tab" id="heading_review">
+													<h4 class="panel-title" data-toggle="collapse" href="#collapse_review" aria-expanded="true" aria-controls="collapse_review">
+														Reviews
+														<i class="fa-icon fa fa-angle-up"></i>
+													</h4>
+												</div>
+												<div id="collapse_review" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading_review">
+													<div class="panel-body">
+														<div id="customer_review">
+															<div class="preview_content">
+																<div id="shopify-product-reviews">
+																	<div class="spr-container">
+																		<div class="spr-content">
+																			
+																			{% for item in reviews %}
+																			<div class="spr-reviews" >
+																				<div class="spr-review" id="spr-review-7003642">
+																					<div class="spr-review-header">
+																						<span class="spr-starratings spr-review-header-starratings"><i class="spr-icon spr-icon-star" style=""></i><i class="spr-icon spr-icon-star" style=""></i><i class="spr-icon spr-icon-star" style=""></i><i class="spr-icon spr-icon-star" style=""></i><i class="spr-icon spr-icon-star" style=""></i></span>
+																						<h3 class="spr-review-header-title">{{item.title}}</h3>
+																						<span class="spr-review-header-byline"><strong>Jin Alkaid</strong> on <strong>
+																						    
+																						    {{item.created_at.toDateTimeString()|makeNiceTime}} 
+																						    
+																						</strong></span>
+																					</div>
+																					<div class="spr-review-content">
+																						<p class="spr-review-content-body">
+																						    {{item.review}}
+																						</p>
+																					</div>
+																					
+																				</div>
+																			</div>
+																			{% endfor %}
+																		</div>
+																	</div>
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+											{% endif %}
+										</div>
+										
+									</div>
+								</div>
+							</div>
+                             
+                             
+                             
+                             
+                             
+                             
+                        <style>
+                            #tabs-information {
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+}
+                            .related-products.col-sm-12 {
+    margin-bottom: 60px;
+}
+                            </style>     
+                             
+                             
+                             
+                              <div class="related-products col-sm-12">
+    <div class="collection-title home-title page-title"><span style="margin-top: 21px;">You may also like</span></div>
+        <div class="group-related">
+            <div class="group-related-inner">
+                <div class="rp-slider">
+                        {% for product in related %} 
+                        <div class="content_product">
+                            <div class="row-container product list-unstyled clearfix">
+                                <div class="row-left">
+                                    <a href="{{ path_for('website.product', {'id': product.id}) }}" class="hoverBorder container_item">
+                                        <div class="hoverBorderWrapper">
+                                            <img src="{{url.products}}{{ product.ThumbnailsImages().1}}" class="not-rotation img-responsive front" >
+                                            <div class="mask"></div>
+                                            <img src="{{url.products}}{{ product.ThumbnailsImages().2}}" class="rotation img-responsive" >
+                                        </div>
+                                    </a>
+                                    <div class="hover-mask">
+                                        <div class="group-mask">
+                                            <div class="inner-mask">
+                                                <div class="group-actionbutton">
+                                                    <ul class="quickview-wishlist-wrapper">
+                                                        <li class="wishlist hidden-xs">
+                                                            <a class="wish-list"><span class="hidden-xs"><i class="fa fa-heart" title="Wishlist"></i></span></a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row-right animMix">
+                                    <div class="product-title"><a class="title-5" href="{{ path_for('website.product', {'id': product.id}) }}">{{product.name}}</a></div>
+                                    <div class="product-price">
+                                        <span class="price_sale">{{product.price}}$</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>  
+                    <br><br>
+						</div>
+					</div>
+				</div>
+				
+				
+			</section>
+			
+		</main>
+	</div>
+{% endblock %}

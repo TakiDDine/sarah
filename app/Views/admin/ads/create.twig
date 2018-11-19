@@ -1,0 +1,266 @@
+{% extends "admin/layout.twig" %}
+{% block title %} الإعلانات {% endblock %}
+
+{% block content %}	
+
+
+<!-- Main content -->
+<div class="content-wrapper">
+
+
+<!-- Page header -->
+<div class="page-header page-header-transparent">
+    <div class="page-header-content">
+        <div class="page-title">
+            <h1><span class="text-semibold">اضافة اعلان جديد</span></h1>
+        </div>
+    </div>
+</div>
+    
+    
+    
+<!-- Content area -->
+<div class="content">
+		
+
+	<div class="panel panel-flat col-md-8">
+		
+
+
+		<div class="panel-body">
+			<form class="form-horizontal" enctype='multipart/form-data' method="post" action="{{path_for('ads.create')}}" />
+				<fieldset class="content-group">
+			
+
+                
+                <div class="form-group switechers">
+                	<label class="control-label col-lg-3">تفعيل الاعلان</label>
+                    <div class="col-lg-9">
+                    <label class="adminswitch">
+                        <input name='active' type="checkbox"  value="active" checked />
+                        <span class="slider round"></span>
+                    </label>
+                    </div>
+                    </div>
+                    
+                    
+					<div class="form-group">
+						<label class="control-label col-lg-3">عنوان الاعلان</label>
+						<div class="col-lg-9">
+							<input type="text" class="form-control" name="name" />
+							<p class="text-muted">عنوان للإعلان - ( ليس مهماً لكنه اضفه من أجل تمييز الإعلانات بلوحة التحكم) .</p>
+						</div>
+					</div>
+					
+					<div class="tie-option-pre-label">صورة الإعلان</div>
+					<hr>
+					<div class="form-group">
+						<label class="control-label col-lg-3">صورة الاعلان</label>
+						<div class="col-lg-3">
+							   <label for="avatarUploadPreview" class="btn btn-danger btn-rounded"><i class="icon-image2 position-left"></i> اختيار الصورة </label>
+							   <input name="image" id="avatarUploadPreview" accept="image/jpg, image/jpeg, image/png" style="visibility:hidden;" type="file" />
+						</div>
+						
+					</div>
+					
+					<div class="form-group">
+						<label class="control-label col-lg-3">رابط الاعلان</label>
+						<div class="col-lg-9">
+							<input type="text" class="form-control" name="link" />
+						</div>
+					</div>
+					
+					<div class="tie-option-pre-label">- أو - كود إعلان خاص</div>
+					<hr>
+					<div class="form-group">
+						<label class="control-label col-lg-3">كود إعلان خاص
+						</label>
+						<div class="col-lg-9">
+							<textarea name="codehtml" class="form-control" rows="8"></textarea>
+						</div>
+					</div>
+					
+	
+				</fieldset>
+				<div class="text-right">
+					<button type="submit" class="btn btn-primary" id="Submit_AD_ADS_FORM">اضافة الإعلان<i class="icon-arrow-left13 position-right"></i></button>
+				</div>
+			
+		</div>
+				<div id="submitResult"></div>
+
+	</div>
+
+    <div class="col-md-4">
+							<div class="panel">
+								<div class="panel-body">
+									<h5 class="content-group">
+										<span class="label label-flat label-rounded label-icon border-grey text-grey mr-10">
+											<i class="icon-info3"></i>
+										</span>
+
+											هل تحتاج مساعدة ؟
+										
+									</h5>
+
+
+									<ul class="list list-icons">
+										<li>
+											<i class="icon-checkmark-circle text-success position-left"></i>
+											<b>تفعيل الإعلان</b>
+											<br>
+											<p class="mg10">عند تفعيل الإعلان سيظهر - و عدم تفعيله سيجعله ملغيا</p>
+										</li>
+										<li>
+											<i class="icon-checkmark-circle text-success position-left"></i>
+											<b>عنوان الإعلان</b>
+											<br>
+											<p class="mg10">العنوان ليس مهماً ، لكن يفضل ان تضيفه من أجل تمييز كل إعلان عن الآخر</p>
+										</li>                                        
+								            <li>
+											<i class="icon-checkmark-circle text-success position-left"></i>
+											<b>رابط الإعلان</b>
+											<br>
+											<p class="mg10">تأكد جيداً ان الرابط يبدأ بــ <span dir="ltr">http://</span> </p>
+										</li>
+										<li>
+											<i class="icon-checkmark-circle text-success position-left"></i>
+											<b>صورة الإعلان</b>
+											<br>
+											<p class="mg10">
+											    يقبل فقط الإمتدادات التالية : 
+											    jpeg,png,gif
+											</p>
+										</li>
+									<li>
+											<i class="icon-checkmark-circle text-success position-left"></i>
+											<b>كود إعلان خاص</b>
+											<br>
+											<p class="mg10">
+											   يمكنك اضافة كود أدسنس ، أو اي كود html
+											</p>
+										</li>										
+										<li>
+											<i class="icon-checkmark-circle text-success position-left"></i>
+											<b>تنبيه</b> 
+											<br>
+											<p class="mg10"> عند اضافة الكود في الإعلان ، سيتم إلغاء الصورة والرابط والنص </p>
+										</li>
+
+									</ul>
+								</div>                     
+        </div>
+        
+							<div class="panel panel-white">
+								<div class="panel-heading">
+									<h6 class="panel-title"> تحدد مكان الإعلان :</h6>
+								</div>
+
+								<div class="panel-body">
+									 <select  name="areaUndetected" style="width:100%;" class="areaUndetected">
+                                        <option value="not_speci">غير محدد بعد</option>
+                                        <option value="home_1">الرئيسية الإعلان 1</option>
+                                        <option value="home_2">الرئيسية الإعلان 2</option>
+                                        <option value="home_3">الرئيسية الإعلان 3</option>
+                                        <option value="home_4">الرئيسية الإعلان 4</option>
+                                        <option value="home_5">الرئيسية الإعلان 5</option>
+                                        <option value="home_6">الرئيسية الإعلان 6</option>
+                                     
+                                </select>
+								</div>
+							</div>
+							</form>
+							
+						
+							
+							
+        
+        <style>
+        .ads-preview img {
+    width: 100%;
+}
+        </style>
+        <div class="panel panel-flat"  style="display:none;" id="ads-show"> 
+        <div class="panel-heading">
+            معاينة الإعلان
+            <div  class="heading-elements"  >
+            
+            <ul class="icons-list">
+                <li style="display:none" id='delete-ad'><a onclick="clean()" ><i class="icon-cross2 position-right" ></i> حذف الصورة </a></li>
+            </ul>
+            
+            
+            
+            </div>
+            
+            
+        </div>
+    <div class="panel-body">
+       
+        <div class="row">
+            <center>
+                <div class="ads-preview"><img id='profile_avatar' src=""  /></div>
+            </center>
+    </div>
+    </div>
+</div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+    </div>
+    
+    
+    
+    
+    			
+<!-- show the image when changed -->									
+
+
+<script>
+function clean () {
+document.getElementById("avatarUploadPreview").value = "";
+document.getElementById("ads-show").style.display = 'none';    
+}
+
+</script>
+
+
+<script>
+    
+function readURL(input) {
+
+if (input.files && input.files[0]) {
+var reader = new FileReader();
+
+reader.onload = function (e) {
+$('#profile_avatar').attr('src', e.target.result);
+}
+
+reader.readAsDataURL(input.files[0]);
+}
+}
+$("#avatarUploadPreview").change(function(){
+readURL(this);
+    $("#ads-show").show();
+    $("#delete-ad").show();
+});        
+</script>
+
+<!-- set the select -->		
+<script> $('.areaUndetected').select2({ placeholder: 'تحديد مكان الإعلان',}); </script>
+
+		
+{% endblock %}	
+

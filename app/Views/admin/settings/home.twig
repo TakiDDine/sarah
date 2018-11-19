@@ -1,0 +1,331 @@
+{% extends "admin/layout.twig" %}
+{% block title %} اعدادات الصفحة الرئيسية {% endblock %}
+
+{% block content %}
+
+<!-- Main content -->
+<div class="content-wrapper">
+
+<!-- Page header -->
+<div class="page-header page-header-transparent">
+    <div class="page-header-content">
+        <div class="page-title">
+            <h1> <span class="text-semibold">السلايدر</span></h1>
+        </div>
+
+        
+    </div>
+</div>
+<!-- /page header -->
+
+<!-- Content area -->
+<div class="content">
+		{% include "admin/elements/flash.twig" %}
+
+
+<div class="col-md-8">
+    <div class="panel panel-flat">
+        <div class="panel-heading no-padding-bottom">
+            <h3 class="panel-title">البلوك الأول</h3>
+        </div>
+        <div class="panel-body">
+            <form class="form-horizontal" method="post" action="{{path_for('settings.home')}}" enctype='multipart/form-data'>
+                <fieldset class="content-group">
+                    <legend class="text-bold"></legend>
+                    <div class="form-group">
+                        <label class="control-label col-lg-3">عنوان البلوك</label>
+                        <div class="col-lg-9">
+                            <input type="text" class="form-control" value="{{ 'BLOCK_NAME_1'|options }}" name="BLOCK_NAME_1" >
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-lg-3">تصنيف المنتجات</label>
+                        <div class="col-lg-9">
+                            <select name="BLOCK_CAT_1" style="width:100%;" class="blockcategories BLOCK_CAT_1">
+                                        <option value="NOTDEFFINED">غير محدد</option>
+                                        {% for categorie in categories %}
+                                        <option value="{{categorie.id}}">{{categorie.name}}</option>
+                                        {% endfor %} 
+                            </select>
+                            
+                            
+                            
+                       
+                        </div>
+                    </div>
+                </fieldset>
+                <div class="text-right">
+                    <button type="submit" class="btn btn-primary">تحديث المعلومات<i class="icon-arrow-left13 position-right"></i></button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="col-md-8">
+    <div class="panel panel-flat">
+        <div class="panel-heading no-padding-bottom">
+            <h3 class="panel-title">البلوك الثاني</h3>
+        </div>
+        <div class="panel-body">
+            <form class="form-horizontal" method="post" action="{{path_for('settings.home')}}" enctype='multipart/form-data'>
+                <fieldset class="content-group">
+                    <legend class="text-bold"></legend>
+                    <div class="form-group">
+                        <label class="control-label col-lg-3">عنوان البلوك</label>
+                        <div class="col-lg-9">
+                            <input type="text" class="form-control" value="{{ 'BLOCK_NAME_2'|options }}" name="BLOCK_NAME_2" >
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-lg-3">تصنيف المنتجات</label>
+                        <div class="col-lg-9">
+                            <select name="BLOCK_CAT_2" style="width:100%;" class="blockcategories BLOCK_CAT_2">
+                                        <option value="NOTDEFFINED">غير محدد</option>
+                                        {% for categorie in categories %}
+                                        <option value="{{categorie.id}}">{{categorie.name}}</option>
+                                        {% endfor %} 
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-lg-12">
+                            <label for="BLOCK_IMAGE_2" class="btn btn-danger btn-rounded"><i class="icon-image2 position-left"></i> اختيار الصورة </label>
+                            <input name="BLOCK_IMAGE_2" id="BLOCK_IMAGE_2" accept="image/jpg, image/jpeg, image/png" style="visibility:hidden;" type="file" />
+                        </div>
+                    </div>
+                    <img src="{{url.general}}{{ 'BLOCK_IMAGE_2'|options }}" />
+                </fieldset>
+                <div class="text-right">
+                    <button type="submit" class="btn btn-primary">تحديث المعلومات<i class="icon-arrow-left13 position-right"></i></button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+
+<div class="col-md-8">
+    <div class="panel panel-flat">
+        <div class="panel-heading no-padding-bottom">
+            <h3 class="panel-title">البلوك الثالث</h3>
+        </div>
+        <div class="panel-body">
+            <form class="form-horizontal" method="post" action="{{path_for('settings.home')}}" enctype='multipart/form-data'>
+                <fieldset class="content-group">
+                    <legend class="text-bold"></legend>
+                    <div class="form-group">
+                        <label class="control-label col-lg-3">عنوان البلوك</label>
+                        <div class="col-lg-9">
+                            <input type="text" class="form-control" value="{{ 'BLOCK_NAME_3'|options }}" name="BLOCK_NAME_3" >
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-lg-3">تصنيف المنتجات</label>
+                        <div class="col-lg-9">
+                            <select name="BLOCK_CAT_3" style="width:100%;" class="blockcategories BLOCK_CAT_3">
+                                        <option value="NOTDEFFINED">غير محدد</option>
+                                        {% for categorie in categories %}
+                                        <option value="{{categorie.id}}">{{categorie.name}}</option>
+                                        {% endfor %} 
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-lg-12">
+                            <label for="BLOCK_IMAGE_3" class="btn btn-danger btn-rounded"><i class="icon-image2 position-left"></i> اختيار الصورة </label>
+                            <input name="BLOCK_IMAGE_3" id="BLOCK_IMAGE_3" accept="image/jpg, image/jpeg, image/png" style="visibility:hidden;" type="file" />
+                        </div>
+                    </div> 
+                    
+                   <img src="{{url.general}}{{ 'BLOCK_IMAGE_3'|options }}" alt="">                   
+                </fieldset>
+                <div class="text-right">
+                    <button type="submit" class="btn btn-primary">تحديث المعلومات<i class="icon-arrow-left13 position-right"></i></button>
+                </div>
+            </form>
+        </div>        
+    </div>
+</div>
+<div class="col-md-8">
+    <div class="panel panel-flat">
+        <div class="panel-heading no-padding-bottom">
+            <h3 class="panel-title">البلوك الرابع</h3>
+        </div>
+<div class="panel-body">
+            <form class="form-horizontal" method="post" action="{{path_for('settings.home')}}" enctype='multipart/form-data'>
+                <fieldset class="content-group">
+                    <legend class="text-bold"></legend>
+                    <div class="form-group">
+                        <label class="control-label col-lg-3">عنوان البلوك</label>
+                        <div class="col-lg-9">
+                            <input type="text" class="form-control" value="{{ 'BLOCK_NAME_4'|options }}" name="BLOCK_NAME_4" >
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-lg-3">تصنيف المنتجات</label>
+                        <div class="col-lg-9">
+                            <select name="BLOCK_CAT_4" style="width:100%;" class="blockcategories BLOCK_CAT_4">
+                                        <option value="NOTDEFFINED">غير محدد</option>
+                                        {% for categorie in categories %}
+                                        <option value="{{categorie.id}}">{{categorie.name}}</option>
+                                        {% endfor %} 
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-lg-12">
+                            <label for="BLOCK_IMAGE_4" class="btn btn-danger btn-rounded"><i class="icon-image2 position-left"></i> اختيار الصورة </label>
+                            <input name="BLOCK_IMAGE_4" id="BLOCK_IMAGE_4" accept="image/jpg, image/jpeg, image/png" style="visibility:hidden;" type="file" />
+                        </div>
+                    </div>
+                    <img src="{{url.general}}{{ 'BLOCK_IMAGE_4'|options }}" />                    
+                </fieldset>
+                <div class="text-right">
+                    <button type="submit" class="btn btn-primary">تحديث المعلومات<i class="icon-arrow-left13 position-right"></i></button>
+                </div>
+            </form>
+        </div>                
+    </div>
+</div>
+<div class="col-md-8">
+    <div class="panel panel-flat">
+        <div class="panel-heading no-padding-bottom">
+            <h3 class="panel-title">البلوك الخامس</h3>
+        </div>
+<div class="panel-body">
+            <form class="form-horizontal" method="post" action="{{path_for('settings.home')}}" enctype='multipart/form-data'>
+                <fieldset class="content-group">
+                    <legend class="text-bold"></legend>
+                    <div class="form-group">
+                        <label class="control-label col-lg-3">عنوان البلوك</label>
+                        <div class="col-lg-9">
+                            <input type="text" class="form-control" value="{{ 'BLOCK_NAME_5'|options }}" name="BLOCK_NAME_5" >
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-lg-3">تصنيف المنتجات</label>
+                        <div class="col-lg-9">
+                            <select name="BLOCK_CAT_5" style="width:100%;" class="blockcategories BLOCK_CAT_5">
+                                        <option value="NOTDEFFINED">غير محدد</option>
+                                        {% for categorie in categories %}
+                                        <option value="{{categorie.id}}">{{categorie.name}}</option>
+                                        {% endfor %} 
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-lg-12">
+                            <label for="BLOCK_IMAGE_5" class="btn btn-danger btn-rounded"><i class="icon-image2 position-left"></i> اختيار الصورة </label>
+                            <input name="BLOCK_IMAGE_5" id="BLOCK_IMAGE_5" accept="image/jpg, image/jpeg, image/png" style="visibility:hidden;" type="file" />
+                        </div>
+                    </div>  
+                    <img src="{{url.general}}{{ 'BLOCK_IMAGE_5'|options }}" />                  
+                </fieldset>
+                <div class="text-right">
+                    <button type="submit" class="btn btn-primary">تحديث المعلومات<i class="icon-arrow-left13 position-right"></i></button>
+                </div>
+            </form>
+        </div>        
+    </div>
+</div>
+<div class="col-md-8">
+    <div class="panel panel-flat">
+        <div class="panel-heading no-padding-bottom">
+            <h3 class="panel-title">البلوك السادس</h3>
+        </div>
+        <div class="panel-body">
+            <form class="form-horizontal" method="post" action="{{path_for('settings.home')}}" enctype='multipart/form-data'>
+                <fieldset class="content-group">
+                    <legend class="text-bold"></legend>
+                    <div class="form-group">
+                        <label class="control-label col-lg-3">عنوان البلوك</label>
+                        <div class="col-lg-9">
+                            <input type="text" class="form-control" value="{{ 'BLOCK_NAME_6'|options }}" name="BLOCK_NAME_6" >
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-lg-3">تصنيف المنتجات</label>
+                        <div class="col-lg-9">
+                            <select name="BLOCK_CAT_6" style="width:100%;" class="blockcategories BLOCK_CAT_6">
+                                        <option value="NOTDEFFINED">غير محدد</option>
+                                        {% for categorie in categories %}
+                                        <option value="{{categorie.id}}">{{categorie.name}}</option>
+                                        {% endfor %} 
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-lg-12">
+                            <label for="BLOCK_IMAGE_6" class="btn btn-danger btn-rounded"><i class="icon-image2 position-left"></i> اختيار الصورة </label>
+                            <input name="BLOCK_IMAGE_6" id="BLOCK_IMAGE_6" accept="image/jpg, image/jpeg, image/png" style="visibility:hidden;" type="file" />
+                        </div>
+                    </div>
+                    <img src="{{url.general}}{{ 'BLOCK_IMAGE_6'|options }}" />                    
+                </fieldset>
+                <div class="text-right">
+                    <button type="submit" class="btn btn-primary">تحديث المعلومات<i class="icon-arrow-left13 position-right"></i></button>
+                </div>
+            </form>
+        </div>        
+    </div>
+</div>
+
+
+</div>
+	<!-- Footer -->
+					<div class="footer text-muted">
+					
+					
+					<script type='text/javascript'>
+//<![CDATA[
+function makeArray() {
+for (i = 0; i<makeArray.arguments.length; i++)
+this[i + 1] = makeArray.arguments[i];
+}
+var months = new makeArray('يناير','فبراير','مارس','أبريل','مايو',
+'يونيو','يوليو','أغسطس','سبتمبر','أكتوبر','نوفمبر','ديسمبر');
+var date = new Date();
+var day = date.getDate();
+var month = date.getMonth() + 1;
+var yy = date.getYear();
+var year = (yy < 1000) ? yy + 1900 : yy;
+document.write(day+ " - " +months[month] + " - " + year);
+//]]></script> 
+						&copy; 2018. <a href="#">صنع بكل حب </a> بواسطة <a href="http://takiddine.com" target="_blank">takiddine</a>
+					</div>
+					<!-- /footer -->
+
+</div>
+
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
+
+     <!-- set the select -->		
+<script> $('.blockcategories').select2({ placeholder: 'تحديد تصنيف المنتوج',}); </script>
+
+
+<script> $(document).ready(function() { $(".BLOCK_CAT_1").select2().val("{{ 'BLOCK_CAT_1'|options }}").trigger("change") }); </script>	    
+<script> $(document).ready(function() { $(".BLOCK_CAT_2").select2().val("{{ 'BLOCK_CAT_2'|options }}").trigger("change") }); </script>	    
+<script> $(document).ready(function() { $(".BLOCK_CAT_3").select2().val("{{ 'BLOCK_CAT_3'|options }}").trigger("change") }); </script>	    
+<script> $(document).ready(function() { $(".BLOCK_CAT_4").select2().val("{{ 'BLOCK_CAT_4'|options }}").trigger("change") }); </script>	    
+<script> $(document).ready(function() { $(".BLOCK_CAT_5").select2().val("{{ 'BLOCK_CAT_5'|options }}").trigger("change") }); </script>	    
+<script> $(document).ready(function() { $(".BLOCK_CAT_6").select2().val("{{ 'BLOCK_CAT_6'|options }}").trigger("change") }); </script>	    
+                                                    
+                           
+{% endblock %}	

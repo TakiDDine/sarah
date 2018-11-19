@@ -1,0 +1,80 @@
+{% extends "admin/layout.twig" %}
+{% block title %} تعديل التصنيف{% endblock %}
+{% block content %}	
+
+
+
+
+<!-- Main content -->
+<div class="content-wrapper">
+
+
+				<!-- Page header -->
+				<div class="page-header page-header-transparent">
+					<div class="page-header-content">
+						<div class="page-title">
+							<h1> <span class="text-semibold">التصنيفات</span></h1>
+							<ul class="breadcrumb position-left">
+								    {% if searchView != true %}
+                                    <p>عدد التصنيفات : {{ pagination.count }} تصنيف</p>
+                                    {% endif %}
+							</ul>
+						</div>
+					</div>
+				</div>
+				<!-- /page header -->
+
+
+<!-- Content area -->
+<div class="content">
+			        {% include "admin/elements/flash.twig" %}
+			  
+			      
+    <div class="panel panel-flat">
+        <div class="panel-body">
+            <form method="post" action="{{path_for('faqs.cat.edit' ,  {id : categorie.id})}}">
+                <fieldset class="content-group">
+                    <legend class="text-bold">اضافة تصنيف جديد</legend>
+                    <div class="form-group">
+                        <label class="control-label">اسم التصنيف</label>
+                        <input type="text" value="{{categorie.name}}" class="form-control" name="name" placeholder="اسم التصنيف">
+                    </div>
+                    
+                    <div class="form-group">
+                    <button type="submit" class="btn btn-primary">
+                    تحديث التصنيف
+                    <i class="icon-arrow-left13 position-right"></i>
+                    </button>
+                    </div>
+                </fieldset>								
+            </form>
+        </div>
+    </div>        
+			      
+			      
+			      
+			        
+
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% endblock %}

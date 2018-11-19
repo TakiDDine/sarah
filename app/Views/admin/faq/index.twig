@@ -1,0 +1,159 @@
+{% extends "admin/layout.twig" %}
+{% block content %}
+
+
+<!-- Main content -->
+<div class="content-wrapper">
+
+
+
+<!-- Page header -->
+<div class="page-header page-header-transparent">
+    <div class="page-header-content">
+        <div class="page-title">
+            <h1><i class="icon-arrow-right6 position-left"></i> <span class="text-semibold">الأسئلة الشائعة</span></h1>
+        </div>
+
+        <div class="heading-elements">
+           {% if posts is not empty %}
+            <a href="{{ path_for('faqs.create') }}" class="btn bg-blue btn-labeled heading-btn"><b>
+            <i class="icon-plus3"></i></b> اضافة سؤال جديد</a>
+            
+ <a href="javascript:void(0);" data-toggle="modal" data-target="#modal_iconified" class="btn bg-danger btn-labeled heading-btn"><b><i class="icon-trash"></i></b> حذف كل الأسئلة الشائعة</a>
+                        
+                        
+		            <!-- Iconified modal -->
+					<div id="modal_iconified" class="modal fade">
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="modal-header">
+									<button type="button" class="close" data-dismiss="modal">&times;</button>
+									<h5 class="modal-title"><i class="icon-menu7"></i> &nbsp;تنبيه وتحذير</h5>
+								</div>
+
+								<div class="modal-body">
+									<div class="alert alert-info alert-styled-left text-blue-800 content-group">
+						                <span class="text-semibold">رجاء !</span> انتبه من الخطوة التالية.
+						                <button type="button" class="close" data-dismiss="alert">×</button>
+						            </div>
+
+									<h6 class="text-semibold"><i class="icon-law position-left"></i> حذف البيانات</h6>
+									<p>عند قيامك بحذف كل الأعضاء فأنت تتحمل كامل المسؤولية ، لا يمكن التراجع عن هذه الخطوة فور اتخاذها 
+									<br>
+									رجاءً، خذ نسخة احتياطية قبل اتخاذ هذا القرار
+									</p>
+
+									
+								</div>
+
+								<div class="modal-footer">
+									<a href="{{path_for('faqs.blukdelete')}}" class="btn btn-link text-danger"  >
+									 أنا موافق ، رجاءً قم بحذف كل البيانات</a>
+									<button class="btn btn-primary" data-dismiss="modal"> اغلاق </button>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- /iconified modal -->
+           {% endif %} 
+        </div>
+    </div>
+</div>
+<!-- /page header -->
+
+
+<!-- Content area -->
+<div class="content">
+			        {% include "admin/elements/flash.twig" %}
+
+
+{% if searchView != true %}
+{% if posts is empty %}
+			
+			<style>
+    .empty_state_icon {
+    font-size: 176px;
+    opacity: 0.1;
+}
+    </style>
+			<div class="empty_state text-center">
+			    
+			<i class="icon-question3 empty_state_icon"></i>
+		<h4> 
+        مرحبا !
+		    لا توجد لديك أية أسئلة حالياً ، يمكنك اضافة أسئلة جديدة 
+		</h4>
+		<a href="{{ path_for('faqs.create') }}" class="btn bg-blue btn-labeled heading-btn"><b><i class="icon-plus3"></i></b> اضافة سؤال جديد</a>
+		
+		
+		
+			</div>
+{% endif %}
+{% endif %}
+
+
+
+{% if posts is not empty %}
+
+<div class="panel panel-flat">
+        <table class="table datatable-basic">
+            <thead>
+                <tr>
+                    <th><b>عنوان السؤال</b></th>
+                    <th><b>تاريخ الإنشاء</b></th>
+                    <th class="text-center"><b>تعديل</b></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for post in posts %}
+                <tr>
+                    <td>
+                        {% if post.question is empty %}
+                    <a href="{{path_for('faqs.edit', {id : post.id})}}">سؤال بدون عنوان</a>
+                    {% else %}
+                    <a href="{{path_for('faqs.edit', {id : post.id})}}">{{ post.question}}</a>
+                    {% endif %}
+                                                
+                    </td>
+                    <td>{{post.created_at.toDateTimeString()|makeNiceTime}}</td>
+                    <td class="text-center">
+                        <ul class="icons-list">
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                    <i class="icon-menu9"></i>
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-right">
+                                    <li><a href="{{path_for('faqs.edit', {id : post.id})}}" class=""><i class="icon-pencil7"></i><b>تعديل السؤال </b></a></li>
+                                    <li><a href="{{path_for('faqs.delete', {id : post.id})}}" class="text-danger"><i class="icon-trash"></i><b>حذف السؤال </b></a></li>
+                                     <li>
+                        <a href="{{path_for('faqs.duplicate', {id : post.id})}}" class="text-bg-info">
+                  <i class="icon-stack-plus position-left"></i>تكرار 
+              </a>
+                        
+                        </li>
+                                    
+                                </ul>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+                {% endfor  %}
+            </tbody>
+            <thead>
+                <tr>
+                    <th><b>عنوان السؤال</b></th>
+                    <th><b>تاريخ الإنشاء</b></th>
+                    <th class="text-center"><b>تعديل</b></th>
+                </tr>
+            </thead>
+        </table>
+        
+    </div>
+
+
+{% include "admin/elements/pagination.twig" %}
+</div>
+{% endif %}
+
+</div>
+{% endblock %}

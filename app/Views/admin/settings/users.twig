@@ -1,0 +1,98 @@
+{% extends "admin/layout.twig" %}
+{% block title %}   اعدادات الأعضاء   {% endblock %}
+{% block content %}
+
+<!-- Main content -->
+<div class="content-wrapper">
+
+
+				<!-- Page header -->
+				<div class="page-header page-header-transparent">
+					<div class="page-header-content">
+						<div class="page-title">
+							<h1> <span class="text-semibold">اعدادات الأعضاء </span></h1>
+						</div>
+					</div>
+				</div>
+				<!-- /page header -->
+
+
+<!-- Content area -->
+<div class="content">
+		
+
+	<div class="panel panel-flat ">
+
+		<div class="panel-body">
+			<form class="form-horizontal" method="post" action="{{path_for('settings.email')}}">
+				<fieldset class="content-group">
+					<div class="form-group">
+						<label class="control-label col-lg-2">  السماح بالتسجيل </label>
+						<div class="col-lg-9">
+							<div class="checkbox checkbox-switchery">
+											<label>
+												<input type="checkbox" class="switchery" checked="checked">
+											</label>
+										</div>
+						</div>
+					</div>
+					
+					
+					<div class="form-group">
+						<label class="control-label col-lg-2"> تفعيل البريد الإلكتروني </label>
+						<div class="col-lg-9">
+							<div class="checkbox checkbox-switchery">
+											<label>
+												<input type="checkbox" class="switchery" checked="checked">
+											</label>
+										</div>
+								<p class="text-muted">ضرورة تفعيل البريد الإلكتروني من أجل استخدام الموقع</p>
+						</div>
+					</div>
+					
+					
+					
+					
+					
+					
+					<div class="form-group">
+						<label class="control-label col-lg-2"> الرتبة الإفتراضية للأعضاء </label>
+						<div class="col-lg-9">
+							 <select style="width:30%;" class="role">
+                                        <option value="#">مستخدم عادي</option>
+                                        <option value="#">مدير</option>
+                                        <option value="#">مسؤول</option>
+                                        <option value="#">كاتب</option>
+                                        <option value="#">مراقب</option>
+                                </select>
+						</div>
+					</div>		
+
+					<div class="form-group">
+						<label class="control-label col-lg-2">  ارسال رسالة الترحيب</label>
+						<div class="col-lg-9">
+							<div class="checkbox checkbox-switchery">
+											<label>
+												<input type="checkbox" class="switchery" checked="checked">
+											</label>
+										</div>
+						</div>
+					</div>
+
+
+
+																
+				</fieldset>
+				<div class="text-right">
+					<input type="hidden" name="validate" value="email_settings">
+					<button type="submit" class="btn btn-primary">تحديث المعلومات<i class="icon-arrow-left13 position-right"></i></button>
+				</div>
+			</form>
+		</div>
+	</div>
+    </div>
+</div>
+<!-- set the select -->		
+<script> $('.role').select2({ placeholder: 'تعيين المستخدم',}); </script>
+	
+{% endblock %}	

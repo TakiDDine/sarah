@@ -1,0 +1,96 @@
+{% extends "website/layout.twig" %}
+{% block title %} Blog {% endblock %}
+
+{% block content %}
+	<!-- Main Content -->
+	<div class="page-container" id="PageContainer">
+		<main class="main-content" id="MainContent" role="main">
+			<section class="collection-heading heading-content ">
+				<div class="container">
+					<div class="row">
+						<div class="collection-wrapper">
+							<h1 class="collection-title"><span>Blog</span></h1>
+							<div class="breadcrumb-group">
+								<div class="breadcrumb clearfix">
+									<span>
+										<a href="{{path_for('website.home')}}"><span>Home</span></a>
+									</span>
+									<span class="arrow-space">/</span>
+									<span>
+										<a href="{{path_for('website.blog')}}"><span>Blog</span></a>
+									</span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+			
+			<section class="blog-content">
+				<div class="blog-wrapper">
+					<div class="container">
+						<div class="row">
+							
+								<div class="blog-inner">
+									<div id="blog">
+										{% include "website/elements/blogsidbar.twig" %}
+										<div class="col-sm-9 articles">
+												<div class="blog-toolbar">
+												<div class="toolbar_left">
+													Items 1 to of total
+												</div>
+												<div class="toolbar_right">
+													<div class="group_toolbar">
+														<!-- View as -->
+														<div class="grid_list">
+															<span class="toolbar_title">Select View</span>
+															<ul class="list-inline option-set hidden-xs" data-option-key="layoutMode">
+																<li data-option-value="fitRows" id="blog_goGrid" class="active goAction " data-toggle="tooltip" data-placement="top" title="" data-original-title="Grid">
+																	<i class="fa fa fa-th"></i>
+																</li>
+																<li data-option-value="straightDown" id="blog_goList" class="goAction " data-toggle="tooltip" data-placement="top" title="" data-original-title="List">
+																	<i class="fa fa-th-list"></i>
+																</li>
+															</ul>
+														</div>
+													</div>
+												</div>
+											</div>
+											<div class="blog-items">
+											{% for post in posts%}
+												<div class="article clearfix col-sm-6 blog_Grid">
+													<div class="article-image">
+														<a href="{{url.base}}{{path_for('website.post',{id : post.id })}}"><img src="{{url.posts}}{{post.thumbnail}}"></a>
+													</div>
+													<div class="articleinfo_group">
+														<div class="article-title">
+															<h2 class="article-name"><a href="{{url.base}}{{path_for('website.post',{id : post.id })}}">{{post.title}}</a></h2>
+														</div>
+														<ul class="article-info list-inline">
+															<li class="article-date">{{post.created_at.toDateTimeString()|makeNiceTime}}</li>
+														</ul>
+														<div class="article-content">
+															<p>{{post.excerpt()}}</p>
+														</div>
+													</div>
+												</div>
+								            {% endfor %}
+											</div>
+											<div class="blog-bottom-toolbar">
+												<div class="blog-counter">
+													{% include "admin/elements/pagination.twig" %}
+												</div>
+												<div class="blog-pagination">
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							
+						</div>
+					</div>
+				</div>
+			</section>
+		</main>
+	</div>
+{% endblock %}

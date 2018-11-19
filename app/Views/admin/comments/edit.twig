@@ -1,0 +1,73 @@
+{% extends "admin/layout.twig" %}
+{% block title %} تعديل التعليق{% endblock %}
+{% block content %}	
+
+
+
+
+<!-- Main content -->
+<div class="content-wrapper">
+
+
+				<!-- Page header -->
+				<div class="page-header page-header-transparent">
+					<div class="page-header-content">
+						<div class="page-title">
+							<h1> <span class="text-semibold">تعديل التعليق</span></h1>
+						</div>
+					</div>
+				</div>
+				<!-- /page header -->
+
+
+<!-- Content area -->
+<div class="content">
+			        {% include "admin/elements/flash.twig" %}
+			  
+			      
+    <div class="panel panel-flat">
+        <div class="panel-body">
+            <form method="post" action="{{path_for('comments.edit' ,  {id : comment.id})}}">
+                <fieldset class="content-group">
+                    <div class="form-group">
+                        <label class="control-label"> التعليق</label>
+                        <textarea class="form-control" id="" cols="30" rows="10" name="content">{{comment.content}}</textarea>
+                    </div>
+                    <div class="form-group">
+                    <button type="submit" class="btn btn-primary">
+                    تحديث التعليق
+                    <i class="icon-arrow-left13 position-right"></i>
+                    </button>
+                    </div>
+                </fieldset>								
+            </form>
+        </div>
+    </div>        
+			      
+			      
+			      
+			        
+
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% endblock %}

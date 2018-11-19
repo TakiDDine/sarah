@@ -1,0 +1,129 @@
+{% extends "admin/layout.twig" %}
+{% block title %} اضافة تصنيف جديد للمنتجات{% endblock %}
+{% block content %}	
+
+
+
+
+<!-- Main content -->
+<div class="content-wrapper">
+
+
+				<!-- Page header -->
+				<div class="page-header page-header-transparent">
+					<div class="page-header-content">
+						<div class="page-title">
+							<h1> <span class="text-semibold">التصنيفات</span></h1>
+							<ul class="breadcrumb position-left">
+								    {% if searchView != true %}
+                                    <p>عدد التصنيفات : {{ pagination.count }} تصنيف</p>
+                                    {% endif %}
+							</ul>
+						</div>
+					</div>
+				</div>
+				<!-- /page header -->
+
+
+<!-- Content area -->
+<div class="content">
+			        {% include "admin/elements/flash.twig" %}
+			  
+			      <div class="col-md-6">
+			          <div class="panel panel-flat">
+ 
+        <div class="panel-body">
+            <form method="post" action="{{path_for('products.categories')}}">
+                <fieldset class="content-group">
+                    <legend class="text-bold">اضافة تصنيف جديد</legend>
+                    <div class="form-group">
+                        <label class="control-label">اسم التصنيف</label>
+                        <input type="text" value="{%  if flash('error') %}{{old.name}}{%  endif %}" class="form-control" name="name" placeholder="اسم التصنيف">
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">رابط التصنيف</label>
+                        <input type="text" value="{%  if flash('error') %}{{old.slug}}{%  endif %}" class="form-control" name="slug" placeholder="رابط التصنيف">
+                    </div>
+                    {% if edit_page == '1' %}
+                    <input type="hidden" name='edit' value="{{old.id}}">
+                    {% endif %}
+                    <div class="form-group">
+                    <button type="submit" class="btn btn-primary">
+                    اضافة التصنيف
+                    <i class="icon-arrow-left13 position-right"></i>
+                    </button>
+                    </div>
+                </fieldset>								
+            </form>
+        </div>
+    </div>        
+			      </div>
+			      
+			      
+			      <div class="col-md-6">
+			          <div class="panel panel-flat">
+    <table class="table datatable datatable-basic">
+        <thead>
+            <tr>
+                <th><b> # </b></th>
+                <th><b>الإسم</b></th>
+                <th><b>الرابط</b></th>
+                <th class="text-center"><b>تعديل</b></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for categorie in categories %}
+            <tr id=''>
+            <td>{{categorie.id}}</td>
+            <td>{{categorie.name}}</td>
+            <td>{{categorie.slug}}</td>
+
+            <td class="text-center">
+                <ul class="icons-list">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-menu9"></i></a>
+                    <ul class="dropdown-menu dropdown-menu-right">
+                     
+                     
+                     <li><a target="_blank" href="{{ path_for('website.category', {'slug': categorie.slug}) }}" class="text-success-600"><i class="icon-eye position-left"></i> معاينة </a></li>
+                      <li><a href="{{ path_for('products.categories.edit', {'id': categorie.id}) }}" class="text-primary-600"><i class="icon-pencil7 position-left"></i>تعديل </a></li>
+                        <li><a class='text-danger' href="{{ path_for('products.categories.delete', {'id': categorie.id}) }}"><i class="icon-trash"></i><b>  حذف </b></a>
+                        
+                        </li>
+                    </ul>
+                </li>
+                </ul>
+            </td>
+            </tr>
+            {% endfor  %}
+        </tbody>
+    </table>
+</div>
+              {% include "admin/elements/pagination.twig" %}
+			      </div>                    
+			
+			        
+
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% endblock %}

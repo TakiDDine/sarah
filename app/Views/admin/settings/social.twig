@@ -1,0 +1,72 @@
+{% extends "admin/layout.twig" %}
+{% block title %} الإعدادات العامة {% endblock %}
+
+{% block content %}
+
+<!-- Main content -->
+<div class="content-wrapper">
+
+<!-- Page header -->
+<div class="page-header page-header-transparent">
+    <div class="page-header-content">
+        <div class="page-title">
+            <h1> <span class="text-semibold">الإعدادات</span></h1>
+        </div>
+
+
+    </div>
+</div>
+<!-- /page header -->
+
+<!-- Content area -->
+<div class="content">
+		{% include "admin/elements/flash.twig" %}
+
+	<div class="panel panel-flat">
+		<div class="panel-heading no-padding-bottom">
+			<h3 class="panel-title">مواقع التواصل الاجتماعي</h3>
+			<p class="no-margin-bottom">رجاء قم بادخاء الرابط الكامل لموقع التواصل الاجتماعي</p>
+		</div>
+		<div class="panel-body">
+			<form class="form-horizontal" method="post" action="{{path_for('settings.social')}}" >
+				<fieldset class="content-group">
+					<legend class="text-bold"></legend>
+					<div class="form-group">
+						<label class="control-label col-lg-3">رابط حساب الفيسبوك</label>
+						<div class="col-lg-9">
+							<input type="text" class="form-control" value='{{"facebook"|options}}' name="facebook" placeholder="حساب الفيسبوك" />
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="control-label col-lg-3">رابط حساب تويتر</label>
+						<div class="col-lg-9">
+							<input type="text" class="form-control" value='{{"twitter"|options}}' name="twitter" placeholder="حساب تويتر" />
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="control-label col-lg-3">رابط حساب انستغرام</label>
+						<div class="col-lg-9">
+							<input type="text" class="form-control" value='{{"instagram"|options}}' name="instagram" placeholder="حساب تويتر" />
+						</div>
+					</div>		
+					<div class="form-group">
+						<label class="control-label col-lg-3">رابط حساب اليوتوب</label>
+						<div class="col-lg-9">
+							<input type="text" class="form-control" value='{{"youtube"|options}}' name="youtube" placeholder="حساب تويتر" />
+						</div>
+                    </div>
+				</fieldset>
+				<div class="text-right">
+					<input type="hidden" name="validate" value="social_settings">
+					<button type="submit" class="btn btn-primary">تحديث المعلومات<i class="icon-arrow-left13 position-right"></i></button>
+				</div>
+			</form>
+		</div>
+	</div>
+
+</div>
+
+
+</div>
+
+{% endblock %}	

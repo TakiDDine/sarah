@@ -1,0 +1,227 @@
+{% extends "admin/layout.twig" %}
+{% block title %} اضافة عضو جديد {% endblock %}
+{% block content %}
+
+<!-- Main content -->
+<div class="content-wrapper">
+
+    <!-- Content area -->
+    <div class="content">
+
+        {% include "admin/elements/flash.twig" %}
+        <form class="form-horizontal" method='POST' action="{{path_for('products.create')}}" enctype="multipart/form-data" >
+        <div class="col-md-9">
+            <div class="panel panel-flat ">
+                <div class="panel-body">
+                        <fieldset class="content-group">
+                            <legend class="text-bold">اضافة منتج جديد</legend>
+                            <div class="form-group">
+                                <label class="control-label col-lg-2">اسم المنتوج</label>
+                                <div class="col-lg-10">
+                                    <input type="text" class="form-control" name="title"  value="{{ old.title }}">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-lg-2">الرابط</label>
+                                <div class="col-lg-10">
+                                    <input type="text" class="form-control" name="slug" value="{{ old.title }}">
+                                </div>
+                            </div>                            
+                            <div class="form-group">
+                                <label class="control-label col-lg-2">الوصف</label>
+                                <div class="col-lg-10">
+                                   <textarea rows="5" name="description" class="form-control" placeholder="المرجوا ادخال وصف المنتوج">{{ old.price }}</textarea>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-lg-2">سعر المنتوج</label>
+                                <div class="col-lg-10">
+                                    <input type="text" class="form-control" name="price" value="{{ old.price }}">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-lg-2"> سعر المنتوج بعد التخفيض</label>
+                                <div class="col-lg-10">
+                                    <input type="text" class="form-control" name="discount_price" value="{{ old.discount_price }}">
+                                </div>
+                            </div>
+                            
+                            
+                            
+                            
+                        </fieldset>
+                        
+                    
+                </div>
+            </div>
+            
+
+   </div>
+   
+   
+<div class="col-md-3">
+   <button type="submit" class="btn btn-block btn-primary">اضافة منتوج جديد <i class="icon-arrow-left13 position-right"></i></button>
+   <br>
+    <div class="panel panel-white">
+        <div class="panel-heading">
+        الصورة الخارجية للمنتوج
+        </div>
+        <div class="panel-body">
+          <div class="preview-thumbnail">
+                    <img src="" id="profile_avatar"  />
+            </div>
+                
+                
+           <label for="ProductThumbnail" class="btn btn-danger btn-rounded"><i class="icon-image2 position-left"></i> اختيار الصورة </label>
+			<input name="ProductThumbnail" id="ProductThumbnail" accept="image/jpg, image/jpeg, image/png" style="visibility:hidden;" type="file" />
+        </div>
+    </div>
+     <div class="panel panel-white">
+        <div class="panel-heading">
+        معرض صور المنتوج
+        </div>
+        <div class="panel-body">
+           <label for="gallery-photo-add" class="btn btn-danger btn-rounded"><i class="icon-image2 position-left"></i> اختيار الصور </label>
+           
+       <div class="gallery"></div>
+        </div>
+        
+        
+<input type="file" name="ProductGallery[]" accept="image/jpg, image/jpeg, image/png" style="visibility:hidden;" multiple id="gallery-photo-add">
+
+       
+       
+        
+        <style>
+         .gallery {
+    width: 95%;
+    margin: 0 auto;
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+            
+            .gallery img {
+    width: 50%;
+}
+            
+         
+.thumbnail{
+
+    height: 100px;
+    margin: 10px; 
+    float: left;
+}
+#clear{
+   display:none;
+}
+#result {
+    border: 4px dotted #cccccc;
+    display: none;
+    float: right;
+    margin:0 auto;
+    width: 511px;
+}
+         </style>
+        
+        
+    </div>
+    <div class="panel panel-white">
+								<div class="panel-heading">
+									<h6 class="panel-title"> تصنيف المنتوج </h6>
+								</div>
+
+								<div class="panel-body">
+									 <select  name="category" style="width:100%;" class="areaUndetected">
+                                        <option value="NOTDEFFINED">غير محدد</option>
+                                        {% for categorie in categories %}
+                                        <option value="{{categorie.id}}">{{categorie.name}}</option>
+                                        {% endfor %} 
+                                </select>
+								</div>
+							</div>
+</div>
+</form>
+   
+   
+    </div>
+</div>            
+ 
+<style>
+.preview-thumbnail img {
+    width: 100%;
+    margin-bottom: 25px;
+}
+
+</style>		
+<script>
+    
+function readURL(input) {
+
+if (input.files && input.files[0]) {
+var reader = new FileReader();
+
+reader.onload = function (e) {
+$('.preview-thumbnail img').attr('src', e.target.result);
+}
+reader.readAsDataURL(input.files[0]);
+}
+}
+    $("#ProductThumbnail").change(function(){
+readURL(this);
+    $("#isAdChanged").val("true");
+});    
+</script>
+
+
+<!-- set the select -->		
+<script> $('.areaUndetected').select2({ placeholder: 'تحديد تصنيف المنتوج',}); </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+   $(function() {
+    // Multiple images preview in browser
+    var imagesPreview = function(input, placeToInsertImagePreview) {
+
+        if (input.files) {
+            var filesAmount = input.files.length;
+
+            for (i = 0; i < filesAmount; i++) {
+                var reader = new FileReader();
+
+                reader.onload = function(event) {
+                    $($.parseHTML('<img>')).attr('src', event.target.result).appendTo(placeToInsertImagePreview);
+                }
+
+                reader.readAsDataURL(input.files[i]);
+            }
+        }
+
+    };
+
+    $('#gallery-photo-add').on('change', function() {
+        imagesPreview(this, 'div.gallery');
+    });
+});
+</script>
+
+
+
+
+
+
+
+
+{% endblock %}	
+            
+            

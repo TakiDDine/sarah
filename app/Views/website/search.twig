@@ -1,0 +1,130 @@
+{% extends "website/layout.twig" %}
+{% block title %} Search {% endblock %}
+
+
+{% block content %}
+	<!-- Main Content -->
+	<div class="page-container" id="PageContainer">
+		<main class="main-content" id="MainContent" role="main">
+			<section class="collection-heading heading-content ">
+				<div class="container">
+					<div class="row">
+						<div class="collection-wrapper">
+							<h1 class="collection-title"><span>Search Page</span></h1>
+							<div class="breadcrumb-group">
+								<div class="breadcrumb clearfix">
+									<span itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb"><a href="./index.html" title="Bridal 1" itemprop="url"><span itemprop="title">Home</span></a>
+									</span>
+									<span class="arrow-space">></span>
+									<span itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+										<a href="./search.html" title="Search for:  'Electronic equipment'" itemprop="url">
+											<span itemprop="title">Search for:  "{{searchQuery}}"</span>
+										</a>
+									</span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+			<section class="search-content">
+				<div class="search-content-wrapper">
+					<div class="container">
+						<div class="row">
+							<div class="search-content-group">
+								<div class="search-content-inner">
+									<div id="search">
+								
+									{% if products is empty %}
+									<style>
+                                        .no-result {
+    padding: 50px 0;
+    text-align: center;
+}
+                                        </style>
+									<div class="no-result">
+									<h1>No Result Found</h1>
+									<h3>Suggestions:</h3>
+<ul>
+    
+
+                                        <li>Make sure that all words are spelled correctly. </li>
+                                        <li>Try different keywords. </li>
+                                        <li>Try more general keywords. </li>
+                                        <li>Try fewer keywords. </li>
+									</ul>
+									</div>
+									{% endif %}
+									
+									
+									
+									
+									 {% for product in products %}
+										<div class="product-item-wrapper col-sm-3">
+											<div class="row-container product list-unstyled clearfix">
+												<div class="row-left">
+													<a href="{{ path_for('website.product', {'id': product.id }) }}" class="hoverBorder container_item">
+														<div class="hoverBorderWrapper">
+														
+														
+                            <img src="{{url.products}}{{ product.ThumbnailsImages().1 }}" class="not-rotation img-responsive front" />
+                            <div class="mask"></div>
+                            <img src="{{url.products}}{{ product.ThumbnailsImages().2 }}" class="rotation img-responsive" />  
+													         
+														</div>
+													</a>
+													<div class="hover-mask">
+														<div class="group-mask">
+															<div class="inner-mask">
+																<div class="group-actionbutton">
+
+																	<ul class="quickview-wishlist-wrapper">
+																		<li class="quickview hidden-xs hidden-sm">
+																			<div class="product-ajax-cart">
+																				<span class="overlay_mask"></span>
+																				<div data-handle="navy-peak-dresses-2" data-target="#quick-shop-modal" class="quick_shop" data-toggle="modal">
+																					<a class=""><i class="fa fa-search" title="Quick View"></i></a>
+																				</div>
+																			</div>
+																		</li>
+																		<li class="wishlist hidden-xs">
+																			<a class="wish-list" data-toggle="modal" data-target="#modalNeedToWishlist">
+																				<span class="hidden-xs"><i class="fa fa-heart" title="Wishlist"></i></span>
+																			</a>
+																		</li>
+																	</ul>
+																</div>
+															</div>
+															<!--inner-mask-->
+														</div>
+														<!--Group mask-->
+													</div>
+												</div>
+												<div class="row-right animMix">
+													<div class="product-title"><a class="title-5" href="{{ path_for('website.product', {'id': product.id }) }}">{{product.name}}</a></div>
+													<div class="rating-star">
+														<span class="spr-badge" data-rating="0.0"><span class="spr-starrating spr-badge-starrating"><i class="spr-icon spr-icon-star-empty" style=""></i><i class="spr-icon spr-icon-star-empty" style=""></i><i class="spr-icon spr-icon-star-empty" style=""></i><i class="spr-icon spr-icon-star-empty" style=""></i><i class="spr-icon spr-icon-star-empty" style=""></i></span><span class="spr-badge-caption">No reviews</span>
+														</span>
+													</div>
+													<div class="product-price">
+														<span class="price_sale"><span class="money" data-currency-usd="$110.00">$110.00</span></span>
+													</div>
+												</div>
+											</div>
+										</div>
+                                        {% endfor %}
+										<center>
+									    {% include "admin/elements/pagination.twig" %}
+									</center>
+									</div>
+									<!-- /#search -->
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+		</main>
+	</div>
+
+{% endblock %}

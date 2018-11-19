@@ -1,0 +1,162 @@
+{% extends "admin/layout.twig" %}
+{% block title %} الطبات {% endblock %}
+
+
+
+{% block content %}
+ <style>
+                    .avatar {
+                        width: 32px;
+                        height: 32px;
+                        border-radius: 50px;
+                        overflow: hidden;
+                    }
+                       .avatar img {
+    width: 100%;
+    height: 100%;
+}
+ .username_text {
+    position: relative;
+    top: 5px;
+}
+                    </style>
+                   
+<!-- Main content -->
+<div class="content-wrapper">
+
+
+				<!-- Page header -->
+				<div class="page-header page-header-transparent">
+					<div class="page-header-content">
+						<div class="page-title">
+						{% if orders is not empty %}
+							<h1> <span class="text-semibold">الطلبات</span></h1>
+							<ul class="breadcrumb position-left">
+                                    <p>عدد الطلبات : {{ pagination.count }} طلبات</p>
+							</ul>
+						</div>
+						
+						
+						
+				        <div class="heading-elements">
+		
+ <a href="javascript:void(0);" data-toggle="modal" data-target="#modal_iconified" class="btn bg-danger btn-labeled heading-btn"><b><i class="icon-trash"></i></b> حذف كل الطلبات</a>
+                        
+                        </div>
+		            <!-- Iconified modal -->
+					<div id="modal_iconified" class="modal fade">
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="modal-header">
+									<button type="button" class="close" data-dismiss="modal">&times;</button>
+									<h5 class="modal-title"><i class="icon-menu7"></i> &nbsp;تنبيه وتحذير</h5>
+								</div>
+
+								<div class="modal-body">
+									<div class="alert alert-info alert-styled-left text-blue-800 content-group">
+						                <span class="text-semibold">رجاء !</span> انتبه من الخطوة التالية.
+						                <button type="button" class="close" data-dismiss="alert">×</button>
+						            </div>
+
+									<h6 class="text-semibold"><i class="icon-law position-left"></i> حذف البيانات</h6>
+									<p>عند قيامك بحذف كل الأعضاء فأنت تتحمل كامل المسؤولية ، لا يمكن التراجع عن هذه الخطوة فور اتخاذها 
+									<br>
+									رجاءً، خذ نسخة احتياطية قبل اتخاذ هذا القرار
+									</p>
+
+									
+								</div>
+
+								<div class="modal-footer">
+									<a href="{{path_for('orders.blukdelete')}}" class="btn btn-link text-danger"  >
+									 أنا موافق ، رجاءً قم بحذف كل البيانات</a>
+									<button class="btn btn-primary" data-dismiss="modal"> اغلاق </button>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- /iconified modal -->
+					{% endif %}
+					</div>
+				</div>
+				<!-- /page header -->
+	
+
+<!-- Content area -->
+<div class="content">
+		
+
+ 
+
+			        {% include "admin/elements/flash.twig" %}
+
+
+
+
+{% if orders is empty %}
+			
+			<style>
+    .empty_state_icon {
+    font-size: 176px;
+    opacity: 0.1;
+}
+    </style>
+			<div class="empty_state text-center">
+			    
+			<i class="icon-basket empty_state_icon"></i>
+		<h4 style="color: #ababab;"> 
+      <br>
+		عند تلقيك لطلب جديد، سوف يظهر هنا.
+
+		</h4>
+	
+			</div>
+{% endif %}
+
+
+
+{% if orders is not empty %}
+<div class="panel panel-flat">
+    <table class="table table-striped trclikable" >
+        <thead>
+            <tr>
+                <th><b>الطلب</b></th>
+                <th><b>تاريخ الإضافة</b></th>
+                <th><b>الحالة</b></th>
+                <th><b>الإجمالي</b></th>
+            </tr>
+        </thead>
+        <tbody>  
+        {% for order in orders %}
+         <tr onclick="window.location='{{path_for('orders.edit',{ id : order.id })}}'">
+            <td> <a href="#">#{{ order.id }}  {{ order.full_name() }}</a>    </td>
+            <td>{{ order.created_at|makeNiceTime }}</td>
+            <td>{{ order.get_statue() }}</td>
+            <td>{{ order.total }}$</td>
+         </tr>
+         {% endfor %}   
+        </tbody>
+        <tfoot>
+            <tr>
+                <th><b>الطلب</b></th>
+                <th><b>تاريخ الإضافة</b></th>
+                <th><b>الحالة</b></th>
+                <th><b>الإجمالي</b></th>
+            </tr>
+        </tfoot>        
+    </table>
+</div>
+{% endif %}
+
+
+		
+
+
+{% include "admin/elements/pagination.twig" %}
+
+    </div>
+</div>
+    
+
+{% endblock %}	
+            

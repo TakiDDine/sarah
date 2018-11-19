@@ -1,0 +1,217 @@
+{% extends "admin/layout.twig" %}
+{% block title %} الأعضاء {% endblock %}
+
+
+
+{% block content %}
+ <style>
+                    .avatar {
+                        width: 32px;
+                        height: 32px;
+                        border-radius: 50px;
+                        overflow: hidden;
+                    }
+                       .avatar img {
+    width: 100%;
+    height: 100%;
+}
+ .username_text {
+    position: relative;
+    top: 5px;
+}
+                    </style>
+                   
+<!-- Main content -->
+<div class="content-wrapper">
+
+
+				<!-- Page header -->
+				<div class="page-header page-header-transparent">
+					<div class="page-header-content">
+						<div class="page-title">
+							<h1> <span class="text-semibold">الأعضاء</span></h1>
+							<ul class="breadcrumb position-left">
+								    {% if searchView != true %}
+                                    <p>عدد الأعضاء : {{ pagination.count }} عضو</p>
+                                    {% endif %}
+							</ul>
+						</div>
+
+						<div class="heading-elements">
+							<a href="{{ path_for('users.create') }}" class="btn bg-blue btn-labeled heading-btn"><b><i class="icon-plus3"></i></b> اضافة عضو جديد</a>
+                        
+                        <a href="javascript:void(0);" data-toggle="modal" data-target="#modal_iconified" class="btn bg-danger btn-labeled heading-btn"><b><i class="icon-trash"></i></b> حذف كل الأعضاء</a>
+                        
+                        
+		            <!-- Iconified modal -->
+					<div id="modal_iconified" class="modal fade">
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="modal-header">
+									<button type="button" class="close" data-dismiss="modal">&times;</button>
+									<h5 class="modal-title"><i class="icon-menu7"></i> &nbsp;تنبيه وتحذير</h5>
+								</div>
+
+								<div class="modal-body">
+									<div class="alert alert-info alert-styled-left text-blue-800 content-group">
+						                <span class="text-semibold">رجاء !</span> انتبه من الخطوة التالية.
+						                <button type="button" class="close" data-dismiss="alert">×</button>
+						            </div>
+
+									<h6 class="text-semibold"><i class="icon-law position-left"></i> حذف البيانات</h6>
+									<p>عند قيامك بحذف كل الأعضاء فأنت تتحمل كامل المسؤولية ، لا يمكن التراجع عن هذه الخطوة فور اتخاذها 
+									<br>
+									رجاءً، خذ نسخة احتياطية قبل اتخاذ هذا القرار
+									</p>
+
+									<hr>
+
+									<p><i class="icon-mention position-left"></i>
+									 تنبيه : الحساب الخاص بالمدير العام للموقع لا يمكن حذفه
+									 </p>
+								</div>
+
+								<div class="modal-footer">
+									<a href="{{ path_for('users.blukdelete') }}" class="btn btn-link text-danger"  >
+									 أنا موافق ، رجاءً قم بحذف كل البيانات</a>
+									<button class="btn btn-primary" data-dismiss="modal"> اغلاق </button>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- /iconified modal -->
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+				            <div class="btn-group">
+                                <a class="btn bg-teal-400" href="{{ path_for('usersToPdf') }}"><i class="icon-file-pdf" ></i>  تحميل نسخة  pdf </a>
+                                <a class="btn bg-teal-400" href="{{ path_for('usersToCsv') }}"><i class="icon-file-excel" ></i>  تحميل نسخة csv</a>
+                            </div>
+						</div>
+					</div>
+				</div>
+				<!-- /page header -->
+
+
+<!-- Content area -->
+<div class="content">
+		
+
+ 
+
+			        {% include "admin/elements/flash.twig" %}
+
+<!-- Search field -->
+<div class="panel panel-flat">
+    <div class="panel-heading">
+        <h5 class="panel-title">البحث عن الأعضاء</h5>
+        <div class="heading-elements">
+            <ul class="icons-list">
+                <li><a data-action="collapse"></a></li>
+                <li><a data-action="close"></a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="panel-body">
+        <form action="{{ path_for('users')}}" method="get" class="main-search">
+            <div class="input-group content-group">
+                <div class="has-feedback has-feedback-left">
+                    <input type="text" class="form-control input-xlg" value="" 
+                    placeholder="ابحث عن العضو عن طريق الإميل / اسم المستخدم" name="search" />
+                    <div class="form-control-feedback">
+                        <i class="icon-search4 text-muted text-size-base"></i>
+                    </div>
+                </div>
+
+                <div class="input-group-btn">
+                    <button type="submit" class="btn btn-primary btn-xlg">بحث</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<!-- /search field -->
+
+
+{% if searchView == true %}
+{% if users is  empty %}
+
+<center>
+<h1>لا توجد أية نتائج للكلمة التي تبحث عنها</h1>
+<h6>المرجوا ادخال كلمات أكثر دقة والمحاولة مرة أخرى</h6>
+</center>
+
+{% endif %}
+{% endif %}
+
+
+{% if users is not empty %}
+
+<div class="panel panel-flat">
+    <table class="table table-striped" >
+        <thead>
+            <tr>
+                <th><b>#</b></th>
+                <th class="col-md-2"><b>اسم المستخدم</b></th>
+                <th><b>الإميل</b></th>
+                <th><b>تاريخ التسجيل</b></th>
+                <th><b>الرتبة</b></th>
+                <th><b>حالة الحساب</b></th>
+                <th class="text-center"><b>تعديل</b></th>
+            </tr>
+        </thead>
+        <tbody>  
+        {% for user in users %}
+         <tr>
+             <td>{{ user.id }}</td>
+            <td>
+                <div class="media-left media-middle">{{user.avatar|smallAvatar}}</div>
+                <div class="media-body">
+                    <span class="display-inline-block text-default letter-icon-title username_text">
+                    {{ user.username}}
+                    </span>
+                </div>
+            </td>
+             <td>{{ user.email}}</td>
+             <td>{{ user.created_at|makeNiceTime }}</td>
+             <td>{{ user.username|displayRole }}</td>
+             <td>{{ user.username|displayStatue }}</td>
+             <td>
+              <a href="{{ path_for('users.edit', {'username': user.username}) }}" class="text-primary-600">
+                  <i class="icon-pencil7 position-left"></i>تعديل </a>
+             </td>
+         </tr>
+         {% endfor %}   
+        </tbody>
+        <tfoot>
+            <tr>
+                <th><b>#</b></th>
+                <th class="col-md-2"><b>اسم المستخدم</b></th>
+                <th><b>الإميل</b></th>
+                <th><b>تاريخ التسجيل</b></th>
+                <th><b>الرتبة</b></th>
+                <th><b>حالة الحساب</b></th>
+                <th class="text-center"><b>تعديل</b></th>
+            </tr>
+        </tfoot>
+    </table>
+</div>
+{% endif %}
+
+
+{% include "admin/elements/pagination.twig" %}
+
+    </div>
+</div>
+    
+
+{% endblock %}	
+            

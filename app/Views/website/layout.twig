@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<!--[if IE 8 ]> <html lang="en" class="no-js ie8"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> <html lang="en" class="no-js"> <!--<![endif]-->
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="canonical" href="" />
+	<meta name="theme-color" content="#7796A8">
+	<meta name="description" content="{{ 'keywords'|options }}" />
+	<title>{{ 'name'|options }} - {% block title %} {% endblock %}</title>
+	<link rel="icon" type="image/x-icon" href="{{url.general }}{{  'favicon'|options }}" /> 
+	
+	
+	
+	
+	<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700">
+	<link href="{{website_assets}}stylesheets/bootstrap.min.css" rel="stylesheet" type="text/css" media="all">  
+	<link href="{{website_assets}}stylesheets/fonts.googleapis.css" rel="stylesheet" type="text/css" media="all">
+	<link href="{{website_assets}}stylesheets/font-awesome.min.css" rel="stylesheet" type="text/css" media="all">
+	<link href="{{website_assets}}stylesheets/icon-font.min.css" rel="stylesheet" type="text/css" media="all">
+	<link href="{{website_assets}}stylesheets/social-buttons.css" rel="stylesheet" type="text/css" media="all">
+	<link href="{{website_assets}}stylesheets/cs-1.styles.css" rel="stylesheet" type="text/css" media="all">
+	<link href="{{website_assets}}stylesheets/owl.carousel.min.css" rel="stylesheet" type="text/css" media="all">
+	<link href="{{website_assets}}stylesheets/spr.css" rel="stylesheet" type="text/css" media="all">
+	<link href="{{website_assets}}stylesheets/slideshow-fade.css" rel="stylesheet" type="text/css" media="all">
+	<link href="{{website_assets}}stylesheets/cs.animate.css" rel="stylesheet" type="text/css" media="all">
+	
+	<script type="text/javascript" src="{{website_assets}}javascripts/jquery.min.js"></script>
+	<script type="text/javascript" src="{{website_assets}}javascripts/classie.js"></script>
+	<script type="text/javascript" src="{{website_assets}}javascripts/cs.optionSelect.js"></script>
+	<script type="text/javascript" src="{{website_assets}}javascripts/cs.script.js"></script>
+	<script type="text/javascript" src="{{website_assets}}javascripts/jquery.currencies.min.js"></script>
+	<script type="text/javascript" src="{{website_assets}}javascripts/jquery.zoom.min.js"></script>
+	<script type="text/javascript" src="{{website_assets}}javascripts/linkOptionSelectors.js"></script>
+	<script type="text/javascript" src="{{website_assets}}javascripts/owl.carousel.min.js"></script>
+	<script type="text/javascript" src="{{website_assets}}javascripts/scripts.js"></script>
+	<script type="text/javascript" src="{{website_assets}}javascripts/social-buttons.js"></script>
+	<script type="text/javascript" src="{{website_assets}}javascripts/bootstrap.min.js"></script>
+	<script type="text/javascript" src="{{website_assets}}javascripts/jquery.touchSwipe.min.js"></script>
+
+<style>
+.social-sharing .icon {
+    padding: 0px 35px 30px 10px;
+}
+    .description {
+    margin-right: 55px;
+}
+    .product-price {
+    margin-top: 16px;
+}
+.group-actionbutton {
+    display: none !important;
+}
+    .alert-success.mail_list_flash {
+    margin-bottom: 0;
+    position: fixed;
+    top: 0;
+    z-index: 545454545454;
+    right: 0;
+    left: 0;
+    text-align: center;
+    border-radius: 0;
+}
+    .product .product-title {
+    margin-bottom: -12px;
+}
+</style>
+
+</head>
+
+<body class="index-template sarahmarket_1">
+
+
+
+{%  if flash('email_list') %}
+<ul class="alert alert-success mail_list_flash" style="list-style:none;">
+    {% for msg in flash('email_list') %}
+    <li>{{ msg }}</li>
+    {% endfor %}
+</ul>
+{%  endif %}
+
+	<!--Header-->
+	<header id="top" class="header clearfix">
+		<div id="shopify-section-theme-header" class="shopify-section">
+			<div data-section-id="theme-header" data-section-type="header-section">
+				<section class="top-header">
+					<div class="top-header-wrapper">
+						<div class="container">
+							<div class="row">
+								<div class="top-header-inner">
+									<ul class="unstyled top-menu">
+                                            
+									{% for menu in menus %}
+                                        {% if menu.area == 'top_menu' %}
+                                        {% for menu in menu.the_menu() %}
+                                            
+                                            <li class="nav-item active">
+                                                    <a href="{{menu.slug}}">
+                                                        <span>{{menu.name}}</span>
+                                                    </a>
+                                            </li>
+                                            {% endfor %}
+                                        {% endif %}
+								    {% endfor %}
+								
+										{% if not user %} 
+										<!-- Customer Links -->
+										<li class="toolbar-customer login-account">
+												<a href="{{path_for('website.login')}}">Login</a>
+										</li>
+										<li class="toolbar-customer log-out"><a href="{{path_for('website.register')}}"><span>/</span> Register</a></li>
+										
+										
+										{% else %}
+										<li class="nav-item">
+                                                    <a href="{{path_for('website.logout')}}">
+                                                        <span>Logout</span>
+                                                    </a>
+                                         </li>
+										{% endif %}
+										
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+				</section>
+
+				<section class="main-header">
+					<div class="main-header-wrapper">
+						<div class="container clearfix">
+							<div class="row">
+								<div class="main-header-inner">
+									<div class="nav-top">
+										<div class="nav-logo">
+											<a href="{{path_for('website.home')}}"><img src="{{url.general }}{{  'logo'|options }}"></a>
+										</div>
+										<div class="group-search-cart">
+											<div class="nav-search">
+												<form class="search" action="{{path_for('website.search')}}">
+													<input type="text" name="q" class="search_box" placeholder="Enter your keyword ..." value="">
+													<div class="collections-selector">
+														<select class="single-option-selector" data-option="collection-option" id="collection-option" name="collection">
+															<option value="all">All Categories</option>
+															  {% for categorie in searchCategories %}
+                                                                <option value="{{categorie.id}}">{{categorie.name}}</option>
+                                                              {% endfor %} 
+															
+														</select>
+													</div>
+													<button class="search_submit" type="submit">
+														<svg aria-hidden="true" role="presentation" class="icon icon-search" viewBox="0 0 37 40"><path d="M35.6 36l-9.8-9.8c4.1-5.4 3.6-13.2-1.3-18.1-5.4-5.4-14.2-5.4-19.7 0-5.4 5.4-5.4 14.2 0 19.7 2.6 2.6 6.1 4.1 9.8 4.1 3 0 5.9-1 8.3-2.8l9.8 9.8c.4.4.9.6 1.4.6s1-.2 1.4-.6c.9-.9.9-2.1.1-2.9zm-20.9-8.2c-2.6 0-5.1-1-7-2.9-3.9-3.9-3.9-10.1 0-14C9.6 9 12.2 8 14.7 8s5.1 1 7 2.9c3.9 3.9 3.9 10.1 0 14-1.9 1.9-4.4 2.9-7 2.9z"></path></svg>
+													</button>
+												</form>
+											</div>
+											<div class="nav-cart " id="cart-target">
+												<div class="cart-info-group">
+													<a href="{{path_for('website.cart')}}" class="cart dropdown-toggle dropdown-link" data-toggle="dropdown">
+														<i class="sub-dropdown1 visible-sm visible-md visible-lg"></i>
+														<i class="sub-dropdown visible-sm visible-md visible-lg"></i> 
+														<div class="num-items-in-cart">
+															<div class="items-cart-left">
+																<img class="cart_img" src="{{website_assets}}images/bg-cart.png">
+																{% if cart is not empty %}<span class="cart_text icon">
+																
+																<span class="number">{{ cart|length }}</span>
+																
+																</span> {% endif %}      
+															</div>
+															<div class="items-cart-right">
+																<span class="title_cart">My Cart</span>        
+															</div>
+														</div>
+													</a>{% if cart is not empty %}
+													<div class="dropdown-menu cart-info lmajmo3" style="display: none;">
+														<div class="cart-content">
+															<div class="items control-container ">
+															{% for item in cart %}
+																<div class="row cartlibayna">
+																	<a class="cart-close" href="{{url.base}}{{path_for('cart.delete',{ id: item.cartID})}}">
+																		<i class="fa fa-times"></i>
+																	</a>
+																	<div class="cart-left">
+																		<a class="cart-image" href="{{path_for('website.product',{id : item.productID})}}">
+																			<img src="{{url.products}}{{item.thumbnail}}">
+																		</a>
+																	</div>
+																	<div class="cart-right">
+																		<div class="cart-title"><a href="{{path_for('website.product',{id : item.productID})}}">{{item.name}}</a></div>
+																		<div class="cart-price"><span class="money">{{item.price}}</span><span class="x"> x <span class="drb">{{item.quantity}}</span></span></div>
+																	</div>
+																</div>
+																{% endfor %}
+																
+																
+															</div>
+															<div class="subtotal"><span>Subtotal:</span><span class="cart-total-right money" >$</span></div>
+															<div class="action"><button class="btn" onclick="window.location='{{path_for('website.cart')}}'">View Cart<i class="fa fa-caret-right"></i></button><button class="btn float-right" onclick="window.location='{{path_for('website.checkout')}}'">CHECKOUT<i class="fa fa-caret-right"></i></button></div>
+														</div>
+													</div>{% endif %}
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="mobile-navigation">
+										<button id="showLeftPush" class="visible-xs"><i class="fa fa-bars fa-2x"></i></button>
+										<div class="nav-logo visible-xs">
+											<div><a href="{{path_for('website.home')}}"><img src="{{url.general }}{{  'logo'|options }}"></a></div>
+										</div>
+										
+										<!-- phone cart -->
+										<div class="icon_cart visible-xs">
+											<div class="cart-info-group">
+												<a href="{{path_for('website.cart')}}" class="cart dropdown-toggle dropdown-link">
+													<i class="sub-dropdown1 visible-sm visible-md visible-lg"></i>
+													<i class="sub-dropdown visible-sm visible-md visible-lg"></i> 
+													<div class="num-items-in-cart">
+														<div class="items-cart-left">
+															<img class="cart_img" src="{{url.base}}assets/images/bg-cart.png" >
+															{% if cart is not empty %}<span class="cart_text icon"><span class="number">{{ cart|length }}</span></span>  {% endif %}     
+														</div>
+													</div>
+												</a>
+											</div>
+										</div>
+										<div class="nav-search visible-xs">
+											<form class="search" action="{{path_for('website.search')}}">
+												<input type="hidden" name="type" value="product">
+												<input type="text" name="q" class="search_box" placeholder="Enter your keyword ..." value="">
+												<button class="search_submit" type="submit">
+													<svg aria-hidden="true" role="presentation" class="icon icon-search" viewBox="0 0 37 40"><path d="M35.6 36l-9.8-9.8c4.1-5.4 3.6-13.2-1.3-18.1-5.4-5.4-14.2-5.4-19.7 0-5.4 5.4-5.4 14.2 0 19.7 2.6 2.6 6.1 4.1 9.8 4.1 3 0 5.9-1 8.3-2.8l9.8 9.8c.4.4.9.6 1.4.6s1-.2 1.4-.6c.9-.9.9-2.1.1-2.9zm-20.9-8.2c-2.6 0-5.1-1-7-2.9-3.9-3.9-3.9-10.1 0-14C9.6 9 12.2 8 14.7 8s5.1 1 7 2.9c3.9 3.9 3.9 10.1 0 14-1.9 1.9-4.4 2.9-7 2.9z"></path></svg>
+												</button>
+											</form>
+										</div>
+										<div class="mobile-navigation-inner">
+											<div class="mobile-navigation-content">
+												<div class="mobile-top-navigation visible-xs">
+													<div class="mobile-content-top" style="padding-top:15px;">
+														
+														<div class="mobile-top-account">
+															<div class="is-mobile-login">
+																<ul class="customer">
+																	<li class="logout">
+																		<a href="{{path_for('website.login')}}"><i class="fa fa-user" aria-hidden="true"></i>
+																			<span>Login</span>
+																		</a>
+																	</li>
+																	<li class="account">
+																		<a href="{{path_for('website.register')}}"><i class="fa fa-user-plus" aria-hidden="true"></i>
+																			<span>Register</span>
+																		</a>
+																	</li>
+																	<li class="is-mobile-cart">
+																		<a href="{{path_for('website.cart')}}">
+																			<div class="num-items-in-cart">
+																				<i class="fa fa-shopping-cart"></i>
+																				<span>Cart</span>
+																				<div class="ajax-subtotal" style="display:none;"></div>
+																			</div>
+																		</a>
+																	</li>
+																</ul>
+															</div>
+														</div>
+													</div>
+												</div>
+												<div class="nav-menu visible-xs leftnavi" id="is-mobile-nav-menu">
+													<div class="is-mobile-menu-content">
+														<div class="mobile-content-link">
+															<ul class="nav navbar-nav hoverMenuWrapper">
+															
+													<!-- phone Manu -->		
+                                    {% for menu in menus %}
+                                    {% if menu.area == 'main_menu' %}
+                                    {% for menu in menu.the_menu() %}
+
+                                        <li class="nav-item">
+                                                <a href="{{menu.slug}}">
+                                                    <span>{{menu.name}}</span>
+                                                </a>
+                                        </li>
+                                        {% endfor %}
+                                    {% endif %}
+								    {% endfor %}
+															</ul>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</section>
+				<section class="navigation-header">
+					<div class="navigation-header-wrapper">
+						<div class="container clearfix">
+							<div class="row">
+								<div class="main-navigation-inner">
+									<div class="navigation_area">
+										<div class="navigation_left">
+											<div class="group_navbtn">
+												<a href="collections.html" class="dropdown-toggle" data-toggle="dropdown">                     
+													<span class="dropdown-toggle">
+													  Shop By Category
+													</span>
+													<i class="fa fa-bars" aria-hidden="true"></i>
+												</a>
+												<ul class="navigation_links_left dropdown-menu" style="display: none;">
+                                                 
+                                                   
+                                                   {% for i in 0..7 %}
+                                                        <li class="nav-item _icon">
+                                                        <a href="{{path_for('website.shop.cats', { slug : searchCategories[i].slug })}}">
+															<span>{{searchCategories[i].name}}</span>
+														</a>
+													</li> 
+                                                    {% endfor %}
+                                                   
+                                                   
+                                                   
+                                                   
+                                                    
+												</ul>
+											</div>
+										</div>
+										<div class="navigation_right">
+											<ul class="navigation_links">
+											
+									{% for menu in menus %}
+                                    {% if menu.area == 'main_menu' %}
+                                    {% for menu in menu.the_menu() %}
+                                        <li class="nav-item">
+                                                <a href="{{menu.slug}}">
+                                                    <span>{{menu.name}}</span>
+                                                </a>
+                                        </li>
+                                        {% endfor %}
+                                    {% endif %}
+								    {% endfor %}
+											
+											</ul>
+										</div>
+										<div class="navigation_icon">
+											<div class="navigation_icon_group">
+												<div class="icon_cart">
+													<div class="cart-info-group">
+														<a href="{{path_for('website.cart')}}" class="cart dropdown-toggle dropdown-link" data-toggle="dropdown">
+															<i class="sub-dropdown1 visible-sm visible-md visible-lg"></i>
+															<i class="sub-dropdown visible-sm visible-md visible-lg"></i> 
+															<div class="num-items-in-cart">
+																<div class="items-cart-left">
+																	<img class="cart_img" src="{{url.base}}assets/images/bg-cart.png" >
+																	{% if cart is not empty %}
+																	<span class="cart_text icon"><span class="number">{{cart|length}}</span></span>       
+																	{% endif %}
+																</div>
+															</div>
+														</a>
+														<!-- hna -->{% if cart is not empty %}
+														<div class="dropdown-menu cart-info lmajmo3" style="display: none;">
+														<div class="cart-content">
+															<div class="items control-container ">
+															{% for item in cart %}
+																<div class="row cartlibayna">
+																	<a class="cart-close" href="{{url.base}}{{path_for('cart.delete',{ id: item.cartID})}}">
+																		<i class="fa fa-times"></i>
+																	</a>
+																	<div class="cart-left">
+																		<a class="cart-image" href="{{path_for('website.product',{id : item.productID})}}">
+																			<img src="{{url.products}}{{item.thumbnail}}">
+																		</a>
+																	</div>
+																	<div class="cart-right">
+																		<div class="cart-title"><a href="{{path_for('website.product',{id : item.productID})}}">{{item.name}}</a></div>
+																		<div class="cart-price"><span class="money">{{item.price}}</span><span class="x"> x <span class="drb">{{item.quantity}}</span></span></div>
+																	</div>
+																</div>
+																{% endfor %}
+																
+																
+															</div>
+															<div class="subtotal"><span>Subtotal:</span><span class="cart-total-right money" >$</span></div>
+															<div class="action"><button class="btn" onclick="window.location='{{path_for('website.cart')}}'">View Cart<i class="fa fa-caret-right"></i></button><button class="btn float-right" onclick="window.location='{{path_for('website.checkout')}}'">CHECKOUT<i class="fa fa-caret-right"></i></button></div>
+														</div>
+													</div>
+													{% endif %}
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</section>
+			</div>
+			<script>
+				function addaffix(scr) {
+					if ($(window).innerWidth() >= 992) {
+						if (scr > 170) {
+							if (!$('#top').hasClass('affix')) {
+								$('#top').addClass('affix').addClass('fadeInDown animated');
+							}
+						} else {
+							if ($('#top').hasClass('affix')) {
+								$('#top').prev().remove();
+								$('#top').removeClass('affix').removeClass('fadeInDown animated');
+							}
+						}
+					} else $('#top').removeClass('affix');
+				}
+				$(window).scroll(function() {
+					var scrollTop = $(this).scrollTop();
+					addaffix(scrollTop);
+				});
+				$(window).resize(function() {
+					var scrollTop = $(this).scrollTop();
+					addaffix(scrollTop);
+				});
+			</script>
+		</div>
+	</header>
+	<div class="fix-sticky"></div>
+	
+
+
+        {% block content %} 
+
+        {% endblock %}
+
+
+
+	<!-- Footer -->
+	<footer class="footer">
+		<div id="shopify-section-theme-footer-top" class="shopify-section">
+			<section class="footer_service_block">
+				<div class="footer_service_wrapper">
+					<div class="container">
+						<div class="row">
+							<div class="footer_service_inner">
+								<div class="footer_service_content">
+									<div class="col-5 service_item">
+										<span class="footer-title">
+											{{'footer_text_widget_title_1'|options }}
+										</span>
+										<div class="service_caption">
+											{{'footer_text_widget_content_1'|options }}
+										</div>
+									</div>
+									<div class="col-5 service_item">
+										<span class="footer-title">
+											{{'footer_text_widget_title_2'|options }}
+										</span>
+										<div class="service_caption">
+											{{'footer_text_widget_content_2'|options }}
+										</div>
+									</div>
+									<div class="col-5 service_item">
+										<span class="footer-title">
+											{{'footer_text_widget_title_3'|options }}
+										</span>
+										<div class="service_caption">
+											{{'footer_text_widget_content_3'|options }}
+										</div>
+									</div>
+									<div class="col-5 service_item">
+										<span class="footer-title">
+											{{'footer_text_widget_title_4'|options }}
+										</span>
+										<div class="service_caption">
+											{{'footer_text_widget_content_4'|options }}
+										</div>
+									</div>
+									<div class="col-5 service_item">
+										<span class="footer-title">
+											{{'footer_text_widget_title_5'|options }}
+										</span>
+										<div class="service_caption">
+											{{'footer_text_widget_content_5'|options }}
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+			<section class="footer_newsoc_block">
+				<div class="footer_newsoc_wrapper">
+					<div class="container">
+						<div class="row">
+							<div class="_line"></div>
+							<div class="footer_newsoc_inner">
+								<div class="footer_newsoc_content" style="width:80% !important; margin:0 auto;">
+									<div class="footer_newsletter_content">
+										<span class="footer-title">
+											Delivering the latest product trends  straight to your inbox.
+										</span>
+										<div class="newsletter_content">
+											<form method="POST" action="{{path_for('mailist.add')}}" >
+												<input type="email" class="form-control" value="" name="email" id="mail" placeholder="Enter your email">
+												<button type="submit" class="btn_newsletter_send btn" name="subscribe" id="subscribe">Submit</button>
+											</form>
+											<span class="newsletter_caption">
+												We’ll never share your email address with a third-party.
+											</span>
+										</div>
+									</div>
+									<div class="footer_social_content">
+										<span class="footer-title">
+											Stay Connected
+										</span>
+										<div class="social_content">
+										 {% if 'footer_link_fb'|options is not empty %}  
+											<a href="{{'footer_link_fb'|options }}"  class="icon-social facebook"><i class="fa fa-facebook"></i></a>
+                                        {% endif %}		
+                                        	
+                                            {% if 'footer_link_tw'|options is not empty %}  																	
+											<a href="{{'footer_link_tw'|options }}"  class="icon-social twitter"><i class="fa fa-twitter"></i></a>
+											{% endif %}	
+											
+											{% if 'footer_link_pi'|options is not empty %}  
+											<a href="{{'footer_link_pi'|options }}" class="icon-social pinterest"><i class="fa fa-pinterest"></i></a>
+											{% endif %}	
+											
+											{% if 'footer_link_ins'|options is not empty %}  
+											<a href="{{'footer_link_ins'|options }}"class="icon-social instagram"><i class="fa fa-instagram"></i></a>
+											{% endif %}	
+											
+											{% if 'footer_link_yb'|options is not empty %}  
+											<a href="{{'footer_link_yb'|options }}"  class="icon-social youtube"><i class="fa fa-youtube"></i></a>
+											{% endif %}	
+											
+											{% if 'footer_link_vie'|options is not empty %}  
+											<a href="{{'footer_link_vie'|options }}"  class="icon-social vimeo"><i class="fa fa-vimeo"></i></a>
+											{% endif %}	
+											
+										</div>
+									</div>
+									
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+		</div>
+		<div id="shopify-section-theme-footer-bottom" class="shopify-section">
+			<section class="footer_linklist_block">
+				<div class="footer_linklist_wrapper">
+					<div class="container">
+						<div class="row">
+							<div class="_line"></div>
+                       
+<!-- bda -->
+                                <div class="footer_linklist_inner">
+								<div class="footer_linklist_content">
+									<div class="col-sm-3 linklist_item">
+									{% for menu in menus %}
+                                        {% if menu.area == 'footer_1' %}
+                                        <span class="footer-title">
+											{{menu.name}}
+										</span>
+                                       <div class="linklist_content">
+											<ul class="linklist_menu">
+                                        {% for menu in menu.the_menu() %}
+                                            <li>
+                                                    <a href="{{menu.slug}}">
+                                                        <span>{{menu.name}}</span>
+                                                    </a>
+                                            </li>
+                                            {% endfor %}
+                                        </ul>
+								        </div>
+								         {% endif %}
+                                        {% endfor %}
+									</div>
+									
+                                </div>
+								<div class="footer_linklist_content">
+									<div class="col-sm-3 linklist_item">
+									{% for menu in menus %}
+                                        {% if menu.area == 'footer_2' %}
+                                        <span class="footer-title">
+											{{menu.name}}
+										</span>
+                                       <div class="linklist_content">
+											<ul class="linklist_menu">
+                                        {% for menu in menu.the_menu() %}
+                                            <li>
+                                                    <a href="{{menu.slug}}">
+                                                        <span>{{menu.name}}</span>
+                                                    </a>
+                                            </li>
+                                            {% endfor %}
+                                          
+                                        </ul>
+								    </div>
+								      {% endif %}
+                                        {% endfor %}
+									</div>
+                                </div>
+								<div class="footer_linklist_content">
+									<div class="col-sm-3 linklist_item">
+									{% for menu in menus %}
+                                        {% if menu.area == 'footer_3' %}
+                                        <span class="footer-title">
+											{{menu.name}}
+										</span>
+                                       <div class="linklist_content">
+											<ul class="linklist_menu">
+                                        {% for menu in menu.the_menu() %}
+                                            <li>
+                                                    <a href="{{menu.slug}}">
+                                                        <span>{{menu.name}}</span>
+                                                    </a>
+                                            </li>
+                                            {% endfor %}
+                                            
+                                        </ul>
+								    </div>
+								    {% endif %}
+                                        {% endfor %}
+									</div>
+                                </div>	
+								<div class="footer_linklist_content">
+									<div class="col-sm-3 linklist_item">
+									{% for menu in menus %}
+                                        {% if menu.area == 'footer_4' %}
+                                        <span class="footer-title">
+											{{menu.name}}
+										</span>
+                                       <div class="linklist_content">
+											<ul class="linklist_menu">
+                                        {% for menu in menu.the_menu() %}
+                                            <li>
+                                                    <a href="{{menu.slug}}">
+                                                        <span>{{menu.name}}</span>
+                                                    </a>
+                                            </li>
+                                            {% endfor %}
+                                            
+                                        </ul>
+								    </div>
+								    {% endif %}
+                                        {% endfor %}
+									</div>
+									
+								</div>
+							</div>
+						</div>
+<!-- sala -->
+
+
+
+
+
+
+
+                        </div>	
+					</div>
+				</div>
+			</section>
+			<section class="copy-right">
+				<div class="copy-right-wrapper">
+					<div class="container">
+						<div class="row">
+							<div class="_line"></div>
+							<div class="copy-right-inner">
+								<div class="copy-right-group">
+									<div class="footer_copyright">{{'footer_copyrights'|options }}</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+		</div>
+	</footer>
+
+	
+	<!-- Float right icon -->
+	<div class="float-right-icon">
+		<ul>
+			<li>
+				<div id="scroll-to-top" data-toggle="" data-placement="left" title="Scroll to Top" class="off">
+					<i class="fa fa-angle-up"></i>
+				</div>
+			</li>
+		</ul>
+	</div>
+	
+	
+	
+	{%if 'ganalitycs'|options is not empty %}
+<!-- Google Analytics -->
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+ga('create', "{{ 'ganalitycs'|options }}", 'auto');
+ga('send', 'pageview');
+</script>
+<!-- End Google Analytics -->
+{% endif %}
+	
+	
+	
+<script>
+$(document).ready(function(){
+        var total = 0;
+
+        $( ".lmajmo3 .cartlibayna").each(function() {
+           var price = $(this).find( ".money" ).text();
+           var qts   = $(this).find( ".drb" ).text();
+          total += price*qts;
+        });
+        $(' .lmajmo3 .subtotal .money').append(total);
+
+});
+</script>
+	
+			
+</body>
+</html>
+
+

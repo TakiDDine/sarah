@@ -1,0 +1,265 @@
+{% extends "admin/layout.twig" %}
+{% block title %} الإعدادات العامة {% endblock %}
+
+{% block content %}
+
+<!-- Main content -->
+<div class="content-wrapper">
+
+<!-- Page header -->
+<div class="page-header page-header-transparent">
+    <div class="page-header-content">
+        <div class="page-title">
+            <h1> <span class="text-semibold">الإعدادات</span></h1>
+        </div>
+
+        <div class="heading-elements">
+            <a href="?export=database" class="btn bg-blue btn-labeled heading-btn"><b><i class="icon-download"></i></b> تحميل قاعدة البيانات</a>
+            <a href="{{ path_for('logs')}}" class="btn bg-blue heading-btn"> سجل التعديلات</a>
+
+
+        </div>
+    </div>
+</div>
+<!-- /page header -->
+
+<!-- Content area -->
+<div class="content">
+		{% include "admin/elements/flash.twig" %}
+<div class="col-md-8">
+	<div class="panel panel-flat">
+		<div class="panel-heading no-padding-bottom">
+			<h3 class="panel-title">المعلومات الخاصة بالموقع</h3>
+			<p class="no-margin-bottom">المرجوا ادخال المعلومات التالية بعناية</p>
+		</div>
+		<div class="panel-body">
+			<form class="form-horizontal" method="post" action="{{path_for('settings.general')}}" enctype='multipart/form-data'>
+				<fieldset class="content-group">
+					<legend class="text-bold"></legend>
+					
+					<style>
+                    
+                    .setting-preview-img {
+    width: 250px;
+    height: 90px;
+    border: 1px solid whitesmoke;
+    overflow: hidden;
+}
+
+.setting-preview-img img {
+    width: 100%;
+}
+                    </style>
+					
+					<div class="form-group">
+						<label class="control-label col-lg-3">شعار الموقع</label>
+						<div class="col-lg-9">
+							<div class="col-lg-3">
+							   <label for="logo" class="btn btn-danger btn-rounded"><i class="icon-image2 position-left"></i> اختيار الصورة </label>
+							   <input name="logo" id="logo" accept="image/jpg, image/jpeg, image/png" style="visibility:hidden;" type="file" />
+						</div>
+						</div>
+						<div class="col-md-12">
+				         <label class="control-label col-lg-3"></label>
+						 <div class="setting-preview-img">
+						<img src="{{url.general }}{{  'logo'|options }}" alt="">
+						</div>
+						</div>
+						
+					</div>
+					
+					<div class="form-group">
+						<label class="control-label col-lg-3">ايقونة الموقع </label>
+						<div class="col-lg-9">
+							<div class="col-lg-3">
+							   <label for="favicon" class="btn btn-danger btn-rounded"><i class="icon-image2 position-left"></i> اختيار الصورة </label>
+							   <input name="favicon" id="favicon" accept="image/jpg, image/jpeg, image/png" style="visibility:hidden;" type="file" />
+						</div>
+						</div>
+						
+						<div class="col-md-12">
+				         <label class="control-label col-lg-3"></label>
+						 <div class="setting-preview-img">
+						<img src="{{url.general }}{{  'favicon'|options }}" alt="">
+						</div>
+						</div>
+						
+					</div>
+					<hr>
+					<div class="form-group">
+						<label class="control-label col-lg-3">اسم الموقع</label>
+						<div class="col-lg-9">
+							<input type="text" class="form-control" value="{{ 'name'|options }}" name="name" placeholder="اسم الموقع">
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="control-label col-lg-3">سطر الوصف</label>
+						<div class="col-lg-9">
+							<input type="text" class="form-control"  value="{{ 'description'|options }}" name="description" placeholder="اسم الموقع">
+							<p>بكلمات قليلة، أكتب نبذة قصيرة عن الموقع.</p>
+						</div>
+					</div>	
+					<div class="form-group">
+						<label class="control-label col-lg-3">الكلمات المفتاحية</label>
+						<div class="col-lg-9">
+							<textarea name="keywords" class="form-control" rows="3">{{ 'keywords'|options }}</textarea>
+						</div>
+					</div>				
+					<div class="form-group">
+						<label class="control-label col-lg-3">حالة الموقع</label>
+						<div class="col-lg-9">
+							<select name="mode" class="form-control">
+                               {% if 'mode'|options  == '1' %}
+                                <option value="1" class="form-control">يعمل</option>
+                                <option value="2" class="form-control">حالة الصيانة</option>
+                                {% endif %}
+                                
+                                {% if 'mode'|options  == '2' %}
+                                <option value="2" class="form-control">حالة الصيانة</option>
+                                <option value="1" class="form-control">يعمل</option>
+                                {% endif %}
+                                
+                            </select>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="control-label col-lg-3">السماح بالتعليقات</label>
+						<div class="col-lg-9">
+							<select name="statue" class="form-control">
+                                <option value="1" class="form-control">السماح بالتعليق</option>
+                                <option value="2" class="form-control">غلق التعليقات</option>
+                            </select>
+						</div>
+					</div>	
+					<div class="form-group">
+						<label class="control-label col-lg-3">اللغة الرسمية للموقع</label>
+						<div class="col-lg-9">
+							<select name="statue" class="form-control">
+                                <option value="1" class="form-control">العربية</option>
+                                <option value="2" class="form-control">الإنجليزية</option>
+                            </select>
+						</div>
+					</div>	
+					<div class="form-group">
+						<label class="control-label col-lg-3">رقم الهاتف</label>
+						<div class="col-lg-9">
+							<input type="text" class="form-control" value="{{ 'phone'|options }}" name="phone" placeholder="رقم الهاتف" />
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="control-label col-lg-3">البريد الإلكتروني</label>
+						<div class="col-lg-9">
+							<input type="text" value="{{ 'email'|options }}" class="form-control" name="email" placeholder="البريد الإلكتروني" />
+						</div>
+					</div>	
+					<div class="form-group">
+						<label class="control-label col-lg-3">العنوان على ارض الواقع</label>
+						<div class="col-lg-9">
+							<input type="text" value="{{ 'adress'|options }}" class="form-control" name="adress" placeholder="العنوان على ارض الواقع" />
+						</div>
+					</div>		
+					
+                    <div class="form-group">
+						<label class="control-label col-lg-3">رمز Google Analitycs</label>
+						<div class="col-lg-9">
+							<input type="text" value="{{ 'ganalitycs'|options }}" class="form-control" name="ganalitycs" placeholder="رمز Google Analitycs" />
+						</div>
+					</div>	
+
+
+
+
+
+
+
+			
+				</fieldset>
+				<div class="text-right">
+					<input type="hidden" name="validate" value="general_settings">
+					<button type="submit" class="btn btn-primary">تحديث المعلومات<i class="icon-arrow-left13 position-right"></i></button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+   <div class="col-md-4">
+							<div class="panel">
+								<div class="panel-body">
+									<h5 class="content-group">
+										<span class="label label-flat label-rounded label-icon border-grey text-grey mr-10">
+											<i class="icon-info3"></i>
+										</span>
+
+											هل تحتاج مساعدة ؟
+										
+									</h5>
+
+
+									<ul class="list list-icons">
+										<li>
+											<i class="icon-checkmark-circle text-success position-left"></i>
+											<b>شعار الموقع</b>
+											<br>
+											<p class="mg10">الشعار يوجد في جميع الصفحات في الأعلى،</p>
+										</li>
+										<li>
+											<i class="icon-checkmark-circle text-success position-left"></i>
+											<b>ايقونة الموقع</b>
+											<br>
+											<p class="mg10">هي تلك الأيقونة التي تظهر بجانب الإسم في توبيب المتصفح</p>
+										</li>                                        
+								            <li>
+											<i class="icon-checkmark-circle text-success position-left"></i>
+											<b>الكلمات المفتاحية</b>
+											<br>
+											<p class="mg10"> تساعدك في الظهور بشكل فعال في محركات البحث ، يستحسن ان تضع فيها كلمات دلالية على محتوى موقعك </p>
+										</li>
+										<li>
+											<i class="icon-checkmark-circle text-success position-left"></i>
+											<b>رمز Google Analitycs</b>
+											<br>
+											<p class="mg10">
+											    هذا الرمز يمكنك الحصول عليه عند اضافة موقعك الى احصيئات جوجل
+											</p>
+										</li>
+																	
+										
+
+									</ul>
+								</div>                     
+        </div>
+        
+							
+							
+							
+        
+        <style>
+        .ads-preview img {
+    width: 100%;
+}
+        </style>
+        <div class="panel panel-flat"  style="display:none;" id="ads-show"> 
+        <div class="panel-heading">
+            معاينة الإعلان
+            <div  class="heading-elements"  >
+            
+            <ul class="icons-list">
+                <li style="display:none" id='delete-ad'><a onclick="clean()" ><i class="icon-cross2 position-right" ></i> حذف الصورة </a></li>
+            </ul>
+            
+            
+            
+            </div>
+            
+            
+        </div>
+    
+</div>
+    </div>
+
+</div>
+
+
+</div>
+
+{% endblock %}	

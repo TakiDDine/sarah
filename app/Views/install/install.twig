@@ -1,0 +1,178 @@
+
+<!DOCTYPE html>
+<html lang="en" dir="rtl">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>  </title>
+
+	<!-- Global stylesheets -->
+	<link href="https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900" rel="stylesheet" type="text/css" />
+	<link href="http://localhost/afrass/public/hamid/css/icons/icomoon/styles.css" rel="stylesheet" type="text/css" />
+	<link href="http://localhost/afrass/public/hamid/css/bootstrap.css" rel="stylesheet" type="text/css" />
+	<link href="http://localhost/afrass/public/hamid/css/core.css" rel="stylesheet" type="text/css" />
+	<link href="http://localhost/afrass/public/hamid/css/components.css" rel="stylesheet" type="text/css" />
+	<link href="http://localhost/afrass/public/hamid/css/colors.css" rel="stylesheet" type="text/css" />
+	<link href="http://localhost/afrass/public/hamid/css/arfont/font.css" rel="stylesheet" type="text/css" />
+	<link href="http://localhost/afrass/public/hamid/css/main.css" rel="stylesheet" type="text/css" />
+	<!-- /global stylesheets -->
+
+	<!-- Core JS files -->
+	<script type="text/javascript" src="http://localhost/afrass/public/hamid/js/plugins/loaders/pace.min.js"></script>
+	<script type="text/javascript" src="http://localhost/afrass/public/hamid/js/core/libraries/jquery.min.js"></script>
+	<script type="text/javascript" src="http://localhost/afrass/public/hamid/js/core/libraries/bootstrap.min.js"></script>
+	<script type="text/javascript" src="http://localhost/afrass/public/hamid/js/plugins/loaders/blockui.min.js"></script>
+	<!-- /core JS files -->
+
+    <!-- Theme JS files -->
+    <script type="text/javascript" src="http://localhost/afrass/public/hamid/js/plugins/forms/selects/select2.min.js"></script>
+    <script type="text/javascript" src="http://localhost/afrass/public/hamid/js/plugins/forms/styling/uniform.min.js"></script>
+    <script type="text/javascript" src="http://localhost/afrass/public/hamid/js/jquery.passwordstrength.js"></script>
+	<script type="text/javascript" src="http://localhost/afrass/public/hamid/js/plugins/forms/styling/switchery.min.js"></script>
+	<script type="text/javascript" src="http://localhost/afrass/public/hamid/js/plugins/forms/styling/switch.min.js"></script>
+	<script type="text/javascript" src="http://localhost/afrass/public/hamid/js/main.js"></script>
+	<script type="text/javascript" src="http://localhost/afrass/public/hamid/js/core/app.js"></script>
+	<script type="text/javascript" src="http://localhost/afrass/public/hamid/js/plugins/editors/summernote/summernote.min.js"></script>
+
+
+    <!-- check for javascript -->
+    <noscript>
+        <meta http-equiv="refresh" content="0; url=/afrass/public/javascript-Disabled" />
+    </noscript>
+
+
+</head>
+
+
+
+<body class="login-container">
+<div class="page-container login-container">
+<div class="page-content">
+    <div class="content-wrapper">
+        <div class="col-lg-6 col-lg-offset-3">
+            <form method="POST" action="{{ path_for('install')}}" id="LoginForm" autocomplete="off">
+               
+                   <div class="panel panel-body  border-top-xlg border-top-teal ">
+                    <h2>قاعدة البيانات</h2>
+                    
+                    
+       <p>مرحبا بك في لوحة التحكم. قبل الشروع في العمل، نحن بحاجة لبعض المعلومات عن قاعدة البيانات..</p>
+
+<p>أدخل بيانات الاتصال بقاعدة البيانات. إذا كنت غير متأكد، يمكنك التواصل مع الشركة المستضيفة لموقعك للاستفسار عن هذه البيانات.</p>                            
+                            <br><br>
+                            <div class="form-group">
+                                <label for="database_host" class="col-sm-4 control-label">اسم المستضيف <span class="text-danger">*</span></label>
+                                <div class="col-sm-7">
+                                    <input class="form-control required" name="database_host" id="database_host" placeholder="" value="localhost">
+                                </div>
+                            </div>
+                            <br><br>
+                            <div class="form-group">
+                                <label for="database_name" class="col-sm-4 control-label">اسم قاعدة البيانات<span class="text-danger">*</span></label>
+                                <div class="col-sm-7">
+                                    <input class="form-control required" name="database_name" id="database_name"  value="اسم قاعدة البيانات">
+                                </div>
+                            </div>
+                            <br><br>
+                            <div class="form-group">
+                                <label for="database_username" class="col-sm-4 control-label">اسم المستخدم  <span class="text-danger">*</span></label>
+                                <div class="col-sm-7">
+                                    <input class="form-control required" name="database_username" id="database_username" value="اسم المستخدم ">
+                                </div>
+                            </div>
+                            <br><br>
+                            <div class="form-group">
+                                <label for="database_pwd" class="col-sm-4 control-label">كلمة المرور<span class="text-danger">*</span></label>
+                                <div class="col-sm-7">
+                                    <input class="form-control required" type="text" name="database_pwd" id="database_pwd"  value="كلمة المرور">
+                                </div>
+                            </div>
+                                                     <br><br>
+                            <div class="form-group">
+                                <button type="submit" class="btn bg-teal-400 btn-labeled btn-labeled-right ml-10"><b><i class=" icon-arrow-left7"></i></b>  متابعة  </button>
+                            </div>
+                </div>
+                
+                
+                <div class="panel panel-body  border-top-xlg border-top-red ">       
+                     <h2>معلومات الموقع والمدير</h2>       
+                      <p>الرجاء إدخال المعلومات التالية، لا تقلق ... تستطيع تغيير هذه الإعدادات لاحقاً.</p>
+                                            <br><br>
+                                             <br><br>
+                                            <div class="form-group">
+                                <label for="admin_username" class="col-sm-4 control-label">اسم الموقع <span class="text-danger">*</span></label>
+                                <div class="col-sm-7">
+                                    <input class="form-control required" name="admin_username" id="admin_username" >                                </div>
+                            </div>    <br><br>                        
+                            <div class="form-group">
+                                <label for="admin_username" class="col-sm-4 control-label">اسم المدير <span class="text-danger">*</span></label>
+                                <div class="col-sm-7">
+                                    <input class="form-control required" name="admin_username" id="admin_username" value="Admin">
+                                </div>
+                            </div> <br><br>
+                            <div class="form-group">
+                                <label for="admin_email" class="col-sm-4 control-label">البريد الإلكتروني للمدير <span class="text-danger">*</span></label>
+                                <div class="col-sm-7">
+                                    <input class="form-control required" name="admin_email" id="admin_email" placeholder="Required Field..">
+                                </div>
+                            </div> <br><br>
+                            <div class="form-group">
+                                <label for="admin_pwd" class="col-sm-4 control-label" id="password">كلمة المرور <span class="text-danger">*</span></label>
+                                <div class="col-sm-7">
+                                    <input class="form-control required" type="password" name="admin_pwd" id="admin_pwd" placeholder="Required Field..">
+                                </div>
+                            </div>
+                                                     <br><br>
+                            <div class="form-group">
+                                <button type="submit" class="btn bg-teal-400 btn-labeled btn-labeled-right ml-10"><b><i class=" icon-arrow-left7"></i></b>  متابعة  </button>
+                            </div>
+                </div>
+                
+                
+                
+                <div class="panel panel-body  border-top-xlg border-top-red ">       
+                      <p>رائع! لقد قمت بإنجاز المطلوب في هذا الجزء من مرحلة التنصيب. تستطيع ووردبريس الآن أن تتواصل مع قاعدة بياناتك. إذا كنت جاهزًا، يمكنك الآن…
+
+.</p>
+                                      
+                           
+                                                     <br>
+                            <div class="form-group">
+                                <button type="submit" class="btn bg-teal-400 btn-labeled btn-labeled-right ml-10"><b><i class=" icon-arrow-left7"></i></b>  البدء بعملية التنصيب  </button>
+                            </div>
+                </div>
+                
+                
+                
+                <div class="panel panel-body  border-top-xlg border-top-red ">       
+                     
+                     <h2>تم بنجاح !</h2><hr>
+                     <p>تم تنصيب ووردبريس بنجاح. شكرًا لك، ونأمل أن تستمتع بموقعك الجديد!</p>
+                                     <br>
+                                      <table class="table table-borderless">
+	<tbody><tr>
+		<th>اسم المستخدم</th>
+		<td>user</td>
+	</tr>
+	<tr>
+		<th>كلمة المرور</th>
+		<td>			<p><em>كلمة المرور التي تم اختيارها.</em></p>
+		</td>
+	</tr>
+</tbody></table>
+                           
+                                                     <br>
+                            <div class="form-group">
+                                <button type="submit" class="btn bg-teal-400 btn-labeled btn-labeled-right ml-10"><b><i class="icon-arrow-left7"></i></b>  دخول </button>
+                            </div>
+                </div>
+                
+                
+            </form>
+        </div>
+    </div>
+</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,90 @@
+<!-- Main sidebar -->
+<div class="sidebar sidebar-main">
+    <div class="sidebar-content">
+ 
+
+        <!-- Main navigation -->
+        <div class="sidebar-category sidebar-category-visible mt-15">
+            <div class="category-content no-padding">
+                <ul class="navigation navigation-main navigation-accordion">
+
+                    
+                    <li><a href="{{ path_for('admin.index')}}"><i class="icon-home4"></i> <span>نظرة عامة</span></a></li>
+                    
+                    <li><a href="{{ path_for('mail')}}"><i class="icon-envelop2"></i> <span>الرسائل</span></a></li>
+                    <li><a href="{{ path_for('users')}}"><i class="icon-users"></i> <span>الأعضاء</span></a></li>
+                    <li><a href="{{ path_for('media')}}"><i class="icon-camera"></i> <span>الوسائط</span></a></li>
+                    <li><a href="{{ path_for('pages')}}"><i class="icon-files-empty2"></i> <span>الصفحات</span></a></li>
+                    <li><a href="{{ path_for('posts')}}"><i class="icon-price-tag3"></i> <span>  المقالات </span></a>
+                    <ul>
+                        <li><a href="{{ path_for('posts')}}"><span>  المقالات </span></a></li>
+                        <li><a href="{{ path_for('posts.categories')}}"><span> تصنيف المقالات </span></a></li>
+                        <li><a href="{{ path_for('comments')}}"><span>  التعليقات  </span></a></li>
+                    </ul>
+                    </li>
+                    <li><a href="{{ path_for('menus')}}"><i class="icon-list-unordered"></i> <span>  القوائم  </span></a></li>
+                    <li><a href="{{ path_for('ads')}}"><i class="icon-barcode2"></i> <span>  الإعلانات  </span></a></li>
+                    <li>
+                    <a href="{{ path_for('products')}}"><i class="icon-store2"></i> <span>  المنتجات  </span></a>
+                        <ul>
+                           <li><a href="{{ path_for('products')}}"><span>  المنتجات </span></a></li>
+                           <li><a href="{{ path_for('products.categories')}}"><span> تصنيف المنتجات </span></a></li>
+                        </ul>
+                    </li>
+                    
+                    <!-- المتجر -->
+                    <li>
+                    <a href="{{ path_for('orders')}}"><i class="icon-basket"></i> <span>  المتجر  </span></a>
+                        <ul>
+                           <li><a href="{{ path_for('orders')}}"> <span>  الطلبات  </span></a></li>
+                           <li><a href="{{ path_for('coupons')}}"><span> القسائم </span></a></li>
+                        </ul>
+                    </li>
+                    
+                    <!--// المتجر -->
+                    
+                    <!-- Faq -->
+                    <li><a href="{{ path_for('faqs')}}"><i class="icon-question3"></i> <span>  الأسئلة الشائعة </span></a>
+                        <ul>
+                            <li><a href="{{ path_for('faqs')}}"><span>  الأسئلة الشائعة</span></a></li>
+                            <li><a href="{{ path_for('faqs.categories')}}"><span> تصنيف الأسئلة </span></a></li>
+                        </ul>
+                    </li>
+                    <!-- Faq -->
+                    
+            
+                   <li>
+                    <a href="{{ path_for('settings')}}"><i class="icon-gear"></i> <span>الإعدادات</span></a>
+                    <ul>
+                        <li><a href="{{ path_for('settings')}}"> الإعدادت العامة</a></li>
+                        <li><a href="{{ path_for('settings.social')}}">  السوشيال ميديا  </a></li>
+                        <li><a href="{{ path_for('settings.email')}}"> البريد الإلكتروني</a></li>
+                        <li><a href="{{ path_for('settings.users')}}"> الأعضاء</a></li>
+                        <li><a href="{{ path_for('settings.links')}}"> الروابط الدائمة</a></li>
+                    </ul>
+                    </li>
+                   <li>
+                    <a href="{{ path_for('settings')}}"><i class="icon-bucket"></i> <span>تخصيص</span></a>
+                    <ul>
+                        <li><a href="{{ path_for('slider')}}">السلايدر الرئيسي</a></li>
+                        <li><a href="{{ path_for('beside-slider')}}">الصور الجانبية الرئيسية</a></li>
+                        <li><a href="{{ path_for('settings.home')}}">الصفحة الرئيسية</a></li>
+                        <li><a href="{{ path_for('settings.footer')}}">الفوتر</a></li>
+                    </ul>
+                    </li>
+                    <li><a href="{{ path_for('mailist')}}"><i class="icon-paperplane"></i> <span>القائمة البريدية</span></a></li>
+
+                </ul>
+            </div>
+        </div>
+        <!-- /main navigation -->
+        
+        
+
+        
+        
+        
+        
+    </div>
+</div>
+<!-- /main sidebar -->

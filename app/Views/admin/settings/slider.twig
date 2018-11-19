@@ -1,0 +1,139 @@
+{% extends "admin/layout.twig" %}
+{% block title %} الإعدادات العامة {% endblock %}
+
+{% block content %}
+
+<!-- Main content -->
+<div class="content-wrapper">
+
+<!-- Page header -->
+<div class="page-header page-header-transparent">
+    <div class="page-header-content">
+        <div class="page-title">
+            <h1> <span class="text-semibold">السلايدر</span></h1>
+        </div>
+
+        
+    </div>
+</div>
+<!-- /page header -->
+
+<!-- Content area -->
+<div class="content">
+		{% include "admin/elements/flash.twig" %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<style>
+.preview-slider {
+    width: 100%;
+    overflow: hidden;
+    height: 184px;
+    border: 1px solid;
+}
+.preview-slider img{
+    width: 100%;
+}    
+</style>
+
+<form class="form-horizontal" method="post" action="{{path_for('beside-slider')}}" enctype='multipart/form-data'>
+   <div class="row">
+    <div class="col-md-6">
+        <div class="panel panel-flat">
+            <div class="panel-heading no-padding-bottom">
+                <h3 class="panel-title">صورة اليمين العلوية</h3>
+            </div>
+            <div class="panel-body">
+			<fieldset class="content-group">
+                      <legend class="text-bold"></legend>
+                       <input type="hidden" name="slidertoprightChanged">
+                       <label for="slidertopright" class="btn btn-danger btn-rounded"><i class="icon-image2 position-left"></i> اختيار الصورة </label>
+                       <input name="slidertopright" id="slidertopright" accept="image/jpg, image/jpeg, image/png" style="visibility:hidden;" type="file" />
+                       <div  class="preview-slider" id="previewslidertopright"><img src="{{url.slider}}{{'HOME_SLIDER_RIGHT_TOP'|options }}" alt=""></div>
+              </fieldset>
+            </div>
+        </div>
+        </div>
+            <div class="col-md-6">
+
+        <div class="panel panel-flat">
+            <div class="panel-heading no-padding-bottom">
+                <h3 class="panel-title">صورة اليمين السفلى</h3>
+            </div>
+            <div class="panel-body">
+            	<fieldset class="content-group">
+					<legend class="text-bold"></legend>
+                           <input type="hidden" name="sliderbottomrightChanged">
+							   <label for="sliderbottomright" class="btn btn-danger btn-rounded"><i class="icon-image2 position-left"></i> اختيار الصورة </label>
+							   <input name="sliderbottomright" id="sliderbottomright" accept="image/jpg, image/jpeg, image/png" style="visibility:hidden;" type="file" />
+               
+            <div class="preview-slider"  id="previewsliderbottomright"><img src="{{url.slider}}{{'HOME_SLIDER_RIGHT_BOTTOM'|options }}" alt=""></div>
+                </fieldset>
+                
+            </div>
+        </div>
+        
+    </div>
+    
+    </div>
+    <div class="row">
+    <div class="col-md-12">
+    <button type="submit" class="btn btn-block btn-primary">حفظ <i class="icon-arrow-left13 position-right"></i></button>
+</div>
+    </div>
+</form>
+
+</div>
+
+
+</div>
+
+
+<script> 
+function readURL(input) {
+if (input.files && input.files[0]) {
+var reader = new FileReader();
+reader.onload = function (e) {
+$('#previewslidertopright img').attr('src', e.target.result);
+}
+
+reader.readAsDataURL(input.files[0]);
+}
+}
+$("#slidertopright").change(function(){
+readURL(this);
+    $("#previewslidertopright").show();
+});        
+</script>
+
+
+<script> 
+function readURL2(input) {
+if (input.files && input.files[0]) {
+var reader = new FileReader();
+reader.onload = function (e) {
+$('#previewsliderbottomright img').attr('src', e.target.result);
+}
+
+reader.readAsDataURL(input.files[0]);
+}
+}
+$("#sliderbottomright").change(function(){
+readURL2(this);
+    $("#previewsliderbottomright").show();
+});        
+</script>
+
+{% endblock %}	

@@ -1,0 +1,189 @@
+	
+{% extends "website/layout.twig" %}
+{% block title %} {{article.title}} {% endblock %}
+
+
+{% block content %}
+	<!-- Main Content -->
+	<div class="page-container" id="PageContainer">
+		<main class="main-content" id="MainContent" role="main">
+			<section class="collection-heading heading-content ">
+				<a href="#">
+					<img class="img_heading" src="assets/images/banner_blog.png" alt="">
+				</a>
+				<div class="container">
+					<div class="row">
+						<div class="collection-wrapper">
+							<div class="collection-title"><span>Post Detail</span></div>
+							<div class="breadcrumb-group">
+								<div class="breadcrumb clearfix">
+									<a href="{{path_for('website.home')}}"><span>Home</span></a>
+									<span class="arrow-space">></span>
+									<span><a href="{{path_for('website.blog')}}"><span>Blog</span></a>
+									</span>
+									<span class="arrow-space">></span>
+									<span>{{article.title}}</span>
+									
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+			<section class="article-content">
+				<div class="article-wrapper">
+					<div class="container">
+						<div class="row">
+							<div id="shopify-section-article-template" class="shopify-section">
+								<div class="article-inner" >
+									<div id="article">
+										{% include "website/elements/blogsidbar.twig" %}
+										<div class="col-sm-9 article">
+											<!-- Begin article -->
+											<div class="article-body clearfix">
+												<div class="group-blog-top">
+													<ul class="article-info list-inline">
+														<li class="article-date">{{article.created_at.toDateTimeString()|makeNiceTime}}</li>
+														<li>
+															<span class="article-comment">
+																<a href="article.html">
+																	<span>- </span>
+																	<i class="comment">{{comments|length}} comment</i>
+																</a>
+															</span>
+														</li>
+													</ul>
+													<div class="article-title">
+														<h1 class="article-name">{{article.title}}</h1>
+													</div>
+													<div class="top-banner article_banner_show article-image" >
+														<img src="{{url.posts}}{{article.thumbnail}}" alt="{{article.title}}">
+													</div>
+												</div>
+												<div class="articleinfo_group">
+													<div  class="article-content" itemprop="description">
+														{{article.content|raw}}
+													</div>
+													<div class="group-blog-btm">
+														<div class="share-with supports-fontface col-sm-6">
+															<div class="social-sharing is-clean" >
+																<a target="_blank" href="http://www.facebook.com/sharer.php?u={{url.base}}{{path_for('website.post', {id : product.id})}}" class="share-facebook">
+																	<span class="icon icon-facebook"></span>
+																	<span class="share-title">Share</span>
+																</a>
+																<a target="_blank" href="http://twitter.com/share?url={{url.base}}{{path_for('website.post', {id : product.id})}}" class="share-twitter">
+																	<span class="icon icon-twitter"></span>
+																	<span class="share-title">Tweet</span>
+																</a>
+																<a target="_blank" href="http://pinterest.com/pin/create/link/?url={{url.base}}{{path_for('website.post', {id : product.id})}}" class="share-pinterest">
+																	<span class="icon icon-pinterest"></span>
+																	<span class="share-title">Pin it</span>
+																</a>
+																
+															</div>
+														</div>
+														<!-- Prev Next -->
+														<div class="current-body col-sm-6">
+															<a href="{{path_for('website.post',{id : article.id-1})}}" class="prev">
+																Prev
+															</a>
+															<a class="next" href="{{path_for('website.post',{id : article.id+1})}}">
+																Next
+															</a>
+														</div>
+														<!-- End Prev Next -->
+													</div>
+												</div>
+											</div>
+											<!-- End article -->
+											
+											<!-- Begin comments -->
+											<div id="comments" class="comments">
+												<h2 class="article-title page-title"><span>Comments</span></h2>
+												
+												{% for comment in comments %}
+												<div id="comment-{{comment.id}}" class="comment border-bottom clearfix">
+													<div class="cmt-author">Commented by <b>{{comment.author}}</b></div>
+													<div class="cmt-content">
+														<p>{{comment.content}}</p>
+													</div>
+													<div class="cmt-date"><i class="fa fa-calendar"></i>{{comment.created_at|makeNiceTime}}</div>
+												</div>
+												{% endfor %}
+												
+												
+												<div class="comment_form">
+												 {% include "admin/elements/flash.twig" %}
+													<form method="post" action="{{path_for('comments.create')}}" class="comment-form" accept-charset="UTF-8">
+													<input type="hidden" name="post_id" value="{{article.id}}">
+														<h2 class="article-title page-title"><span>Leave your comment</span></h2>
+														<div class="group_form">
+															<div class="col-sm-6">
+																<label for="comment_author">Your Name</label>
+																<input type="text" id="comment_author" name="author" size="40" class="text">
+															</div>
+															<div class="col-sm-6">
+																<label for="comment_email">Email Address</label>
+																<input type="text" id="comment_email" name="email" size="40" class="text">
+															</div>
+															<div class="col-sm-12">
+																<label for="comment_body">Comment</label>
+																<textarea id="comment_body" name="body" cols="40" rows="5" class="text"></textarea>
+															</div>
+															<div class="col-sm-12">
+																<input type="submit" value="Submit Comment" class="btn" id="comment-submit">
+															</div>
+														</div>
+													</form>
+												</div>
+											</div>
+											<!-- End comments -->
+											<!-- Related Posts  -->
+											<div class="related-article-body clearfix" style="margin-bottom: 55px;">
+												<h2 class="article-title page-title"><span>Related Posts</span></h2>
+												<div class="related-content">
+													<div class="related-content-inner">
+													
+													    {% for post in related%}
+														<div class="related-inner col-sm-12">
+															<div class="article-body clearfix">
+																<div class="group-blog-top">
+																	<div class="top-banner article_banner_show article-image">
+																		<img src="{{url.posts}}{{post.thumbnail}}" alt="">
+																		<div class="name-title">
+																			{{post.title}}
+																		</div>
+																	</div>
+																</div>
+																<div class="articleinfo_group">
+																	<div class="article-title">
+																		<h2 class="article-name"><a href="{{path_for('website.post',{id : post.id})}}">{{post.title}}</a></h2>
+																	</div>
+																	<div  class="article-content">
+																		<p>{{post.excerpt()}}</p>
+																	</div>
+																	<ul class="article-info list-inline">
+																		<li class="article-date">{{post.created_at.toDateTimeString()|makeNiceTime}}
+																		</li>
+																		
+																	</ul>
+																</div>
+															</div>
+														</div>
+														{% endfor %}
+													</div>
+												</div>
+											</div>
+											<!-- End Related Posts -->
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+		</main>
+	</div>
+
+{% endblock %}

@@ -1,0 +1,93 @@
+{% extends "website/layout.twig" %}
+{% block title %} Faq {% endblock %}
+
+
+{% block content %}
+
+	<!-- Main Content -->
+	<div class="page-container" id="PageContainer">
+		<main class="main-content" id="MainContent" role="main">
+			<section class="collection-heading heading-content ">
+				<div class="container">
+					<div class="row">
+						<div class="collection-wrapper">
+							<h1 class="collection-title"><span>FAQs</span></h1>
+							<div class="breadcrumb-group">
+								<div class="breadcrumb clearfix">
+									<span itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb"><a href="index.html" title="Sarahmarket 1" itemprop="url"><span itemprop="title">Home</span></a>
+									</span>
+									<span class="arrow-space">></span>
+									<span itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+										<a href="faqs.html" title="FAQs" itemprop="url"><span itemprop="title">FAQs</span></a>
+									</span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+			<section class="page-content">
+				<div class="page-wrapper">
+					<div class="container">
+						<div class="row">
+							<div class="page-inner">
+								<div id="shopify-section-faq-template" class="shopify-section">
+									<div class="faqs-content">
+										<div class="faqs-inner">
+											<div class="col-md-3">
+												<ul class="nav nav-tabs">
+												  {% for cat in categories%}
+                                            <li><a href="#{{cat.name}}" data-toggle="{{cat.name}}">{{cat.name}}</a></li>
+													{% endfor %}
+												</ul>
+											</div>
+											<div class="col-md-9">
+												<div class="tab-content">
+													<div class="tab-pane active" id="faq_tab1">
+														<div class="panel-group" id="accordion1" role="tablist" aria-multiselectable="true">
+														{% for faq in faqs %}
+															<div class="panel panel-default">
+																<div class="panel-heading active" role="tab" id="tab1_headingOne">
+																	<h4 class="panel-title">
+																		<a data-toggle="collapse" data-parent="#{{faq.id}}" href="#{{faq.id}}" aria-expanded="true" aria-controls="{{faq.id}}"><i class="fa-icon fa fa-arrow-circle-o-up"></i> 
+																		  {{faq.question}}
+																		</a>
+																	</h4>
+																</div>
+																<div id="{{faq.id}}" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="{{faq.id}}">
+																	<div class="panel-body">
+																		{{faq.answer|raw}}
+																	</div>
+																</div>
+															</div>
+												         {% endfor %}
+														</div>
+														<script>
+															jQuery(function($) {
+																var $active = $('#accordion1 .panel-collapse.in').prev().addClass('active');
+																$active.find('a').prepend('<i class="fa-icon fa fa-arrow-circle-o-up"></i> ');
+																$('#accordion1 .panel-heading').not($active).find('a').prepend('<i class="fa-icon fa fa-arrow-circle-o-down"></i> ');
+																$('#accordion1').on('show.bs.collapse', function(e) {
+																	$('#accordion1 .panel-heading.active').removeClass('active').find('.fa-icon').toggleClass('fa fa-arrow-circle-o-down fa fa-arrow-circle-o-up');
+																	$(e.target).prev().addClass('active').find('.fa-icon').toggleClass('fa fa-arrow-circle-o-down fa fa-arrow-circle-o-up');
+																})
+															});
+														</script>
+													</div>
+													
+													
+													
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+		</main>
+	</div>
+		
+{% endblock %}

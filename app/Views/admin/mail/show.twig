@@ -1,0 +1,95 @@
+{% extends "admin/layout.twig" %}
+
+{% block content %}
+
+                
+                       
+<!-- Main content -->
+<div class="content-wrapper">
+
+
+				<!-- Page header -->
+				<div class="page-header page-header-transparent">
+					<div class="page-header-content">
+						<div class="page-title">
+							<h1> <span class="text-semibold">قراءة البريد</span></h1>
+						</div>
+
+					</div>
+				</div>
+				<!-- /page header -->
+
+
+<!-- Content area -->
+<div class="content">
+		            
+             
+        
+           <form action="{{ path_for('getMail', {'id': email.id}) }}" id="DeleteMail" method="post">
+           <input type="hidden" name="validate" value="DeleteMail">
+           </form>
+
+    
+	<!-- Single mail -->
+							<div class="panel panel-white">
+
+								<!-- Mail toolbar -->
+								<div class="panel-toolbar panel-toolbar-inbox">
+									<div class="navbar navbar-default">
+										<ul class="nav navbar-nav visible-xs-block no-border">
+											<li>
+												<a class="text-center collapsed" data-toggle="collapse" data-target="#inbox-toolbar-toggle-single">
+													<i class="icon-circle-down2"></i>
+												</a>
+											</li>
+										</ul>
+
+										<div class="navbar-collapse collapse" id="inbox-toolbar-toggle-single">
+											<div class="btn-group navbar-btn">
+												
+												<a href="#" class="btn btn-default text-primary-600"><i class="icon-printer"></i> <span class="hidden-xs position-right">طباعة</span></a>
+												<a onclick="document.getElementById('DeleteMail').submit();"  class="btn btn-default text-danger-600"><i class="icon-bin"></i> <span class="hidden-xs position-right">حذف</span></a>
+											</div>
+
+											<div class="pull-right-lg">
+												<p class="navbar-text">{{email.created_at}}</p>
+												
+											</div>
+										</div>
+									</div>
+								</div>
+								<!-- /mail toolbar -->
+
+
+								<!-- Mail details -->
+								<div class="media stack-media-on-mobile mail-details-read">
+									
+
+									<div class="media-body">
+										<b>بواسطة</b> : {{email.name}}
+										<br>
+										<b>البريد الإلكتروني </b>: {{email.email}}
+									</div>
+
+									
+								</div>
+								<!-- /mail details -->
+
+
+								<!-- Mail container -->
+								<div class="mail-container-read">
+                                {{email.body}}
+									
+
+								</div>
+								<!-- /mail container -->
+
+
+
+							</div>
+							<!-- /single mail -->        
+
+                
+</div>
+</div>					
+{% endblock %}				

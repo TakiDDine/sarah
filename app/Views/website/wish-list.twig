@@ -1,0 +1,87 @@
+{% extends "website/layout.twig" %}
+{% block title %} Wish List {% endblock %}
+
+
+{% block content %}
+
+	<!-- Main Content -->
+	<div class="page-container" id="PageContainer">
+		<main class="main-content" id="MainContent" role="main">
+			<section class="collection-heading heading-content ">
+				<div class="container">
+					<div class="row">
+						<div class="collection-wrapper">
+							<h1 class="collection-title"><span>Wish list</span></h1>
+							<div class="breadcrumb-group">
+								<div class="breadcrumb clearfix">
+									<span itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb"><a href="index.html" title="Bridal 1" itemprop="url"><span itemprop="title">Home</span></a>
+									</span>
+									<span class="arrow-space">></span>
+									<span itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+										<a href="wish-list.html" title="Wish list" itemprop="url"><span itemprop="title">Wish list</span></a>
+									</span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+			<div id="wish-list">
+				<div class="container">
+					<div class="row">
+						<div id="col-main" class="clearfix">
+							<div class="page">
+								<div class="table-cart">
+									<div class="wrap-table">
+										<table class="cart-items haft-border">
+											<thead>
+												<tr class="top-labels">
+													<th class="text-left">Items</th>
+													<th>Price</th>
+													<th>Remove</th>
+													
+												</tr>
+											</thead>
+											<tbody>
+											{% for wish in wishlist %}
+												<tr class="item wishlist-item">
+													<td class="title text-left">
+														<ul class="list-inline">
+															<li class="image">
+																<a class="image text-left" href="product.html">
+																	<img  style='width:150px;'  src="{{url.products}}{{wish.thumbnail}}" >
+																</a>
+															</li>
+															<li class="link">
+																<a class="title text-left" href="product.html">{{wish.name}}</a>
+															</li>
+														</ul>
+													</td>
+													<td class="price title-1">
+														<span class="money">{{wish.price}}</span>
+													</td>
+													<td class="remove">
+														<div>
+															<div class="product-remove">
+																<a title="Remove" class="color-red icon icon-clear" href="{{url.base}}{{path_for('wishlist.delete',{ id: wish.wishID})}}">
+																	<i class="fa fa-close"></i>
+																</a>
+															</div>
+														</div>
+													</td>
+												</tr>
+								            {% endfor %}
+												
+											</tbody>
+										</table>
+									</div>
+									<p>You must <a href="login.html">Sign In</a> or <a href="register.html">Register</a>.</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</main>
+	</div>
+{% endblock %}

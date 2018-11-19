@@ -1,0 +1,101 @@
+{% extends "website/layout.twig" %}
+{% block title %} Cart {% endblock %}
+
+
+{% block content %}
+
+	<!-- Main Content -->
+	<div class="page-container" id="PageContainer">
+		<main class="main-content" id="MainContent" role="main">
+			<section class="collection-heading heading-content ">
+				<div class="container">
+					<div class="row">
+						<div class="collection-wrapper">
+							<h1 class="collection-title"><span>Your Cart</span></h1>
+							<div class="breadcrumb-group">
+								<div class="breadcrumb clearfix">
+									<span itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb"><a href="index.html" title="Bridal 1" itemprop="url"><span itemprop="title">Home</span></a>
+									</span>
+									<span class="arrow-space">></span>
+									<span itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+										<a href="cart.html" title="Your Cart" itemprop="url"><span itemprop="title">Your Cart</span></a>
+									</span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+			<section class="cart-content">
+				<div class="cart-wrapper">
+					<div class="container">
+						<div class="row">
+							<div id="shopify-section-cart-template">
+								<div class="cart-inner">
+									<div id="cart">
+										<div class="cart-form">
+											<form action="" method="post" id="cartform">
+												<table class="cart-items">
+													<thead>
+														<tr>
+															<th class="image text-left">Item</th>
+															<th class="price">Price</th>
+															<th class="qty">Quantity</th>
+															<th class="total">Total</th>
+															<th class="remove"></th>
+														</tr>
+													</thead>
+													<tbody>
+													{% for item in cart %}
+														<tr>
+															<td class="title text-left">
+																<ul class="list-inline">
+																	<li class="image">
+																		<a href="{{path_for}}">
+																		
+																			<img  style='width:150px;' src="{{url.products}}{{item.thumbnail}}">
+																		</a>
+																	</li>
+																	<li class="link">
+																		<a href="product.html">
+																			<p>{{item.name}}</p>
+																		</a>
+																	</li>
+																</ul>
+															</td>
+															<td class="price"><span class="money" >{{item.price}}</span></td>
+															<td class="qty">
+																<div class="quantity-wrapper">
+																	<div class="wrapper">
+																		<input type="text" size="4" value="{{item.quantity}}" class="tc item-quantity">
+																	</div>
+																	<!--End wrapper-->
+																</div>
+																<!--End quantily wrapper-->
+															</td>
+															<td class="total title-1"><span class="money">$200.00</span></td>
+															<td class="remove"><a href="{{url.base}}{{path_for('cart.delete',{ id: item.cartID})}}" class="cart"><i class="fa fa-trash"></i></a></td>
+														</tr>
+												   {% endfor %}
+													</tbody>
+													<tfoot>
+														<tr class="summary">
+															<td class="total-action" colspan="4"><input type="submit" id="update-cart" class="btn" name="update" value="Update cart"></td>
+															<td class="price" colspan="1"><span class="total"><strong><span class="money" data-currency-usd="$510.00">$510.00</span></strong>
+																</span>
+															</td>
+														</tr>
+													</tfoot>
+												</table>
+											</form>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+		</main>
+	</div>
+{% endblock %}

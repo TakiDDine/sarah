@@ -1,0 +1,73 @@
+{% extends "admin/layout.twig" %}
+{% block title %} سجل التعديلات  {% endblock %}
+
+{% block content %}
+                   
+<!-- Main content -->
+<div class="content-wrapper">
+
+
+				<!-- Page header -->
+				<div class="page-header page-header-transparent">
+					<div class="page-header-content">
+						<div class="page-title">
+							<h1> <span class="text-semibold">السجلات</span></h1>
+						</div>
+
+
+					</div>
+				</div>
+				<!-- /page header -->
+
+
+<!-- Content area -->
+<div class="content">
+
+
+				<!-- Version 1.1 -->
+				<div class="panel panel-flat" id="v_1_1">
+					<div class="panel-heading">
+						<h5 class="panel-title">النسخة الأولى 1.1</h5>
+						<div class="heading-elements">
+							<span class="text-muted heading-text">October 21, 2015</span>
+							<span class="label bg-blue heading-text">v. 1.1</span>
+		            	</div>
+					</div>
+
+					<div class="panel-body">
+
+<pre class="language-javascript"style="    text-align: right;"><code dir="rtl" >
+
+[جديد]  اعتماد نظام Gravatar في صورة البروفايل
+[جديد] التحقق من قوة كلمة السر في انشاء حساب جديد
+[جديد] امكانية رؤية صورة المستخدم اثناء تعديله للصورة
+[جديد] امكانية تعديل كلمة سر المستخدم لواحدة جديدة مع امكانية رؤية الحقل
+[جديد] تم اضافة اداة انشاء كلمة مرور قوية جدا
+[جديد] عند عمل اي تعديل في اعدادات المستخدم والضغط على خروج الصفحة يعطيك تنبيه من أجل تأكيد الخروج وفقدان التعديلات
+[جديد] امكانية تحميل نسخة من قاعدة البيانات
+[جديد] حذف صورة المستخدم القديمة من الملفات ، بعد تحديثها الى صورة جديدة
+<b>[جديد] تحميل نسخة كاملة من الأعضاء على شكل ملف CSV</b>
+<b>[جديد] تحميل نسخة كاملة من الأعضاء على شكل ملف PDF</b>
+
+
+[جديد] امكانية رؤية صورة الإعلان عند اضافته ، وأيضاً تغير الصورة الى واحدة جديدة ، وإمكانية حذفها
+
+
+</code></pre>
+					</div>
+				</div>
+				<!-- /version 1.1 -->
+
+
+    </div>
+</div>
+<style>
+pre[class*="language-"] code {
+    font-family: iransans !important;
+    line-height: 35px;
+}
+pre[class*="language-"] {
+    background-size: 4em 5.8em  !important;
+}
+</style>
+{% endblock %}
