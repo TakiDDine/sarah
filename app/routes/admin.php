@@ -206,7 +206,7 @@ $app->group('/wp-admin', function () use($app) {
     });
     
     /*
-    *    Orders System
+    *    Coupons System
     */
     $app->group('/coupons', function () use ($app) {
         $app->get('[/]', \App\Controllers\CouponsController::class .':index')->setName('coupons');

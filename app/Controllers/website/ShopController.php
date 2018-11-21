@@ -82,16 +82,17 @@ class ShopController extends \App\Controllers\Controller{
     
      public function checkout($request,$response,$args){
          
-    $cart = Cart::where('user_id',$_SESSION['auth-user'])->get()->toArray();
-        foreach($cart as $item ) {
-           $product = Product::where('id',$item['productID'])->first()->toArray();
-                $product['productID'] = $product['id'];
-                $item['cartID'] = $item['id'];
-
-           $maincart[] =  array_merge($product,$item);
-        }
-                
-            return $this->view->render($response, 'website/checkout.twig',['cart'=>$maincart]); 
+         $maincart = [];
+         if(isset($_SESSION['auth-user'])){
+            $cart = Cart::where('user_id',$_SESSION['auth-user'])->get()->toArray(); 
+             foreach($cart as $item ) {
+               $product = Product::where('id',$item['productID'])->first()->toArray();
+                    $product['productID'] = $product['id'];
+                    $item['cartID'] = $item['id'];
+               $maincart[] =  array_merge($product,$item);
+            }
+         }
+         return $this->view->render($response, 'website/checkout.twig',['cart'=>$maincart]); 
      }
     
     

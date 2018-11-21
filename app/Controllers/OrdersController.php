@@ -47,52 +47,70 @@ class OrdersController extends Controller {
     }
      public function create($request,$response)  {
          
-         // Get the products he want to buy , so wer are getting the cart of course !
-         $cart = Cart::where('user_id',$_SESSION['auth-user']);
-         
-         
-         // total = all (products price * quanity )
-         $total = [];
-         foreach($cart->get() as $item ) {
-            $product = Product::where('id',$item->productID)->first();
-            $total[] = $product->price  * $item->quantity;
-         }
-         $total = array_sum($total);
-         
-         
-         // insert to database
-        $order =  Order::create([
-                 'first_name'   => $request->getParam('first_name'),
-                 'last_name'    => $request->getParam('last_name'),
-                 'email'        => $request->getParam('Email'),
-                 'company'      => $request->getParam('company_name'),
-                 'country'      => $request->getParam('country'),
-                 'postalCode'   => $request->getParam('Postcode'),
-                 'state'        => $request->getParam('State'),
-                 'city'         => $request->getParam('City'),
-                 'phone'        => $request->getParam('Phone'),
-                 'adressLine1'  => $request->getParam('adressLine1'),
-                 'adressLine2'  => $request->getParam('adressLine2'),
-                 'total'        => $total,
-                 'notes'        => $request->getParam('notes'),
-                 'statue'       => 1
-            ]);
-         
-         // ADD the products to orders Table
-         foreach($cart as $item ) {
-             $this->db->table('orderproducts')->insert([
-                 'order_id' => $order->id , 
-                 'quantity' => $item->quantity,
-                 'productID' => $item->productID
-             ]);  
+         if(isset($_SESSION['auth-user'])){
+            // Get the products he want to buy , so wer are getting the cart of course !
+            $cart = Cart::where('user_id',$_SESSION['auth-user']);  
          }
          
-        // Empty the cart of the user after order 
-        $cart->delete();
+         if(isset($cart) and !empty($cart)){
+
+             // total = all (products price * quanity )
+             $total = [];
+             foreach($cart->get() as $item ) {
+                $product = Product::where('id',$item->productID)->first();
+                $total[] = $product->price  * $item->quantity;
+             }
+             $total = array_sum($total);
+             
+             
+            // Payement Logic
+             
+            // make the payement;
+             
+            // if the payement is correct , redirect to order info page
+            
+            // if the payement is incomplete , return to order page with the error given
+
+
+            // insert to database
+            $order =  Order::create([
+                     'first_name'   => clean($request->getParam('first_name')),
+                     'last_name'    => clean($request->getParam('last_name')),
+                     'email'        => clean($request->getParam('Email')),
+                     'company'      => clean($request->getParam('company_name')),
+                     'country'      => clean($request->getParam('country')),
+                     'postalCode'   => clean($request->getParam('Postcode')),
+                     'state'        => clean($request->getParam('State')),
+                     'city'         => clean($request->getParam('City')),
+                     'phone'        => clean($request->getParam('Phone')),
+                     'adressLine1'  => clean($request->getParam('adressLine1')),
+                     'adressLine2'  => clean($request->getParam('adressLine2')),
+                     'total'        => $total,
+                     'notes'        => $request->getParam('notes'),
+                     'statue'       => 1
+                ]);
+
+             // ADD the products to orders Table
+             foreach($cart as $item ) {
+                 $this->db->table('orderproducts')->insert([
+                     'order_id' => $order->id , 
+                     'quantity' => $item->quantity,
+                     'productID' => $item->productID
+                 ]);  
+             }
+
+            // Empty the cart of the user after order 
+            $cart->delete();
+
+            $this->flash->addMessage('success','شكراً ، تم تلقي الطلب بنجاح ');
+            return $response->withStatus(302)->withHeader('Location', $this->router->urlFor('website.home'));
+             
+        }
          
-        $this->flash->addMessage('success','شكراً ، تم تلقي الطلب بنجاح ');
-        return $response->withStatus(302)->withHeader('Location', $this->router->urlFor('website.home'));
-         
+        // if the cart is empty
+        $this->flash->addMessage('error','please add products to your cart to make the order');
+        return $response->withStatus(302)->withHeader('Location', $this->router->urlFor('website.checkout'));
+    
     }
     
     public function edit($request,$response,$args) {

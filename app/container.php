@@ -55,10 +55,6 @@ $container['view'] = function ($c) {
     $view->addExtension(new \nochso\HtmlCompressTwig\Extension());
     
     
-    
-    
-    
-    
     $view->addExtension(new Knlv\Slim\Views\TwigMessages(
     new Slim\Flash\Messages()
     ));
@@ -162,13 +158,9 @@ $container['view'] = function ($c) {
     
     
     $filter = new Twig_SimpleFilter('makeNiceTime', function ($time) {
-//        return makeNiceTime($time);
         return human_time_diff($time);
     });
     $view->getEnvironment()->addFilter($filter);
-    
-    
-    
     
     
     return $view;

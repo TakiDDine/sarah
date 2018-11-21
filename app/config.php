@@ -54,6 +54,14 @@ return  [
         'general'            => SCRIPTDIR.'public/uploads/general/',
         'slider'             => SCRIPTDIR.'public/uploads/slider/',
         'media'              => SCRIPTDIR.'public/uploads/media/',
-    ],   
-
+    ],  
+    
+    'app' => [
+        'mode'               => '',
+        'sandbox_cliend_id'  => '',
+        'sandbox_secret_id'  => '',
+        'live_cliend_id'     => '',
+        'live_secret_id'     => '',
+    ],
+    
 ];

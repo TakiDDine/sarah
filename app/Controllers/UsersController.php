@@ -190,7 +190,7 @@ if($request->getMethod() == 'GET'){
                 /*
                 * Upload the Avatar & update it in database
                 */
-                $avatar_action = $request->getParam('isAvatarChanged');
+                $avatar_action = $request->getParam('avatarChanged');
                 
                 // check first of all if avatar is changed !
                 if($avatar_action == 'true') {

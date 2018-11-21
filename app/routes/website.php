@@ -32,7 +32,7 @@ $app->group('/', function () use($app) {
         $app->get('logout[/]', \App\Controllers\AuthController::class .':logout_user')->setName('website.logout');
         $app->get('register[/]', \App\Controllers\website\AuthController::class .':register_get')->setName('website.register');
         $app->post('register', \App\Controllers\website\AuthController::class .':register_post')->setName('website.register.post');
-        $app->post('reset', \App\Controllers\website\AuthController::class .':reset_post')->setName('website.reset.post');
+        $app->post('reset', \App\Controllers\website\AuthController::class .':reset_post')->setName('website.reset');
 
         // Account
         $app->get('account[/]', \App\Controllers\website\AuthController::class .':account')->setName('website.account');

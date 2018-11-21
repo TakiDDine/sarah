@@ -46,10 +46,14 @@ class CartController extends \App\Controllers\Controller{
     
     public function delete($request,$response,$args) {
         $id = rtrim($args['id'], '/');
-        $Cart = Cart::find($id);
-        $Cart->delete();
-        $this->flash->addMessage('success','تم ازالة المنتوج من السلة بنجاح');
-        return $response->withStatus(302)->withHeader('Location', $this->router->urlFor('website.cart'));
+        if(is_numeric($id)){
+            $Cart = Cart::find($id);
+            if($Cart) {
+                $Cart->delete();
+                $this->flash->addMessage('success','تم ازالة المنتوج من السلة بنجاح');
+                return $response->withStatus(302)->withHeader('Location', $this->router->urlFor('website.cart'));
+            }
+        }
     }
     
     

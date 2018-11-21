@@ -19,21 +19,27 @@
 		<main class="main-content" id="MainContent" role="main">
 			<section class="collection-heading heading-content ">
 				<div class="container">
-              <form action="{{path_for('website.order')}}" method="POST">
+              <form action="{{path_for('website.order')}}" id="checkoutForm" method="POST">
 				  <div class="row">
 
 
+                     
+                     {% include "admin/elements/flash.twig" %}
+                     
+                     <div class="alert alert-danger checkoutjs" style="display:none;">
+                         
+                     </div>
                       
                    <div class="col-md-6">
                        <h1>Billing details</h1>        
 
                     <div class="form-group field">
                         <label for="first_name">First name *</label>
-                        <input type="text" id="first_name" value="{{old.first_name}}" name="first_name" class="form-control">
+                        <input type="text" id="first_name" value="{{old.first_name}}" name="first_name" class="form-control required_field">
                     </div>
                     <div class="form-group">
                         <label for="last_name">Last name *</label>
-                        <input type="text" id="last_name" value="{{old.last_name}}" name="last_name" class="form-control">
+                        <input type="text" id="last_name" value="{{old.last_name}}" name="last_name" class="form-control required_field">
                     </div>
                     <div class="form-group">
                         <label for="company_name">Company name (optional)</label>
@@ -41,33 +47,33 @@
                     </div>        
                     <div class="form-group">
                         <label for="country">Country *</label>
-                        <input type="text" id="country" value="{{old.country}}" name="country" class="form-control">
+                        <input type="text" id="country" value="{{old.country}}" name="country" class="form-control required_field">
                     </div>  
                     <div class="form-group">
                         <label for="adressLine1">Street address *</label>
-                        <input type="text" id="adressLine1" value="{{old.adressLine1}}" name="adressLine1" class="form-control">
+                        <input type="text" id="adressLine1" value="{{old.adressLine1}}" name="adressLine1" class="form-control required_field">
                         <br>
                          <input type="text" id="adressLine2" value="{{old.adressLine2}}" name="adressLine2" class="form-control">
                     </div>  
                     <div class="form-group">
                         <label for="City">Town / City *</label>
-                        <input type="text" id="City" value="{{old.City}}" name="City" class="form-control">
+                        <input type="text" id="City" value="{{old.City}}" name="City" class="form-control required_field">
                     </div>  
                     <div class="form-group">
                         <label for="State">State *</label>
-                        <input type="text" id="State" value="{{old.State}}" name="State" class="form-control">
+                        <input type="text" id="State" value="{{old.State}}" name="State" class="form-control required_field">
                     </div>  
                     <div class="form-group">
                         <label for="Postcode">Postcode / ZIP *</label>
-                        <input type="text" id="Postcode" value="{{old.Postcode}}" name="Postcode" class="form-control">
+                        <input type="text" id="Postcode" value="{{old.Postcode}}" name="Postcode" class="form-control required_field">
                     </div>
                     <div class="form-group">
                         <label for="Phone">Phone  *</label>
-                        <input type="text" id="Phone" value="{{old.Phone }}" name="Phone" class="form-control">
+                        <input type="text" id="Phone" value="{{old.Phone }}" name="Phone" class="form-control required_field">
                     </div>
                     <div class="form-group">
                         <label for="Email">Email address  *</label>
-                        <input type="text" id="Email" value="{{old.Email }}" name="Email" class="form-control">
+                        <input type="text" id="Email" value="{{old.Email }}" name="Email" class="form-control required_field">
                     </div>
 
                    </div>
@@ -158,4 +164,46 @@
 			
 		</main>
 	</div>
+	
+	
+	
+	
+	
+<style>.errorFiled { border-color: #e0493e; }</style>
+<script>
+$('#checkoutForm').submit(function() {
+     var res = true;
+     // here I am checking for textFields, password fields, and any 
+     // drop down you may have in the form
+     $(".required_field",this).each(function() {
+         if($(this).val().trim() == "") {
+             res = false; 
+             $(this).addClass('errorFiled');
+         }else{
+             $(this).removeClass('errorFiled');
+         }
+     })
+     if(res == false){
+         $('.checkoutjs').show();
+         $('.checkoutjs').html("Please Fill The Required Fields");
+     }
+    
+     var total = $('.alltotaltopay').text();
+    
+     if(total == '$0'){
+         $('.checkoutjs').append("<br/> your cart is empty , please add products to your cart to make the order");
+     }
+    
+    
+     
+     return res; // returning false will prevent the form from submitting.
+});
+</script>
+	
+	
+	
+	
+	
+	
+	
 {% endblock %}	

@@ -54,6 +54,8 @@
 <div class="col-md-9">								
 <form  enctype="multipart/form-data" id="user_form" method='post' action="{{ path_for('users.edit', {'username': user.username}) }}">
 
+<input type="text" id='avatarChanged' name="avatarChanged" value="false" />
+
 <!-- صورة الحساب -->		
 <div class="panel panel-flat">
     <div class="panel-heading">
@@ -72,7 +74,6 @@
             
             <p class="text-center text-muted">الصيغ المسموح بها : png, jpg</p>
             <input name="avatar" id="avatarUploadPreview" accept="image/jpg, image/jpeg, image/png" style="visibility:hidden;" type="file" />
-        <input type="hidden" name="isAvatarChanged" id="isAvatarChanged" value="false" />
         </div>
     </div>
 </div>
@@ -416,7 +417,12 @@ function tooglePassword() {
        
 </script>
 
-
+<!-- تغيير الصورة الجديدة -->
+<script>
+$("#avatarUploadPreview").change(function(){    
+    $("#avatarChanged").val("true");          // جعل القيمة تم تغييره
+});    
+</script>
 
 
 {% endblock %}
