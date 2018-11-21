@@ -3,8 +3,6 @@
 namespace App\Controllers;
 use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\Exception;
 use \App\Email\Email;
 use \App\Models\User;
 use \App\Classes\App;

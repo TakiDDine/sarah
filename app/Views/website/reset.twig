@@ -10,7 +10,7 @@
 				<div class="container">
 					<div class="row">
 						<div class="collection-wrapper">
-							<h1 class="collection-title"><span>Login</span></h1>
+							<h1 class="collection-title"><span>Reset Password</span></h1>
 							<div class="breadcrumb-group">
 								<div class="breadcrumb clearfix">
 									<span itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
@@ -36,17 +36,15 @@
 						<div class="row">
 							<div class="login-content-inner">
 								<div id="customer-login">
-									<div id="login" class="">
 									{% include "admin/elements/flash.twig" %}
-										<form action="{{path_for('login')}}" method="POST" id='LoginForm'>
-											<input type="hidden" value="customer_login" name="validate">
-											<label for="customer_email" class="label">Email</label>
-											<input type="text" value="{{old.user_login}}" name="user_login" class="text">
-											<label for="customer_password" class="label">Password</label>
-											<input type="password"  name="pass_login" class="text" size="16">
+									<div id="recover-password">
+										<h2>Reset Password</h2>
+								        <form action="{{path_for('website.reset')}}" method="POST" id="ResetForm" >
+											<label class="label">Email</label>
+											<input type="text" name="email" id="recover-email" class="text">
 											<div class="action_bottom">
-												<input class="btn" type="submit" value="Sign In">
-												<a href="{{path_for('website.reset')}}">Forgot your password?</a>
+												<input class="btn" type="submit" value="Submit"> or
+												<span class="note"><a href="{{path_for('website.login')}}">Login</a></span>
 											</div>
 										</form>
 									</div>
@@ -55,7 +53,7 @@
 						</div>
 					</div>
 				</div>
-			</section>
+			</section>			
 		</main>
 	</div>
 {% endblock %}	

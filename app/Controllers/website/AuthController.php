@@ -73,12 +73,134 @@ class AuthController extends \App\Controllers\Controller{
     }
     
     
-    public function reset_post($request,$response) {
+    public function resetPassword($request,$response) {
+        
+            if($request->getMethod() == 'GET'){ 
+                return $this->container->view->render($response,'website/reset.twig');
+            }
+        
+            if($request->getMethod() == 'POST'){ 
+            
+                    // Get the Email & Clean it 
+                    $email = clean($request->getParam('email'));
+                    
+                    // Check if it is a real Email
+                    if(!empty($email) and $this->helper->valid_email($email)){
+                        
+                        // Check if the email exist
+                        $recover = $this->auth->recover($email);
+                        
+                        if($recover) {
+                            
+                            $date = date("Y-m-d H:i:s");
+                                     
+                            //Convert the variable date using strtotime and 30 minutes
+                            $add_min = date("Y-m-d H:i:s", strtotime($date . "+30 minutes"));
+                            $date . "<br />"; //current date or whatever date you want to put in here
+                            $add_min; //add 30 minutes  
+
+                            // Create the Time and Token in Database .
+                            $recover->retrieve_expiration = $add_min;
+                            $recover->retrieve_token = password_hash($add_min,PASSWORD_DEFAULT);
+                            $recover->save();                            
+                            
+                            // Send Recover Password Email .
+                            $baseUrl = $this->container->conf['url.base'].$this->container->router->pathFor('website.resetpassword');
+                            $recover_link  = $baseUrl."?token=$recover->retrieve_token";
+                            
+                            
+                            $this->Emailer->to = $recover->email;
+                            $this->Emailer->username = $recover->username;
+                            $this->Emailer->recover_link = $recover_link;
+                            $this->Emailer->Recover_Password_Email;                             
+                            
+                            // ارسال كلمة المرور
+                            $this->flash->addMessage('success','تم ارسال كلمة المرور بنجاح');
+                            return $response->withRedirect($this->router->pathFor('website.reset'));
+
+                        }
+                        
+                    }
+                
+                    else {
+                        // المعلومات خاطئة
+                        $this->flash->addMessage('error','المعلومات خاطئة');
+                        return $response->withRedirect($this->router->pathFor('website.reset'));
+                    }
+                    
+            }
     }
     
-    
-    
-    
+    public function resetForm($request,$response) {
+        
+        
+        
+    // Show the Reset Password Page   
+    if($request->getMethod() == 'GET'){ 
+        return $this->container->view->render($response,'website/resetpassword.twig',['reset_token'=>$_GET['token']]);
+    }
+        
+         
+    // Check the Password, and Reset the Password to new one !
+    if($request->getMethod() == 'POST'){ 
+        
+       // Clean the inputs first!
+       $password            =  clean($request->getParam('password'));
+       $confirmPassword     =  clean($request->getParam('confirmPassword')); 
+       $token               =  clean($request->getParam('reset_token')); 
+        
+        if(empty($token)){
+           $this->flash->addMessage('email_list_error', 'عفواً ، الرابط الذي تم تتبعه لا يعمل أو منتهي الصلاحية');
+           return $response->withStatus(302)->withHeader('Location', $this->router->urlFor('website.home')); 
+        }
+        
+        // Get the user
+        $user = User::where('retrieve_token','=',$token)->first();
+        
+        // check if the link is sent before 30 min
+        $expiration = strtotime($user->retrieve_expiration);
+        $now = strtotime(date("Y-m-d H:i:s"));  
+         if($now>$expiration) {
+             $this->flash->addMessage('email_list_error', 'عفواً ، الرابط الذي تم تتبعه لا يعمل أو منتهي الصلاحية');
+             return $response->withStatus(302)->withHeader('Location', $this->router->urlFor('website.home')); 
+         }
+        
+        
+        // التأكد من أن الحقول غير فارغة
+        if(empty($password) or empty($confirmPassword) ){
+            $this->flash->addMessage('error','المرجوا ادخال كلمة المرور واعادة تأكيدها');
+            return $response->withStatus(302)->withHeader('Location', $this->router->urlFor('website.resetpassword'),['reset_token'=>$token]);
+        }
+
+        if(!empty($password) or !empty($confirmPassword)) {
+            
+            // اذا كانت كلمات المرور غير متطابقة
+           if($password != $confirmPassword){
+              $this->flash->addMessage('error','كلمات المرور غير متطابقة المرجو المحاولة من جديد');
+                return $response->withStatus(302)->withHeader('Location', $this->router->urlFor('website.resetpassword'),['reset_token'=>$token]);       
+           }
+            
+           //  اذا كانت كلمات المرور متطابقة
+           if($password == $confirmPassword){ 
+
+                // hash tha password .
+                $password = password_hash($password,PASSWORD_DEFAULT);    
+                
+                $user->retrieve_expiration =  " ";
+                $user->retrieve_token =  " ";
+                $user->password = $password;
+                $user->save();
+                $this->flash->addMessage('email_list', 'تم تغيير كلمة المرور بنجاح');
+                return $response->withStatus(302)->withHeader('Location', $this->router->urlFor('website.home')); 
+
+            }
+            
+        }
+        
+       
+    }    
+        
+    }
     
     
 }

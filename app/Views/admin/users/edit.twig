@@ -54,7 +54,7 @@
 <div class="col-md-9">								
 <form  enctype="multipart/form-data" id="user_form" method='post' action="{{ path_for('users.edit', {'username': user.username}) }}">
 
-<input type="text" id='avatarChanged' name="avatarChanged" value="false" />
+<input type="hidden" id='avatarChanged' name="avatarChanged" value="false" />
 
 <!-- صورة الحساب -->		
 <div class="panel panel-flat">

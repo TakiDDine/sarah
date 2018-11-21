@@ -51,7 +51,7 @@
 .group-actionbutton {
     display: none !important;
 }
-    .alert-success.mail_list_flash {
+.mail_list_flash {
     margin-bottom: 0;
     position: fixed;
     top: 0;
@@ -82,6 +82,16 @@
     {% endfor %}
 </ul>
 {%  endif %}
+
+{%  if flash('email_list_error') %}
+<ul class="alert alert-danger mail_list_flash" style="list-style:none;">
+    {% for msg in flash('email_list_error') %}
+    <li>{{ msg }}</li>
+    {% endfor %}
+</ul>
+{%  endif %}
+ 
+ 
 
 	<!--Header-->
 	<header id="top" class="header clearfix">
