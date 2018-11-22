@@ -11,6 +11,21 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class AuthController extends Controller {
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     public function getLogin($request,$response) {
        return $this->container->view->render($response,'admin/auth/login.twig');
     } 

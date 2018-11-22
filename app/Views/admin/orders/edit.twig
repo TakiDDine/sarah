@@ -16,6 +16,11 @@
 							<h1> <span class="text-semibold">تفاصيل الطلب #{{order.id}}</span></h1>
 							
 						</div>
+						<div class="heading-elements">
+		
+ <a href="{{path_for('orders.delete',{id : order.id})}}" class="btn bg-danger btn-labeled heading-btn"><b><i class="icon-trash"></i></b> حذف  الطلب</a>
+                        
+                        </div>
 					</div>
 				</div>
 				<!-- /page header -->
@@ -112,6 +117,9 @@
               <fieldset class="content-group">
                     <legend class="text-bold">ملاحظات</legend>
                     {{order.notes}}
+                    {% if order.notes is empty %}
+                    المشتري لم يكتب أية ملاحظات 
+                    {% endif %}
             </fieldset>              
                </div>
               </div>        

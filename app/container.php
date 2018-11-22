@@ -14,6 +14,7 @@ use \App\Models\ProductCategories;
 use \App\Models\Menus;
 use \App\Models\Cart;
 use \App\Models\Product;
+use \App\Classes\Helper;
 
 
 
@@ -248,6 +249,7 @@ $container['view']->getEnvironment()->addGlobal('cart', $maincart);
 
 
 
+  
 
 /*
 *   Add admin to view

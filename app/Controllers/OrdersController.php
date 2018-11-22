@@ -39,12 +39,7 @@ class OrdersController extends Controller {
                 ]);
     }  
  
-   public function delete($request,$response,$args) {
-        $categorie = Order::find(rtrim($args['id'], '/'));
-        $categorie->delete();
-        $this->flash->addMessage('success','تم حذف التصنيف بنجاح');
-        return $response->withStatus(302)->withHeader('Location', $this->router->urlFor('products.categories'));
-    }
+ 
      public function create($request,$response)  {
          
          if(isset($_SESSION['auth-user'])){
@@ -125,6 +120,13 @@ class OrdersController extends Controller {
     
     }
     
+    public function delete($request,$response,$args) {
+        $id = rtrim($args['id'], '/');
+        $order = Order::find($id);
+        $order->delete();
+        $this->flash->addMessage('success','تم حذف الطلب بنجاح');
+        return $response->withStatus(302)->withHeader('Location', $this->router->urlFor('orders'));
+    } 
     
      public function blukdelete($request,$response){
         Order::truncate();
