@@ -27,8 +27,22 @@ class MenusController extends Controller {
     }
     
   
-    public function create ($request,$response,$args) {
-         
+    public function create ($request,$response) {
+          
+        
+        $name = clean($request->getParam('name'));
+        
+        if(!empty($name)){
+           $menu = Menus::create([
+             'name' => clean($request->getParam('name'))
+            ]); 
+            $this->flash->addMessage('success','تم اضافة القائمة بنجاح');
+            return $response->withStatus(302)->withHeader('Location', $this->router->urlFor('menus.edit',['id'=>$menu->id]));
+        }
+        
+        $this->flash->addMessage('error','لا يمكن ترك اسم القائمة فارغاً');
+        return $response->withStatus(302)->withHeader('Location', $this->router->urlFor('menus'));
+        
     }
     
     public function edit ($request,$response,$args) {

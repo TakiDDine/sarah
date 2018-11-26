@@ -39,7 +39,6 @@ $app->group('/', function () use($app) {
         $app->get('account[/]', \App\Controllers\website\AuthController::class .':account')->setName('website.account');
 
         // Statique Pages
-//        $app->get('faqs[/]', \App\Controllers\website\StatiquePagesController::class .':faqs')->setName('website.faqs');
         $app->get('about-us[/]', \App\Controllers\website\StatiquePagesController::class .':about')->setName('website.about-us');
 
         // 

@@ -37,13 +37,14 @@
 							<div class="login-content-inner">
 								<div id="customer-login">
 									<div id="login" class="">
+									 <div class="alert alert-danger loginjs" style="display:none;"></div>
 									{% include "admin/elements/flash.twig" %}
 										<form action="{{path_for('login')}}" method="POST" id='LoginForm'>
 											<input type="hidden" value="customer_login" name="validate">
 											<label for="customer_email" class="label">Email</label>
-											<input type="text" value="{{old.user_login}}" name="user_login" class="text">
+											<input type="text" value="{{old.user_login}}" name="user_login" class="text required_field">
 											<label for="customer_password" class="label">Password</label>
-											<input type="password"  name="pass_login" class="text" size="16">
+											<input type="password"  name="pass_login" class="text required_field" size="16">
 											<div class="action_bottom">
 												<input class="btn" type="submit" value="Sign In">
 												<a href="{{path_for('website.reset')}}">Forgot your password?</a>
@@ -58,4 +59,49 @@
 			</section>
 		</main>
 	</div>
+	
+	
+	
+	
+	
+	
+	
+	
+		
+<style>.errorFiled { border-color: #e0493e; }</style>
+<script>
+$('#LoginForm').submit(function() {
+     var res = true;
+     // here I am checking for textFields, password fields, and any 
+     // drop down you may have in the form
+     $(".required_field",this).each(function() {
+         if($(this).val().trim() == "") {
+             res = false; 
+             $(this).addClass('errorFiled');
+         }else{
+             $(this).removeClass('errorFiled');
+         }
+     })
+     if(res == false){
+         $('.loginjs').show();
+         $('.loginjs').html("Please Fill The Required Fields");
+     }
+     return res; // returning false will prevent the form from submitting.
+});
+</script>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 {% endblock %}	

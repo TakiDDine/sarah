@@ -31,10 +31,10 @@ $container['conf'] = function () {
 
 //  Error Handling
 if($container['conf']['info.debug'] == 'false' ):  
-    ini_set("display_errors", 0);
-    ini_set('log_errors', 0);
-    error_reporting(0);
-    @ini_set('display_errors',0);
+    ini_set("display_errors", 1);
+    ini_set('log_errors', 1);
+    error_reporting(1);
+    @ini_set('display_errors',1);
 endif;
 
 
@@ -264,3 +264,28 @@ if(isset($_SESSION['auth-admin'])) {
 if(isset($_SESSION['auth-user'])) {   
     $container['view']->getEnvironment()->addGlobal('user',$capsule->table('users')->find($_SESSION['auth-user']) );
 }
+
+
+
+
+if(isset($_GET['lang'])){
+    $file = BASEPATH.'/app/lang/admin/'.$_GET['lang'].'.php';
+    if(file_exists($file)):
+        $container['view']->getEnvironment()->addGlobal('lang', Config::load($file));
+        $_SESSION['lang'] = Config::load($file);    
+    endif;
+}
+if(!isset($_SESSION['lang'])){
+    $file = BASEPATH.'/app/lang/admin/ar.php';
+    if(file_exists($file)):
+        $container['view']->getEnvironment()->addGlobal('lang', Config::load($file));
+        $_SESSION['lang'] = Config::load($file);    
+    endif;
+}
+
+
+
+
+
+
+

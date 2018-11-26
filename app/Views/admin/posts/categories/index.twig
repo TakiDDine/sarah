@@ -84,7 +84,7 @@
                      
                       
                      
-                     <li><a target="_blank" href="{{ path_for('website.blog.categories', {'slug': product.id }) }}" class="text-success-600"><i class="icon-eye position-left"></i> معاينة </a></li>
+                     <li><a target="_blank" href="{{ path_for('blog.categorie', {'id': product.id }) }}" class="text-success-600"><i class="icon-eye position-left"></i> معاينة </a></li>
                       <li>
                       <li><a href="{{ path_for('posts.categories.edit', {'id': categorie.id}) }}" class="text-primary-600"><i class="icon-pencil7 position-left"></i>تعديل </a></li>
                         <li><a class='text-danger' href="{{ path_for('posts.categories.delete', {'id': categorie.id}) }}"><i class="icon-trash"></i><b>  حذف </b></a>

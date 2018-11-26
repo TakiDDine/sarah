@@ -387,52 +387,6 @@
 <!-- /page header -->
 
 
-
-
- <!-- Basic modal -->
-					<div id="modal_default" class="modal fade">
-						<div class="modal-dialog">
-						
-						<form action="{{path_for('menus.create')}}" method="POST">
-							<div class="modal-content">
-								<div class="modal-header">
-									<button type="button" class="close" data-dismiss="modal">&times;</button>
-									<h5 class="modal-title">انشاء قائمة جديدة</h5>
-								</div>
-								<div class="modal-body">
-									<h6 class="text-semibold">ادخل اسم للقائمة</h6>
-									<input type="text" class="form-control" name="name" placeholder="اسم القائمة"  />
-								</div>
-								<div class="modal-footer">
-									<button type="submit" class="btn btn-primary">اضافة القائمة</button>
-								</div>
-							</div>
-							</form>
-						</div>
-					</div>
-					<!-- /basic modal -->
-      
-      
-                
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <!-- Iconified modal -->
 <div id="modal_iconified" class="modal fade">
     <div class="modal-dialog">
@@ -479,6 +433,7 @@
 
 								<div class="modal-body">
 									    <form class="" id="menu-editor">
+<!--            <h3>Editing <span id="currentEditName"></span></h3>-->
             <div class="form-group">
               <label for="addInputName">الإسم</label>
               <input type="text" class="form-control" id="editInputName" placeholder="Item name" required>
@@ -513,7 +468,7 @@
                 </select>
             </div>
             <div class="col-md-3" style="padding-top:10px;"> 
-            أو . <a data-toggle="modal" data-target="#modal_default">أنشئ قائمة جديدة</a>
+            أو . <a href="{{path_for('menus.create')}}">أنشئ قائمة جديدة</a>
             </div>
         </div>
         </div>
@@ -638,11 +593,6 @@
           <div class="dd nestable">
             <ol class="dd-list">
 
-             
-           
-             
-             
-             
              {% for item in htmlMenu %}
              <li class="dd-item" data-id='{{item.id}}' data-name="{{item.name}}" data-slug="{{item.slug}}"  >
                 <div class="dd-handle">{{item.name}}</div>
@@ -721,9 +671,6 @@
                     </li>                                          
                 </ul>
                 </div>
-                <p>
-                    <a class="text-danger" style="margin-right:15px;" href="{{path_for('menus.delete',{id : menu.id})}}">حذف القائمة</a>
-                </p>
             </div>
             </form> 
         </div>
@@ -732,11 +679,7 @@
     </div>
       
       
-      
-      
-      
-      
-                
+        
       
            
       

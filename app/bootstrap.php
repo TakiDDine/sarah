@@ -5,7 +5,6 @@ use PHPtricks\Orm\Database;
 use Noodlehaus\Config;
 use Illuminate\Database\Capsule\Manager as Capsule;
 
-
 session_start();
 date_default_timezone_set('Europe/Warsaw');
 
@@ -19,6 +18,13 @@ $config = [
         'displayErrorDetails' => true,
     ],
 ];
+
+
+
+
+
+
+
 
 $app = new \Slim\App($config);
 require INC_ROOT .'/app/container.php';

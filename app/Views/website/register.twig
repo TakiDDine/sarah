@@ -7,23 +7,22 @@
 	<!-- Main Content -->
 	<div class="page-container" id="PageContainer">
 		<main class="main-content" id="MainContent" role="main">
-			<section class="collection-heading heading-content ">
+		
+		
+		
+		 <section class="collection-heading heading-content ">
 				<div class="container">
 					<div class="row">
 						<div class="collection-wrapper">
 							<h1 class="collection-title"><span>Create Account</span></h1>
 							<div class="breadcrumb-group">
 								<div class="breadcrumb clearfix">
-									<span itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
-										<a href="index.html" title="Bridal 1" itemprop="url">
-											<span itemprop="title">Home</span>
-										</a>
+									<span>
+										<a href="{{path_for('website.home')}}"><span>Home</span></a>
 									</span>
-									<span class="arrow-space">></span>
-									<span itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
-										<a href="register.html" title="Create Account" itemprop="url">
-											<span itemprop="title">Create Account</span>
-										</a>
+									<span class="arrow-space">/</span>
+									<span>
+										<a href="{{path_for('website.register')}}"><span>Create Account</span></a>
 									</span>
 								</div>
 							</div>
@@ -31,6 +30,14 @@
 					</div>
 				</div>
 			</section>
+		
+		
+		
+		
+		
+		
+		
+		
 			<section class="register-content">
 				<div class="register-wrapper">
 					<div class="container">
@@ -38,35 +45,37 @@
 							<div class="register-inner">
 								<div id="customer-register">
 									<div id="register" class="">
-									
-										<form method="post" action="{{path_for('website.register.post')}}">
+									<div class="alert alert-danger registerjs" style="display:none;"></div>
+										<form method="post" action="{{path_for('website.register.post')}}" id="RegisterForm">
 										{% include "admin/elements/flash.twig" %}
 										<input type="hidden" value="create_customer" name="validate">
 											<div id="first_name1" class="clearfix large_form">
 												<label for="first_name2" class="label">First Name</label>
-												<input type="text" value="" name="first_name" class="text" size="30">
+												<input type="text" value="{{old.first_name}}" name="first_name" class="text required_field" size="30">
 											</div>
 											<div id="last_name1" class="clearfix large_form">
 												<label for="last_name2" class="label">Last Name</label>
-												<input type="text" value="" name="last_name" class="text" size="30">
+												<input type="text" value="{{old.first_name}}" name="last_name" class="text required_field" size="30">
 											</div>
 											<div id="email1" class="clearfix large_form">
 												<label for="email2" class="label">Email</label>
-												<input type="email" value="" name="email" class="text" size="30">
+												<input type="email" value="{{old.first_name}}" name="email" class="text required_field" size="30">
 											</div>
 											<div id="password1" class="clearfix large_form">
 												<label for="password2" class="label">Password</label>
-												<input type="password" value="" name="password"  class="password text" size="30">
+												<input type="password" value="{{old.first_name}}" name="password"  class="password text required_field" size="30">
 											</div>
 											<div class="action_bottom">
-												<input class="btn" type="submit" value="Create"> or
-												<span class="note"><a href="{{website.home}}">Return to Store</a></span>
+												<input class="btn" type="submit" value="Create">
 											</div>
 										</form>
 									</div>
 									<!-- #register -->
 								</div>
 								<!-- #customer-register -->
+								<br>
+								<br>
+								<br>
 							</div>
 						</div>
 					</div>
@@ -74,4 +83,36 @@
 			</section>
 		</main>
 	</div>
+	
+	
+	
+	
+	<style>.errorFiled { border-color: #e0493e; }</style>
+<script>
+$('#RegisterForm').submit(function() {
+     var res = true;
+     // here I am checking for textFields, password fields, and any 
+     // drop down you may have in the form
+     $(".required_field",this).each(function() {
+         if($(this).val().trim() == "") {
+             res = false; 
+             $(this).addClass('errorFiled');
+         }else{
+             $(this).removeClass('errorFiled');
+         }
+     })
+     if(res == false){
+         $('.registerjs').show();
+         $('.registerjs').html("Please Fill The Required Fields");
+     }
+     return res; // returning false will prevent the form from submitting.
+});
+</script>
+	
+	
+	
+	
+	
+	
+	
 {% endblock %}

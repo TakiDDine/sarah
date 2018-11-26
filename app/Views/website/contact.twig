@@ -7,19 +7,20 @@
 	<!-- Main Content -->
 	<div class="page-container" id="PageContainer">
 		<main class="main-content" id="MainContent" role="main">
-			<section class="collection-heading heading-content ">
+			
+				<section class="collection-heading heading-content ">
 				<div class="container">
 					<div class="row">
 						<div class="collection-wrapper">
-							<h1 class="collection-title"><span>Contact</span></h1>
+							<h1 class="collection-title"><span>Contact Us</span></h1>
 							<div class="breadcrumb-group">
 								<div class="breadcrumb clearfix">
-									<span itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
-										<a href="index.html" title="Sarahmarket 1" itemprop="url"><span itemprop="title">Home</span></a>
+									<span>
+										<a href="{{path_for('website.home')}}"><span>Home</span></a>
 									</span>
-									<span class="arrow-space">></span>
-									<span itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
-										<a href="contact.html" title="Contact" itemprop="url"><span itemprop="title">Contact</span></a>
+									<span class="arrow-space">/</span>
+									<span>
+										<a href="{{path_for('website.contact')}}"><span>Contact Us</span></a>
 									</span>
 								</div>
 							</div>
@@ -27,6 +28,12 @@
 					</div>
 				</div>
 			</section>
+			
+			
+			
+			
+			
+			
 			<section class="contact_banner_show-content" style='padding-top:35px;'>
 				<div class="blcontact_banner_showog-wrapper">
 					<div class="container">

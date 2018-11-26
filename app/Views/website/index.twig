@@ -756,5 +756,38 @@
 			
 		</main>
 	</div>
+	
+	
+	
+	
+		<style>.errorFiled { border-color: #e0493e; }</style>
+<script>
+$('#ResetForm').submit(function() {
+     var res = true;
+     // here I am checking for textFields, password fields, and any 
+     // drop down you may have in the form
+     $(".required_field",this).each(function() {
+         if($(this).val().trim() == "") {
+             res = false; 
+             $(this).addClass('errorFiled');
+         }else{
+             $(this).removeClass('errorFiled');
+         }
+     })
+     if(res == false){
+         $('.Resetjs').show();
+         $('.Resetjs').html("Please insert your email");
+     }
+     return res; // returning false will prevent the form from submitting.
+});
+</script>
+	
+	
+	
+	
+	
+	
+	
+	
 {% endblock %}
 

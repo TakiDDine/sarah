@@ -27,6 +27,12 @@ class AuthController extends Controller {
     
     
     public function getLogin($request,$response) {
+        
+        if(isset($_SESSION['auth-user'])){
+            return $response->withRedirect($this->container->router->pathFor('website.home'));
+        }
+        
+        
        return $this->container->view->render($response,'admin/auth/login.twig');
     } 
     public function postLogin($request,$response) {

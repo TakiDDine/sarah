@@ -10,7 +10,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 *  Admin Routes
 */
 // Admin Routes
-$app->group('/wp-admin', function () use($app) {
+$app->group('/cpanel', function () use($app) {
 
 
      /*

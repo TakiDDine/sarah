@@ -7,18 +7,21 @@
 	<!-- Main Content -->
 	<div class="page-container" id="PageContainer">
 		<main class="main-content" id="MainContent" role="main">
-			<section class="collection-heading heading-content ">
+		
+		
+		<section class="collection-heading heading-content ">
 				<div class="container">
 					<div class="row">
 						<div class="collection-wrapper">
 							<h1 class="collection-title"><span>Your Cart</span></h1>
 							<div class="breadcrumb-group">
 								<div class="breadcrumb clearfix">
-									<span itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb"><a href="index.html" title="Bridal 1" itemprop="url"><span itemprop="title">Home</span></a>
+									<span>
+										<a href="{{path_for('website.home')}}"><span>Home</span></a>
 									</span>
-									<span class="arrow-space">></span>
-									<span itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
-										<a href="cart.html" title="Your Cart" itemprop="url"><span itemprop="title">Your Cart</span></a>
+									<span class="arrow-space">/</span>
+									<span>
+										<a href="{{path_for('website.cart')}}"><span>Cart</span></a>
 									</span>
 								</div>
 							</div>
@@ -26,6 +29,10 @@
 					</div>
 				</div>
 			</section>
+		
+		
+		
+		
 			<section class="cart-content">
 				<div class="cart-wrapper">
 					<div class="container">

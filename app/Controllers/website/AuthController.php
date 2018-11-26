@@ -13,9 +13,16 @@ use \App\Models\User;
 class AuthController extends \App\Controllers\Controller{
     
     public function login_get($request,$response) {
+        if(isset($_SESSION['auth-user'])){
+            return $response->withRedirect($this->container->router->pathFor('website.home'));
+        }
        return $this->container->view->render($response,'website/login.twig');
     }
+    
     public function register_get($request,$response) {
+        if(isset($_SESSION['auth-user'])){
+            return $response->withRedirect($this->container->router->pathFor('website.home'));
+        }
        return $this->container->view->render($response,'website/register.twig');
     }
     public function account($request,$response) {
@@ -76,6 +83,9 @@ class AuthController extends \App\Controllers\Controller{
     public function resetPassword($request,$response) {
         
             if($request->getMethod() == 'GET'){ 
+                 if(isset($_SESSION['auth-user'])){
+                     return $response->withRedirect($this->container->router->pathFor('website.home'));
+                 }
                 return $this->container->view->render($response,'website/reset.twig');
             }
         

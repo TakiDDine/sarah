@@ -6,23 +6,21 @@
 	<!-- Main Content -->
 	<div class="page-container" id="PageContainer">
 		<main class="main-content" id="MainContent" role="main">
-			<section class="collection-heading heading-content ">
+		
+		
+			 <section class="collection-heading heading-content ">
 				<div class="container">
 					<div class="row">
 						<div class="collection-wrapper">
 							<h1 class="collection-title"><span>Reset Password</span></h1>
 							<div class="breadcrumb-group">
 								<div class="breadcrumb clearfix">
-									<span itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
-										<a href="index.html" title="Bridal 1" itemprop="url">
-											<span itemprop="title">Home</span>
-										</a>
+									<span>
+										<a href="{{path_for('website.home')}}"><span>Home</span></a>
 									</span>
-									<span class="arrow-space">></span>
-									<span itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
-										<a href="login.html" title="Login" itemprop="url">
-											<span itemprop="title">Login</span>
-										</a>
+									<span class="arrow-space">/</span>
+									<span>
+										<a href="{{path_for('website.reset')}}"><span>Reset Password</span></a>
 									</span>
 								</div>
 							</div>
@@ -30,18 +28,26 @@
 					</div>
 				</div>
 			</section>
+		
+		
+			
+			
+			
+			
+			
 			<section class="login-content">
 				<div class="login-content-wrapper">
 					<div class="container">
 						<div class="row">
 							<div class="login-content-inner">
 								<div id="customer-login">
+								    <div class="alert alert-danger Resetjs" style="display:none;"></div>
 									{% include "admin/elements/flash.twig" %}
 									<div id="recover-password">
 										<h2>Reset Password</h2>
 								        <form action="{{path_for('website.reset')}}" method="POST" id="ResetForm" >
 											<label class="label">Email</label>
-											<input type="text" name="email" id="recover-email" class="text">
+											<input type="text" name="email" id="recover-email" class="text required_field">
 											<div class="action_bottom">
 												<input class="btn" type="submit" value="Submit"> or
 												<span class="note"><a href="{{path_for('website.login')}}">Login</a></span>
@@ -56,4 +62,28 @@
 			</section>			
 		</main>
 	</div>
+	
+	
+	<style>.errorFiled { border-color: #e0493e; }</style>
+<script>
+$('#ResetForm').submit(function() {
+     var res = true;
+     // here I am checking for textFields, password fields, and any 
+     // drop down you may have in the form
+     $(".required_field",this).each(function() {
+         if($(this).val().trim() == "") {
+             res = false; 
+             $(this).addClass('errorFiled');
+         }else{
+             $(this).removeClass('errorFiled');
+         }
+     })
+     if(res == false){
+         $('.Resetjs').show();
+         $('.Resetjs').html("Please Fill The Required Fields");
+     }
+     return res; // returning false will prevent the form from submitting.
+});
+</script>
+	
 {% endblock %}	

@@ -11,29 +11,29 @@
 	<link rel="icon" type="image/x-icon" href="{{url.general }}{{  'favicon'|options }}" /> 
 		
 	<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700">
-	<link href="{{website_assets}}stylesheets/bootstrap.min.css" rel="stylesheet" type="text/css" media="all">  
-	<link href="{{website_assets}}stylesheets/fonts.googleapis.css" rel="stylesheet" type="text/css" media="all">
-	<link href="{{website_assets}}stylesheets/font-awesome.min.css" rel="stylesheet" type="text/css" media="all">
-	<link href="{{website_assets}}stylesheets/icon-font.min.css" rel="stylesheet" type="text/css" media="all">
-	<link href="{{website_assets}}stylesheets/social-buttons.css" rel="stylesheet" type="text/css" media="all">
-	<link href="{{website_assets}}stylesheets/cs-1.styles.css" rel="stylesheet" type="text/css" media="all">
-	<link href="{{website_assets}}stylesheets/owl.carousel.min.css" rel="stylesheet" type="text/css" media="all">
-	<link href="{{website_assets}}stylesheets/spr.css" rel="stylesheet" type="text/css" media="all">
-	<link href="{{website_assets}}stylesheets/slideshow-fade.css" rel="stylesheet" type="text/css" media="all">
-	<link href="{{website_assets}}stylesheets/cs.animate.css" rel="stylesheet" type="text/css" media="all">
+	<link href="/assets/stylesheets/bootstrap.min.css" rel="stylesheet" type="text/css" media="all">  
+	<link href="/assets/stylesheets/fonts.googleapis.css" rel="stylesheet" type="text/css" media="all">
+	<link href="/assets/stylesheets/font-awesome.min.css" rel="stylesheet" type="text/css" media="all">
+	<link href="/assets/stylesheets/icon-font.min.css" rel="stylesheet" type="text/css" media="all">
+	<link href="/assets/stylesheets/social-buttons.css" rel="stylesheet" type="text/css" media="all">
+	<link href="/assets/stylesheets/cs-1.styles.css" rel="stylesheet" type="text/css" media="all">
+	<link href="/assets/stylesheets/owl.carousel.min.css" rel="stylesheet" type="text/css" media="all">
+	<link href="/assets/stylesheets/spr.css" rel="stylesheet" type="text/css" media="all">
+	<link href="/assets/stylesheets/slideshow-fade.css" rel="stylesheet" type="text/css" media="all">
+	<link href="/assets/stylesheets/cs.animate.css" rel="stylesheet" type="text/css" media="all">
 	
-	<script type="text/javascript" src="{{website_assets}}javascripts/jquery.min.js"></script>
-	<script type="text/javascript" src="{{website_assets}}javascripts/classie.js"></script>
-	<script type="text/javascript" src="{{website_assets}}javascripts/cs.optionSelect.js"></script>
-	<script type="text/javascript" src="{{website_assets}}javascripts/cs.script.js"></script>
-	<script type="text/javascript" src="{{website_assets}}javascripts/jquery.currencies.min.js"></script>
-	<script type="text/javascript" src="{{website_assets}}javascripts/jquery.zoom.min.js"></script>
-	<script type="text/javascript" src="{{website_assets}}javascripts/linkOptionSelectors.js"></script>
-	<script type="text/javascript" src="{{website_assets}}javascripts/owl.carousel.min.js"></script>
-	<script type="text/javascript" src="{{website_assets}}javascripts/scripts.js"></script>
-	<script type="text/javascript" src="{{website_assets}}javascripts/social-buttons.js"></script>
-	<script type="text/javascript" src="{{website_assets}}javascripts/bootstrap.min.js"></script>
-	<script type="text/javascript" src="{{website_assets}}javascripts/jquery.touchSwipe.min.js"></script>
+	<script type="text/javascript" src="/assets/javascripts/jquery.min.js"></script>
+	<script type="text/javascript" src="/assets/javascripts/classie.js"></script>
+	<script type="text/javascript" src="/assets/javascripts/cs.optionSelect.js"></script>
+	<script type="text/javascript" src="/assets/javascripts/cs.script.js"></script>
+	<script type="text/javascript" src="/assets/javascripts/jquery.currencies.min.js"></script>
+	<script type="text/javascript" src="/assets/javascripts/jquery.zoom.min.js"></script>
+	<script type="text/javascript" src="/assets/javascripts/linkOptionSelectors.js"></script>
+	<script type="text/javascript" src="/assets/javascripts/owl.carousel.min.js"></script>
+	<script type="text/javascript" src="/assets/javascripts/scripts.js"></script>
+	<script type="text/javascript" src="/assets/javascripts/social-buttons.js"></script>
+	<script type="text/javascript" src="/assets/javascripts/bootstrap.min.js"></script>
+	<script type="text/javascript" src="/assets/javascripts/jquery.touchSwipe.min.js"></script>
 
 
 {{ 'other_head_scripts'|options|raw }}
@@ -511,12 +511,13 @@
 							<div class="footer_newsoc_inner">
 								<div class="footer_newsoc_content" style="width:80% !important; margin:0 auto;">
 									<div class="footer_newsletter_content">
+				<div class="alert alert-danger Resetjs" style="display:none;"></div>
 										<span class="footer-title">
 											Delivering the latest product trends  straight to your inbox.
 										</span>
 										<div class="newsletter_content">
-											<form method="POST" action="{{path_for('mailist.add')}}" >
-												<input type="email" class="form-control" value="" name="email" id="mail" placeholder="Enter your email">
+											<form method="POST" action="{{path_for('mailist.add')}}" id="Subscribe">
+												<input type="email" class="form-control required_field" value="" name="email" id="mail" placeholder="Enter your email">
 												<button type="submit" class="btn_newsletter_send btn" name="subscribe" id="subscribe">Submit</button>
 											</form>
 											<span class="newsletter_caption">
@@ -753,7 +754,27 @@ $(document).ready(function(){
 
 
 
-
+		<style>.errorFiled { border-color: #e0493e; }</style>
+<script>
+$('#Subscribe').submit(function() {
+     var res = true;
+     // here I am checking for textFields, password fields, and any 
+     // drop down you may have in the form
+     $(".required_field",this).each(function() {
+         if($(this).val().trim() == "") {
+             res = false; 
+             $(this).addClass('errorFiled');
+         }else{
+             $(this).removeClass('errorFiled');
+         }
+     })
+     if(res == false){
+         $('.Resetjs').show();
+         $('.Resetjs').html("Please insert your email");
+     }
+     return res; // returning false will prevent the form from submitting.
+});
+</script>
 
 
 
