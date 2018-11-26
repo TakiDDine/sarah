@@ -141,6 +141,40 @@ class PagesController extends Controller {
         $this->flash->addMessage('success', 'تم حذف كل الصفحات بنجاح');
         return $response->withStatus(302)->withHeader('Location', $this->router->urlFor('pages'));
     }
+    
+    
+    
+    /*
+    *   Taking Action For selected Rows in the Table
+    *   version 1.0 , Action that exist now is Delete 
+    */
+    public function mutliAction($request,$response){
+    
+        // Get All selected Pages
+        $selected =  Page::whereIn('id', array_values($request->getParam('checkaction')));
+
+        // Take the Correct Action
+        if($request->getParam('takeAction') == 'delete'){ $selected->delete(); }
+
+        // Redirect To Pages
+        $this->flash->addMessage('success', 'تم تنفيذ الأمر بنجاح');
+        return $response->withStatus(302)->withHeader('Location', $this->router->urlFor('pages'));
+    
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
    
 }
 

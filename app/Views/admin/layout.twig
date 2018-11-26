@@ -29,8 +29,8 @@
     <script type="text/javascript" src="{{ admin_assets }}js/plugins/forms/selects/select2.min.js"></script>
     <script type="text/javascript" src="{{ admin_assets }}js/plugins/forms/styling/uniform.min.js"></script>
     <script type="text/javascript" src="{{ admin_assets }}js/jquery.passwordstrength.js"></script>
-	<script type="text/javascript" src="{{ admin_assets }}js/plugins/forms/styling/switchery.min.js"></script>
-	<script type="text/javascript" src="{{ admin_assets }}js/plugins/forms/styling/switch.min.js"></script>
+<!--	<script type="text/javascript" src="{{ admin_assets }}js/plugins/forms/styling/switchery.min.js"></script>-->
+<!--	<script type="text/javascript" src="{{ admin_assets }}js/plugins/forms/styling/switch.min.js"></script>-->
 	<script type="text/javascript" src="{{ admin_assets }}js/core/app.js"></script>
 	<script type="text/javascript" src="{{ admin_assets }}js/main.js"></script>
 
@@ -76,9 +76,75 @@
 		
 	</div>
 
+
+<style>
+tr.removeRow {
+    background: #e74c3c;
+    border-color: #e74c3c;
+    color: white;
+}
+
+tr.removeRow a {
+    color: white;
+}
+
+</style>
+
+<style>
+.navbar.navbar-default.navbar-component.navbar-xs.transparent {
+    background: transparent;
+    border: 0;
+    margin-bottom: 0;
+    padding-right: 0 !important;
+    margin-right: -11px !important;
+}    
+</style>
+
+<style>
+.datatable>thead>tr>th:first-child {
+    padding: 0;
+    text-align: center;
+}
+.datatable>tbody>tr>td:first-child {
+     padding: 0; text-align: center;
+}
+</style>
+
+
+
+
 <script>
+$( document ).ready(function() {
+    
+    $(".checkboxall input").change(function() {
+            if(this.checked) {
+                $('.checkit input').prop('checked', true);
 
+                $(".datatable tbody tr").each(function(){
+                   $(this).addClass('removeRow');
+                });
 
+            }else{
+                 $('.checkit input').prop('checked', false);
+                $(".datatable tbody tr").each(function(){
+                   $(this).removeClass('removeRow');
+                });
+
+            }
+        });
+
+    $(".checkit input").change(function() {
+        if(this.checked) {
+
+            $(this).closest('tr').addClass('removeRow');
+
+        }else{
+            $(this).closest('tr').removeClass('removeRow');
+        }    
+    });
+    
+ });
 </script>
+
 </body>
 </html>

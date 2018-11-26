@@ -146,6 +146,8 @@ $app->group('/cpanel', function () use($app) {
         $app->get('/delete/{id}[/]', \App\Controllers\PostsController::class .':delete')->setName('posts.delete');
         $app->get('/duplicate/{id}[/]', \App\Controllers\PostsController::class .':duplicate')->setName('posts.duplicate');
         $app->get('/blukdelete[/]', \App\Controllers\PostsController::class .':blukdelete')->setName('posts.blukdelete');
+        $app->any('/mutliAction[/]', \App\Controllers\PostsController::class .':mutliAction')->setName('posts.mutliAction');
+
         
         $app->group('/categories', function () use ($app) {
             $app->any('[/]', \App\Controllers\PostsCategoriesController::class .':index')->setName('posts.categories');
@@ -232,6 +234,7 @@ $app->group('/cpanel', function () use($app) {
         $app->get('/delete/{id}[/]', \App\Controllers\PagesController::class .':delete')->setName('pages.delete');
         $app->get('/duplicate/{id}[/]', \App\Controllers\PagesController::class .':duplicate')->setName('pages.duplicate');
         $app->get('/blukdelete[/]', \App\Controllers\PagesController::class .':blukdelete')->setName('pages.blukdelete');
+        $app->any('/mutliAction[/]', \App\Controllers\PagesController::class .':mutliAction')->setName('pages.mutliAction');
         
     });
     

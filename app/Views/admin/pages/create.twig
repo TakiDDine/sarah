@@ -32,7 +32,7 @@
 				<div class="page-header page-header-transparent">
 					<div class="page-header-content">
 						<div class="page-title">
-							<h1> <span class="text-semibold">اضافة صفحة جديدة</span></h1>
+							<h1> <span class="text-semibold">الصفحات - اضافة صفحة جديدة</span></h1>
 						</div>
 
 						
@@ -51,35 +51,20 @@
 
 <div class="col-md-9">								
 <div class="form-group">
-                <label class="control-label">عنوان المقالة</label>
-                <input type="text" id="postitlte" class="form-control" name="title" placeholder="عنوان المقالة" value="{{old.title}}" />
-          
-        
-
-            
-             
-             
-            </div>
-		
-		
-		<textarea name="post_content" id="posteditor"  >{{old.post_content}}</textarea>
-
-
-
+        <label class="control-label">عنوان المقالة</label>
+        <input type="text" id="postitlte" class="form-control" name="title" placeholder="عنوان المقالة" value="{{old.title}}" />
+</div>
+<textarea name="post_content" id="posteditor" >{{old.post_content}}</textarea>
 </div>					
 					
-
-        <div class="col-md-3">
-         <button type="submit" class="btn btn-block btn-primary">نشر المقالة <i class="icon-arrow-left13 position-right"></i></button>
-         <br>
- 
-            
-            
+<div class="col-md-3">
+<button type="submit" class="btn btn-block btn-primary">نشر المقالة <i class="icon-arrow-left13 position-right"></i></button>
+<br>
+     
 <div class="panel panel-white">
     <div class="panel-heading">
         <h6 class="panel-title"> تصنيف المقالة </h6>
     </div>
-
     <div class="panel-body">
          <select  name="postCategory" style="width:100%;" class="postCategory">
             <option value="not_speci">غير محدد بعد</option>
