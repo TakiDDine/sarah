@@ -27,6 +27,7 @@ $app->group('/cpanel', function () use($app) {
     $app->group('/users', function () use ($app) {
         $app->get('[/]', \App\Controllers\UsersController::class .':index')->setName('users');
         $app->any('/create[/]', \App\Controllers\UsersController::class .':create')->setName('users.create');
+        $app->any('/mutliAction[/]', \App\Controllers\UsersController::class .':mutliAction')->setName('users.mutliAction');        
         $app->get('/export/csv[/]', \App\Controllers\UsersController::class .':export_csv')->setName('usersToCsv');
         $app->get('/export/pdf[/]', \App\Controllers\UsersController::class .':export_pdf')->setName('usersToPdf');
         $app->get('/blukdelete[/]', \App\Controllers\UsersController::class .':blukdelete')->setName('users.blukdelete');
