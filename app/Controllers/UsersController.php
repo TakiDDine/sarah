@@ -11,6 +11,8 @@ use \App\Classes\files;
 use \App\Classes\app;
 use \App\Classes\pdf\FPDF;
 use Dompdf\Dompdf;
+
+
 defined('BASEPATH') OR exit('No direct script access allowed');
 class UsersController extends Controller{
     
@@ -28,10 +30,12 @@ class UsersController extends Controller{
              if($request->getMethod() == 'POST'){  
 
                 $validator = $this->validator;    
+                
+                 // Get the user IP
+                $ip = $this->helper->get_ip_address();
 
-                $ip = $validator->get_real_ip();
-
-
+                 
+                 
 
                 // Get the parameters Sent by the Form .
                 $post = $request->getParams();

@@ -15,20 +15,84 @@ return  [
      
     
      'sidebar' => [
-        '1'           => 'overview',
-        'ads'                => 'uploads/undetected/',
-        'admin_assets'       => 'admin_assets/',
-        'website_assets'     => 'assets/',
-        'avatars'            => 'uploads/avatar/',
-        'pages'              => 'uploads/pages/',
-        'posts'              => 'uploads/posts/',
-        'products'           => 'uploads/products/',
-        'general'            => 'uploads/general/',
-        'slider'             => 'uploads/slider/',    
-        'media'              => 'uploads/media/'   
+        '1'       => 'overview',
+        '2'       => 'Messages',
+        '3'       => 'users',
+        '4'       => 'Media',
+        '5'       => 'Pages',
+        '6'       => 'Articles',
+        '7'       => 'Menus',
+        '8'       => 'Ads',
+        '9'       => 'Products',
+        '10'      => 'store',
+        '11'      => 'Faqs',
+        '12'      => 'settings',
+        '13'      => 'Costumize',
+        '14'      => 'Mail list',
+        '15'      => 'Inbox'
     ],
     
-        
+    
+    'topHeader' => [
+        '1'       => 'Account settings',
+        '2'       => 'Log out',
+        '3'       => 'Visit website', 
+    ],
+      
   
+
+    'HomeDashboard' => [
+        '1'       => 'Welcome to Dshboard',
+        '2'       => 'Log out',
+        '3'       => 'Visit website', 
+    
+    
+        // Statistiques
+        '4'       => 'total products', 
+        '5'       => 'total articles', 
+        '6'       => 'total users', 
+        '7'       => 'total messages', 
+    
+    
+        // General Info
+        '4'       => 'cpanel version', 
+        '5'       => 'php version', 
+        '6'       => 'mysql version', 
+        '7'       => 'total messages', 
+    
+     
+    
+    ],
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     
 ];

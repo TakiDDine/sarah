@@ -13,8 +13,13 @@ class HomeController extends Controller{
    
   
     public function home($request,$response) {
-     
       $count = [];
+        
+        // info
+        $pdo = $this->db->connection()->getPdo();
+        $version = $pdo->query('select version()')->fetchColumn();
+        
+
         
       $count['products'] = $this->db->table('products')->count(); 
       $count['users'] = $this->db->table('users')->count(); 
@@ -22,9 +27,15 @@ class HomeController extends Controller{
       $count['posts'] = $this->db->table('posts')->count(); 
       $count['orders'] = $this->db->table('orders')->count(); 
       $count['pages'] = $this->db->table('pages')->count(); 
-
+  
+        $info['phpversion'] = phpversion();
+        $info['mysqlversion'] = $version;
+          
         
-       return $this->container->view->render($response,'admin/home.twig',['count'=>$count]);
+       return $this->container->view->render($response,'admin/home.twig',[
+           'count'=>$count, 'info' =>$info
+                                                                         
+                                                                         ]);
     }
     
     public function page404($request,$response){

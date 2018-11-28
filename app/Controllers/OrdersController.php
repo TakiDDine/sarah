@@ -42,6 +42,14 @@ class OrdersController extends Controller {
  
      public function create($request,$response)  {
          
+         // Paypal info.
+         $client_id = $this->container->conf['app.sandbox_cliend_id'];
+         $secret_id = $this->container->conf['app.sandbox_secret_id'];
+             
+         
+         
+         
+         
          if(isset($_SESSION['auth-user'])){
             // Get the products he want to buy , so wer are getting the cart of course !
             $cart = Cart::where('user_id',$_SESSION['auth-user']);  
@@ -58,47 +66,57 @@ class OrdersController extends Controller {
              $total = array_sum($total);
              
              
-            // Payement Logic
+             
+             
+             // Payement Logic
+//             $payment = new \PayPal\Api\Payment();
+             
+             
              
             // make the payement;
              
             // if the payement is correct , redirect to order info page
             
             // if the payement is incomplete , return to order page with the error given
+            $payament = 0;
+             
+            if($payament == 1 )  {
+                 
+                // insert to database
+                $order =  Order::create([
+                         'first_name'   => clean($request->getParam('first_name')),
+                         'last_name'    => clean($request->getParam('last_name')),
+                         'email'        => clean($request->getParam('Email')),
+                         'company'      => clean($request->getParam('company_name')),
+                         'country'      => clean($request->getParam('country')),
+                         'postalCode'   => clean($request->getParam('Postcode')),
+                         'state'        => clean($request->getParam('State')),
+                         'city'         => clean($request->getParam('City')),
+                         'phone'        => clean($request->getParam('Phone')),
+                         'adressLine1'  => clean($request->getParam('adressLine1')),
+                         'adressLine2'  => clean($request->getParam('adressLine2')),
+                         'total'        => $total,
+                         'notes'        => $request->getParam('notes'),
+                         'statue'       => 1
+                    ]);
 
+                 // ADD the products to orders Table
+                 foreach($cart as $item ) {
+                     $this->db->table('orderproducts')->insert([
+                         'order_id' => $order->id , 
+                         'quantity' => $item->quantity,
+                         'productID' => $item->productID
+                     ]);  
+                 }
 
-            // insert to database
-            $order =  Order::create([
-                     'first_name'   => clean($request->getParam('first_name')),
-                     'last_name'    => clean($request->getParam('last_name')),
-                     'email'        => clean($request->getParam('Email')),
-                     'company'      => clean($request->getParam('company_name')),
-                     'country'      => clean($request->getParam('country')),
-                     'postalCode'   => clean($request->getParam('Postcode')),
-                     'state'        => clean($request->getParam('State')),
-                     'city'         => clean($request->getParam('City')),
-                     'phone'        => clean($request->getParam('Phone')),
-                     'adressLine1'  => clean($request->getParam('adressLine1')),
-                     'adressLine2'  => clean($request->getParam('adressLine2')),
-                     'total'        => $total,
-                     'notes'        => $request->getParam('notes'),
-                     'statue'       => 1
-                ]);
+                // Empty the cart of the user after order 
+                $cart->delete();
 
-             // ADD the products to orders Table
-             foreach($cart as $item ) {
-                 $this->db->table('orderproducts')->insert([
-                     'order_id' => $order->id , 
-                     'quantity' => $item->quantity,
-                     'productID' => $item->productID
-                 ]);  
-             }
-
-            // Empty the cart of the user after order 
-            $cart->delete();
-
-            $this->flash->addMessage('success','شكراً ، تم تلقي الطلب بنجاح ');
-            return $response->withStatus(302)->withHeader('Location', $this->router->urlFor('website.home'));
+                $this->flash->addMessage('success','شكراً ، تم تلقي الطلب بنجاح ');
+                return $response->withStatus(302)->withHeader('Location', $this->router->urlFor('website.home'));
+           }
+             
+             
              
         }
          
