@@ -61,11 +61,16 @@ class AuthController extends \App\Controllers\Controller{
         
         if($request->getMethod() == 'POST'){
         
-
-            $first_name     = clean($request->getParam('first_name'));
-            $last_name      = clean($request->getParam('last_name'));
-            $email          = clean($request->getParam('email'));
-            $password       = clean($request->getParam('password'));
+            $post = $request->getParams();
+            $helper = $this->helper;
+            
+            echo $helper->get_ip_address();exit;
+            
+            
+            $first_name     = $helper->clean($post['first_name']);
+            $last_name      = $helper->clean($post['last_name']);
+            $email          = $helper->clean($post['email']);
+            $password       = $helper->clean($post['password']);
 
              // Check if the informations are not empty
              if(
@@ -76,8 +81,8 @@ class AuthController extends \App\Controllers\Controller{
                ) {
 
                 // the Imporant Fields are empty
-                $this->flash->addMessage('error','Please Fill All the required Fileds');
-                return $response->withStatus(302)->withHeader('Location', $this->router->urlFor('website.register'));
+                $this->flasherror('Please Fill All the required Fileds');
+                 return $response->withRedirect($this->router->pathFor('website.register'));
              }
 
 
