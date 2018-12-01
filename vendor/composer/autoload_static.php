@@ -70,6 +70,7 @@ class ComposerStaticInitd3702cf20da8ec23086cebcd71bff65a
         'J' => 
         array (
             'Josantonius\\File\\' => 17,
+            'Jnjxp\\Pagination\\' => 17,
         ),
         'I' => 
         array (
@@ -191,6 +192,10 @@ class ComposerStaticInitd3702cf20da8ec23086cebcd71bff65a
         'Josantonius\\File\\' => 
         array (
             0 => __DIR__ . '/..' . '/josantonius/file/src',
+        ),
+        'Jnjxp\\Pagination\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/jnjxp/pagination/src',
         ),
         'Interop\\Container\\' => 
         array (

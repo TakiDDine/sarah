@@ -19,12 +19,7 @@ class AuthController extends \App\Controllers\Controller{
        return $this->container->view->render($response,'website/login.twig');
     }
     
-    public function register_get($request,$response) {
-        if(isset($_SESSION['auth-user'])){
-            return $response->withRedirect($this->container->router->pathFor('website.home'));
-        }
-       return $this->container->view->render($response,'website/register.twig');
-    }
+  
     public function account($request,$response) {
         return $this->container->view->render($response,'website/account.twig');
     }
@@ -53,29 +48,58 @@ class AuthController extends \App\Controllers\Controller{
     }
     
     
-    public function register_post($request,$response) {
+    public function register($request,$response) {
         
-        $first_name     = clean($request->getParam('first_name'));
-        $last_name      = clean($request->getParam('last_name'));
-        $email          = clean($request->getParam('email'));
-        $password       = clean($request->getParam('password'));
+        
+        
+        if($request->getMethod() == 'GET'){
+            if(isset($_SESSION['auth-user'])){
+                return $response->withRedirect($this->container->router->pathFor('website.home'));
+            }
+            return $this->container->view->render($response,'website/register.twig');
+        }
+        
+        if($request->getMethod() == 'POST'){
+        
 
-        $full_name = $first_name.' '.$last_name;
-        $username = string_To_Uri($full_name);
-        $password = password_hash($password,PASSWORD_DEFAULT);
+            $first_name     = clean($request->getParam('first_name'));
+            $last_name      = clean($request->getParam('last_name'));
+            $email          = clean($request->getParam('email'));
+            $password       = clean($request->getParam('password'));
+
+             // Check if the informations are not empty
+             if(
+                 empty($first_name) 
+                 or empty($last_name) 
+                 or empty($email) 
+                 or empty($password) 
+               ) {
+
+                // the Imporant Fields are empty
+                $this->flash->addMessage('error','Please Fill All the required Fileds');
+                return $response->withStatus(302)->withHeader('Location', $this->router->urlFor('website.register'));
+             }
+
+
+            $full_name = $first_name.' '.$last_name;
+            $username = string_To_Uri($full_name);
+            $password = password_hash($password,PASSWORD_DEFAULT);
+
+            $user = User::create([
+                'username' => $username,
+                'full_name' => $full_name,
+                'email' => $email,
+                'password' => $password,
+                'role' => '1',
+                'statue' => '1'
+            ]);
+
+            $_SESSION['auth-user'] = $user->id;
+
+            return $response->withRedirect($this->router->pathFor('website.home'));
         
-        $user = User::create([
-            'username' => $username,
-            'full_name' => $full_name,
-            'email' => $email,
-            'password' => $password,
-            'role' => '1',
-            'statue' => '1'
-        ]);
+        }
         
-        $_SESSION['auth-user'] = $user->id;
-      
-        return $response->withRedirect($this->router->pathFor('website.home'));
         
     }
     

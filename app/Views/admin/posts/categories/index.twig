@@ -30,16 +30,17 @@
 			          <div class="panel panel-flat">
  
         <div class="panel-body">
-            <form method="post" action="{{path_for('posts.categories')}}">
+            <form method="post" action="{{path_for('posts.categories')}}" id="createPostCategory">
                 <fieldset class="content-group">
+                   <div id="result"></div>
                     <legend class="text-bold">اضافة تصنيف جديد</legend>
                     <div class="form-group">
                         <label class="control-label">اسم التصنيف</label>
-                        <input type="text" value="{%  if flash('error') %}{{old.name}}{%  endif %}" class="form-control" name="name" placeholder="اسم التصنيف">
+                        <input type="text" value="{%  if flash('error') %}{{old.name}}{%  endif %}" class="form-control frequired" name="name" placeholder="اسم التصنيف">
                     </div>
                     <div class="form-group">
                         <label class="control-label">رابط التصنيف</label>
-                        <input type="text" value="{%  if flash('error') %}{{old.slug}}{%  endif %}" class="form-control" name="slug" placeholder="رابط التصنيف">
+                        <input type="text" value="{%  if flash('error') %}{{old.slug}}{%  endif %}" class="form-control frequired" name="slug" placeholder="رابط التصنيف">
                     </div>
                     {% if edit_page == '1' %}
                     <input type="hidden" name='edit' value="{{old.id}}">
@@ -106,14 +107,6 @@
 
     </div>
 </div>
-
-
-
-
-
-
-
-
 
 
 

@@ -55,6 +55,7 @@
 <form  enctype="multipart/form-data" id="user_form" method='post' action="{{ path_for('users.edit', {'username': user.username}) }}">
 
 <input type="hidden" id='avatarChanged' name="avatarChanged" value="false" />
+<input type="hidden" name="validate" value="update-general-user-info" />
 
 <!-- صورة الحساب -->		
 <div class="panel panel-flat">
@@ -64,7 +65,7 @@
     <div class="panel-body">
         <div class="row">
             <center>
-                <div class="avatar-preview"><img id='profile_avatar' src="{{user.avatar}}" class="img-circle" /></div>
+                <div class="avatar-preview"><img id='profile_avatar' src="{{url.avatars}}{{user.avatar}}" class="img-circle" /></div>
             </center>
             <br>
             <br>
@@ -86,7 +87,7 @@
         <h5 class="panel-title">تعديل المعلومات الشخصية</h5>
         <p>لا تقلق ، كل المعلومات آمنة ، لا نشاركها مع أية جهة</p>
     </div>
-    <input type="hidden" name="validate" value="update-general-user-info">
+    
     <div class="panel-body">
         <div class="row">
             <div class="col-md-12">
@@ -95,7 +96,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>اسم المستخدم:</label>
-                                <input type="text" class="form-control" value="{{user.username}}" name="username" placeholder="@username">
+                                <input type="text" class="form-control frequired" value="{{user.username}}" name="username" placeholder="@username">
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -109,7 +110,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>البريد الإلكتروني:</label>
-                                <input type="text" class="form-control" value="{{user.email}}" name="email" placeholder="البريد الإلكتروني">
+                                <input type="text" class="form-control frequired" value="{{user.email}}" name="email" placeholder="البريد الإلكتروني">
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -227,7 +228,12 @@
 <div class="text-right">
 <button type="submit" class="btn btn-block btn-primary">تحديث البيانات <i class="icon-arrow-left13 position-right"></i></button>
 </div>
-<!--// تحديث البيانات -->            
+<!--// تحديث البيانات -->  
+<br>
+<div id="result"></div> 
+                              
+                                        
+                                                            
 </form> 
 
 

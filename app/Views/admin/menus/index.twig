@@ -389,19 +389,22 @@
 
 
 
+
  <!-- Basic modal -->
 					<div id="modal_default" class="modal fade">
 						<div class="modal-dialog">
 						
-						<form action="{{path_for('menus.create')}}" method="POST">
+						<form action="{{path_for('menus.create')}}" id="CreateMenu" method="POST">
+						    
 							<div class="modal-content">
 								<div class="modal-header">
 									<button type="button" class="close" data-dismiss="modal">&times;</button>
 									<h5 class="modal-title">انشاء قائمة جديدة</h5>
 								</div>
 								<div class="modal-body">
+								<div id="result"></div>
 									<h6 class="text-semibold">ادخل اسم للقائمة</h6>
-									<input type="text" class="form-control" name="name" placeholder="اسم القائمة"  />
+									<input type="text" class="form-control frequired" name="name" placeholder="اسم القائمة"  />
 								</div>
 								<div class="modal-footer">
 									<button type="submit" class="btn btn-primary">اضافة القائمة</button>

@@ -29,10 +29,9 @@
     <script type="text/javascript" src="{{ admin_assets }}js/plugins/forms/selects/select2.min.js"></script>
     <script type="text/javascript" src="{{ admin_assets }}js/plugins/forms/styling/uniform.min.js"></script>
     <script type="text/javascript" src="{{ admin_assets }}js/jquery.passwordstrength.js"></script>
-<!--	<script type="text/javascript" src="{{ admin_assets }}js/plugins/forms/styling/switchery.min.js"></script>-->
-<!--	<script type="text/javascript" src="{{ admin_assets }}js/plugins/forms/styling/switch.min.js"></script>-->
 	<script type="text/javascript" src="{{ admin_assets }}js/core/app.js"></script>
 	<script type="text/javascript" src="{{ admin_assets }}js/main.js"></script>
+	<script type="text/javascript" src="{{ admin_assets }}jquery.form-validator.min.js"></script>
 
 
     <!-- check for javascript -->
@@ -55,6 +54,72 @@
 
     
 </style>
+<style>.errorFiled { border-color: #e0493e !important; }</style>
+
+<style>
+/*************    users index page    *************/
+         .avatar {
+     width: 32px;
+     height: 32px;
+     border-radius: 50px;
+     overflow: hidden;
+}
+ .avatar img {
+     width: 100%;
+     height: 100%;
+}
+ .username_text {
+     position: relative;
+     top: 5px;
+}
+ .userstable>tbody>tr>td:first-child {
+     padding: 9px !important;
+     text-align: center;
+}
+ @media all and (min-width:0px) and (max-width: 600px) {
+     .userstable tr th {
+         display: none;
+    }
+     .userstable tr td {
+         display: none;
+         border:none !important;
+    }
+     .userstable tr th:nth-child(2) {
+         display: inline-block;
+         width:30% !important;
+    }
+     .userstable tr th:nth-child(3) {
+         display: inline-block;
+         width:50% !important;
+    }
+     .userstable tr th:last-child {
+         display: inline-block;
+         width:20% !important;
+    }
+     .userstable tr td:nth-child(2) {
+         display: inline-block;
+         width:30% !important;
+    }
+     .userstable tr td:nth-child(3) {
+         display: inline-block;
+         width:50% !important;
+    }
+     .userstable tr td:last-child{
+         display: inline-block;
+         width:20% !important;
+    }
+}             
+
+/*************    users index page    *************/    
+</style>
+
+
+
+
+
+
+
+
 
 </head>
 
@@ -75,6 +140,7 @@
 		</div>
 		
 	</div>
+	<script type="text/javascript" src="{{ admin_assets }}/js/main.js?v=0.1"></script>
 
 
 <style>

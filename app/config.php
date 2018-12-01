@@ -17,7 +17,7 @@ return  [
     
     'app' => [
         'version'            => '1.0',
-        'debug'              => 'true',
+        'debug'              => true,
     ],
     
     'db' => [
@@ -27,7 +27,8 @@ return  [
         'username'           => 'root',
         'password'           => '',
         'charset'            => 'utf8',
-        'collation'          => 'utf8_general_ci'
+        'collation'          => 'utf8_general_ci',
+        'strict'             =>  'false'
     ],
     
     'url' => [

@@ -68,6 +68,53 @@ class MediaController extends Controller {
 
     }
     
+    
+    
+    public function modal_uploader($request,$response) {
+       
+         if(isset($_FILES['file']) and !empty($_FILES['file']['name'])) {
+
+            $files = new files();
+            $path = $this->container->conf['dir.media'];
+            $file = $_FILES['file'];
+            
+            $ad =  $files->media_uploader($path,$file);
+            $up = Media::create([
+                'name' => $ad['name'],
+                'post_mime_type' => $ad['file_src_mime']
+            ]);
+             
+            $url =  $this->container->conf['url.media'].$ad['name'];
+
+             echo '<tr class="new">
+                    <td>'.$ad["name"].'</td>
+                    <td>'.$ad["file_src_mime"].'</td>
+                    <td>'.human_time_diff($up->created_at).'</td>
+                    <td><a href="'.$url.'" target="_blank">اضغط هنا</a></td>
+                    <td class="text-center">
+                        <a href="/wp-admin/faqs/delete//" class="text-danger"><i class="icon-trash"></i><b> حذف  </b></a>
+                    </td>
+                </tr>';
+        }  
+
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
    
     public function delete($request,$response,$args) {
         $id = rtrim($_POST['id'], '/');

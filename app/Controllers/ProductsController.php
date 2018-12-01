@@ -1,23 +1,24 @@
 <?php
 
 namespace App\Controllers;
-use \App\Classes as classes;
 use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
 use \App\Models\Product;
 use \App\Models\ProductCategories;
-use \App\Models\WishList;
 use \App\Classes\files;
+
+
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class ProductsController extends Controller{
     
+    
     public function index($request,$response) {
             $searchview     = false;
-            $count          = Product::count();   // Count of all available users      
+            $count          = Product::count();         
             $page           = ($request->getParam('page', 0) > 0) ? $request->getParam('page') : 1;
-            $limit          = 10; // Number of Users on one page   
-            $lastpage       = (ceil($count / $limit) == 0 ? 1 : ceil($count / $limit));    // the number of the pages
+            $limit          = 10; 
+            $lastpage       = (ceil($count / $limit) == 0 ? 1 : ceil($count / $limit));   
             $skip           = ($page - 1) * $limit;
             $products          =  Product::skip($skip)->take($limit)->orderBy('created_at', 'desc')->get();
 
@@ -30,9 +31,8 @@ class ProductsController extends Controller{
                     ->skip($skip)
                     ->take($limit)
                     ->get();    
-                $count =    Product::orderBy('created_at', 'desc')->where('name', 'LIKE', "%$search%")
-                    ->orWhere('description', 'LIKE', "%$search%")->count(); 
-               $lastpage       = (ceil($count / $limit) == 0 ? 1 : ceil($count / $limit));    // the number of the pages
+                $count = count($products);
+               $lastpage       = (ceil($count / $limit) == 0 ? 1 : ceil($count / $limit)); 
                $searchview = true;
             }
 
@@ -48,11 +48,12 @@ class ProductsController extends Controller{
                     'start'          => max(1, $page - 4),
                     'end'          => min($page + 4, $lastpage),
                 ],
-              'products'=>$products ,
+              'products'=>$products ,              
               'searchView'=>$searchview,
               'searchQuery'=>$request->getParam('search')
             ]);    
     }
+    
     
     public function create($request,$response){
         
@@ -64,158 +65,205 @@ class ProductsController extends Controller{
         
         if($request->getMethod() == 'POST'){ 
             
-            
-            if(empty($_FILES['ProductThumbnail']['name'])) {
-                $this->flash->addMessage('error','الصورة الخارجة للمنتوج ضرورية ، لا يمكن تركها فارغة');
-                return $response->withStatus(302)->withHeader('Location', $this->router->urlFor('products.create'));
-            }
-            
-            
-            
-            
-            
-            
-            $files = new files();
-
-            $title = $request->getParam('title');
-            
-            $description = $request->getParam('description');
+            // Get the Form data & initialize the fileUploader & helper
+            $post   = $request->getParams();
+            $files  = new files();
+            $helper = $this->helper;
             $path = $this->container->conf['dir.products'];
+            
+            // Clean the Variables
+            $title              = $helper->clean($post['title']);
+            $description        = $helper->clean($post['description']);
+            $price              = $helper->clean($post['price']);
+            $category           = $helper->clean($post['category']);
+            $discount_price     = $helper->clean($post['discount_price']);
+            $slug               = $helper->string_To_Uri($helper->clean($post['slug']));
+            
+            // check if the thumnail is empty
+            if(empty($_FILES['ProductThumbnail']['name'])) {
+                $this->flasherror('الصورة الخارجة للمنتوج ضرورية ، لا يمكن تركها فارغة');
+                return $response->withRedirect($this->router->pathFor('products.create'));
+            }
             
             if(is_null($description) or empty($description)){
                 $description = " ";
             }
 
-            /*
-            *   رفع الصورة الخارجية
-            */
+            // upload the thumbnail
             $ProductThumbnail  = '';
             if(isset($_FILES['ProductThumbnail']) and !empty($_FILES['ProductThumbnail']['name'])) {
                 $ProductThumbnail =  $files->upload_avatar($path,$_FILES['ProductThumbnail']);
             } 
 
-
-            /*
-            *   رفع صور المنتوج
-            */
+            // upload product Gallery
             $gallery = '';
             if(isset($_FILES['ProductGallery']) and !empty($_FILES['ProductGallery'])) {
                $gallery = $files->multiple_upload($path,$_FILES['ProductGallery']);
                $gallery = implode('//',$gallery);
             }
 
-            /*
-            * اضافة المنتجات
-            */
+            // adding the product
             Product::create([
-                
                 'name'           => $title ,
                 'description'    => $description,
                 'thumbnail'      => $ProductThumbnail ,
                 'gallery'        => $gallery ,
-                'price'          => $request->getParam('price'),
-                'discount_price' => $request->getParam('discount_price'),
-                'categoryID'     => $request->getParam('category'),
-                'slug'           => string_To_Uri($request->getParam('slug'))
+                'price'          => $price,
+                'discount_price' => $discount_price,
+                'categoryID'     => $category,
+                'slug'           => $slug
             ]);
-
-            $this->flash->addMessage('success','تم اضافة المنتوج بنجاح');
-            return $response->withStatus(302)->withHeader('Location', $this->router->urlFor('products'));
+            
+            // success & redirect
+            $this->flashsuccess('تم اضافة المنتوج بنجاح');
+            return $response->withRedirect($this->router->pathFor('products'));
         }
     }
     
+
     public function edit($request,$response,$args){
-        $product = Product::find(rtrim($args['id'], '/'));
-         $categories = ProductCategories::all();
+        
+            // get the product id
+            $id = rtrim($args['id'], '/');
+
+            // get the product
+            $product = Product::find($id);
+
+            // get the products categories
+            $categories = ProductCategories::all();
+
+            // show the edit page
+            if($request->getMethod() == 'GET'){ 
+              return $this->container->view->render($response,'admin/products/edit.twig',['product'=>$product,'categories'=>$categories]);
+            }
+        
+        
         if($request->getMethod() == 'POST'){
             
+            $post       = $request->getParams();
+            $helper     = $this->helper;
+            $uploder    = new files();
+            $path       = $this->container->conf['dir.products'];
+            $thumbnail  = $_FILES['ProductThumbnail'];
             
+            // Clean the Variables
+            $title              = $helper->clean($post['title']);
+            $description        = $helper->clean($post['description']);
+            $price              = $helper->clean($post['price']);
+            $category           = $helper->clean($post['category']);
+            $discount_price     = $helper->clean($post['discount_price']);
+            $slug               = $helper->string_To_Uri($helper->clean($post['slug']));
             
             
             // check if the image is edited.
-            if($request->getParam('isAdChanged') == 'true') {
+            if($post['isAdChanged'] == 'true') {
                 $ad = " ";
                 
-                /*
-                * رفع الصورة الجديدة عندما يتم 
-                */
-                if(isset($_FILES['ProductThumbnail']) and !empty($_FILES['ProductThumbnail']['name'])) {
-
-                    $files = new files();
-                    $path = $this->container->conf['dir.products'];
-                    $file = $_FILES['ProductThumbnail'];
-
-                    // Upload
-                    $thumbnail =  $files->upload_avatar($path,$file);
-                }  
+                // upload thumbnail
+                if(isset($thumbnail) and !empty($thumbnail['name'])) { $thumbnail =  $uploder->file_upload($path,$thumbnail); }  
                 
                 // Delete the old one
-                unlink($this->container->conf['dir.products'].$product->thumbnail);
+                unlink($path.$product->thumbnail);
                 $product->thumbnail = $thumbnail;
             }
             
-            
-           
-            $product->slug = $request->getParam('slug'); 
-            $product->name = $request->getParam('title'); 
-            $product->description = $request->getParam('description');
-            $product->price = $request->getParam('price');
-            $product->discount_price = $request->getParam('discount_price');
-            $product->categoryID = $request->getParam('category');
+            // change the info & save
+            $product->slug =  $slug; 
+            $product->name = $title; 
+            $product->description = $description;
+            $product->price = $price;
+            $product->discount_price = $discount_price;
+            $product->categoryID = $category;
             $product->save();
             
-        return $response->withRedirect($this->router->pathFor('products.edit', ['id'=> $product->id , 'product'=>$product,'categories'=>$categories]));
+            // success & redirect
+            return $response->withRedirect($this->router->pathFor('products.edit',[
+                'id'=> $id ,
+                'product'=>$product,
+                'categories'=>$categories
+            ]));
             
         }
         
         
         
-        return $this->container->view->render($response,'admin/products/show.twig',['product'=>$product,'categories'=>$categories]);
     }
 
     public function delete($request,$response,$args) {
         
+        // get the product id
+        $id = rtrim($args['id'], '/');
         
-        /*
-        *       Get the Product
-        */
-        $product = Product::find(rtrim($args['id'], '/'));
+        $path = $this->container->conf['dir.products'];
         
-        /*
-        *       Delete Thumbnail image
-        */
-        unlink($this->container->conf['dir.products'].$product->thumbnail);
+        // Get the Product
+        $product = Product::find($id);
         
-        /*
-        *       Delete Gallery images
-        */
-        $gallery = explode('//',$product->gallery);
-        foreach($gallery as $image):
-            unlink($this->container->conf['dir.products'].$image);
-        endforeach;
         
-        /*
-        * Delete the Product
-        */
-        $product->delete();
-        $this->flash->addMessage('success','تم حذف المنتوج بنجاح');
-        return $response->withStatus(302)->withHeader('Location', $this->router->urlFor('products'));
+        if($product){
+            
+            // Delete Thumbnail image
+            $thumbnail = $path.$product->thumbnail;
+            if(file_exists($thumbnail)){
+                unlink($thumbnail);
+            }
+            
+            // Delete Gallery images
+            $gallery = explode('//',$product->gallery);
+            foreach($gallery as $image):
+                unlink($path.$image);
+            endforeach;
+            
+            // Delete the Product
+            $product->delete();
+            $this->flashsuccess('تم حذف المنتوج بنجاح');
+            
+        }
+        
+        return $response->withRedirect($this->router->pathFor('products'));
+        
     }
+    
+    
     
     public function duplicate($request,$response,$args) {
-        $product = Product::find(rtrim($args['id'], '/'));
-        $new = $product->replicate();
-        $new->slug = $product->slug.rand(10,100);
-        $new->save();
-        $this->flash->addMessage('success','تم تكرار المنتوج بنجاح');
-        return $response->withStatus(302)->withHeader('Location', $this->router->urlFor('products'));
+        
+        // get the product id
+        $id = rtrim($args['id'], '/');
+        
+        // Get the Product
+        $product = Product::find($id);
+        
+        if($product) {
+        
+            // duplicate , generate new slug & save
+            $new = $product->replicate();
+            $new->slug = $product->slug.rand(10,100);
+            $new->save();
+
+            // success message
+            $this->flashsuccess('تم تكرار المنتوج بنجاح');
+            
+        }
+        
+        return $response->withRedirect($this->router->pathFor('products'));
     }
     
+    
     public function blukdelete($request,$response){
+        
+        // delete all data of products 
         $users = Product::truncate();
-        delete_folders_files($this->container->conf['dir.products']);
-        return $response->withStatus(302)->withHeader('Location', $this->router->urlFor('products'));
+        
+        // delete all images of products
+        $this->helper->delete_folders_files($this->container->conf['dir.products']);
+        
+        // success & redirect
+        return $response->withRedirect($this->router->pathFor('products'));
+        
     }
+    
+    
     
 }
  

@@ -56,27 +56,7 @@ class validator {
     } 
     
     
-    public function get_real_ip()
-    {
-        if (!empty($_SERVER['HTTP_CLIENT_IP']))   //check ip from share internet
-        {
-        $ip=$_SERVER['HTTP_CLIENT_IP'];
-        }
-        elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR']))   //to check ip is pass from proxy
-        {
-        $ip=$_SERVER['HTTP_X_FORWARDED_FOR'];
-        }
-        // check if isset REMOTE_ADDR and != empty
-        elseif(isset($_SERVER['REMOTE_ADDR']) && ($_SERVER['REMOTE_ADDR'] != '') && ($_SERVER['REMOTE_ADDR'] != NULL))
-        {
-            $ip = $_SERVER['REMOTE_ADDR'];
-        // you're probably on localhost
-        } else {
-        $ip = "127.0.0.1";
-        }
-        
-        return $ip;
-    } 
+    
 
     
     
@@ -90,16 +70,7 @@ class validator {
             return true;
         }
     }        
-//    
-//    public function Is_Unique ($field,$table,$value) {
-//        $user = $this->container->db->table($table)->where($field, $value)->value($field);
-//        if($user) {
-//            echo $message;
-//            exit;
-//        } else {
-//            return true;
-//        }
-//    }
+
 
     public function isConfirmed($field1,$field2) {
        if( $field1 === $field2 ){
@@ -135,21 +106,12 @@ class validator {
 
 
     
-    public function activaton_link($user_id,$token){
-        return "local.dev/oop_ready/confirm.php?id=$user_id&token=$token";
-    }
     
-    public function create_token($token){
-        return md5(uniqid().$token);
-    }
     
-    public function generate_salt($val1,$val2){
-        return rand($val1, $val2);
-    }
     
-    public function securepassword($password,$salt) {
-        return md5(md5($password).md5($salt));
-    }
+    
+    
+
     
     public function generate_date() {
         return date("l/d/m/Y - h:i:s") ;
@@ -171,18 +133,7 @@ class validator {
         }
         
     }
-    
-    
-    
-    public function alert($alert_type,$alert_content) {
-        if($alert_type == 'danger') { return '<div class="notification error closeable"><p>'.$alert_content.'</p> </div>';}
-        if($alert_type == 'success') { return '<div class="notification success closeable"><p>'.$alert_content.'</p> </div>';}
-    }
-    
-    public function admin_alert($alert_type,$alert_content) {
-        if($alert_type == 'danger') { return '<div class="alert alert-danger no-border"><b>'.$alert_content.'</b></div>';}
-        if($alert_type == 'success') { return '<div class="alert alert-success no-border"><b>'.$alert_content.'</b></div>';}
-    }
+  
     
 
 

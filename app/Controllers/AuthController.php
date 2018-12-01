@@ -11,17 +11,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class AuthController extends Controller {
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+    private $AdminLoginRoute ;
     
     
     
@@ -35,42 +25,49 @@ class AuthController extends Controller {
         
        return $this->container->view->render($response,'admin/auth/login.twig');
     } 
-    public function postLogin($request,$response) {
+    
+    
+    public function login($request,$response) {
         
-        $login_form = $request->getParam('validate');
-        if($login_form == 'customer_login'){
-                $auth = $this->container->auth->attempt(
-                    clean($request->getParam('user_login')),
-                    clean($request->getParam('pass_login')),
-                    'user'
-                );
-                if($auth) {
-                    return $response->withRedirect($this->container->router->pathFor('website.home'));
-                }else {
-                    $this->flash->addMessage('error','المعلومات غير صحيحة');
-                    return $response->withRedirect($this->container->router->pathFor('website.login'));
-                } 
+        
+        $post = $request->getParams();
+        $helper = $this->helper;
+        
+        // get the login credentials
+        $user = $helper->clean($post['user_login']);
+        $pass = $helper->clean($post['pass_login']);
+        $form = $helper->clean($post['validate']);
+        
+        
+        // Customer login
+        if($form == 'customer_login'){
+            
+            // do the authentication
+            $auth = $this->auth->attempt($user,$pass, 'user');
+            
+            if($auth) {
+                return $response->withRedirect($this->container->router->pathFor('website.home'));
+            }else {
+                $this->flasherror('المعلومات غير صحيحة');
+                return $response->withRedirect($this->container->router->pathFor('website.login'));
+            }
         }
         
         
+        // admin login
+        $auth = $this->auth->attempt($user,$pass, 'admin');
         
-        
-        
-        $auth = $this->container->auth->attempt(
-            clean($request->getParam('user_login')),
-            clean($request->getParam('pass_login')),
-            'admin'
-        );
         if($auth) {
             return $response->withRedirect($this->container->router->pathFor('admin.index'));
         }else {
-            $this->flash->addMessage('error','المعلومات غير صحيحة');
-            return $response->withRedirect($this->container->router->pathFor('login'));
+            $this->flasherror('المعلومات غير صحيحة');
+            return $response->withRedirect($this->container->router->pathFor('admin.index'));
         }
+        
+        
     }
     
     public function logout($request,$response) {
-        
         unset($_SESSION['auth-admin']);
         return $response->withRedirect($this->container->router->pathFor('admin.index'));
     }
@@ -85,12 +82,12 @@ class AuthController extends Controller {
     
     
     public function recover($request,$response) {
-        $validator = $this->validator;
-      
-    
+        
+        if($request->getMethod() == 'GET'){
+            return $this->container->view->render($response,'admin/auth/recover.twig'); 
+        }
         
         if($request->getMethod() == 'POST'){
-            
 
             $email = $request->getParam('email');
             if(isset($email) and !empty($email)) {
@@ -115,7 +112,7 @@ class AuthController extends Controller {
                     
                     
                     // Send Recover Password Email .
-                    $baseUrl = $this->conf['app.url'].$this->container->router->pathFor('resetPassword');
+                    $baseUrl = $this->conf['url.base'].$this->container->router->pathFor('resetPassword');
                     $recover_link  = $baseUrl."?token=$recover->retrieve_token";
                     $this->Emailer->to = $recover->email;
                     $this->Emailer->username = $recover->username;
@@ -123,28 +120,17 @@ class AuthController extends Controller {
                     $this->Emailer->Recover_Password_Email;  
                     
                 }
-
             }
             
-            $validator->flash('اذا كان البريد الإلكتروني الذي أدخلته مسجل عندنا ستصلك رسالة في بريدك ، شكرا لك');
+            $this->flashsuccess('اذا كان البريد الإلكتروني الذي أدخلته مسجل عندنا ستصلك رسالة في بريدك ، شكرا لك');
+            return $response->withRedirect($this->router->pathFor('admin.index'));
         }
-        
-        
-        
-        if(!isset($_SESSION['flash'])) { $flash = ' ';} else {   $flash = $_SESSION['flash']; }
-        return $this->container->view->render($response,'admin/auth/recover.twig',['flash'=>$flash]);
-
     }
     
-    public function register($request,$response) { 
-        
-        
-    }
-    
+   
     public function resetPasswordGet($request,$response) { 
         
         // fisrt of all do not forget to clean the input before insert in database or check !
-        
         
         if(!isset($_GET['token'])){
             $this->flash->addMessage('error', 'عفواً ، هذا الرابط منتهى الصلاحية');

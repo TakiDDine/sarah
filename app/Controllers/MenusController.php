@@ -15,7 +15,7 @@ class MenusController extends Controller {
             $menus = Menus::all();
             $pages = $this->db->table('pages')->take(7)->get()->toArray();
             $posts = $this->db->table('posts')->take(7)->get()->toArray();
-            $menu = $menus->first()->toArray();
+            $menu  = $menus->first()->toArray();
         
             return $this->container->view->render($response,'admin/menus/index.twig',[
                 'menus'=>$menus,
@@ -29,25 +29,25 @@ class MenusController extends Controller {
   
     public function create ($request,$response) {
           
-        
-        $name = clean($request->getParam('name'));
+        $post   = $request->getParams();
+        $helper = $this->helper;
+        $name = $helper->clean($post['name']);
         
         if(!empty($name)){
-           $menu = Menus::create([
-             'name' => clean($request->getParam('name'))
-            ]); 
-            $this->flash->addMessage('success','تم اضافة القائمة بنجاح');
-            return $response->withStatus(302)->withHeader('Location', $this->router->urlFor('menus.edit',['id'=>$menu->id]));
+            $menu = Menus::create([ 'name' => $name ]); 
+            $this->flashsuccess('تم اضافة القائمة بنجاح');
+            return $response->withHeader('Location', $this->router->urlFor('menus.edit',['id'=>$menu->id]));
         }
         
-        $this->flash->addMessage('error','لا يمكن ترك اسم القائمة فارغاً');
-        return $response->withStatus(302)->withHeader('Location', $this->router->urlFor('menus'));
-        
+        $this->flasherror('لا يمكن ترك اسم القائمة فارغاً');
+        return $response->withRedirect($this->router->pathFor('menus'));
     }
+    
+    
     
     public function edit ($request,$response,$args) {
         
-        // Get  
+        // Get  the id
         $id = rtrim($args['id'], '/');
         $menu = Menus::find($id);
         $menus = Menus::all();
@@ -95,7 +95,7 @@ class MenusController extends Controller {
              // saving the menu
              $menu->save();  
             
-            $this->flash->addMessage('success','تم تعديل القائمة بنجاح');
+            $this->flashsuccess('تم تعديل القائمة بنجاح');
             return $response->withStatus(302)->withHeader('Location', $this->router->urlFor('menus.edit',['id'=>$id]));
 
         }
@@ -105,15 +105,17 @@ class MenusController extends Controller {
     public function delete($request,$response,$args) {
         $id = rtrim($args['id'], '/');
         $menu = Menus::find($id);
-        $menu->delete();
-        $this->flash->addMessage('success','تم حذف القائمة بنجاح');
-        return $response->withStatus(302)->withHeader('Location', $this->router->urlFor('menus'));
+        if($menu){
+            $menu->delete();
+            $this->flashsuccess('تم حذف القائمة بنجاح');
+        }
+        return $response->withRedirect($this->router->pathFor('menus'));
     } 
     
     
     public function blukdelete($request,$response){
         Menus::truncate();
-        return $response->withStatus(302)->withHeader('Location', $this->router->urlFor('menus'));
+        return $response->withRedirect($this->router->pathFor('menus'));
     }
     
     

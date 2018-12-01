@@ -33,7 +33,7 @@
 			<p class="no-margin-bottom">المرجوا ادخال المعلومات التالية بعناية</p>
 		</div>
 		<div class="panel-body">
-			<form class="form-horizontal" method="post" action="{{path_for('settings.general')}}" enctype='multipart/form-data'>
+			<form class="form-horizontal" id="generalSettings" method="post" action="{{path_for('settings.general')}}" enctype='multipart/form-data'>
 			<input type="hidden" name='logochanged' id='logochanged' value='false'>
 			<input type="hidden" name='faviconchanged' id='faviconchanged' value='false'>
 			
@@ -93,7 +93,7 @@
 					<div class="form-group">
 						<label class="control-label col-lg-3">اسم الموقع</label>
 						<div class="col-lg-9">
-							<input type="text" class="form-control" value="{{ 'name'|options }}" name="name" placeholder="اسم الموقع">
+							<input type="text" class="form-control frequired" value="{{ 'name'|options }}" name="name" placeholder="اسم الموقع">
 						</div>
 					</div>
 					<div class="form-group">
@@ -182,6 +182,8 @@
 					<input type="hidden" name="validate" value="general_settings">
 					<button type="submit" class="btn btn-primary">تحديث المعلومات<i class="icon-arrow-left13 position-right"></i></button>
 				</div>
+				<br>
+				<div id="result"></div>
 			</form>
 		</div>
 	</div>

@@ -324,7 +324,10 @@
 					<!-- /iconified modal -->
 
 {% include "admin/elements/pagination.twig" %}
-
+{{pagination|raw}}
+   
+   {{products.links()}}
+   
     </div>
 </div>
     

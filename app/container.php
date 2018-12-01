@@ -16,6 +16,51 @@ use \App\Models\Cart;
 use \App\Models\Product;
 use \App\Classes\Helper;
 
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
+
+
+
+
+
+
+//error_log("You messed up!", 3, BASEPATH."/my-errors.log");
+//error_log("There is something wrong!", 0);
+
+//error_log("Write this error down to a file!", 3, BASEPATH."/my-errors.log");
+
+
+//function mylog($text, $level='i', $file='logs') {
+//    switch (strtolower($level)) {
+//        case 'e':
+//        case 'error':
+//            $level='ERROR';
+//            break;
+//        case 'i':
+//        case 'info':
+//            $level='INFO';
+//            break;
+//        case 'd':
+//        case 'debug':
+//            $level='DEBUG';
+//            break;
+//        default:
+//            $level='INFO';
+//    }
+//    error_log(date("[Y-m-d H:i:s]")."\t[".$level."]\t[".basename(__FILE__)."]\t".$text."\n", 3, $file);
+//}
+//
+//
+//
+//
+//mylog();
+
+
+
+
+
+
 
 
 
@@ -29,12 +74,19 @@ $container['conf'] = function () {
 };
 
 
+
+//ini_set("log_errors", 1);
+//ini_set("error_log", BASEPATH."/php-error.log");
+//error_log( "Hello, errors!" );
+
+
 //  Error Handling
-if($container['conf']['info.debug'] == 'false' ):  
-    ini_set("display_errors", 1);
-    ini_set('log_errors', 1);
-    error_reporting(1);
-    @ini_set('display_errors',1);
+//  Stop the errors when the mode is live
+if($container['conf']['app.debug'] == false ):  
+    ini_set("display_errors", 0);
+    ini_set('log_errors', 0);
+    error_reporting(0);
+    @ini_set('display_errors',0);
 endif;
 
 
@@ -171,25 +223,36 @@ $container['view'] = function ($c) {
 /*
 *    Connect To DataBase
 */
-$capsule = new Capsule;
-$capsule->addConnection([
-    'driver'    => $container['conf']['db.driver'],
-    'host'      => $container['conf']['db.host'],
-    'database'  => $container['conf']['db.name'],
-    'username'  => $container['conf']['db.username'],
-    'password'  => $container['conf']['db.password'],
-    'charset'   => $container['conf']['db.charset'],
-    'collation' => $container['conf']['db.collation'],
-    'prefix'    => '',
-    'strict' => false
-]);
+//try{
+    $capsule = new Capsule;
+//    $capsule->addConnection($container['conf']['db']);
+   $capsule->addConnection([
+        'driver'    => $container['conf']['db.driver'],
+        'host'      => $container['conf']['db.host'],
+        'database'  => $container['conf']['db.name'],
+        'username'  => $container['conf']['db.username'],
+        'password'  => $container['conf']['db.password'],
+        'charset'   => $container['conf']['db.charset'],
+        'collation' => $container['conf']['db.collation'],
+        'prefix'    => '',
+        'strict' => false
+    ]);
 
 
-// Make this Capsule instance available globally via static methods... (optional)
-$capsule->setAsGlobal();
+//    throw new Exception();
+//
+//}
+//catch (Exception $e) {
+//    echo '<center><h1>مشكلة في الإتصال بقاعدة البيانات</h1><h2> المرجو مراجعة معلومات الإتصال بقاعدة البيانات</h2></center>';exit;
+//    //code to handle the exception
+//}
+   // Make this Capsule instance available globally via static methods... (optional)
+    $capsule->setAsGlobal();
 
-// Setup the Eloquent ORM... (optional; unless you've used setEventDispatcher())
-$capsule->bootEloquent();
+    // Setup the Eloquent ORM... (optional; unless you've used setEventDispatcher())
+    $capsule->bootEloquent();
+
+
 
 
 // Setup 404 Handler

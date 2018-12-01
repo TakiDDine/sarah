@@ -171,7 +171,7 @@
 				
 				
 				<div class="row">
-				    <div class="col-md-6">
+				    <div class="col-md-4">
 				        <div class="panel panel-flat">
                         <div class="panel-heading">
                             <h3>معلومات عامة</h3>
@@ -197,7 +197,26 @@
 				            </div>
 				        </div>
 				    </div>
-				    
+				    <div class="col-md-4">
+				       <div class="panel panel-flat">
+                        <div class="panel-heading">
+                            <h3>حالة الطقس ب الدار البيضاء</h3>
+                        </div>
+				            <div class="panel-body">
+				                
+				          
+				           <ul style="line-height: 32px;list-style: none;">
+                                           <li><b> درجة الحرارة  {{temp.temp}}c</b></li>
+                                            <li>{{temp.Humidity|raw}}  </li>
+                                            <li>{{temp.Wind|raw}}  </li>
+                                            <li>{{temp.Sunrise|raw}}  </li>
+                                            <li>{{temp.Sunset|raw}}  </li>
+                                        </ul>
+				                  
+				            </div>
+				        </div> 
+				        
+				    </div>
 				</div>
 				
 				

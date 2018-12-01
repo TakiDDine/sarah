@@ -9,18 +9,17 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 /*
 *  Admin Routes
 */
-// Admin Routes
-$app->group('/cpanel', function () use($app) {
+$app->group('/dashboard', function () use($app) {
 
 
-     /*
+    /*
     *    Statique Pages
     */
     $app->get('[/]', \App\Controllers\HomeController::class .':home')->setName('admin.index');
-    
     $app->get('/statistiques[/]', \App\Controllers\StatiqueController::class .':statistiques')->setName('statistiques');
     $app->get('/account[/]', \App\Controllers\HomeController::class .':account')->setName('account');
 
+    
     /*
     *    users System
     */
@@ -34,13 +33,14 @@ $app->group('/cpanel', function () use($app) {
         $app->any('/{username}[/]', \App\Controllers\UsersController::class .':edit')->setName('users.edit');
     });
     
+    
     /*
     *    Ads System
     */
     $app->group('/ads', function () use ($app) {
         $app->get('[/]', \App\Controllers\AdsController::class .':index')->setName('ads');
         $app->any('/create[/]', \App\Controllers\AdsController::class .':create')->setName('ads.create');
-         $app->get('/blukdelete[/]', \App\Controllers\AdsController::class .':blukdelete')->setName('ads.blukdelete');
+        $app->get('/blukdelete[/]', \App\Controllers\AdsController::class .':blukdelete')->setName('ads.blukdelete');
         $app->any('/{id}[/]', \App\Controllers\AdsController::class .':show')->setName('ads.show');
         $app->get('/delete/{id}[/]', \App\Controllers\AdsController::class .':delete')->setName('ads.delete');
        
@@ -195,6 +195,7 @@ $app->group('/cpanel', function () use($app) {
         $app->post('/upload[/]', \App\Controllers\MediaController::class .':upload')->setName('media.upload');
         $app->any('/delete[/]', \App\Controllers\MediaController::class .':delete')->setName('media.delete');
         $app->get('/blukdelete[/]', \App\Controllers\MediaController::class .':blukdelete')->setName('media.blukdelete');
+        $app->any('/uploader[/]', \App\Controllers\MediaController::class .':modal_uploader')->setName('media.modal_uploader');
     });
     
     
@@ -286,8 +287,7 @@ $app->group('/cpanel', function () use($app) {
     *    Authentication System
     */
     $app->group('/auth', function () use ($app) {
-        $app->get('/login[/]', \App\Controllers\AuthController::class .':getLogin')->setName('login');
-        $app->post('/login[/]', \App\Controllers\AuthController::class .':postLogin')->setName('login');
+        $app->post('/login[/]', \App\Controllers\AuthController::class .':login')->setName('login');
         $app->get('/recover[/]', \App\Controllers\AuthController::class .':recover')->setName('recover');
         $app->post('/recover[/]', \App\Controllers\AuthController::class .':recover');
         $app->get('/logout[/]', \App\Controllers\AuthController::class .':logout')->setName('logout');

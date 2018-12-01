@@ -19,7 +19,7 @@ class OrdersController extends Controller {
                 $count          = Order::count();   
                 $page           = ($request->getParam('page', 0) > 0) ? $request->getParam('page') : 1;
                 $limit          = 10; 
-                $lastpage       = (ceil($count / $limit) == 0 ? 1 : ceil($count / $limit));    // the number of the pages
+                $lastpage       = (ceil($count / $limit) == 0 ? 1 : ceil($count / $limit));   
                 $skip           = ($page - 1) * $limit;
                 $orders         = Order::skip($skip)->take($limit)->orderBy('created_at', 'desc')->get();
 
@@ -80,11 +80,47 @@ class OrdersController extends Controller {
             // if the payement is incomplete , return to order page with the error given
             $payament = 0;
              
+             
+            $first_name   = clean($request->getParam('first_name'));
+            $last_name    = clean($request->getParam('last_name'));
+            $email        = clean($request->getParam('Email'));
+            $company      = clean($request->getParam('company_name'));
+            $country      = clean($request->getParam('country'));
+            $postalCode   = clean($request->getParam('Postcode'));
+            $state        = clean($request->getParam('State'));
+            $city         = clean($request->getParam('City'));
+            $phone        = clean($request->getParam('Phone'));
+            $adressLine1  = clean($request->getParam('adressLine1'));
+            $adressLine2  = clean($request->getParam('adressLine2'));
+             
+             
+             // Check if the informations are not empty
+             if(
+                 empty($first_name) 
+                 or empty($last_name) 
+                 or empty($email) 
+                 or empty($country) 
+                 or empty($phone) 
+                 or empty($adressLine1) 
+                 or empty($city)
+               ) {
+                 
+                // the Imporant Fields are empty
+                $this->flash->addMessage('error','Please Fill All the required Fileds');
+                return $response->withStatus(302)->withHeader('Location', $this->router->urlFor('website.checkout'));
+             }
+             
+             
+            
+             
+             
+             
+             
             if($payament == 1 )  {
                  
                 // insert to database
                 $order =  Order::create([
-                         'first_name'   => clean($request->getParam('first_name')),
+                         'first_name'   => $first_name,
                          'last_name'    => clean($request->getParam('last_name')),
                          'email'        => clean($request->getParam('Email')),
                          'company'      => clean($request->getParam('company_name')),
@@ -121,8 +157,9 @@ class OrdersController extends Controller {
         }
          
         // if the cart is empty
-        $this->flash->addMessage('error','please add products to your cart to make the order');
-        return $response->withStatus(302)->withHeader('Location', $this->router->urlFor('website.checkout'));
+        $this->flasherror('please add products to your cart to make the order');
+        return $response->withRedirect($this->router->pathFor('website.checkout'));
+        
     
     }
     
@@ -141,14 +178,16 @@ class OrdersController extends Controller {
     public function delete($request,$response,$args) {
         $id = rtrim($args['id'], '/');
         $order = Order::find($id);
-        $order->delete();
-        $this->flash->addMessage('success','تم حذف الطلب بنجاح');
-        return $response->withStatus(302)->withHeader('Location', $this->router->urlFor('orders'));
+        if($order){
+            $order->delete();
+            $this->flashsuccess('تم حذف الطلب بنجاح');
+        }
+        return $response->withRedirect($this->router->pathFor('orders'));
     } 
     
-     public function blukdelete($request,$response){
+    public function blukdelete($request,$response){
         Order::truncate();
-        return $response->withStatus(302)->withHeader('Location', $this->router->urlFor('orders'));
+        return $response->withRedirect($this->router->pathFor('orders'));
     }
     
     

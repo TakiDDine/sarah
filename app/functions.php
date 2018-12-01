@@ -52,24 +52,10 @@
         return $domain;
     }
     
-    /*
-    *   Get time of now  year-month-day Hour:minutes:seconds
-    *   Return time
-    */
-    function get_Time_Now(){
-        $now = new \DateTime();
-        return $now->format('Y-m-d H:i:s');
-    }
     
     
-    /*
-    *   example : contact us page --to--> contact-us-page
-    *   remove all whitespace and replace with -
-    *   Return srting 
-    */
-    function string_To_Uri($string){
-      return   preg_replace('/\s+/', '-', $string);
-    }
+    
+    
     
     
     /*
@@ -86,45 +72,10 @@
     }
     
     
-    function count_words($word){
-        return str_word_count($word);
-    }
     
-    /*
-    *   Deleting all files ( and the hidden files also) from a folder   
-    */
-    function delete_folders_files($path){
-        $path = rtrim($path, '/').'/{,.}*';
-        $files = glob($path, GLOB_BRACE); // get all file names
-        foreach($files as $file){ // iterate files
-          if(is_file($file))
-            unlink($file); // delete file
-        }
-        
-    }
-    /*
-    *   Function to Get Snippet from a string , 
-    *   @str = the text you want to get snippet from
-    *   @$wordCount = the number of words 
-    *   usage example get_snippet($text,15,' [...] ');
-    */
-    function get_snippet( $str, $wordCount = 10 , $car = ' ' ) {
-        $text = implode( 
-        '', 
-            array_slice( 
-              preg_split(
-                '/([\s,\.;\?\!]+)/', 
-                $str, 
-                $wordCount*2+1, 
-                PREG_SPLIT_DELIM_CAPTURE
-              ),
-              0,
-              $wordCount*2-1
-            )
-        );
-        
-        return $text.$car;
-    }
+    
+    
+   
     
     
     /**
@@ -148,13 +99,7 @@
             return false;
         }
     }
-    function is_slug ($input){
-        if(!preg_match('/^[a-zA-Z]+[a-zA-Z0-9._-]+$/', $input)) {
-            return true; 
-        }else {
-            return false;
-        }
-    }
+    
 
     function clean($data) {
         // Strip HTML Tags
@@ -172,14 +117,7 @@
 
 
 
-    function get_page_url(){
-      return sprintf(
-        "%s://%s%s",
-        isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off' ? 'https' : 'http',
-        $_SERVER['SERVER_NAME'],
-        $_SERVER['REQUEST_URI']
-      );
-    }
+    
 
 /*                                                                              */
 /*   ********************************* YOUTUBE **********************************/ 

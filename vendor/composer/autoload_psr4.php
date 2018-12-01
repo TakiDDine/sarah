@@ -30,6 +30,7 @@ return array(
     'MatthiasMullie\\Minify\\' => array($vendorDir . '/matthiasmullie/minify/src'),
     'Knlv\\Slim\\Views\\' => array($vendorDir . '/kanellov/slim-twig-flash/src'),
     'Josantonius\\File\\' => array($vendorDir . '/josantonius/file/src'),
+    'Jnjxp\\Pagination\\' => array($vendorDir . '/jnjxp/pagination/src'),
     'Interop\\Container\\' => array($vendorDir . '/container-interop/container-interop/src/Interop/Container'),
     'Illuminate\\Support\\' => array($vendorDir . '/illuminate/support'),
     'Illuminate\\Pagination\\' => array($vendorDir . '/illuminate/pagination'),

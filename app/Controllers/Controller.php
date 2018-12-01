@@ -23,6 +23,15 @@ class Controller {
         return $_SESSION['flash'][$type] = $message;
     }
     
+    public function flasherror($message){
+        return $this->flash->addMessage('error',$message);
+    } 
+    
+    public function flashsuccess($message){
+        return $this->flash->addMessage('success',$message);
+    } 
+    
+    
     public function __get($name){
         return $this->container->$name;
     }

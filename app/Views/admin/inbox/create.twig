@@ -46,7 +46,7 @@
 
 <div class="col-md-12">								
 
-<form  enctype="multipart/form-data" id="user_form" method='post' action="{{ path_for('inbox.create') }}">
+<form  enctype="multipart/form-data" id="sendemail" method='post' action="{{ path_for('inbox.create') }}">
 <input type="hidden"  name="thumbnailChanged" id="isAdChanged" value="false" />
  
  
@@ -55,20 +55,19 @@
 
 
 <div class="col-md-8">								
-<div class="form-group">
-                <label class="control-label">اميل المستقبل </label>
-                <input type="text" class="form-control" name="reciever_email" placeholder="اميل المستقبل" value="{{old.reciever_email}}" />
-</div>
-<div class="form-group">
-                <label class="control-label"> عنوان الإميل </label>
-                <input type="text" class="form-control" name="subject" placeholder=" عنوان الإميل" value="{{old.subject}}" />
-</div>	
-		
-<textarea name="body" id="posteditor"  >{{old.body}}</textarea>
-
-<br>
-<button type="submit" class="btn btn-block btn-primary">ارسال الإميل <i class="icon-arrow-left13 position-right"></i></button>
-
+    <div class="form-group">
+        <label>اميل المستقبل </label>
+        <input type="email" class="form-control frequired" name="reciever_email" placeholder="اميل المستقبل" value="{{old.reciever_email}}" />
+    </div>
+    <div class="form-group">
+        <label> عنوان الإميل </label>
+        <input type="text" class="form-control frequired" name="subject" placeholder=" عنوان الإميل" value="{{old.subject}}" />
+    </div>	
+    <textarea name="body" id="posteditor" >{{old.body}}</textarea>
+    <br>
+    <button type="submit" class="btn btn-block btn-primary">ارسال الإميل <i class="icon-arrow-left13 position-right"></i></button>
+    <br>
+    <div id="result"></div>
 </div>					
 					
 

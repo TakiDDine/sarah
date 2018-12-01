@@ -19,6 +19,8 @@ class settingsController extends Controller {
     
     public function account($request,$response){
         
+        if(isset($_SESSION['auth-admin'])) {
+         
         $user = User::find($_SESSION['auth-admin']);
         
         if($request->getMethod() == 'GET'){
@@ -26,60 +28,82 @@ class settingsController extends Controller {
         }
         
         if($request->getMethod() == 'POST'){
-            $form = $request->getParam('validate');
-            $validator = $this->validator;
+            
+            $form   = $request->getParam('validate');
+            $post   = $request->getParams();
+            $helper = $this->helper;
+            $route = $response->withRedirect($this->router->pathFor('settings.account', ['user'=>$user ]));
             
             
             if($form == 'validate_my_settings'){
               
-                $username = $request->getParam('username');
-                $email = $request->getParam('email');
+                // Get the post & clean 
+                $username = $helper->clean($post['username']);
+                $email    = $helper->clean($post['email']);
                 
+                // check if the username is empty
+                if($helper->is_empty($username)){$this->flasherror('لا يمكن ترك اسم المستخدم فارغاً');return $route;}
                 
-                if($validator->is_empty($username)){ 
-                    $this->flash->addMessage('error', 'لا يمكن ترك اسم المستخدم فارغاً');
-                    return $response->withRedirect($this->router->pathFor('settings.account', ['user'=>$user ]));
-                }
-                if($validator->is_empty($email)){ 
-                    $this->flash->addMessage('error', 'لا يمكن ترك البريد الإلكتروني فارغاً');
-                    return $response->withRedirect($this->router->pathFor('settings.account', ['user'=>$user ]));
-                }
+                // check if the username is alphanumeric
+                if($helper->is_alphanumeric($username)){ $this->flasherror('اسم المستخدم غير صحيح، يجب باستخدام الحروف والأرقام فقط' ); return $route;} 
                 
+                // check if the email is empty
+                if($helper->is_empty($email)){ $this->flasherror('لا يمكن ترك البريد الإلكتروني فارغاً');return $route;}
+                
+                // check if the email is valid
+                if(!$helper->valid_email($email)){ $this->flash->addMessage( 'البريد الإلكتروني غير صحيح'); return $route;}
+                
+                // if every thing is good save !
                 $user->username = $username;
                 $user->email = $email;
                 $user->save();
                 
-                $this->flash->addMessage('success','تم تحديث المعلومات بنجاح');
-                return $response->withRedirect($this->router->pathFor('settings.account', ['user'=>$user ]));
+                // success & redirect
+                $this->flashsuccess('تم تحديث المعلومات بنجاح'); 
+                return $route;
+                
             }
             
             if($form == 'validate_my_pass'){
                
-                $old_pass = $request->getParam('old_pass');
-                $new_pass = $request->getParam('new_pass');
-                $new_pass_re = $request->getParam('new_pass_re');
+                // Get the post & clean 
+                $old_pass    = $helper->clean($post['old_pass']);
+                $new_pass    = $helper->clean($post['new_pass']);
+                $new_pass_re = $helper->clean($post['new_pass_re']);
                 
+                // check if the password is correct
                 if(!password_verify($old_pass,$user->password)) {
-                  $this->flash->addMessage('error', 'كلمة المرور الحالية التي أدخلتها خاطئة !');
-                  return $response->withRedirect($this->router->pathFor('settings.account', ['user'=>$user ]));   
+                  $this->flasherror('كلمة المرور الحالية التي أدخلتها خاطئة !');
+                  return $route;
                 }
                 
+                // check if the new passwords are not empty
+                if(empty($new_pass) or empty($new_pass_re)){
+                  $this->flasherror('المرجوا ادخال كلمة المرور الجديدة وتأكيدها');
+                  return $route;
+                }
+                
+                // check if the new password is correct
                 if($new_pass != $new_pass_re){
-                  $this->flash->addMessage('error', 'كلمتا المرور الجديدة غير متطابقتين ، المرجوا المحاولة من جديد');
-                  return $response->withRedirect($this->router->pathFor('settings.account', ['user'=>$user ]));  
+                  $this->flasherror('كلمتا المرور الجديدة غير متطابقتين ، المرجوا المحاولة من جديد');
+                  return $route;
                 }
                 
+                // hash the new password & and add it to database & save
                 $password = password_hash($new_pass,PASSWORD_DEFAULT);    
-                
                 $user->password = $password;
                 $user->save();
                 
-                $this->flash->addMessage('success','تم تحديث كلمة المرور بنجاح');
-                return $response->withRedirect($this->router->pathFor('settings.account', ['user'=>$user ]));
+                // success & redirect
+                $this->flashsuccess('تم تحديث كلمة المرور بنجاح');
+                return $route;
             }
             
             
         }
+        
+        }
+        
     }
     
     

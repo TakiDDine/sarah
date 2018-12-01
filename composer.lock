@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "84cfe9ebe0a830bb7728206182aae703",
+    "content-hash": "5f11e56ed4a8f5d1388ddcaf247f93be",
     "packages": [
         {
             "name": "catfan/medoo",
@@ -606,6 +606,39 @@
                 "yui"
             ],
             "time": "2014-06-03T12:02:11+00:00"
+        },
+        {
+            "name": "jnjxp/pagination",
+            "version": "0.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/jnjxp/jnjxp.pagination.git",
+                "reference": "8ef6f7643a7c8f215c48fd661319df0226522904"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/jnjxp/jnjxp.pagination/zipball/8ef6f7643a7c8f215c48fd661319df0226522904",
+                "reference": "8ef6f7643a7c8f215c48fd661319df0226522904",
+                "shasum": ""
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Jnjxp\\Pagination\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "jake johns",
+                    "email": "jake@jakejohns.net"
+                }
+            ],
+            "description": "Pagination helper",
+            "time": "2018-11-29T19:38:15+00:00"
         },
         {
             "name": "josantonius/file",

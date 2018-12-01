@@ -5,7 +5,6 @@ use \App\Classes as classes;
 use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
 use \App\Models\User;
-use \App\Classes\validator as validator;
 use forxer\Gravatar\Gravatar;
 use \App\Classes\files;
 use \App\Classes\app;
@@ -14,105 +13,9 @@ use Dompdf\Dompdf;
 
 
 defined('BASEPATH') OR exit('No direct script access allowed');
+
 class UsersController extends Controller{
-    
-    public function account($request,$response) {
-       return $this->container->view->render($response,'admin/account.twig');
-    } 
-    
-    public function create($request,$response) {
-        
-        
-             if($request->getMethod() == 'GET'){
-               return $this->container->view->render($response,'admin/users/create.twig');
-             }
-        
-             if($request->getMethod() == 'POST'){  
-
-                $validator = $this->validator;    
-                
-                 // Get the user IP
-                $ip = $this->helper->get_ip_address();
-
-                 
-                 
-
-                // Get the parameters Sent by the Form .
-                $post = $request->getParams();
-
-                // Clean the variables
-                $username            = strtolower($validator->clean($post['username']));
-                $email               = strtolower($validator->clean($post['email']));
-                $password            = $validator->clean($post['password']);
-                $role                = $validator->clean($post['role']);
-
-
-                if(!empty(User::where('username',$username)->first())){
-                    $this->flash->addMessage('error', 'اسم المستخدم موجود من قبل');
-                    return $response->withStatus(302)->withHeader('Location', $this->router->urlFor('users.create'));
-                }
-                if(!empty(User::where('email',$email)->first())){
-                    $this->flash->addMessage('error', 'البريد الإلكتروني مستخدم من قبل');
-                    return $response->withStatus(302)->withHeader('Location', $this->router->urlFor('users.create'));
-                }
-
-                if($validator->is_alphanumeric($username)){ 
-                    $this->flash->addMessage('error','اسم المستخدم غير صحيح، يجب باستخدام الحروف والأرقام فقط' );
-                    return $response->withStatus(302)->withHeader('Location', $this->router->urlFor('users.create'));
-                } 
-                
-                 
-                if($validator->is_empty($email)){ 
-                    $this->flash->addMessage('error','المرجوا ادخال البريد الإلكتروني');
-                    return $response->withStatus(302)->withHeader('Location', $this->router->urlFor('users.create'));                        
-                }  
-                 
-                 
-                if($validator->is_Email($email)){ 
-                    $this->flash->addMessage('error','البريد الإلكتروني غير صحيح' );
-                    return $response->withStatus(302)->withHeader('Location', $this->router->urlFor('users.create'));                    
-                }       
-                
-                 
-                if($validator->is_empty($username)){
-                    $this->flash->addMessage('error','المرجوا ادخال اسم المستخدم' );
-                    return $response->withStatus(302)->withHeader('Location', $this->router->urlFor('users.create'));                    
-                }
-
-                 
-                if($validator->is_empty($password)){ 
-                    $this->flash->addMessage('error', 'المرجوا ادخال كلمة المرور');
-                    return $response->withStatus(302)->withHeader('Location', $this->router->urlFor('users.create'));                    
-                }
-
-
-                $avatar = 'default-avatar.png';
-                if (Gravatar::image($email)){
-                    $avatar = Gravatar::image($email);
-                }
-
-                $password = password_hash($password,PASSWORD_DEFAULT);    
-
-                    User::create([
-                           'username' => $username,
-                           'email' => $email,
-                           'password' => $password,
-                           'role' => $role,
-                           'avatar' => $avatar,
-                           'ip' => $ip,
-                           'statue' => '1'
-                     ]); 
-
-                    $this->Emailer->to = $email;
-                    $this->Emailer->username = $username;
-                    $this->Emailer->Registration_email;
-                
-                 $this->flash->addMessage('success','تم تسجيل العضو بنجاح');
-                 return $response->withRedirect($this->router->pathFor('users'));
-             }
-
-    }  
-    
+  
     public function index($request,$response) {
         
             $searchview     = false;
@@ -152,146 +55,223 @@ class UsersController extends Controller{
                     'end'          => min($page + 4, $lastpage),
                 ],
               'users'=>$users ,
+              'pagination'=>$pagination,
               'searchView'=>$searchview,
               'searchQuery'=>$request->getParam('search')
             ]);
 
     }
+    
+    public function account($request,$response) {
+       return $this->container->view->render($response,'admin/account.twig');
+    } 
+    
+    public function create($request,$response) {
+        
+             if($request->getMethod() == 'GET'){
+               return $this->container->view->render($response,'admin/users/create.twig');
+             }
+        
+             if($request->getMethod() == 'POST'){  
 
+                // Get the parameters Sent by the Form & initialize the helper 
+                $post = $request->getParams();
+                $helper = $this->helper;
+                
+                // the route to redirect for errors
+                $route = $response->withStatus(302)->withHeader('Location', $this->router->urlFor('users.create'));
+                
+                 
+                // Clean the variables & set the username & email to lowercase
+                $username   = $helper->clean(strtolower($post['username']));
+                $email      = $helper->clean(strtolower($post['email']));
+                $password   = $helper->clean($post['password']);
+                $role       = $helper->clean($post['role']);
+                 
+                // check if username is not empty
+                if($helper->is_empty($username)){ $this->flasherror('المرجوا ادخال اسم المستخدم');return $route; }
+                 
+                // check if the email is not empty
+                if($helper->is_empty($email)){ $this->flasherror('المرجوا ادخال البريد الإلكتروني'); return $route; } 
+                 
+                // check if the password is empty
+                if($helper->is_empty($password)){ $this->flasherror('المرجوا ادخال كلمة المرور');return $route; }
+                 
+                // check if the username is only numbers and letters
+                if($helper->is_alphanumeric($username)){ $this->flasherror('اسم المستخدم غير صحيح، يجب باستخدام الحروف والأرقام فقط' ); return $route;} 
+                 
+                // check if the username already exist
+                if(!empty(User::where('username',$username)->first())){ $this->flasherror( 'اسم المستخدم موجود من قبل');return $route; }
+                                  
+                // check if the email is a real email & a valid email
+                if(!$helper->valid_email($email)){ $this->flasherror( 'البريد الإلكتروني غير صحيح'); return $route;}
+                 
+                // check if the email is already used 
+                if(!empty(User::where('email',$email)->first())){ $this->flasherror('البريد الإلكتروني مستخدم من قبل'); return $route;}
+
+                $avatar = 'default-avatar.png';
+                if (Gravatar::image($email)){
+                    $avatar = Gravatar::image($email);
+                }
+
+                $password = password_hash($password,PASSWORD_DEFAULT);    
+
+                // creat the user
+                $user = User::create([
+                   'username' => $username,
+                   'email' => $email,
+                   'password' => $password,
+                   'role' => $role,
+                   'avatar' => $avatar,
+                   'statue' => '1'
+                ]); 
+
+                if($user) {
+                    $this->Emailer->to = $email;
+                    $this->Emailer->username = $username;
+                    $this->Emailer->Registration_email; 
+                    $this->flashsuccess('تم تسجيل العضو بنجاح');
+                    return $response->withRedirect($this->router->pathFor('users'));
+                }
+                $this->flasherror('حصل خطأ ما  غير متوقع، المرجو المحاولة من جديد');
+                return $route;
+             }
+
+    }  
+    
     public function edit($request,$response,$args) {
 
-$validator = $this->validator; 
-
-$user = User::where('username','=',$args['username'])->first();    
-// check if the user avatar is not gravatar , if is not , append avatars url
- if(!$validator->is_gravatar($user->avatar)){
-     $user->avatar = $this->conf['url.avatars'].$user->avatar;   
-}     
-
-if($request->getMethod() == 'GET'){
-    return $this->container->view->render($response,'admin/users/edit.twig',['user'=>$user]);
-}
-    
+        $slug = $this->helper->clean($args['username']);
+        
+        // Get the user
+        $user = User::where('username','=',$slug)->first();    
+        
+        
+        if($request->getMethod() == 'GET'){
+            if($user){
+                return $this->container->view->render($response,'admin/users/edit.twig',['user'=>$user]);
+            }
+            return $response->withStatus(302)->withHeader('Location', $this->router->urlFor('users'));
+        }
         
         if($request->getMethod() == 'POST'){
-
-            /*
-            *    تعديل المعلومات الشخصية
-            */
+            
+            // Get the parameters Sent by the Form & initialize the helper & the fileupldader
+            $post = $request->getParams();
+            $helper = $this->helper;
+            $uploader  = new files();
+            
+            $route = $response->withRedirect($this->router->pathFor('users.edit', ['username'=> $user->username , 'user'=>$user]));
+            
+            // Get Data From the Form & clean the variables
+            $username  = $helper->clean(strtolower($post['username']));
+            $full_name = $helper->clean(strtolower($post['full_name']));
+            $email     = $helper->clean(strtolower($post['email']));
+            $password  = $helper->clean($post['password']);
+            $gender    = $helper->clean($post['gender']);
+            $birth     = $helper->clean($post['birth']);
+            $phone     = $helper->clean($post['phone']);
+            $country   = $helper->clean($post['country']);
+            $desc      = $helper->clean($post['description']);
+            $fb        = $helper->clean($post['facebook']);
+            $tw        = $helper->clean($post['twitter']);
+            $yt        = $helper->clean($post['youtube']);
+            $avatarimg = $_FILES['avatar'];        
+                    
+            // edit user info
             if($request->getParam('validate') == 'update-general-user-info'){
                 
-                /*
-                *   check if the new password is submmited , and change it
-                */
-                $password = $request->getParam('password');
-                if (isset($password) and !empty($password)) {
-                    
+                
+                // Hash & change the password if is inserted
+                if(!$helper->is_empty($password)){  
                     $password = password_hash($password,PASSWORD_DEFAULT);    
                     $user->password = $password;
-                    
                 }
                 
-                /*
-                * Upload the Avatar & update it in database
-                */
+                // Upload the Avatar & update it in database and delete the old 
                 $avatar_action = $request->getParam('avatarChanged');
                 
                 // check first of all if avatar is changed !
                 if($avatar_action == 'true') {
                     
                     // check if there is a file
-                    if(isset($_FILES['avatar']) and !empty($_FILES['avatar']['name'])) {
-
-                        $avatar = new files();
-                        $path = $this->container->conf['dir.avatars'];
-                        $file = $_FILES['avatar'];
+                    if(isset($avatarimg) and !empty($avatarimg['name'])) {
 
                         // Upload
-                        $avatar =  $avatar->upload_avatar($path,$file);
+                        $avatar =  $uploader->file_upload($this->container->conf['dir.avatars'],$avatarimg);
 
                         // check if the user avatar is not gravatar , if is not , Delete Previews avatar file
                         if(!$validator->is_gravatar($user->avatar)){
                              $avatar_path = $this->container->conf['dir.avatars'].'/'.$user->avatar;
                              if (file_exists($avatar_path)) {
                                 unlink($avatar_path);
-                             } 
+                             }
                         }     
 
                         // update it in database with the new one
                         $user->avatar  =  $avatar;
-
                     }
                 }
                 
-
-                $user->username =  $request->getParam('username');
-                $user->full_name =  $request->getParam('full_name');
-                $user->email =  $request->getParam('email');
-                $user->gender =  $request->getParam('gender');
-                $user->birth =  $request->getParam('birth');
-                $user->phone =  $request->getParam('phone');
-                $user->country =  $request->getParam('country');
-                $user->description =  $request->getParam('description');
-                $user->facebook =  $request->getParam('facebook');
-                $user->twitter =  $request->getParam('twitter');
-                $user->youtube =  $request->getParam('youtube');
+                // update the user info
+                $user->username     = $username;
+                $user->full_name    = $full_name;
+                $user->email        = $email;
+                $user->gender       = $gender;
+                $user->birth        = $birth;
+                $user->phone        = $phone;
+                $user->country      = $country;
+                $user->description  = $desc;
+                $user->facebook     = $fb;
+                $user->twitter      = $tw;
+                $user->youtube      = $yt;
                 $user->save();
                 
+                // update the session info
                 $_SESSION['user-admin'] = $user;
                 
-                $this->flash->addMessage('success', 'تم تعديل المعلومات بنجاح');
-                return $response->withStatus(302)->withHeader('Location', $this->router->urlFor('users.edit',['username'=>$user->username]));
+                $this->flashsuccess('تم تعديل المعلومات بنجاح');
+                return $route;
                 
             }
             
-            
-            /*
-            *   حظر العضو
-            */
+            // block user  حظر العضو
             if($request->getParam('validate') == 'blockUser'){
                 $user->statue = 3;
                 $user->save(); 
-                $this->flash->addMessage('error','تم حظر العضو بنجاح');
-                return $response->withRedirect($this->router->pathFor('users.edit', ['username'=> $user->username , 'user'=>$user]));
+                $this->flashsuccess('تم حظر العضو بنجاح');
+                return $route;
             }
             
-            /*
-            *   تفعيل العضو
-            */
+            // activate user
             if($request->getParam('validate') == 'ActivateUser'){
                 $user->statue = 1;
                 $user->save(); 
-                $this->flash->addMessage('success','تم تفعيل العضو العضو بنجاح');
-                return $response->withRedirect($this->router->pathFor('users.edit', ['username'=> $user->username , 'user'=>$user]));
+                $this->flashsuccess('تم تفعيل العضو العضو بنجاح');
+                return $route;
             }
             
-            
-            /*
-            *   حذف العضو
-            */
+            // Delete user
             if($request->getParam('validate') == 'DeleteUser'){
                 if($user->statue == 'supper') {
-                    $validator->flash('لا يمكن حذف هذا العضو ','error');
+                    $this->flasherror('لا يمكن حذف هذا العضو ');
+                    return $route;
                 }else{
                     $user->delete();
-                    $this->flash->addMessage('error', 'تم حذف العضو بنجاح');
+                    $this->flasherror('تم حذف العضو بنجاح');
                     return $response->withStatus(302)->withHeader('Location', $this->router->urlFor('users'));
                 }
-            }  
-            
+            }
+        
         }
         
 
-       return $this->container->view->render($response,'admin/users/show.twig',['user'=>$user,'flash'=>$flash]);
     }    
 
     public function export_pdf($request,$response) {
 
-// reference the Dompdf namespace
-
-
-// instantiate and use the dompdf class
-$dompdf = new Dompdf();
+        // instantiate and use the dompdf class
+        $dompdf = new Dompdf();
         
         $users = User::All();
         ob_start();
@@ -303,16 +283,13 @@ $dompdf = new Dompdf();
             }
         </style>
         <table>
-           
             <tr>
                 <th>Userame</th>
                 <th>Email</th>
                 <th>Created at</th>
             </tr>
             <tbody>
-              <tr>
-                  <td colspan="3"></td>
-              </tr>
+              <tr><td colspan="3"></td></tr>
                <?php foreach($users as $user): ?>
                 <tr>
                     <td style="width:250px;"><?php echo $user->username ?></td>
@@ -321,113 +298,68 @@ $dompdf = new Dompdf();
                 </tr>
                 <?php endforeach; ?>
             </tbody>
-            
-            
         </table>
         
         <?php
         
         $users = ob_get_clean();
-        
-        
-$dompdf->loadHtml($users);
 
-// (Optional) Setup the paper size and orientation
-$dompdf->setPaper('A4', 'landscape');
+        $dompdf->loadHtml($users);
 
-// Render the HTML as PDF
-$dompdf->render();
+        // (Optional) Setup the paper size and orientation
+        $dompdf->setPaper('A4', 'landscape');
 
-// Output the generated PDF to Browser
-$filename = date('Y-m-d') . '_users.pdf';
-$dompdf->stream($filename);
-      
+        // Render the HTML as PDF
+        $dompdf->render();
+
+        // Output the generated PDF to Browser
+        $filename = date('Y-m-d') . '_users.pdf';
+        $dompdf->stream($filename);
 
     }
-    
+   
     public function export_csv($request,$response) {
        
-   $stream = fopen('php://memory', 'w+');
+            $stream = fopen('php://memory', 'w+');
             fwrite($stream, chr(0xEF) . chr(0xBB) . chr(0xBF));
+            
             // Add header
-        $columns = ['username',
-'full_name',
-'email',
-'created_at',
-'updated_at',
-'deleted_at',
-'description',
-'phone',
-'facebook',
-'twitter',
-'youtube',
-'country',
-'ip',
-'gender',
-'birth'];
+            $columns = [
+                'username','full_name','email','created_at','updated_at','deleted_at',
+                'description','phone','facebook','twitter',  'youtube','country', 'ip','gender','birth'
+            ];
+        
             fputcsv($stream, $columns, ';');
         
-        $users = User::All(['username',
-'full_name',
-'email',
-'created_at',
-'updated_at',
-'deleted_at',
-'description',
-'phone',
-'facebook',
-'twitter',
-'youtube',
-'country',
-'ip',
-'gender',
-'birth']);
+            $users = User::All(['username',
+                'full_name','email', 'created_at','updated_at','deleted_at','description',
+                'phone','facebook','twitter','youtube','country','ip','gender','birth'
+            ]);
        
+            foreach ($users as $user) {
+                  $data = [
+                          $user->username,
+                            $user->full_name,
+                            $user->email,
+                            $user->created_at,
+                            $user->updated_at,
+                            $user->deleted_at,
+                            $user->description,
+                            $user->phone,
+                            $user->facebook,
+                            $user->twitter,
+                            $user->youtube,
+                            $user->country,
+                            $user->ip,
+                            $user->gender,
+                            $user->birth,
 
+                        ];
 
-        
-
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-          foreach ($users as $user) {
-              $data = [
-                      $user->username,
-$user->full_name,
-$user->email,
-$user->created_at,
-$user->updated_at,
-$user->deleted_at,
-$user->description,
-$user->phone,
-$user->facebook,
-$user->twitter,
-$user->youtube,
-$user->country,
-$user->ip,
-$user->gender,
-$user->birth,
-
-                    ];
-              
-            fputcsv($stream, $data, ';');
-        }
+                fputcsv($stream, $data, ';');
+            }
                   
-        
             rewind($stream);
-
             $filename = date('Y-m-d') . '_users.csv';
             $response = $this->response
                 ->withHeader('Content-Type', 'text/csv')
@@ -437,8 +369,6 @@ $user->birth,
                 ->withHeader('Expires', '0');
 
             return $response->withBody(new \Slim\Http\Stream($stream));     
-        
-        
     }  
     
     public function blukdelete($request,$response){
@@ -447,10 +377,6 @@ $user->birth,
         return $response->withStatus(302)->withHeader('Location', $this->router->urlFor('users'));
     }
     
-    /*
-    *   Taking Action For selected Rows in the Table
-    *   version 1.0 , Action that exist now is Delete 
-    */
     public function mutliAction($request,$response){
     
         // Get All selected Pages

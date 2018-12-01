@@ -30,8 +30,7 @@ $app->group('/', function () use($app) {
         $app->get('login[/]', \App\Controllers\website\AuthController::class .':login_get')->setName('website.login');
         $app->post('login', \App\Controllers\website\AuthController::class .':login_post')->setName('website.login.post');
         $app->get('logout[/]', \App\Controllers\AuthController::class .':logout_user')->setName('website.logout');
-        $app->get('register[/]', \App\Controllers\website\AuthController::class .':register_get')->setName('website.register');
-        $app->post('register', \App\Controllers\website\AuthController::class .':register_post')->setName('website.register.post');
+        $app->any('register[/]', \App\Controllers\website\AuthController::class .':register')->setName('website.register');
         $app->any('reset', \App\Controllers\website\AuthController::class .':resetPassword')->setName('website.reset');
         $app->any('resetPassword', \App\Controllers\website\AuthController::class .':resetForm')->setName('website.resetpassword');
 
@@ -94,5 +93,5 @@ $app->group('/', function () use($app) {
 //$app->add( new App\Middleware\MinifierMiddleware($container) );
 
 
-
+//$app->add( new App\Middleware\OldInputMidddleware($container) );
 

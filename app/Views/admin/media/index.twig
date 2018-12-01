@@ -94,24 +94,35 @@
 
 <!-- css dyal uploader  -->
 <style>
-.panel.panel-flat {
+/*    .simpleUplader2*/
+ .thumbnail   {
+    height: 310px;
+}
+                                                
+.thumbnail {
+    width: 150px;
+    height: 150px;
+    border: 2px solid black !important;
+    padding: 0;
+}
+.mediauploder .panel.panel-flat {
     border: 0;
     box-shadow: none;
     margin-top: -24px;
     padding-right: 0 !important;
 }
 
-.modal-body {
+.mediauploder .modal-body {
     padding-right: 0 !important;
     padding-left: 0 !important;
 }
 
-.panel-body {
+.mediauploder .panel-body {
     margin:  0 !important;
     padding: 0 !important;
     padding-top: 25px !important;
 }    
-    .simpleUplader {
+    .mediauploder .simpleUplader {
     height: 310px;
 }
     input.uploderButton {
@@ -119,8 +130,14 @@
     margin: 0 auto;
 }
 
-.simpleUplader {
+.mediauploder .simpleUplader {
     padding-top: 150px !important;
+}
+    .uploader_input {
+    display: inline-block !important;
+}    
+    .container.uploader_sec {
+    padding: 100px 0;display: none;
 }
 </style>                                       
                                         
@@ -133,7 +150,7 @@
 
 
 		            <!-- Full width modal -->
-					<div id="modal_full" class="modal fade">
+					<div id="modal_full" class="mediauploder modal fade">
 						<div class="modal-dialog modal-full">
 							<div class="modal-content">
 								<div class="modal-header">
@@ -152,7 +169,7 @@
 									<div class="tabbable">
 										<ul class="nav nav-tabs">
 											<li class="active"><a href="#basic-tab1" data-toggle="tab">رفع ملفات</a></li>
-											<li><a href="#basic-tab2" data-toggle="tab">مكتبة الوسائط</a></li>
+											<li><a href="#basic-tab2" id='medialibrary' data-toggle="tab">مكتبة الوسائط</a></li>
 											
 										</ul>
 
@@ -160,7 +177,11 @@
 											<div class="tab-pane active" id="basic-tab1">
 											<div class="simpleUplader">
                                             
-											    <input type="file" class="uploderButton" /> 
+                                                <center>
+                                                <label for="mediauploaderbtn" class="btn btn-danger btn-rounded"> رفع الملف </label>
+                                                <input name="file" id="mediauploaderbtn" style="visibility:hidden;" type="file" />
+                                                </center>						   
+
 											</div>
 											</div>
 
@@ -168,16 +189,7 @@
 											<div class="simpleUplader2" style="padding-top:12px;">
 											
 											<style>
-                                                .simpleUplader2 {
-    height: 310px;
-}
-                                                
-.thumbnail {
-    width: 150px;
-    height: 150px;
-    border: 2px solid black !important;
-    padding: 0;
-}
+       
                                             </style>
 											
 											
@@ -228,17 +240,6 @@
 
 
 
-
-
-
-<style>
-.uploader_input {
-    display: inline-block !important;
-}    
-    .container.uploader_sec {
-    padding: 100px 0;display: none;
-}
-</style>
 <!-- File Uploader -->
 <div class="container uploader_sec">
     <div class="row">
@@ -339,6 +340,41 @@ $('#uploader').submit(function(evt) {
 });    
 </script>
 
+
+<script>    
+//  submit Page  -------------------------------------------------------
+$('#mediauploaderbtn').change(function(){
+
+        evt.preventDefault();
+        var formData = new FormData();
+    
+        var username = $('#username').val();
+    
+        formdata.append('username',username);
+    
+        $.ajax({
+        type: 'POST',
+        url: '{{url.base}}{{path_for("media.modal_uploader")}}',
+        data:formData,
+        cache:false,
+        contentType: false,
+        processData: false,
+         beforeSend: function(data) {
+            $("#submitResult").html('جاري رفع الملف المرجوا الإنتظار رجاءً');
+        },
+        success: function(data) {
+           $("#submitResult").html('تم رفع الملف بنجاح');
+           $(".media-table tbody").prepend(data)
+        },
+        error: function(data) {
+            $("#submitResult").html("حصل خطأ ما ، المرجوا المحاولة من جديد");
+        }
+        });
+    
+    
+
+});    
+</script>
 
 
 

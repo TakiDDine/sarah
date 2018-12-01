@@ -6,6 +6,8 @@ use \Psr\Http\Message\ResponseInterface as Response;
 use \App\Classes\files;
 use \App\Models\Product;
 use \App\Models\ProductCategories;
+
+
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class ProductsCategoriesController extends Controller {
@@ -14,46 +16,39 @@ class ProductsCategoriesController extends Controller {
  
         if($request->getMethod() == 'POST'){
         
-            $name = clean($request->getParam('name'));
-            $slug = strtolower(string_To_Uri(clean($request->getParam('slug'))));
+            // get the form data
+            $post   = $request->getParams();
+            $helper = $this->helper;
+
+            // clean the form data & set the error route
+            $name   = $helper->clean($post['name']);
+            $slug   = $helper->string_To_Uri($helper->clean(strtolower($post['slug'])));
+            $route = $response->withRedirect($this->router->pathFor('products.categories'));
             
+            // check if the slug or the name is already exist
             $unique = ProductCategories::where('slug','=',$slug)->orWhere('name','=',$name)->first();
             
             // check if the name or the slug are not empty
-            if(empty($name) or empty($slug)) {
-                $this->flash->addMessage('error','المرجوا ادخال اسم التصنيف والرابط');
-                return $response->withStatus(302)->withHeader('Location', $this->router->urlFor('products.categories'));
-            }
+            if(empty($name) or empty($slug)) { $this->flasherror('المرجوا ادخال اسم التصنيف والرابط'); return $route; }
             
-           // check if the slug is alphanumeric
-           if(is_slug($slug)){
-                $this->flash->addMessage('error','الرابط يجب أن يتكون من حروف وأرقام لاتينية فقط ');
-                return $response->withStatus(302)->withHeader('Location', $this->router->urlFor('products.categories')); 
-           }
+            // check if the slug is alphanumeric
+            if($helper->is_slug($slug)){$this->flasherror('الرابط يجب أن يتكون من حروف وأرقام لاتينية فقط ');return $route; }
             
             // check if the name is unique
-            if($unique->name == $name) {
-                $this->flash->addMessage('error','اسم التصنيف موجود من قبل');
-                return $response->withStatus(302)->withHeader('Location', $this->router->urlFor('products.categories'));
-            }
+            if($unique->name == $name) {$this->flasherror('اسم التصنيف موجود من قبل');return $route;}
             
             // check if the slug is unique
-            if($unique->slug == $slug) {
-                $this->flash->addMessage('error','رابط التصنيف موجود من قبل');
-                return $response->withStatus(302)->withHeader('Location', $this->router->urlFor('products.categories'));
-            }
+            if($unique->slug == $slug) {$this->flasherror('رابط التصنيف موجود من قبل'); return $route;}
 
             // create the category
-            ProductCategories::create([
-                'name' => $name,
-                'slug' => $slug
-            ]);
+            ProductCategories::create(['name' => $name,'slug' => $slug ]);
             
             // success
-            $this->flash->addMessage('success','تم اضافة التصنيف بنجاح');
-            return $response->withStatus(302)->withHeader('Location', $this->router->urlFor('products.categories'));
+            $this->flashsuccess('تم اضافة التصنيف بنجاح');
+            return $route;
+            
         }
-
+        
         if($request->getMethod() != 'POST'){
 
                 $searchview     = false;
@@ -83,46 +78,65 @@ class ProductsCategoriesController extends Controller {
     
  
    public function delete($request,$response,$args) {
-        $categorie = ProductCategories::find(rtrim($args['id'], '/'));
-        $categorie->delete();
-        $this->flash->addMessage('success','تم حذف التصنيف بنجاح');
-        return $response->withStatus(302)->withHeader('Location', $this->router->urlFor('products.categories'));
+        
+        // get the id
+        $id = rtrim($args['id'], '/');
+       
+        // get the categorie & delete
+        $categorie = ProductCategories::find($id);
+        if($categorie) {
+            $categorie->delete();
+            $this->flashsuccess('تم حذف التصنيف بنجاح');
+        }
+       
+       return $response->withRedirect($this->router->pathFor('products.categories'));
+
     }
     
     
     public function edit($request,$response,$args) {
-        $categorie = ProductCategories::find(rtrim($args['id'], '/'));
+        
+        // get the id
+        $id = rtrim($args['id'], '/');
+        
+        // get the categorie
+        $categorie = ProductCategories::find($id);
         
         if($request->getMethod() == 'GET'){
-            return $this->view->render($response, 'admin/products/categories/edit.twig',['categorie'=>$categorie]);
+            if($categorie){                
+                return $this->view->render($response, 'admin/products/categories/edit.twig',['categorie'=>$categorie]);
+            }
         }
     
         if($request->getMethod() == 'POST'){
             
-            $name = clean($request->getParam('name'));
-            $slug = strtolower(string_To_Uri(clean($request->getParam('slug'))));
+            // get the form data
+            $post   = $request->getParams();
+            $helper = $this->helper;
             
+            // clean the form data & set the error route
+            $name   = $helper->clean($post['name']);
+            $slug   = $helper->string_To_Uri($helper->clean(strtolower($post['slug'])));
+            $route  = $response->withRedirect($this->router->pathFor('products.categories.edit', ['id'=> $id , 'categorie' => $categorie]));
+            
+            // check if the name of the slug is used already
             $unique = ProductCategories::where('slug','=',$slug)->orWhere('name','=',$name)->first();
             
             // check if the name or the slug are not empty
-            if(empty($name) or empty($slug)) {
-                $this->flash->addMessage('error','المرجوا ادخال اسم التصنيف والرابط');
-                return $response->withRedirect($this->router->pathFor('products.categories.edit', ['id'=> $categorie->id , 'categorie' => $categorie]));
-            }
+            if(empty($name) or empty($slug)) { $this->flasherror('المرجوا ادخال اسم التصنيف والرابط'); return $route; }
+           
+            // check if the slug is alphanumeric
+            if($helper->is_slug($slug)){ $this->flasherror('الرابط يجب أن يتكون من حروف وأرقام لاتينية فقط ');return $route;}
             
-           // check if the slug is alphanumeric
-           if(is_slug($slug)){
-                $this->flash->addMessage('error','الرابط يجب أن يتكون من حروف وأرقام لاتينية فقط ');
-                return $response->withRedirect($this->router->pathFor('products.categories.edit', ['id'=> $categorie->id , 'categorie' => $categorie]));
-           }
-            
+            // edit & save
             $categorie->name = $name;
             $categorie->slug = $slug;
             $categorie->save();
             
             // success
-            $this->flash->addMessage('success','تم تحديث التصنيف بنجاح');
-            return $response->withStatus(302)->withHeader('Location', $this->router->urlFor('products.categories'));
+            $this->flashsuccess('تم تحديث التصنيف بنجاح');
+            return $response->withRedirect($this->router->pathFor('products.categories'));
+            
         }
         
     }

@@ -46,7 +46,7 @@
 								<div id="customer-register">
 									<div id="register" class="">
 									<div class="alert alert-danger registerjs" style="display:none;"></div>
-										<form method="post" action="{{path_for('website.register.post')}}" id="RegisterForm">
+										<form method="post" action="{{path_for('website.register')}}" id="RegisterForm">
 										{% include "admin/elements/flash.twig" %}
 										<input type="hidden" value="create_customer" name="validate">
 											<div id="first_name1" class="clearfix large_form">
@@ -86,30 +86,7 @@
 	
 	
 	
-	
-	<style>.errorFiled { border-color: #e0493e; }</style>
-<script>
-$('#RegisterForm').submit(function() {
-     var res = true;
-     // here I am checking for textFields, password fields, and any 
-     // drop down you may have in the form
-     $(".required_field",this).each(function() {
-         if($(this).val().trim() == "") {
-             res = false; 
-             $(this).addClass('errorFiled');
-         }else{
-             $(this).removeClass('errorFiled');
-         }
-     })
-     if(res == false){
-         $('.registerjs').show();
-         $('.registerjs').html("Please Fill The Required Fields");
-     }
-     return res; // returning false will prevent the form from submitting.
-});
-</script>
-	
-	
+
 	
 	
 	
