@@ -76,14 +76,22 @@ class FaqsController  extends Controller {
                 return $this->container->view->render($response,'admin/faq/create.twig',['categories'=>$categories]);
             }
             if($request->getMethod() == 'POST'){
-        
-                $question = clean($request->getParam('question'));
-                $answer = clean($request->getParam('answer'));
-                Faqs::create([
-                    'question' => $question,
-                    'answer'   => $answer
-                ]);
-                $this->flash->addMessage('success','تم اضافة السؤال بنجاح');
+            
+                // initilize the helper & Form data
+                $Post = $request->getParams();
+                $helper = $this->helper;
+                
+                // get & clean the form data
+                $question = $helper->clean($Post['question']);
+                $answer   = $helper->clean($Post['answer']);
+                
+                // add the question to database
+                Faqs::create([ 'question' => $question,  'answer'   => $answer ]);
+                
+                // flash success
+                $this->flashsuccess('تم اضافة السؤال بنجاح');
+                
+                // redirect to faqs
                 return $response->withRedirect($this->router->pathFor('faqs'));        
           }
      }
@@ -91,22 +99,52 @@ class FaqsController  extends Controller {
     
     
     public function edit($request,$response,$args) {
+        
+        // get the Faqs categories
         $categories = FaqsCategories::all();
+        
+        // get the faq id to edit it
         $id = rtrim($args['id'], '/');
+        
+        // get the faq
         $Post = Faqs::find($id);
-        $files = new files();
-        if($request->getMethod() == 'GET'){       
-            return $this->container->view->render($response,'admin/faq/edit.twig',['post'=>$Post,'categories'=>$categories]);
+        
+        if($request->getMethod() == 'GET'){   
+            
+            // if the faq exist 
+            if($Post){   
+                return $this->container->view->render($response,'admin/faq/edit.twig',['post'=>$Post,'categories'=>$categories]);
+            }
+            
+            // otherwise , redirect to faqs page
+            return $response->withRedirect($this->router->pathFor('faqs'));
+            
         }
         
+        
+        // if the Form of the edit is submited
         if($request->getMethod() == 'POST'){
-            $Post->question                = $request->getParam('question');
-            $Post->answer                 = $request->getParam('answer');
-            $Post->category           = $request->getParam('postCategory');
+            
+            // initilize the helper & Form data
+            $Post = $request->getParams();
+            $helper = $this->helper;
+            
+            // get & clean the form data
+            $question  = $helper->clean($Post['question']);
+            $answer    = $helper->clean($Post['answer']);
+            $categorie = $request->getParam('postCategory');
+            
+            // update in database
+            $Post->question   = $question;
+            $Post->answer     = $answer;
+            $Post->category   = $categorie;
             $Post->save();
             
-            $this->flash->addMessage('success', 'تم تعديل السؤال بنجاح');
-            return $response->withRedirect($this->container->router->pathFor('faqs.edit',['id'=>$id]));   
+            // flash success
+            $this->flashsuccess( 'تم تعديل السؤال بنجاح');
+            
+            // redirect to the same faq page
+            return $response->withRedirect($this->router->pathFor('faqs.edit',['id'=>$id]));   
             
         }
         
@@ -114,23 +152,43 @@ class FaqsController  extends Controller {
     }
     
     public function delete($request,$response,$args) {
-        $Post = Faqs::find(rtrim($args['id'], '/'));
-        $Post->delete();
-        $this->flash->addMessage('success','تم حذف السؤال بنجاح');
-        return $response->withStatus(302)->withHeader('Location', $this->router->urlFor('faqs'));
+        
+        // get the id
+        $id = rtrim($args['id'], '/');
+        
+        // get the Faq
+        $Post = Faqs::find($id);
+        
+        // if the faq exist , delete
+        if($Post){  $Post->delete(); $this->flashsuccess('تم حذف السؤال بنجاح'); }
+        
+        // redirect to faqs page
+        return $response->withHeader('Location', $this->router->urlFor('faqs'));
     }
     
+    
+    
     public function duplicate($request,$response,$args) {
-        $product = Faqs::find(rtrim($args['id'], '/'));
-        $new = $product->replicate();
-        $new->save();
-        $this->flash->addMessage('success','تم تكرار السؤال بنجاح');
-        return $response->withStatus(302)->withHeader('Location', $this->router->urlFor('faqs'));
+        
+        // get the id
+        $id = rtrim($args['id'], '/');
+        
+        // get the faq
+        $product = Faqs::find($id);
+        
+        // duplicate
+        if($product){ $new = $product->replicate(); $new->save();  }
+        
+        // flash success & redirect
+        $this->flashsuccess('تم تكرار السؤال بنجاح');
+        return $response->withRedirect($this->router->pathFor('faqs'));
     }
    
+    
+    
     public function blukdelete($request,$response){
         Faqs::truncate();
-        return $response->withStatus(302)->withHeader('Location', $this->router->urlFor('faqs'));
+        return $response->withRedirect($this->router->pathFor('faqs'));
     }  
     
     
@@ -166,67 +224,89 @@ class FaqsController  extends Controller {
     
     
     public function categories_edit($request,$response,$args){
-        $categorie = FaqsCategories::find(rtrim($args['id'], '/'));
+        
+        // get the id
+        $id = rtrim($args['id'], '/');
+        
+        // get the Faq categorie
+        $categorie = FaqsCategories::find($id);
         
         if($request->getMethod() == 'GET'){
-            return $this->view->render($response, 'admin/faq/categories/edit.twig',['categorie'=>$categorie]);
+            if($categorie) {
+                return $this->view->render($response, 'admin/faq/categories/edit.twig',['categorie'=>$categorie]);
+            }
+            return $response->withRedirect($this->router->pathFor('faqs.categories'));
         }
     
         if($request->getMethod() == 'POST'){
             
-            $name = clean($request->getParam('name'));
+            $helper = $this->helper;
+            $post = $request->getParams();
             
-            $unique = FaqsCategories::where('name','=',$name)->first();
+            // get the name
+            $name = $helper->clean($post['name']);
             
             // check if the name or the slug are not empty
             if(empty($name)) {
-                $this->flash->addMessage('error','المرجوا ادخال اسم التصنيف والرابط');
-                return $response->withRedirect($this->router->pathFor('faqs.cat.edit', ['id'=> $categorie->id , 'categorie' => $categorie]));
+                $this->flasherror('المرجوا ادخال اسم التصنيف والرابط');
+                return $response->withRedirect($this->router->pathFor('faqs.cat.edit', ['id'=> $id, 'categorie' => $categorie]));
             }
             
+            // update the info in the database
             $categorie->name = $name;
             $categorie->save();
             
-            // success
-            $this->flash->addMessage('success','تم تحديث التصنيف بنجاح');
-            return $response->withStatus(302)->withHeader('Location', $this->router->urlFor('faqs.categories'));
+            // success &  redirect
+            $this->flashsuccess('تم تحديث التصنيف بنجاح');
+            return $response->withRedirect($this->router->pathFor('faqs.categories'));
+            
         }
     }
     
     
+    // Faqs Categorie Delete
     public function categories_delete($request,$response,$args){
-        $categorie = FaqsCategories::find(rtrim($args['id'], '/'));
-        $categorie->delete();
-        $this->flash->addMessage('success','تم حذف التصنيف بنجاح');
-        return $response->withStatus(302)->withHeader('Location', $this->router->urlFor('faqs.categories'));
+        
+        // get the id
+        $id = rtrim($args['id'], '/');
+        
+        // get the categorie
+        $categorie = FaqsCategories::find($id);
+        
+        // if the categorie exist , delete it
+        if($categorie) {$categorie->delete(); }
+        
+        // flash success & redirect
+        $this->flashsuccess('تم حذف التصنيف بنجاح');
+        return $response->withRedirect($this->router->pathFor('faqs.categories'));
+
     }
     
+    
+    // Faqs categorie create
     public function categories_create($request,$response){
         
-            $name = clean($request->getParam('name'));
+            // get the category name & clean it
+            $name = $this->helper->clean($request->getParam('name'));
             
+            // check if it is unique
             $unique = FaqsCategories::where('name','=',$name)->first();
             
+            // route to redirect
+            $route =  $response->withRedirect($this->router->pathFor('faqs.categories'));
+        
             // check if the name or the slug are not empty
-            if(empty($name)) {
-                $this->flash->addMessage('error','المرجوا ادخال اسم التصنيف والرابط');
-                return $response->withStatus(302)->withHeader('Location', $this->router->urlFor('faqs.categories'));
-            }
+            if(empty($name)) { $this->flashflasherror('المرجوا ادخال اسم التصنيف والرابط');return $route;   }
            
             // check if the name is unique
-            if($unique->name == $name) {
-                $this->flash->addMessage('error','اسم التصنيف موجود من قبل');
-                return $response->withStatus(302)->withHeader('Location', $this->router->urlFor('faqs.categories'));
-            }
+            if($unique->name == $name) { $this->flasherror('اسم التصنيف موجود من قبل'); return $route;}
             
             // create the category
-            FaqsCategories::create([
-                'name' => $name
-            ]);
+            FaqsCategories::create([ 'name' => $name]);
             
             // success
-            $this->flash->addMessage('success','تم اضافة التصنيف بنجاح');
-            return $response->withStatus(302)->withHeader('Location', $this->router->urlFor('faqs.categories'));
+            $this->flashsuccess('تم اضافة التصنيف بنجاح'); return $route;
+            
         
     }
 

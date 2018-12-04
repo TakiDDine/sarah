@@ -32,12 +32,30 @@ class AuthController extends Controller {
         
         $post = $request->getParams();
         $helper = $this->helper;
+        $mode = $this->container->conf['app.debug'];
         
         // get the login credentials
         $user = $helper->clean($post['user_login']);
         $pass = $helper->clean($post['pass_login']);
         $form = $helper->clean($post['validate']);
         
+        
+        // Limit The login after 3 times to attempt
+        if($mode == false){
+//            // get the quest ip
+//            $ip = $helper->get_ip_address();
+//            
+//            // save the ip
+//            $this->db->table('ip')->insert(['address'=>$ip]);
+//            
+//            // check if the login was before 10 min
+//            $count = $this->db->query("SELECT COUNT(*) FROM `ip` WHERE `address` LIKE '$ip' AND `timestamp` > (now() - interval 10 minute)");
+//            
+//            if($count[0] > 3){
+//              echo "Your are allowed 3 attempts in 10 minutes";
+//            }
+            
+        }
         
         // Customer login
         if($form == 'customer_login'){
@@ -168,8 +186,11 @@ class AuthController extends Controller {
     
     public function resetPasswordPost($request,$response) { 
 
+        
        $validator = $this->validator;
 
+        
+        
         // Clean the inputs first!
        $password            =  clean($request->getParam('password'));
        $confirmPassword     =  clean($request->getParam('confirmPassword')); 

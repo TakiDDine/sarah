@@ -51,7 +51,7 @@ class settingsController extends Controller {
                 if($helper->is_empty($email)){ $this->flasherror('لا يمكن ترك البريد الإلكتروني فارغاً');return $route;}
                 
                 // check if the email is valid
-                if(!$helper->valid_email($email)){ $this->flash->addMessage( 'البريد الإلكتروني غير صحيح'); return $route;}
+                if(!$helper->valid_email($email)){ $this->flasherror( 'البريد الإلكتروني غير صحيح'); return $route;}
                 
                 // if every thing is good save !
                 $user->username = $username;
@@ -164,6 +164,11 @@ class settingsController extends Controller {
     public function users($request,$response) {
         return $this->view->render($response,'admin/settings/users.twig');    
     }    
+    
+    
+    public function connect($request,$response) {
+        return $this->view->render($response,'admin/settings/connect.twig');
+    }
     
     public function socialGet($request,$response) {
         return $this->view->render($response,'admin/settings/social.twig');    

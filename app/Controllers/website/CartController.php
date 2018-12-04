@@ -51,9 +51,9 @@ class CartController extends \App\Controllers\Controller{
             if($Cart) {
                 $Cart->delete();
                 $this->flash->addMessage('success','تم ازالة المنتوج من السلة بنجاح');
-                return $response->withStatus(302)->withHeader('Location', $this->router->urlFor('website.cart'));
             }
         }
+        return $response->withHeader('Location', $this->router->urlFor('website.cart'));
     }
     
     

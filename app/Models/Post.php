@@ -5,7 +5,7 @@ use illuminate\database\eloquent\model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Pagination;
-
+use \App\Classes\Helper;
 
 class Post extends model{
 
@@ -37,7 +37,8 @@ public function timestamps()
     }
     
     public function excerpt(){  
-       return get_snippet($this->content,25,' [...] ');
+        $helper = new helper();
+       return $helper->get_snippet($this->content,25,' [...] ');
     }
     
     

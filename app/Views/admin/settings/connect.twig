@@ -1,0 +1,111 @@
+{% extends "admin/layout.twig" %}
+{% block title %}   اعدادات الحسابات   {% endblock %}
+{% block content %}
+
+<!-- Main content -->
+<div class="content-wrapper">
+
+
+				<!-- Page header -->
+				<div class="page-header page-header-transparent">
+					<div class="page-header-content">
+						<div class="page-title">
+							<h1> <span class="text-semibold">اعدادات الحسابات </span></h1>
+						</div>
+					</div>
+				</div>
+				<!-- /page header -->
+
+
+<!-- Content area -->
+<div class="content">
+		
+
+
+<div class="row">
+   
+<div class="col-md-3">
+    <div class="connect-box fb">
+        <div class="panel panel-flat ">
+            <div class="panel-body">
+                facebook
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="col-md-3">
+    <div class="connect-box tw">
+        <div class="panel panel-flat ">
+            <div class="panel-body">
+                twitter
+            </div>
+        </div>
+    </div>
+</div>
+    
+<div class="col-md-3">
+    <div class="connect-box yt">
+        <div class="panel panel-flat ">
+            <div class="panel-body">
+                youtube
+            </div>
+        </div>
+    </div>
+</div>
+    
+<div class="col-md-3">
+    <div class="connect-box ins">
+        <div class="panel panel-flat ">
+            <div class="panel-body">
+                instagram
+            </div>
+        </div>
+    </div>
+</div>
+    
+
+   
+    
+</div>
+
+
+
+
+
+<style>
+.connect-box .panel {
+    height: 220px;
+}    
+.connect-box .panel {
+    border: 0;
+    color:white;
+}
+  .connect-box.fb .panel {
+    background: #4267B2;
+}  
+  .connect-box.tw .panel {
+    background: #1DA1F2;
+}  
+ .connect-box.yt .panel {
+    background: #C4302B;
+} 
+    
+     .connect-box.ins .panel {
+    background: #8A3AB9;
+} 
+   
+</style>
+
+
+
+
+
+
+	
+    </div>
+</div>
+<!-- set the select -->		
+<script> $('.role').select2({ placeholder: 'تعيين المستخدم',}); </script>
+	
+{% endblock %}	

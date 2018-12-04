@@ -39,50 +39,52 @@ class SliderController extends Controller{
   
     public function edit($request,$response,$args) { 
         
-        /*
-        *       Get the slide
-        */
-        $slider = Slider::find(rtrim($args['id'], '/'));
+    //  Get the id & slide
+    $id = rtrim($args['id'], '/');
+    $slider = Slider::find($id);
         
+    // initlize the helper & the form
+    $helper = $this->helper;
+    $uploader = $this->files;
         
       if($request->getMethod() == 'GET'){ 
+          if($slider) {
               return $this->container->view->render($response,'admin/slider/edit.twig',['slider'=>$slider]);
+          }
+          return $response->withRedirect($this->router->pathFor('slider'));
       }
+        
+        
         
       if($request->getMethod() == 'POST'){ 
           
          if($request->getParam('isAdChanged') == 'true') {
                
-                /*
-                * رفع الصورة الجديدة عندما يتم 
-                */
-                if(isset($_FILES['image']) and !empty($_FILES['image']['name'])) {
-
-                    $files = new files();
-                    $path = $this->container->conf['dir.slider'];
-                    $file = $_FILES['image'];
+                // upload the new image
+                $file = $_FILES['image'];
+                     
+                if(isset($file) and !empty($file['name'])) {
 
                     // Upload
-                    $slide =  $files->upload_avatar($path,$file);
+                    $slide =  $uploader->upload_avatar($this->dir('slider'),$file);
                     
                     // delete old slide
-                    unlink($this->container->conf['dir.slider'].$slider->image);
+                    $old = $this->dir('slider').$slider->image;
+                    if(file_exists($old)) {unlink($old);}
                     
-                    // update in database
+                    // update in database & save
                     $slider->image = $slide;
-                    
-                    // saving
                     $slider->save();
                     
                 }
              
-             $link = $request->getParam('link');
-             $slider->link = $link;
+            $link = $request->getParam('link');
+            $slider->link = $link;
             $slider->save();
              
             }
           
-          $this->flash->addMessage('success','تم تحديث السلايدر بنجاح');
+          $this->flashsuccess('تم تحديث السلايدر بنجاح');
           return $response->withRedirect($this->router->pathFor('slider.edit', ['id'=> $slider->id , 'slider'=>$slider]));
           
           
@@ -99,28 +101,24 @@ class SliderController extends Controller{
         
           if($request->getMethod() == 'POST'){ 
             
-            $files = new files();
+            $form     = $request->getParams();
+            $helper   = $this->helper;
+            $uploader = $this->files;
 
-            $path = $this->container->conf['dir.slider'];
-
-            /*
-            *   رفع الصورة الخارجية
-            */
+            // upload the image
             $image  = ' ';
-            if(isset($_FILES['image']) and !empty($_FILES['image']['name'])) {
-                $image =  $files->upload_avatar($path,$_FILES['image']);
-            } 
+            $file = $_FILES['image'];
+            if(isset($file) and !empty($file['name'])) { $image =  $uploader->upload_avatar($this->dir('slider'),$file); } 
 
+            // get the link
+            $link = $helper->clean($form['link']);
               
-            $link = $request->getParam('link');
-              
-              
-            /*
-            * اضافة السلايدر
-            */
+            // create the slider
             Slider::create(['image' => $image, 'link'=>$link ] );
-            $this->flash->addMessage('success','تم اضافة السلايدر بنجاح');
-            return $response->withStatus(302)->withHeader('Location', $this->router->urlFor('slider'));
+            
+              // flash & redirect
+            $this->flashsuccess('تم اضافة السلايدر بنجاح');
+            return $response->withRedirect($this->router->pathFor('slider'));
         }
        
     }
@@ -129,24 +127,19 @@ class SliderController extends Controller{
     
     public function delete($request,$response,$args) {
         
+        //  Get the id & slide
+        $id = rtrim($args['id'], '/');
+        $slider = Slider::find($id);
         
-        /*
-        *       Get the slide
-        */
-        $slider = Slider::find(rtrim($args['id'], '/'));
+        // Delete Slide image if exist
+        $image = $this->dir('slider').$slider->image;
+        if(file_exists($image)) {unlink($image);}
+     
+        // Delete the slider if exist & flash success
+        if($slider){$slider->delete();$this->flashsuccess('تم حذف السلايدر بنجاح');}
         
-        /*
-        *       Delete Slide image
-        */
-        unlink($this->container->conf['dir.slider'].$slider->image);
-        
-       
-        /*
-        * Delete the slider
-        */
-        $slider->delete();
-        $this->flash->addMessage('success','تم حذف السلايدر بنجاح');
-        return $response->withStatus(302)->withHeader('Location', $this->router->urlFor('slider'));
+        // redirect to slides route
+        return $response->withHeader('Location', $this->router->urlFor('slider'));
     }
     
     

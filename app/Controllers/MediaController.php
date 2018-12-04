@@ -41,19 +41,16 @@ class MediaController extends Controller {
   
     public function upload($request,$response) {
        
-         if(isset($_FILES['file']) and !empty($_FILES['file']['name'])) {
-
-            $files = new files();
-            $path = $this->container->conf['dir.media'];
-            $file = $_FILES['file'];
+         $file = $_FILES['file'];
+         if(isset($file) and !empty($file['name'])) {
             
-            $ad =  $files->media_uploader($path,$file);
-            $up = Media::create([
-                'name' => $ad['name'],
-                'post_mime_type' => $ad['file_src_mime']
-            ]);
+            // upload the file to media directory
+            $ad =  $this->files->media_uploader($this->dir('media'),$file);
              
-            $url =  $this->container->conf['url.media'].$ad['name'];
+            // add the media to database
+            $up = Media::create([ 'name' => $ad['name'],  'post_mime_type' => $ad['file_src_mime'] ]);
+             
+            $url =  $this->url('media').$ad['name'];
 
              echo '<tr class="new">
                     <td>'.$ad["name"].'</td>
@@ -69,70 +66,52 @@ class MediaController extends Controller {
     }
     
     
-    
+    //  upload the file & add to database & return the name of the file , Ajax Function
     public function modal_uploader($request,$response) {
-       
-         if(isset($_FILES['file']) and !empty($_FILES['file']['name'])) {
-
-            $files = new files();
-            $path = $this->container->conf['dir.media'];
-            $file = $_FILES['file'];
-            
-            $ad =  $files->media_uploader($path,$file);
-            $up = Media::create([
-                'name' => $ad['name'],
-                'post_mime_type' => $ad['file_src_mime']
-            ]);
-             
-            $url =  $this->container->conf['url.media'].$ad['name'];
-
-             echo '<tr class="new">
-                    <td>'.$ad["name"].'</td>
-                    <td>'.$ad["file_src_mime"].'</td>
-                    <td>'.human_time_diff($up->created_at).'</td>
-                    <td><a href="'.$url.'" target="_blank">اضغط هنا</a></td>
-                    <td class="text-center">
-                        <a href="/wp-admin/faqs/delete//" class="text-danger"><i class="icon-trash"></i><b> حذف  </b></a>
-                    </td>
-                </tr>';
+        
+         // get the file
+         $file = $_FILES['file'];
+        
+         // check if not empty & upload
+         if(isset($file) and !empty($file['name'])) {
+            $ad =  $this->files->media_uploader($this->dir('media') ,$file);
+            $up = Media::create([ 'name' => $ad['name'], 'post_mime_type' => $ad['file_src_mime'] ]);
+            echo $ad['name'];
         }  
+        
+    }
 
-    }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
    
+    // Delete a media element by ajax so there is no redirect
     public function delete($request,$response,$args) {
+        
+        // get the id
         $id = rtrim($_POST['id'], '/');
+        
+        // get the media 
         $media = Media::find($id);
-        unlink($this->container->conf['dir.media'].$media->name);
-        $media->delete();
+        
+        if($media){
+            unlink($this->dir('media').$media->name);
+            $media->delete();
+        }
+        
     }
     
+    
+    
+    // Delete all the media data & files from the media folder
     public function blukdelete($request,$response){
         
         // Clean the media Table in database
         Media::truncate();
         
         // Delete all the files in media folder 
-        delete_folders_files($this->container->conf['dir.media']);
+        $this->helper->delete_folders_files($this->dir('media'));
         
         // Return to media page
-        return $response->withStatus(302)->withHeader('Location', $this->router->urlFor('media'));
+        return $response->withRedirect($this->router->pathFor('media'));
+
     }
     
     

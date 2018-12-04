@@ -172,13 +172,26 @@
 				
 				<div class="row">
 				    <div class="col-md-4">
-				        <div class="panel panel-flat">
+                    
+                    
+                    <div class="panel panel-default">
                         <div class="panel-heading">
-                            <h3>معلومات عامة</h3>
+                            <h6 class="panel-title">معلومات عامة
+                                <a class="heading-elements-toggle"><i class="icon-more"></i></a>
+                            </h6>
+                            <div class="heading-elements">
+                                <ul class="icons-list">
+                                    <li><a data-action="collapse"></a></li>
+                                    <li><a data-action="close"></a></li>
+                                </ul>
+                            </div>
                         </div>
-				            <div class="panel-body">
-				                
-				                <table class="table">
+<style>
+.no-border tr td {border: 0 !important;border-bottom: 1px solid #0000000f !important;}
+.no-border tr:last-child td { border: 0 !important; }                        
+</style>
+                        <div class="panel-body">
+                            <table class="table border-dashed no-border">
                                     <tr>
 				                        <td>نسخة لوحة التحكم</td>
 				                        <td>1.0</td>
@@ -191,30 +204,63 @@
 				                        <td>نسخة mysql</td>
 				                        <td>{{info.mysqlversion}}</td>
 				                    </tr>
+				                    <tr>
+                                        <td>  حجم ملفات الموقع</td>
+				                        <td>{{info.filesize}}</td>
+				                    </tr>
+				                    <tr>
+                                        <td>  حجم قاعدة البيانات </td>
+				                        <td>{{info.databasesize}}</td>
+				                    </tr>
 				                </table>
-				                
-				                  
-				            </div>
-				        </div>
-				    </div>
-				    <div class="col-md-4">
-				       <div class="panel panel-flat">
-                        <div class="panel-heading">
-                            <h3>حالة الطقس ب الدار البيضاء</h3>
                         </div>
-				            <div class="panel-body">
-				                
-				          
-				           <ul style="line-height: 32px;list-style: none;">
-                                           <li><b> درجة الحرارة  {{temp.temp}}c</b></li>
-                                            <li>{{temp.Humidity|raw}}  </li>
-                                            <li>{{temp.Wind|raw}}  </li>
-                                            <li>{{temp.Sunrise|raw}}  </li>
-                                            <li>{{temp.Sunset|raw}}  </li>
-                                        </ul>
-				                  
-				            </div>
-				        </div> 
+                    </div>
+                    
+                    
+                    
+                    
+
+				    </div>
+				   <div class="col-md-4">
+                   <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h6 class="panel-title">حالة الطقس ب الدار البيضاء
+                                <a class="heading-elements-toggle"><i class="icon-more"></i></a>
+                            </h6>
+                            <div class="heading-elements">
+                                <ul class="icons-list">
+                                    <li><a data-action="collapse"></a></li>
+                                    <li><a data-action="close"></a></li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="panel-body">
+                            <table class="table border-dashed no-border">
+                                    <tr>
+				                        <td>درجة الحرارة</td>
+				                        <td>{{temp.temp}}c</td>
+				                    </tr>
+				                    <tr>
+				                        <td>الرطوبة</td>
+				                        <td>{{temp.Humidity|raw}}</td>
+				                    </tr>
+				                    <tr>
+				                        <td>سرعة الرياح</td>
+				                        <td>{{temp.Wind|raw}}</td>
+				                    </tr>
+				                    <tr>
+                                        <td> شروق الشمس </td>
+				                        <td>{{temp.Sunrise|raw}}</td>
+				                    </tr>
+				                    <tr>
+                                        <td>  غروب الشمس </td>
+				                        <td>{{temp.Sunset|raw}}</td>
+				                    </tr>
+				                </table>
+                        </div>
+                    </div>
+                   </div> 
 				        
 				    </div>
 				</div>

@@ -63,8 +63,18 @@ class AuthController extends \App\Controllers\Controller{
         
             $post = $request->getParams();
             $helper = $this->helper;
+            $mode = $this->container->conf['app.debug'];
             
-            echo $helper->get_ip_address();exit;
+           
+            $ip = '';
+            $country = '';
+            if(!$mode){
+                $ip = $helper->get_ip_address();
+                $details = json_decode(file_get_contents("http://ipinfo.io/{$ip}/json"));
+                $country =  $details->country; 
+                $browser = $post['userbrowser'];
+                $ios = $helper->get_os();
+            }
             
             
             $first_name     = $helper->clean($post['first_name']);
@@ -96,7 +106,9 @@ class AuthController extends \App\Controllers\Controller{
                 'email' => $email,
                 'password' => $password,
                 'role' => '1',
-                'statue' => '1'
+                'statue' => '1',
+                'country' => $country,
+                'ip' => $ip
             ]);
 
             $_SESSION['auth-user'] = $user->id;

@@ -43,6 +43,7 @@ return  [
         'general'            => SCRIPTURL.'uploads/general/',
         'slider'             => SCRIPTURL.'uploads/slider/',    
         'media'              => SCRIPTURL.'uploads/media/',    
+        'uploads'            => SCRIPTURL.'uploads/',    
     ],
     
     'dir' => [

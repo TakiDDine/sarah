@@ -48,21 +48,29 @@ class PostsController extends Controller {
             }
             
             if($request->getMethod() == 'POST'){
-        
-                $title = $request->getParam('title');
-                $post_content = $request->getParam('post_content');
-
+                
+                // initialize the helper & the uploader clean post form
+                $helper   = $this->helper;
+                $post     = $request->getParams();
+                $uploader = $this->files;
+                
+                $title        = $helper->clean($post['title']);
+                $post_content = $helper->clean($post['post_content']);
+                $categories   = $helper->clean($post['postCategory']);
+                
+                
                 $post_thumbnail = " ";
                 
-                
-                  if(isset($_FILES['post_thumbnail']) and !empty($_FILES['post_thumbnail']['name'])) {
-                            $files = new files();
-                            $path = $this->container->conf['dir.posts'];
-                            $file = $_FILES['post_thumbnail'];
-                            $post_thumbnail =  $files->upload_avatar($path,$file);
-                   }  
-                
+                // upload the post thumbnail
+                $file = $_FILES['post_thumbnail'];
+                if(isset($file) and !empty($file['name'])) {
 
+                 // upload the thumbnail
+                 $post_thumbnail =  $uploader->upload_avatar($this->dir('posts'),$file);
+
+                }  
+                
+                // create the post
                 Post::create([
                     'title' => $title,
                     'content'  => $post_content,
@@ -70,10 +78,11 @@ class PostsController extends Controller {
                     'author' => $_SESSION['auth-admin'],
                     'statue' => '1',
                     'type' => 'post',
-                    'categoryID' => $request->getParam('postCategory')
+                    'categoryID' => $categories
                 ]);
                 
-                $this->flash->addMessage('success','تم اضافة المقالة بنجاح');
+                // flash success & redirect
+                $this->flashsuccess('تم اضافة المقالة بنجاح');
                 return $response->withRedirect($this->router->pathFor('posts'));        
           }
         
@@ -85,38 +94,58 @@ class PostsController extends Controller {
         $categories = PostsCategories::all();
         $id = rtrim($args['id'], '/');
         $Post = Post::find($id);
-        $files = new files();
-      
         
         if($request->getMethod() == 'GET'){       
-            return $this->container->view->render($response,'admin/posts/edit.twig',['post'=>$Post,'categories'=>$categories]);
+            if($Post){
+                return $this->container->view->render($response,'admin/posts/edit.twig',['post'=>$Post,'categories'=>$categories]);
+            }
+            return $response->withRedirect($this->router->pathFor('posts'));        
         }
         
         if($request->getMethod() == 'POST'){
            
-           if($request->getParam('thumbnailChanged') == 'true') {
+            
+            // initialize the helper & the uploader clean post form
+            $helper   = $this->helper;
+            $form     = $request->getParams();
+            $uploader = $this->files;
+            
+            // get & clean the content
+            $title = $helper->clean($form['title']);
+            $content = $helper->clean($form['post_content']);
+            $slug = $helper->clean($form['slug']); 
+            $categories   = $helper->clean($form['postCategory']);
+            
+            
+           if($post['thumbnailChanged'] == 'true') {
               
                 $thumbnail = " ";
-                if(isset($_FILES['post_thumbnail']) and !empty($_FILES['post_thumbnail']['name'])) {
-                    
-                    // Upload
-                    $thumbnail =  $files->upload_avatar($this->container->conf['dir.posts'],$_FILES['post_thumbnail']);
-                }  
+                // get the thumbnail
+                $file = $_FILES['post_thumbnail'];
+               
+                // Upload
+                if(isset($file) and !empty($file['name'])) { $thumbnail =  $uploader->upload_avatar($this->dir('posts'),$file);}  
                 
-                unlink($this->container->conf['dir.posts'].$Post->thumbnail);
+                // delete the old thumbnail 
+                $old = $this->dir('posts').$Post->thumbnail;
+                if(file_exists($old)){unlink($old);}
+                
+                // change the post thumbnail to the new one
                 $Post->thumbnail = $thumbnail;
   
             }        
             
-            $Post->title                = $request->getParam('title');
-            $Post->content              = $request->getParam('post_content');
+            // edit the post & save
+            $Post->title                = $title;
+            $Post->content              = $content;
             $Post->statue               = '1';
-            $Post->slug                 = $request->getParam('slug');
-            $Post->categoryID           = $request->getParam('postCategory');
+            $Post->slug                 = $slug;
+            $Post->categoryID           = $categories;
             $Post->save();
             
-            $this->flash->addMessage('success', 'تم تعديل المقالة بنجاح');
-            return $response->withRedirect($this->container->router->pathFor('posts.edit',['id'=>$id]));   
+            // flash success & redirect
+            $this->flashsuccess( 'تم تعديل المقالة بنجاح');
+            return $response->withRedirect($this->router->pathFor('posts.edit',['id'=>$id]));   
             
         }
         
@@ -124,25 +153,47 @@ class PostsController extends Controller {
     }
     
     public function delete($request,$response,$args) {
-        $Post = Post::find(rtrim($args['id'], '/'));
-        unlink($this->container->conf['dir.posts'].$Post->thumbnail);
-        $Post->delete();
-        $this->flash->addMessage('success','تم حذف المقالة بنجاح');
-        return $response->withStatus(302)->withHeader('Location', $this->router->urlFor('posts'));
+        
+        // get the id & the post
+        $id = rtrim($args['id'], '/');
+        $Post = Post::find($id);
+        
+        //  get the thumbnail
+        $thumbnail = $this->dir('posts').$Post->thumbnail;
+        
+        // if the thumbnail exist delete it
+        if(file_exists($thumbnail)){unlink($thumbnail);}
+        
+        // if the post exist delete it & flash success
+        if($Post){$Post->delete(); $this->flashsuccess('تم حذف المقالة بنجاح'); }
+        
+        return $response->withRedirect($this->router->pathFor('posts'));  
     }
     
+    
+    
+    
+    // Dupli
     public function duplicate($request,$response,$args) {
-        $product = Post::find(rtrim($args['id'], '/'));
-        $new = $product->replicate();
-        $new->save();
-        $this->flash->addMessage('success','تم تكرار المقالة بنجاح');
-        return $response->withStatus(302)->withHeader('Location', $this->router->urlFor('posts'));
+        
+        // get the id
+        $id = rtrim($args['id'], '/');
+        
+        // get the post
+        $post = Post::find($id);
+        
+        // if the post exist Duplicate & flash success
+        if($post){$new = $product->replicate();$new->save(); $this->flashsuccess('تم تكرار المقالة بنجاح');}
+        
+        // redirect  
+        return $response->withRedirect($this->router->pathFor('posts'));  
     }
    
     public function blukdelete($request,$response){
         Post::truncate();
-        delete_folders_files($this->container->conf['dir.posts']);
-        return $response->withStatus(302)->withHeader('Location', $this->router->urlFor('posts'));
+        // delete post thumbnails
+        $this->helper->delete_folders_files($this->dir('posts'));
+        return $response->withRedirect($this->router->pathFor('posts'));  
     }   
     
     
@@ -156,11 +207,11 @@ class PostsController extends Controller {
         $selected =  Post::whereIn('id', array_values($request->getParam('checkaction')));
 
         // Take the Correct Action
-        if($request->getParam('takeAction') == 'delete'){ $selected->delete(); }
+        if($request->getParam('takeAction') == 'delete'){ $selected->delete();  }
 
         // Redirect To Pages
-        $this->flash->addMessage('success', 'تم تنفيذ الأمر بنجاح');
-        return $response->withStatus(302)->withHeader('Location', $this->router->urlFor('posts'));
+        $this->flashsuccess( 'تم تنفيذ الأمر بنجاح');
+        return $response->withRedirect($this->router->pathFor('posts'));  
     
     }
     

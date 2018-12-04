@@ -96,7 +96,7 @@ class MenusController extends Controller {
              $menu->save();  
             
             $this->flashsuccess('تم تعديل القائمة بنجاح');
-            return $response->withStatus(302)->withHeader('Location', $this->router->urlFor('menus.edit',['id'=>$id]));
+            return $response->withRedirect($this->router->pathFor('menus',['id'=>$id]));
 
         }
     }   

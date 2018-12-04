@@ -41,63 +41,81 @@ class CommentsController extends Controller {
     }
     
     
+    // edit a comment
     public function edit($request,$response,$args) {
+
+         // get the comment id
+        $id = rtrim($args['id'], '/');
         
-        $comment = Comments::find(rtrim($args['id'], '/'));
+        // get the comment
+        $comment = Comments::find($id);
+        
+        if($comment){
+                if($request->getMethod() == 'POST'){ 
+                    if(!empty($request->getParam('content'))){
+                        $comment->content = clean($request->getParam('content'));
+                        $comment->save();
+                        $this->flash->addMessage('success','تم تعديل التعليق بنجاح');
+                        return $response->withStatus(302)->withHeader('Location', $this->router->urlFor('comments'));
+                    }
+                }
 
-        if($request->getMethod() == 'POST'){ 
-            if(!empty($request->getParam('content'))){
-                $comment->content = clean($request->getParam('content'));
-                $comment->save();
-                $this->flash->addMessage('success','تم تعديل التعليق بنجاح');
-                return $response->withStatus(302)->withHeader('Location', $this->router->urlFor('comments'));
-            }
+                // open the page of comment edit
+                return $this->container->view->render($response,'admin/comments/edit.twig',['comment'=>$comment]); 
         }
-        if($request->getMethod() == 'GET'){ 
-            return $this->container->view->render($response,'admin/comments/edit.twig',['comment'=>$comment]); 
-        }
+        
+        
     }
 
+    
+    // Create a comment & redirect to the article
+    public function create ($request,$response){
+
+        $user_id = 'quest';
+        if(isset($_SESSION['auth-user'])){
+            $user_id = $_SESSION['auth-user'];
+        }
+
+        $post   = $request->getParams();
+        $helper = $this->helper;
+
+
+        $post_id = $helper->clean($post['post_id']);
+        $author  = $helper->clean($post['author']);
+        $email   = $helper->clean($post['email']);
+        $body    = $helper->clean($post['body']);
+
+        Comments::create([
+            'user_id' => $user_id,
+            'post_id' => $post_id,
+            'author' => $author,
+            'email' => $email,
+            'content' => $body,
+            'approved' => 1
+        ]);
+
+        $this->flashsuccess('تم اضافة التعليق بنجاح');
+        return $response->withRedirect($this->router->pathFor('website.post',['id'=>$post_id]));
+
+    }
+    
+    
+    // delete a single comment by id
     public function delete($request,$response,$args) {
-        $comment = Comments::find(rtrim($args['id'], '/'));
-        $comment->delete();
-        $this->flash->addMessage('success','تم حذف التعليق بنجاح');
-        return $response->withStatus(302)->withHeader('Location', $this->router->urlFor('comments'));
+        $id = rtrim($args['id'], '/');
+        $comment = Comments::find($id);
+        if($comment) {
+             $comment->delete();
+             $this->flashsuccess('تم حذف التعليق بنجاح');
+        }
+        return $response->withRedirect($this->router->pathFor('comments'));
     }
     
-public function create ($request,$response){
     
-    // first of all check if the id of article is numeric 
-    // check if the article exists
-    // secure the inputs
-    
-    // To Do , Secure Me please !
-    $user_id = 'quest';
-    if(isset($_SESSION['auth-user'])){
-        $user_id = $_SESSION['auth-user'];
-    }
-
-    $post_id = clean($request->getParam('post_id'));
-    $author = clean($request->getParam('author'));
-    $email  = clean($request->getParam('email'));
-    $body   = clean($request->getParam('body'));
-    
-    Comments::create([
-        'user_id' => $user_id,
-        'post_id' => $post_id,
-        'author' => $author,
-        'email' => $email,
-        'content' => $body,
-        'approved' => $body
-    ]);
-    
-    $this->flash->addMessage('success','تم تعديل التعليق بنجاح');
-    return $response->withStatus(302)->withHeader('Location', $this->router->urlFor('website.post',['id'=>$post_id]));
-    
-}
+    // Delete All the comments at once
     public function blukdelete($request,$response){
         Comments::truncate();
-        return $response->withStatus(302)->withHeader('Location', $this->router->urlFor('comments'));
+        return $response->withRedirect($this->router->pathFor('comments'));
     }       
     
    

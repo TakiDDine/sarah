@@ -38,6 +38,83 @@
     <noscript>
         <meta http-equiv="refresh" content="0; url={{path_for('javascript-Disabled')}}" />
     </noscript>
+    
+    
+
+<!-- Full width modal -->
+<div id="modal_full" class="mediauploder modal fade">
+<div class="modal-dialog modal-full">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h5 class="modal-title">الصورة البارزة </h5>
+        </div>
+        <div class="modal-body">
+            <!-- Basic tabs -->
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel panel-flat">
+                        <div class="panel-body">
+                            <div class="tabbable">
+                                <ul class="nav nav-tabs">
+                                    <li class="active"><a href="#basic-tab1" data-toggle="tab">رفع ملفات</a></li>
+                                    <li><a href="#basic-tab2" id='medialibrary' data-toggle="tab">مكتبة الوسائط</a></li>
+                                </ul>
+                                <div class="tab-content">
+                                        <!-- uploder Tab -->
+                                        <div class="tab-pane active" id="basic-tab1">
+                                        <div class="simpleUplader">
+                                            <center>
+                                             <label for="file" class="btn btn-danger btn-rounded uploadbtn"> رفع الملف </label>
+                                             <input type="file"  style="visibility:hidden;" name="file" id="file" />
+                                            </center>						   
+                                        </div>
+                                        </div>
+                                        <!--// uploder Tab -->
+
+                                        <!-- Media Library -->
+                                        <div class="tab-pane" id="basic-tab2">
+                                           <div class="simpleUplader2" style="padding-top:12px;">
+                                           {% for item in media %}
+                                            <div class="thumbnail">
+                                                <div class="thumb">
+                                                   <input type="checkbox" class='mediacheckbox' value="{{url.media}}{{item.name}}" id="img{{item.id}}" />
+                                                   <label for="img{{item.id}}">
+                                                    <img  src="{{url.media}}{{item.name}}" >
+                                                   </label>
+                                                </div>
+                                            </div>
+                                            {% endfor  %}
+                                            
+                                           </div>
+                                        </div>
+                                        <!--// Media Library -->
+                                        <div class="modal-footer" style="visibility:hidden;">
+                                            <button type="button" id='choosemedia' class="btn btn-primary">تعيين الصورة</button>
+                                        </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<!-- /full width modal -->
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 <style>
     body{
         overflow-x: hidden;
@@ -115,11 +192,104 @@
 
 
 
+<!-- css page media w dyal uploader  -->
+<style>
+    
+        tr.new {
+    background: whitesmoke;
+}
+    .thumbnail {
+    float: right;
+    margin-left: 17px;
+    overflow: hidden;
+}
+ .empty_state_icon {
+    font-size: 176px;
+    opacity: 0.1;
+}
+    
+    
+/*    .simpleUplader2*/
+ .mediauploder .thumbnail   {
+    height: 310px;
+}
+                                                
+.mediauploder .thumbnail {
+    width: 150px;
+    height: 150px;
+    border: 2px solid black !important;
+    padding: 0;
+}
+.mediauploder .panel.panel-flat {
+    border: 0;
+    box-shadow: none;
+    margin-top: -24px;
+    padding-right: 0 !important;
+}
 
+.mediauploder .modal-body {
+    padding-right: 0 !important;
+    padding-left: 0 !important;
+}
 
+.mediauploder .panel-body {
+    margin:  0 !important;
+    padding: 0 !important;
+    padding-top: 25px !important;
+}    
+    .mediauploder .simpleUplader {
+    height: 310px;
+}
+    input.uploderButton {
+    text-align: center;
+    margin: 0 auto;
+}
 
+.mediauploder .simpleUplader {
+    padding-top: 150px !important;
+}
+    .uploader_input {
+    display: inline-block !important;
+}    
+    .container.uploader_sec {
+    padding: 100px 0;display: none;
+}
+    .mediauploder .simpleUplader2 {
+    height: 310px;
+}
+  .uploadbtn {
+    height: 66px;
+    width: 164px;
+    font-size: 21px;
+    line-height: 49px;
+    border-radius: 4px;
+}
+                        
+                    .thumbnail .thumb {
+    overflow: hidden;
+    display: inline-block;
+    width: 150px;
+    height: 150px;
+}     
+                        .simpleUplader2 {
+    padding-right: 15px;
+}
+                        .loader {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    background: #1717179c;
+    z-index: 4544;
+}
+.loader img {width: 49px;position: absolute;top: 45px;right: 43px;}
 
-
+.thumbnail {
+    position: relative;
+}
+</style>                                       
+        
 
 </head>
 
@@ -174,6 +344,50 @@ tr.removeRow a {
 .datatable>tbody>tr>td:first-child {
      padding: 0; text-align: center;
 }
+      .mediauploder .checkedimg {
+    border: 3px solid #03a9f4 !important;
+}
+.simpleUplader2 .thumbnail input[type="checkbox"] {
+display: none;
+}
+
+
+.simpleUplader2 .thumbnail label:before {
+    background-color: white;
+    color: white;
+    content: " ";
+    display: block;
+    position: absolute;
+    top: 0px;
+    left: 2px;
+    width: 25px;
+    height: 25px;
+    text-align: center;
+    line-height: 28px;
+    transition-duration: 0.4s;
+    transform: scale(0);
+}
+
+.simpleUplader2 .thumbnail :checked + label {
+  border-color: #ddd;
+}
+.simpleUplader2 .thumbnail :checked + label:before {
+    content: "✓";
+    background-color: #03a9f4;
+    transform: scale(1);
+}
+    a.mediapreview {
+    display: inline-block;
+    width: 100px;
+    height: 70px;
+    background: #cec3c3;
+    border-radius: 5px;
+}
+
+a.mediapreview img {
+    width: 100%;
+    height: 100% !important;
+}
 </style>
 
 
@@ -211,6 +425,211 @@ $( document ).ready(function() {
     
  });
 </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>    
+$(document).ready(function(){
+    
+    var minNumber = 40;
+var maxNumber = 100;
+
+
+
+function randomNumberFromRange(min,max)
+{
+    return Math.floor(Math.random()*(max-min+1)+min);
+}
+    
+    
+    
+    
+    
+    
+    
+    
+    
+ $(document).on('change', '#file', function(){
+  var name = document.getElementById("file").files[0].name;
+  var form_data = new FormData();
+  var ext = name.split('.').pop().toLowerCase();
+   var imgurl = window.URL.createObjectURL(document.getElementById('file').files[0]);
+   form_data.append("file", document.getElementById('file').files[0]);
+   $.ajax({
+    url:'{{url.base}}{{path_for("media.modal_uploader")}}',
+    method:"POST",
+    data: form_data,
+    contentType: false,
+    cache: false,
+    processData: false,
+    beforeSend:function(){
+        
+        var randomNumber = randomNumberFromRange(minNumber, maxNumber);
+        
+        
+        $('a[href="#basic-tab2"]').trigger('click');
+        $('#uploaded_image').html("<label class='text-success'>Image Uploading...</label>");
+        $('.simpleUplader2').prepend("<div class='thumbnail'><div class='loader'><img  class='loaderimg' src='{{url.uploads}}/index.svg' /> </div><div class='thumb'><input type='checkbox' class='mediacheckbox' value='' id='img"+randomNumber+"'><label for='img"+randomNumber+"'><img src='"+imgurl+"' class='preee' /></label></div></div>");
+    },   
+       
+       
+       
+       
+       
+    success:function(data) {
+        
+        $('.thumbnail .loader').remove();
+        var imglink = "{{url.media}}"+data;
+        $('.thumbnail .preee').attr('src', imglink); 
+        $(".mediauploder .modal-footer").css("visibility", "visible");
+        $(".mediacheckbox").val(imglink);
+       
+    }
+   });
+ });
+});
+</script>
+
+
+
+
+<script>
+    
+    // this scrit is to allow selecting only one check box    
+    $(document).on('click', '.mediacheckbox', function() {
+        $('.mediacheckbox').not(this).prop('checked', false);
+        $('.mediacheckbox').not(this).closest('.mediauploder .thumbnail').removeClass('checkedimg');
+    });
+    
+    // add border and selected icon for the media when you check it
+    $(".mediacheckbox").change(function() {
+        if(this.checked) {
+            $(this).closest('.mediauploder .thumbnail').addClass('checkedimg');
+        }else{
+         $(this).closest('.mediauploder .thumbnail').removeClass('checkedimg');
+        }    
+    });
+        
+    // close the modal when choosing & select the shit
+    $('#choosemedia').click(function() {    
+        $('.mediauploder').modal('toggle');
+        
+        
+        // do what you want here
+        alert($('.mediacheckbox:checked').val());
+        
+        
+        $('.mediacheckbox:checked').closest('.mediauploder .thumbnail').removeClass('checkedimg');
+        $('.mediacheckbox').removeAttr('checked');
+     });
+    
+   $('.mediauploder [href="#basic-tab1"]').click(function() {    
+         $(".mediauploder .modal-footer").css("visibility", "hidden");
+      }); 
+
+        
+//});
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>    
+// simple uploder
+$('#uploader').submit(function(evt) {
+        evt.preventDefault();
+        var formData = new FormData(this);
+        $.ajax({
+        type: 'POST',
+        url: '{{url.base}}{{path_for("media.upload")}}',
+        data:formData,
+        cache:false,
+        contentType: false,
+        processData: false,
+         beforeSend: function(data) {
+            $("#submitResult").html('جاري رفع الملف المرجوا الإنتظار رجاءً');
+        },
+        success: function(data) {
+           $("#submitResult").html('تم رفع الملف بنجاح');
+           $(".media-table tbody").prepend(data)
+        },
+        error: function(data) {
+            $("#submitResult").html("حصل خطأ ما ، المرجوا المحاولة من جديد");
+        }
+        });
+});    
+</script>
+
+
+
+
+
+
+<script>
+    
+// show the uploader
+$(".showUploader").click(function() {
+    $(".uploader_sec").show();
+});
+$(".showUploader2").click(function() {
+    $(".empty_state").remove();
+    $(".uploader_sec").show();
+});
+$("#medialibrary").click(function() {
+           $(".mediauploder .modal-footer").css("visibility", "visible");
+});
+
+    
+    
+// Delete The Media
+$(".media-table #DeleteMedia").click(function() {
+    var id = $(this).data("id");
+    $.ajax({
+        type: "POST",
+        url: "{{url.base}}{{path_for('media.delete')}}",
+        data: { 
+            id: $(this).data("id"), // < note use of 'this' here
+        },
+        success: function(result) {
+            $("#"+id+"").remove();
+        },
+        error: function(result) {
+            alert('error');
+        }
+    });
+    
+});
+</script>
+
+
+
+
+
+
 
 </body>
 </html>

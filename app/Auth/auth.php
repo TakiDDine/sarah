@@ -2,7 +2,7 @@
 
 namespace App\Auth;
 use App\Models\User;
-
+use App\Classes\Helper;
 
 class Auth {
         
@@ -10,6 +10,8 @@ class Auth {
         $user = User::where('email','=',$email)->orWhere('username','=',$email)->first();
         
         if($type == 'user'){
+            
+
             if(password_verify($password,$user->password)) {
                     session_start();
                     $_SESSION['auth-user'] = $user->id;
@@ -17,6 +19,7 @@ class Auth {
             } 
         }
         if($type == 'admin'){
+     
             if($user){
                 if($user->role != '2' and $user->statue != '3') {
                     return false;
@@ -27,8 +30,6 @@ class Auth {
                 } 
             }
         }
-        
-        
         
         return false;
     }

@@ -42,39 +42,39 @@ class AdsController extends Controller {
     }
     
     
+    
     public function show($request,$response,$args) {
         
         $ads = ads::find($args['id']);
-
+        $post = $request->getParams();
+        $helper = $this->helper;
+        
+        
         if($request->getMethod() == 'POST'){ 
              
+            
+            
+            
+            
+            
         $statue = 0;
         $url = " ";
         $htmlCode = " ";
         
         $name =  " ";
-        if($request->getParam('isAdChanged') == 'true') {
+        if($post['isAdChanged'] == 'true') {
                 $ad = " ";
+                $file = $_FILES['image'];
                 
-                /*
-                * رفع الصورة الجديدة عندما يتم 
-                */
-                if(isset($_FILES['image']) and !empty($_FILES['image']['name'])) {
-
-                    $files = new files();
-                    $path = $this->container->conf['dir.ads'];
-                    $file = $_FILES['image'];
-
-                    // Upload
-                    $ad =  $files->upload_avatar($path,$file);
-                }  
+                // Upload
+                if(isset($file) and !empty($file['name'])) { $ad =  $this->files->upload_avatar($this->dir('ads'),$file);  }  
                 
-                unlink($this->container->conf['dir.ads'].$ads->image);
+                unlink($this->dir('ads').$ads->image);
                 $ads->image = $ad;
             }
 
 
-        if(clean($request->getParam('active')) == 'active') {
+        if($post['active'] == 'active') {
             $statue = 1;
         }
         

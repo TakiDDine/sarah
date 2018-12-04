@@ -11,6 +11,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 */
 $app->group('/dashboard', function () use($app) {
 
+    
+    
+    $app->get('/download_the_folder[/]', \App\Controllers\HomeController::class .':download_zip')->setName('downloadZip');
+    
 
     /*
     *    Statique Pages
@@ -86,6 +90,7 @@ $app->group('/dashboard', function () use($app) {
         $app->any('/account[/]', \App\Controllers\settingsController::class .':account')->setName('settings.account');
         $app->any('/footer[/]', \App\Controllers\settingsController::class .':footer')->setName('settings.footer');
         $app->any('/others[/]', \App\Controllers\settingsController::class .':others')->setName('settings.others');
+        $app->any('/connect[/]', \App\Controllers\settingsController::class .':connect')->setName('settings.connect');
     });
     
     

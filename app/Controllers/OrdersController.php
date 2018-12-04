@@ -46,8 +46,9 @@ class OrdersController extends Controller {
          $client_id = $this->container->conf['app.sandbox_cliend_id'];
          $secret_id = $this->container->conf['app.sandbox_secret_id'];
              
-         
-         
+         // initialize the helper & post Form
+         $helper = $this->helper;
+         $post   = $request->getParams();
          
          
          if(isset($_SESSION['auth-user'])){
@@ -81,18 +82,18 @@ class OrdersController extends Controller {
             $payament = 0;
              
              
-            $first_name   = clean($request->getParam('first_name'));
-            $last_name    = clean($request->getParam('last_name'));
-            $email        = clean($request->getParam('Email'));
-            $company      = clean($request->getParam('company_name'));
-            $country      = clean($request->getParam('country'));
-            $postalCode   = clean($request->getParam('Postcode'));
-            $state        = clean($request->getParam('State'));
-            $city         = clean($request->getParam('City'));
-            $phone        = clean($request->getParam('Phone'));
-            $adressLine1  = clean($request->getParam('adressLine1'));
-            $adressLine2  = clean($request->getParam('adressLine2'));
-             
+            $first_name   = $helper->clean($post['first_name']);
+            $last_name    = $helper->clean($post['last_name']);
+            $email        = $helper->clean($post['Email']);
+            $company      = $helper->clean($post['company_name']);
+            $country      = $helper->clean($post['country']);
+            $postalCode   = $helper->clean($post['Postcode']);
+            $state        = $helper->clean($post['State']);
+            $city         = $helper->clean($post['City']);
+            $phone        = $helper->clean($post['Phone']);
+            $adressLine1  = $helper->clean($post['adressLine1']);
+            $adressLine2  = $helper->clean($post['adressLine2']);
+            $notes        = $helper->clean($post['notes']);
              
              // Check if the informations are not empty
              if(
@@ -121,18 +122,18 @@ class OrdersController extends Controller {
                 // insert to database
                 $order =  Order::create([
                          'first_name'   => $first_name,
-                         'last_name'    => clean($request->getParam('last_name')),
-                         'email'        => clean($request->getParam('Email')),
-                         'company'      => clean($request->getParam('company_name')),
-                         'country'      => clean($request->getParam('country')),
-                         'postalCode'   => clean($request->getParam('Postcode')),
-                         'state'        => clean($request->getParam('State')),
-                         'city'         => clean($request->getParam('City')),
-                         'phone'        => clean($request->getParam('Phone')),
-                         'adressLine1'  => clean($request->getParam('adressLine1')),
-                         'adressLine2'  => clean($request->getParam('adressLine2')),
+                         'last_name'    => $last_name,
+                         'email'        => $email,
+                         'company'      => $company,
+                         'country'      => $country,
+                         'postalCode'   => $postalCode,
+                         'state'        => $state,
+                         'city'         => $city,
+                         'phone'        => $phone,
+                         'adressLine1'  => $adressLine1,
+                         'adressLine2'  => $adressLine2,
                          'total'        => $total,
-                         'notes'        => $request->getParam('notes'),
+                         'notes'        => $notes,
                          'statue'       => 1
                     ]);
 
@@ -148,8 +149,8 @@ class OrdersController extends Controller {
                 // Empty the cart of the user after order 
                 $cart->delete();
 
-                $this->flash->addMessage('success','شكراً ، تم تلقي الطلب بنجاح ');
-                return $response->withStatus(302)->withHeader('Location', $this->router->urlFor('website.home'));
+                $this->flashsuccess('شكراً ، تم تلقي الطلب بنجاح ');
+                return $response->withRedirect($this->router->pathFor('website.home'));
            }
              
              
@@ -163,6 +164,7 @@ class OrdersController extends Controller {
     
     }
     
+
     public function edit($request,$response,$args) {
         $id = rtrim($args['id'], '/');
         $order = Order::find($id);
@@ -175,16 +177,22 @@ class OrdersController extends Controller {
     
     }
     
+    
+    // delete the order 
     public function delete($request,$response,$args) {
+        
+        // get the id
         $id = rtrim($args['id'], '/');
+        
+        // get the order
         $order = Order::find($id);
-        if($order){
-            $order->delete();
-            $this->flashsuccess('تم حذف الطلب بنجاح');
-        }
+        
+        // delete & flush success & redirect
+        if($order){  $order->delete(); $this->flashsuccess('تم حذف الطلب بنجاح'); }
         return $response->withRedirect($this->router->pathFor('orders'));
     } 
     
+    // delete all the orders & redirect to orders page
     public function blukdelete($request,$response){
         Order::truncate();
         return $response->withRedirect($this->router->pathFor('orders'));

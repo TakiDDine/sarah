@@ -158,6 +158,30 @@ $container['view'] = function ($c) {
     $view->getEnvironment()->addFilter($filter);
     
     
+    
+    
+   $filter = new Twig_SimpleFilter('file_size', function ($file) {
+       global $container;
+       $helper= new Helper();
+       echo $helper->calc(filesize($container->conf['dir.media'].$file));
+    });
+    $view->getEnvironment()->addFilter($filter);
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     $filter = new Twig_SimpleFilter('smallAvatar', function ($gender) {
         global $container;
         if(!empty($gender)){
@@ -273,6 +297,9 @@ $container['Emailer'] = new \App\Email\Email($container);
 $container['User']  = function($container){
     return new \App\Models\User;
 };
+
+
+
 
 /*
 *   Add Global Variables to twig view

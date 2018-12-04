@@ -19,6 +19,27 @@ class HomeController extends Controller{
         $pdo = $this->db->connection()->getPdo();
         $version = $pdo->query('select version()')->fetchColumn();
         
+        
+        // get the size of database
+        $size = 0;
+        foreach($pdo->query('SHOW TABLE STATUS')->fetchAll() as $row) {
+            $size += $row["Data_length"] + $row["Index_length"];  
+        }
+        // change from bytes to megabytes
+        $decimals = 2;  
+        $databasesize = number_format($size/(1024*1024),$decimals);
+        
+                
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
 
         // Meteo
         $get = json_decode(file_get_contents('http://ip-api.com/json/'),true);
@@ -35,12 +56,10 @@ class HomeController extends Controller{
         $meteo['temp'] = $temp;
         $meteo['icon'] = $icon;
         $meteo['desc'] = $desc;
-        $meteo['Humidity'] = "<b>الرطوبة : ".$data['main']['humidity']."%</b>";
-        $meteo['Wind'] = "<b>سرعة الرياح:".$data['wind']['speed']."m/s</b><br>";
-        $meteo['Pressure'] = "<b>Pressure:".$data['main']['pressure']."hpa</b><br>";
-        $meteo['Visibility'] =  "<b>Visibility:".$visibilitykm."Km</b><br>";
-        $meteo['Sunrise'] = "<b>شروق الشمس : ".date('h:i A', $data['sys']['sunrise'])."</b><br>";
-        $meteo['Sunset'] = "<b>غروب الشمس : ".date('h:i A', $data['sys']['sunset'])."</b>";
+        $meteo['Humidity'] = $data['main']['humidity']."%";
+        $meteo['Wind'] = $data['wind']['speed']."m/s";
+        $meteo['Sunrise'] = date('h:i A', $data['sys']['sunrise']);
+        $meteo['Sunset'] = date('h:i A', $data['sys']['sunset']);
         
         
         
@@ -56,7 +75,10 @@ class HomeController extends Controller{
   
         $info['phpversion'] = phpversion();
         $info['mysqlversion'] = $version;
-          
+        $info['filesize'] = $this->helper->formatBytes($this->helper->foldersize(BASEPATH.'/'));
+        $info['databasesize'] = $databasesize. ' mb';
+
+        
         
        return $this->container->view->render($response,'admin/home.twig',[
            'count'=>$count, 'info' =>$info , 'temp' => $meteo
@@ -68,7 +90,40 @@ class HomeController extends Controller{
         return $this->container->view->render($response,'admin/errors/404.twig');
     }
    
-    
+    public function download_zip($request,$response){
+        
+            // Get real path for our folder
+    $rootPath = realpath(BASEPATH);
+
+    // Initialize archive object
+    $zip = new \ZipArchive();
+    $zip->open(BASEPATH.'/file.zip', \ZipArchive::CREATE | \ZipArchive::OVERWRITE);
+
+    // Create recursive directory iterator
+    /** @var SplFileInfo[] $files */
+    $files = new \RecursiveIteratorIterator(
+        new \RecursiveDirectoryIterator($rootPath),
+        \RecursiveIteratorIterator::LEAVES_ONLY
+    );
+
+    foreach ($files as $name => $file)
+    {
+        // Skip directories (they would be added automatically)
+        if (!$file->isDir())
+        {
+            // Get real and relative path for current file
+            $filePath = $file->getRealPath();
+            $relativePath = substr($filePath, strlen($rootPath) + 1);
+
+            // Add current file to archive
+            $zip->addFile($filePath, $relativePath);
+        }
+    }
+
+    // Zip archive will be created only after closing object
+    $zip->close();
+
+    }
    
      
 }

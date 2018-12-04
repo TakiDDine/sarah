@@ -79,9 +79,8 @@ class UsersController extends Controller{
                 $helper = $this->helper;
                 
                 // the route to redirect for errors
-                $route = $response->withStatus(302)->withHeader('Location', $this->router->urlFor('users.create'));
+                return $response->withRedirect($this->router->pathFor('users.create'));
                 
-                 
                 // Clean the variables & set the username & email to lowercase
                 $username   = $helper->clean(strtolower($post['username']));
                 $email      = $helper->clean(strtolower($post['email']));
