@@ -31,7 +31,7 @@
     <script type="text/javascript" src="{{ admin_assets }}js/jquery.passwordstrength.js"></script>
 	<script type="text/javascript" src="{{ admin_assets }}js/core/app.js"></script>
 	<script type="text/javascript" src="{{ admin_assets }}js/main.js"></script>
-	<script type="text/javascript" src="{{ admin_assets }}jquery.form-validator.min.js"></script>
+<!--	<script type="text/javascript" src="{{ admin_assets }}jquery.form-validator.min.js"></script>-->
 
 
     <!-- check for javascript -->
@@ -65,7 +65,7 @@
                                         <div class="tab-pane active" id="basic-tab1">
                                         <div class="simpleUplader">
                                             <center>
-                                             <label for="file" class="btn btn-danger btn-rounded uploadbtn"> رفع الملف </label>
+                                             <label for="file" class="btn btn-danger btn-rounded uploadbtn">  <i class="icon-file-upload"></i>    رفع الملف </label>
                                              <input type="file"  style="visibility:hidden;" name="file" id="file" />
                                             </center>						   
                                         </div>
@@ -217,7 +217,7 @@
 .mediauploder .thumbnail {
     width: 150px;
     height: 150px;
-    border: 2px solid black !important;
+    border: 2px solid #0000000f !important;
     padding: 0;
 }
 .mediauploder .panel.panel-flat {
@@ -393,6 +393,43 @@ a.mediapreview img {
 
 
 
+
+
+
+
+<script>
+    // check all for in permissions page
+$( document ).ready(function() {
+    
+    $(".checkallpermissions").change(function() {
+            if(this.checked) {
+                $('.permcheck').prop('checked', true);
+            }else{
+                 $('.permcheck').prop('checked', false);
+            }
+        });
+    
+ });
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <script>
 $( document ).ready(function() {
     
@@ -425,7 +462,6 @@ $( document ).ready(function() {
     
  });
 </script>
-
 
 
 
@@ -624,6 +660,7 @@ $(".media-table #DeleteMedia").click(function() {
     
 });
 </script>
+
 
 
 

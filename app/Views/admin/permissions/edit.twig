@@ -1,0 +1,127 @@
+{% extends "admin/layout.twig" %}
+
+{% block title %} منح الصلاحيات {% endblock %}
+
+{% block content %}
+<div class="content">
+
+
+<div class="page-header page-header-transparent">
+    <div class="page-header-content"><div class="page-title"></div></div>
+</div>
+
+<style>
+.no-border tr td {border: 0 !important;}
+.no-border tr {border: 0 !important;}                    
+</style>
+
+{% include "admin/elements/flash.twig" %}
+<form id="" method='post' action="{{ path_for('permissions.edit', {id :permission.id }) }}">
+
+
+   <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h6 class="panel-title">منح الصلاحيات
+                                <a class="heading-elements-toggle"><i class="icon-more"></i></a>
+                            </h6>
+                            <div class="heading-elements">
+                                <ul class="icons-list">
+                                    
+                                    <li>  <input type="checkbox" class="checkallpermissions" />  تحديد الكل     </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="panel-body">
+                            <table class="table border-dashed no-border">
+                                    <tr>
+				                        <td>الدخول الى لوحة التحكم</td>
+				                        <td><input type="checkbox" class='permcheck' /> تفعيل </td>
+				                    </tr>
+                                    <tr>
+				                        <td>الأعضاء</td>
+				                        <td><input type="checkbox" class='permcheck' /> انشاء</td>
+				                        <td><input type="checkbox" class='permcheck' /> حذف</td>
+				                        <td><input type="checkbox" class='permcheck' /> تكرار</td>
+				                        <td><input type="checkbox" class='permcheck' /> تعديل</td>
+				                        <td><input type="checkbox" class='permcheck' /> حذف الكل</td>
+				                    </tr>
+				                    <tr>
+				                        <td>الصفحات</td>
+				                        <td><input type="checkbox" class='permcheck' /> انشاء</td>
+				                        <td><input type="checkbox" class='permcheck' /> حذف</td>
+				                        <td><input type="checkbox" class='permcheck' /> تكرار</td>
+				                        <td><input type="checkbox" class='permcheck' /> تعديل</td>
+				                        <td><input type="checkbox" class='permcheck' /> حذف الكل</td>
+				                    </tr>
+				                    <tr>
+				                        <td>المقالات</td>
+				                        <td><input type="checkbox" class='permcheck' /> انشاء</td>
+				                        <td><input type="checkbox" class='permcheck' /> حذف</td>
+				                        <td><input type="checkbox" class='permcheck' /> تكرار</td>
+				                        <td><input type="checkbox" class='permcheck' /> تعديل</td>
+				                        <td><input type="checkbox" class='permcheck' /> حذف الكل</td>
+				                    </tr>
+				                    <tr>
+				                        <td>المنتجات</td>
+				                        <td><input type="checkbox" class='permcheck' /> انشاء</td>
+				                        <td><input type="checkbox" class='permcheck' /> حذف</td>
+				                        <td><input type="checkbox" class='permcheck' /> تكرار</td>
+				                        <td><input type="checkbox" class='permcheck' /> تعديل</td>
+				                        <td><input type="checkbox" class='permcheck' /> حذف الكل</td>
+				                    </tr>
+				                    <tr>
+				                        <td>الأسئلة الشائعة</td>
+				                        <td><input type="checkbox" class='permcheck' /> انشاء</td>
+				                        <td><input type="checkbox" class='permcheck' /> حذف</td>
+				                        <td><input type="checkbox" class='permcheck' /> تكرار</td>
+				                        <td><input type="checkbox" class='permcheck' /> تعديل</td>
+				                        <td><input type="checkbox" class='permcheck' /> حذف الكل</td>
+				                    </tr>
+				                    <tr>
+				                        <td>القوائم</td>
+				                        <td><input type="checkbox" class='permcheck' /> انشاء</td>
+				                        <td><input type="checkbox" class='permcheck' /> حذف</td>
+				                        <td><input type="checkbox" class='permcheck' /> تعديل</td>
+				                        <td colspan="2"><input type="checkbox" class='permcheck' /> حذف الكل</td>
+				                    </tr>
+				                    <tr>
+				                        <td>الرسائل</td>
+				                        <td><input type="checkbox" class='permcheck' /> قراءة</td>
+				                        <td colspan="5"><input type="checkbox" class='permcheck' /> حذف</td>
+				                    </tr>
+				                    <tr>
+				                        <td>الوسائط</td>
+				                        <td><input type="checkbox" class='permcheck' /> رفع ملف</td>
+				                        <td><input type="checkbox" class='permcheck' /> حذف</td>
+				                        <td colspan="3"><input type="checkbox" class='permcheck' /> حذف الكل</td>
+				                    </tr> 
+                                    <tr>
+				                        <td>الإعدادات</td>
+				                        <td colspan="5"><input type="checkbox" class='permcheck' /> التحكم في الإعدادات</td>
+				                    </tr> 
+                                    <tr>
+				                        <td>القائمة البريدية</td>
+				                        <td colspan="5"><input type="checkbox" class='permcheck' /> معاينة </td>
+				                    </tr>
+				                    <tr>
+				                        <td>الإعلانات</td>
+				                        <td><input type="checkbox" class='permcheck' /> انشاء</td>
+				                        <td><input type="checkbox" class='permcheck' /> حذف</td>
+				                        <td><input type="checkbox" class='permcheck' /> تعديل</td>
+				                        <td colspan="2"><input type="checkbox" class='permcheck' /> حذف الكل</td>
+				                    </tr>
+				                </table>
+                        </div>
+                        <div class="panel-body text-center alpha-grey">
+									<a href="#" class="btn bg-pink-400">
+																				حفظ الصلاحيات
+									</a>
+								</div>
+                    </div>
+                    
+                    
+                    
+
+</form>
+{% endblock %}

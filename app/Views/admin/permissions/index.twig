@@ -1,0 +1,211 @@
+{% extends "admin/layout.twig" %}
+{% block content %}
+
+
+<!-- Main content -->
+<div class="content-wrapper">
+
+
+
+
+<!-- Page header -->
+<div class="page-header page-header-transparent">
+    <div class="page-header-content">
+        <div class="page-title">
+            <h1><i class="icon-arrow-right6 position-left"></i> <span class="text-semibold">الصلاحيات</span></h1>
+        </div>
+
+        <div class="heading-elements">
+          
+       
+            
+ <a href="javascript:void(0);" data-toggle="modal" data-target="#modal_iconified" class="btn bg-danger btn-labeled heading-btn"><b><i class="icon-trash"></i></b> حذف كل المجموعات</a>
+                        
+                        
+		            <!-- Iconified modal -->
+					<div id="modal_iconified" class="modal fade">
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="modal-header">
+									<button type="button" class="close" data-dismiss="modal">&times;</button>
+									<h5 class="modal-title"><i class="icon-menu7"></i> &nbsp;تنبيه وتحذير</h5>
+								</div>
+
+								<div class="modal-body">
+									<div class="alert alert-info alert-styled-left text-blue-800 content-group">
+						                <span class="text-semibold">رجاء !</span> انتبه من الخطوة التالية.
+						                <button type="button" class="close" data-dismiss="alert">×</button>
+						            </div>
+
+									<h6 class="text-semibold"><i class="icon-law position-left"></i> حذف البيانات</h6>
+									<p>عند قيامك بحذف كل الأعضاء فأنت تتحمل كامل المسؤولية ، لا يمكن التراجع عن هذه الخطوة فور اتخاذها 
+									<br>
+									رجاءً، خذ نسخة احتياطية قبل اتخاذ هذا القرار
+									</p>
+
+									
+								</div>
+
+								<div class="modal-footer">
+									<a href="{{ path_for('permissions.blukdelete') }}" class="btn btn-link text-danger"  >
+									 أنا موافق ، رجاءً قم بحذف كل البيانات</a>
+									<button class="btn btn-primary" data-dismiss="modal"> اغلاق </button>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- /iconified modal -->
+		
+        </div>
+    </div>
+</div>
+<!-- /page header -->
+
+
+<!-- Content area -->
+<div class="content">
+{% include "admin/elements/flash.twig" %}
+
+<div class="col-md-8">
+    <div class="panel panel-flat border-top-lg border-top-primary">
+        <table class="table datatable">
+            <thead>
+                <tr>
+                    <th class="text-left"><b>اسم المجموعة</b></th>
+                    <th class="text-right"><b>تعديل</b></th>
+                </tr>
+            </thead>
+            
+            <tbody>
+                {% for item in permissions %}
+                <tr>                    
+                    <td class="text-left">{{item.name}}</td>
+                    <td class="text-right">
+                    <a href="{{path_for('permissions.edit',{id : item.id})}}" style="margin-left: 17px;" class="text-primary-600">
+                  <i class="icon-pencil7 position-left"></i>تعديل </a>
+                  
+                  <a href="{{path_for('permissions.delete',{id : item.id})}}" class="text-danger">
+                  <i class="icon-trash position-left"></i>حذف </a>
+                  
+                  
+                  
+                  </td>
+                </tr>
+                {% endfor  %}
+            </tbody>
+            
+        </table>
+        
+    </div>
+</div>
+<div class="col-md-4">
+   <style>
+.no-border tr td {border: 0 !important;}
+</style>
+ <div class="panel panel-default border-top-lg border-top-primary">
+    <div class="panel-heading">
+        <h6 class="panel-title">اضافة مجموعة جديدة
+            <a class="heading-elements-toggle"><i class="icon-more"></i></a>
+        </h6>
+        <div class="heading-elements">
+            <ul class="icons-list">
+                <li><a data-action="collapse"></a></li>
+                <li><a data-action="close"></a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="panel-body">
+       <form action="{{path_for('permissions.create')}}" id="createRoleForm" method="Post"> 
+        <div class="alert alert-danger createRoleAlert" style="display:none;"></div>
+        <table class="table border-dashed no-border">
+            <tr><td><input type="text" name="name" placeholder="اسم المجموعة" class="form-control frequired" required /></td></tr>
+            <tr><td><button  type="submit" class="btn btn-primary btn-block">اضافة المجموعة</button></td></tr>
+        </table>
+       </form>
+    </div>
+</div>
+                   
+                   
+                   
+<div class="panel">
+								<div class="panel-body">
+									
+
+
+									<ul class="list list-icons">
+										<li>
+											<i class="icon-checkmark-circle text-success position-left"></i>
+											<b> كيف تضيف مجموعة جديدة ؟</b>
+											<br>
+											<p class="mg10">
+											    <br>
+											   قم باضافة اسم المجموعة في خانة اضافة مجموعة جديدة واضغط على اضافة المجموعة
+											   ،
+											   الآن بعد ان أنشأت المجموعة ، ستظهر لك في أول الجدول على اليمين 
+											   ،
+											   قم بالضغط على تعديل 
+											   ،
+											   واعطاء الصلاحيات لهذه المجموعة 
+											    
+											</p>
+										</li>
+										<li>
+											<i class="icon-checkmark-circle text-success position-left"></i>
+											<b> ما الغاية من انشاء مجموعات للعضويات ؟</b>
+											<br>
+											<p class="mg10">
+											    <br>
+											    انت بحاجة اليها من أجل اعطاء كل عضو نوعاً من الصلاحية ، على سبيل المثال ، تكلف أشخاص باضافة المقالات فقط بموقعك ، دون المساس بالإعدادات ، ودون التحكم ورؤية الأشياء الأخرى
+											 
+											    
+											</p>
+										</li>
+
+									</ul>
+								</div>      
+
+</div>
+
+
+
+<script>
+$('#createRoleForm').submit(function() {
+     var res = true;
+     // here I am checking for textFields, password fields, and any 
+     // drop down you may have in the form
+     $(".frequired",this).each(function() {
+         if($(this).val().trim() == "") {
+             res = false; 
+             $(this).addClass('errorFiled');
+         }else{
+             $(this).removeClass('errorFiled');
+         }
+     })
+     if(res == false){
+         $('.createRoleAlert').show();
+         $('.createRoleAlert').html("المرجوا اضافة اسم المجموعة");
+     }
+     return res; // returning false will prevent the form from submitting.
+});
+</script>
+
+
+
+
+
+
+{% include "admin/elements/pagination.twig" %}
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+
+
+{% endblock %}

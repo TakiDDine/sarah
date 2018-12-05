@@ -166,6 +166,30 @@ $app->group('/dashboard', function () use($app) {
     
     
     
+    
+    /*
+    *   permissions System
+    */
+    $app->group('/permissions', function () use ($app) {
+        $app->any('[/]', \App\Controllers\PermissionsController::class .':index')->setName('permissions');
+        $app->post('/create[/]', \App\Controllers\PermissionsController::class .':create')->setName('permissions.create');
+        $app->any('/edit/{id}[/]', \App\Controllers\PermissionsController::class .':edit')->setName('permissions.edit');
+        $app->any('/delete/{id}[/]', \App\Controllers\PermissionsController::class .':delete')->setName('permissions.delete');
+        $app->any('/blukdelete[/]', \App\Controllers\PermissionsController::class .':blukdelete')->setName('permissions.blukdelete');
+    });
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     /*
     *    Faqs System
     */
@@ -201,6 +225,7 @@ $app->group('/dashboard', function () use($app) {
         $app->any('/delete[/]', \App\Controllers\MediaController::class .':delete')->setName('media.delete');
         $app->get('/blukdelete[/]', \App\Controllers\MediaController::class .':blukdelete')->setName('media.blukdelete');
         $app->any('/uploader[/]', \App\Controllers\MediaController::class .':modal_uploader')->setName('media.modal_uploader');
+        $app->any('/download/{id}[/]', \App\Controllers\MediaController::class .':download')->setName('media.download');
     });
     
     

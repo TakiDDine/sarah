@@ -63,8 +63,6 @@ if (session_status() == PHP_SESSION_NONE) {
 
 
 
-
-
 // Set the container
 $container = $app->getContainer();
 
@@ -73,7 +71,15 @@ $container['conf'] = function () {
     return Config::load(INC_ROOT.'/app/config.php');
 };
 
-
+// 405 Error Handler
+$container['notAllowedHandler'] = function ($container) {
+    return function ($request, $response, $methods) use ($container) {
+        return $response->withStatus(405)
+            ->withHeader('Allow', implode(', ', $methods))
+            ->withHeader('Content-type', 'text/html')
+            ->write(' ');
+    };
+};
 
 //ini_set("log_errors", 1);
 //ini_set("error_log", BASEPATH."/php-error.log");

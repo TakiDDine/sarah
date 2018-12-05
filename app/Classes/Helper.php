@@ -28,7 +28,7 @@ class Helper {
         return round(pow(1024, $base - floor($base)), $precision) .' '. $suffixes[floor($base)];
     }
 
-    
+
     /*
     *   Format bytes to kilobytes, megabytes, gigabytes
     */
@@ -43,6 +43,41 @@ class Helper {
         return round($size/pow($base,$i),$digits).' '.$unit[$i] . 'B';
     }
     
+    // This function will return the Server Memory Usage:
+    public function get_server_memory_usage(){
+
+        $free = shell_exec('free');
+        $free = (string)trim($free);
+        $free_arr = explode("\n", $free);
+        $mem = explode(" ", $free_arr[1]);
+        $mem = array_filter($mem);
+        $mem = array_merge($mem);
+        $memory_usage = $mem[2]/$mem[1]*100;
+
+        return $memory_usage;
+    }
+    
+     // This function will return the Server CPU Usage:
+     public function get_server_cpu_usage(){
+        $load = \sys_getloadavg();
+        return $load[0];
+     }
+    
+    
+    
+    
+ public function getSystemMemInfo() 
+{       
+    $data = explode("\n", file_get_contents("/proc/meminfo"));
+    $meminfo = array();
+    foreach ($data as $line) {
+        list($key, $val) = explode(":", $line);
+        $meminfo[$key] = trim($val);
+    }
+    return $meminfo;
+}
+    
+    
     
     // 
     public static function is_mobile($mobile) {
@@ -50,22 +85,37 @@ class Helper {
     }
     
     
-    function downloads($filename,$dir='./'){
-        $filepath = $dir.$filename;
-        if (!file_exists($filepath)){
+    /*
+    *    this function has been tested , it works like a charm
+    */
+    public function download($file){
+        
+        if (!file_exists($file)){
             header("Content-type: text/html; charset=utf-8");
             echo "File not found!";
             exit;
-        } else {
-            $file = fopen($filepath,"r");
-            Header("Content-type: application/octet-stream");
-            Header("Accept-Ranges: bytes");
-            Header("Accept-Length: ".filesize($filepath));
-            Header("Content-Disposition: attachment; filename=".$filename);
-            echo fread($file, filesize($filepath));
-            fclose($file);
+        } 
+            
+        if (file_exists($file)) {
+            header('Content-Description: File Transfer');
+            header('Content-Type: application/octet-stream');
+            header('Content-Disposition: attachment; filename="'.basename($file).'"');
+            header('Expires: 0');
+            header('Cache-Control: must-revalidate');
+            header('Pragma: public');
+            header('Content-Length: ' . filesize($file));
+            readfile($file);
+            exit;
         }
     }
+    
+    public function get_ext($file){
+        return substr($file, strrpos($file, '.')+1);
+    }
+    
+ 
+
+
     
     
     /*

@@ -5,7 +5,7 @@ use illuminate\database\eloquent\model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Pagination;
-
+use \App\Classes\Helper;
 
 
 class Media extends model{
@@ -16,7 +16,10 @@ class Media extends model{
     
     
    
-    
+    public function ext(){
+       $helper = new helper();
+       return $helper->get_ext($this->name);
+    }
     
     
 }

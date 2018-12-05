@@ -51,19 +51,34 @@ class MediaController extends Controller {
             $up = Media::create([ 'name' => $ad['name'],  'post_mime_type' => $ad['file_src_mime'] ]);
              
             $url =  $this->url('media').$ad['name'];
-
-             echo '<tr class="new">
-                    <td>'.$ad["name"].'</td>
-                    <td>'.$ad["file_src_mime"].'</td>
-                    <td>'.human_time_diff($up->created_at).'</td>
-                    <td><a href="'.$url.'" target="_blank">اضغط هنا</a></td>
-                    <td class="text-center">
-                        <a href="/wp-admin/faqs/delete//" class="text-danger"><i class="icon-trash"></i><b> حذف  </b></a>
-                    </td>
+             $format = $this->helper->get_ext($ad['name']);
+             
+             
+             
+             $size = $this->helper->calc(filesize($this->dir('media').$ad['name']));
+             
+             
+             $download = $this->router->pathFor('media.download',['id'=>$up->id]);
+             
+           echo '<tr id="'.$up->id.'" class="new">
+                <td><a href="'.$url.'" class="mediapreview">
+                <img src="'.$url.'" class="img-rounded img-preview">
+                </a></td>
+                <td>Format: '.$format.'</td>
+                <td>'.human_time_diff($up->created_at).'</td>
+                <td>'.$size.'</td>
+                <td><a href="'.$url.'" target="_blank">اضغط هنا</a></td>
+                <td><a href="'.$download.'" >تحميل الملف</a></td>
+                <td class="text-center">
+                <a id="DeleteMedia" data-id="'.$up->id.'" class="text-danger"><i class="icon-trash"></i><b> حذف  </b></a>
+                </td>
                 </tr>';
         }  
 
     }
+    
+    
+    
     
     
     //  upload the file & add to database & return the name of the file , Ajax Function
@@ -94,6 +109,24 @@ class MediaController extends Controller {
         if($media){
             unlink($this->dir('media').$media->name);
             $media->delete();
+        }
+        
+    }
+    
+    
+    // Delete a media element by ajax so there is no redirect
+    public function download($request,$response,$args) {
+        
+        // get the id
+        $id = rtrim($args['id'], '/');
+        
+        // get the media 
+        $media = Media::find($id);
+
+        
+        if($media){
+            $file = $this->dir('media').$media->name;
+            $this->helper->download($file);
         }
         
     }

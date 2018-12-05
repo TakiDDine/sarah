@@ -10,16 +10,20 @@ use \App\Models\Emails;
 
 
 class ContactController extends \App\Controllers\Controller{
+    
     public function index($request,$response) {
-       return $this->container->view->render($response,'website/contact.twig');
+       return $this->view->render($response,'website/contact.twig');
     }
     
     public function create($request,$response) {
-       
-        $name       = clean($request->getParam('contact')['name']);
-        $email      = clean($request->getParam('contact')['email']);
-        $phone      = clean($request->getParam('contact')['phone']);
-        $body       = clean($request->getParam('contact')['body']);
+        
+        $helper = $this->helper;
+        $post = $request->getParam('contact');
+        
+        $name       = $helper->clean($post['name']);
+        $email      = $helper->clean($post['email']);
+        $phone      = $helper->clean($post['phone']);
+        $body       = $helper->clean($post['body']);
 
         Emails::create([
             'name' => $name,
@@ -28,7 +32,7 @@ class ContactController extends \App\Controllers\Controller{
             'body' => $body
         ]);
         
-        $this->flash->addMessage('success','your message sent seccussfuly');
+        $this->flashsuccess('your message sent seccussfuly');
         return $response->withRedirect($this->router->pathFor('website.contact'));
         
     }

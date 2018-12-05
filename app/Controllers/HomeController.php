@@ -36,10 +36,6 @@ class HomeController extends Controller{
         
         
         
-        
-        
-        
-        
 
         // Meteo
         $get = json_decode(file_get_contents('http://ip-api.com/json/'),true);

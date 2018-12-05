@@ -86,17 +86,18 @@ class EmailController extends Controller {
 
         public function delete($request,$response,$args) {
             $id = rtrim($args['id'], '/');
-            $email  = $this->db->table('inbox')->delete($id);
-            
-            $this->flash->addMessage('success','تم حذف الإميل بنجاح');
-            return $response->withStatus(302)->withHeader('Location', $this->router->urlFor('inbox'));
+            $email  = $this->db->table('inbox');
+            if($email){ $email->delete($id); }
+            $this->flashsuccess('تم حذف الإميل بنجاح');
+            return $response->withRedirect($this->router->pathFor('inbox'));
         }
 
         public function blukdelete($request,$response){
             
             $this->db->table('inbox')->get()->delete();
-            $this->flash->addMessage('success', 'تم حذف كل الإميلات بنجاح');
-            return $response->withStatus(302)->withHeader('Location', $this->router->urlFor('inbox'));
+            $this->flashsuccess( 'تم حذف كل الإميلات بنجاح');
+            return $response->withRedirect($this->router->pathFor('inbox'));
+            
         }
 
 }
