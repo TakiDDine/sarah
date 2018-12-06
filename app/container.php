@@ -25,41 +25,6 @@ if (session_status() == PHP_SESSION_NONE) {
 
 
 
-//error_log("You messed up!", 3, BASEPATH."/my-errors.log");
-//error_log("There is something wrong!", 0);
-
-//error_log("Write this error down to a file!", 3, BASEPATH."/my-errors.log");
-
-
-//function mylog($text, $level='i', $file='logs') {
-//    switch (strtolower($level)) {
-//        case 'e':
-//        case 'error':
-//            $level='ERROR';
-//            break;
-//        case 'i':
-//        case 'info':
-//            $level='INFO';
-//            break;
-//        case 'd':
-//        case 'debug':
-//            $level='DEBUG';
-//            break;
-//        default:
-//            $level='INFO';
-//    }
-//    error_log(date("[Y-m-d H:i:s]")."\t[".$level."]\t[".basename(__FILE__)."]\t".$text."\n", 3, $file);
-//}
-//
-//
-//
-//
-//mylog();
-
-
-
-
-
 
 
 
@@ -289,7 +254,11 @@ $container['view'] = function ($c) {
 $container['notFoundHandler'] = function ($c) {
     return function ($request, $response) use ($c) {
         global $container;
-        return $container->view->render($response,'website/404.twig');
+       
+//                    return $response->withStatus(302)->withHeader('Location', 'website/404.twig');
+
+        
+        return $container->view->render($response->withStatus(404),'website/404.twig');
     };
 };
 

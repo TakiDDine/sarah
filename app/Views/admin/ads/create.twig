@@ -33,24 +33,24 @@
 			
 
                 
-                <div class="form-group switechers">
-                	<label class="control-label col-lg-3">تفعيل الاعلان</label>
-                    <div class="col-lg-9">
-                    <label class="adminswitch">
-                        <input name='active' type="checkbox"  value="active" checked />
-                        <span class="slider round"></span>
-                    </label>
-                    </div>
-                    </div>
+<div class="form-group switechers">
+    <label class="control-label col-lg-3">تفعيل الاعلان</label>
+    <div class="col-lg-9">
+        <label class="adminswitch">
+    <input name='active' type="checkbox"  value="active" checked />
+    <span class="slider round"></span>
+    </label>
+    </div>
+</div>
                     
                     
-					<div class="form-group">
-						<label class="control-label col-lg-3">عنوان الاعلان</label>
-						<div class="col-lg-9">
-							<input type="text" class="form-control" name="name" />
-							<p class="text-muted">عنوان للإعلان - ( ليس مهماً لكنه اضفه من أجل تمييز الإعلانات بلوحة التحكم) .</p>
-						</div>
-					</div>
+<div class="form-group">
+    <label class="control-label col-lg-3">عنوان الاعلان</label>
+    <div class="col-lg-9">
+        <input type="text" class="form-control" name="name" />
+        <p class="text-muted">عنوان للإعلان - ( ليس مهماً لكنه اضفه من أجل تمييز الإعلانات بلوحة التحكم) .</p>
+    </div>
+</div>
 					
 					<div class="tie-option-pre-label">صورة الإعلان</div>
 					<hr>
@@ -175,11 +175,7 @@
 							
 							
         
-        <style>
-        .ads-preview img {
-    width: 100%;
-}
-        </style>
+
         <div class="panel panel-flat"  style="display:none;" id="ads-show"> 
         <div class="panel-heading">
             معاينة الإعلان
@@ -225,38 +221,6 @@
     
     
     			
-<!-- show the image when changed -->									
-
-
-<script>
-function clean () {
-document.getElementById("avatarUploadPreview").value = "";
-document.getElementById("ads-show").style.display = 'none';    
-}
-
-</script>
-
-
-<script>
-    
-function readURL(input) {
-
-if (input.files && input.files[0]) {
-var reader = new FileReader();
-
-reader.onload = function (e) {
-$('#profile_avatar').attr('src', e.target.result);
-}
-
-reader.readAsDataURL(input.files[0]);
-}
-}
-$("#avatarUploadPreview").change(function(){
-readURL(this);
-    $("#ads-show").show();
-    $("#delete-ad").show();
-});        
-</script>
 
 <!-- set the select -->		
 <script> $('.areaUndetected').select2({ placeholder: 'تحديد مكان الإعلان',}); </script>

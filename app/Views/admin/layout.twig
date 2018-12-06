@@ -6,6 +6,8 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title> لوحة التحكم - {% block title %} {% endblock %}</title>
 
+    <meta name="description" content="لوحة التحكم">
+
 	<!-- Global stylesheets -->
 	<link href="https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900" rel="stylesheet" type="text/css" />
 	<link href="{{ admin_assets }}css/icons/icomoon/styles.css" rel="stylesheet" type="text/css" />
@@ -31,7 +33,6 @@
     <script type="text/javascript" src="{{ admin_assets }}js/jquery.passwordstrength.js"></script>
 	<script type="text/javascript" src="{{ admin_assets }}js/core/app.js"></script>
 	<script type="text/javascript" src="{{ admin_assets }}js/main.js"></script>
-<!--	<script type="text/javascript" src="{{ admin_assets }}jquery.form-validator.min.js"></script>-->
 
 
     <!-- check for javascript -->
@@ -39,7 +40,12 @@
         <meta http-equiv="refresh" content="0; url={{path_for('javascript-Disabled')}}" />
     </noscript>
     
-    
+    <!-- costum css -->
+    <link href="{{ admin_assets }}css/costum.css" rel="stylesheet" type="text/css" />
+
+
+
+
 
 <!-- Full width modal -->
 <div id="modal_full" class="mediauploder modal fade">
@@ -104,192 +110,6 @@
 </div>
 <!-- /full width modal -->
 
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-<style>
-    body{
-        overflow-x: hidden;
-    }
-    .trclikable tr{
-    cursor: pointer;
-    }
-/*
-    .navigation > li > a {
-    padding: 0px 18px;
-    min-height: 38px;
-}
-*/
-
-    
-</style>
-<style>.errorFiled { border-color: #e0493e !important; }</style>
-
-<style>
-/*************    users index page    *************/
-         .avatar {
-     width: 32px;
-     height: 32px;
-     border-radius: 50px;
-     overflow: hidden;
-}
- .avatar img {
-     width: 100%;
-     height: 100%;
-}
- .username_text {
-     position: relative;
-     top: 5px;
-}
- .userstable>tbody>tr>td:first-child {
-     padding: 9px !important;
-     text-align: center;
-}
- @media all and (min-width:0px) and (max-width: 600px) {
-     .userstable tr th {
-         display: none;
-    }
-     .userstable tr td {
-         display: none;
-         border:none !important;
-    }
-     .userstable tr th:nth-child(2) {
-         display: inline-block;
-         width:30% !important;
-    }
-     .userstable tr th:nth-child(3) {
-         display: inline-block;
-         width:50% !important;
-    }
-     .userstable tr th:last-child {
-         display: inline-block;
-         width:20% !important;
-    }
-     .userstable tr td:nth-child(2) {
-         display: inline-block;
-         width:30% !important;
-    }
-     .userstable tr td:nth-child(3) {
-         display: inline-block;
-         width:50% !important;
-    }
-     .userstable tr td:last-child{
-         display: inline-block;
-         width:20% !important;
-    }
-}             
-
-/*************    users index page    *************/    
-</style>
-
-
-
-<!-- css page media w dyal uploader  -->
-<style>
-    
-        tr.new {
-    background: whitesmoke;
-}
-    .thumbnail {
-    float: right;
-    margin-left: 17px;
-    overflow: hidden;
-}
- .empty_state_icon {
-    font-size: 176px;
-    opacity: 0.1;
-}
-    
-    
-/*    .simpleUplader2*/
- .mediauploder .thumbnail   {
-    height: 310px;
-}
-                                                
-.mediauploder .thumbnail {
-    width: 150px;
-    height: 150px;
-    border: 2px solid #0000000f !important;
-    padding: 0;
-}
-.mediauploder .panel.panel-flat {
-    border: 0;
-    box-shadow: none;
-    margin-top: -24px;
-    padding-right: 0 !important;
-}
-
-.mediauploder .modal-body {
-    padding-right: 0 !important;
-    padding-left: 0 !important;
-}
-
-.mediauploder .panel-body {
-    margin:  0 !important;
-    padding: 0 !important;
-    padding-top: 25px !important;
-}    
-    .mediauploder .simpleUplader {
-    height: 310px;
-}
-    input.uploderButton {
-    text-align: center;
-    margin: 0 auto;
-}
-
-.mediauploder .simpleUplader {
-    padding-top: 150px !important;
-}
-    .uploader_input {
-    display: inline-block !important;
-}    
-    .container.uploader_sec {
-    padding: 100px 0;display: none;
-}
-    .mediauploder .simpleUplader2 {
-    height: 310px;
-}
-  .uploadbtn {
-    height: 66px;
-    width: 164px;
-    font-size: 21px;
-    line-height: 49px;
-    border-radius: 4px;
-}
-                        
-                    .thumbnail .thumb {
-    overflow: hidden;
-    display: inline-block;
-    width: 150px;
-    height: 150px;
-}     
-                        .simpleUplader2 {
-    padding-right: 15px;
-}
-                        .loader {
-    position: absolute;
-    top: 0;
-    right: 0;
-    left: 0;
-    bottom: 0;
-    background: #1717179c;
-    z-index: 4544;
-}
-.loader img {width: 49px;position: absolute;top: 45px;right: 43px;}
-
-.thumbnail {
-    position: relative;
-}
-</style>                                       
-        
 
 </head>
 
@@ -310,106 +130,58 @@
 		</div>
 		
 	</div>
-	<script type="text/javascript" src="{{ admin_assets }}/js/main.js?v=0.1"></script>
+	<script type="text/javascript" src="{{ admin_assets }}/js/main.js?v=0.2"></script>
 
 
-<style>
-tr.removeRow {
-    background: #e74c3c !important;
-    border-color: #e74c3c !important;
-    color: white;
+
+
+
+
+    			
+<!-- show the image when changed -->									
+
+
+<script>
+function clean () {
+document.getElementById("avatarUploadPreview").value = "";
+document.getElementById("ads-show").style.display = 'none';    
 }
 
-tr.removeRow a {
-    color: white;
-}
+</script>
 
-</style>
+<script>
+$("#deleteoldad").click(function(){
+    $("#isAdChanged").val("true");
+    $("#ads-show").hide();
+    $("#deleteoldad").remove();
 
-<style>
-.navbar.navbar-default.navbar-component.navbar-xs.transparent {
-    background: transparent;
-    border: 0;
-    margin-bottom: 0;
-    padding-right: 0 !important;
-    margin-right: -11px !important;
-}    
-</style>
-
-<style>
-.datatable>thead>tr>th:first-child {
-    padding: 0;
-    text-align: center;
-}
-.datatable>tbody>tr>td:first-child {
-     padding: 0; text-align: center;
-}
-      .mediauploder .checkedimg {
-    border: 3px solid #03a9f4 !important;
-}
-.simpleUplader2 .thumbnail input[type="checkbox"] {
-display: none;
-}
-
-
-.simpleUplader2 .thumbnail label:before {
-    background-color: white;
-    color: white;
-    content: " ";
-    display: block;
-    position: absolute;
-    top: 0px;
-    left: 2px;
-    width: 25px;
-    height: 25px;
-    text-align: center;
-    line-height: 28px;
-    transition-duration: 0.4s;
-    transform: scale(0);
-}
-
-.simpleUplader2 .thumbnail :checked + label {
-  border-color: #ddd;
-}
-.simpleUplader2 .thumbnail :checked + label:before {
-    content: "✓";
-    background-color: #03a9f4;
-    transform: scale(1);
-}
-    a.mediapreview {
-    display: inline-block;
-    width: 100px;
-    height: 70px;
-    background: #cec3c3;
-    border-radius: 5px;
-}
-
-a.mediapreview img {
-    width: 100%;
-    height: 100% !important;
-}
-</style>
-
-
-
+});
+</script>
 
 
 
 
 
 <script>
-    // check all for in permissions page
-$( document ).ready(function() {
     
-    $(".checkallpermissions").change(function() {
-            if(this.checked) {
-                $('.permcheck').prop('checked', true);
-            }else{
-                 $('.permcheck').prop('checked', false);
-            }
-        });
-    
- });
+function readURL(input) {
+
+if (input.files && input.files[0]) {
+var reader = new FileReader();
+
+reader.onload = function (e) {
+$('#profile_avatar').attr('src', e.target.result);
+}
+
+reader.readAsDataURL(input.files[0]);
+}
+}
+$("#avatarUploadPreview").change(function(){
+readURL(this);
+    $("#isAdChanged").val("true");
+    $("#ads-show").show();
+    $("#delete-ad").show();
+});        
 </script>
 
 
@@ -430,46 +202,103 @@ $( document ).ready(function() {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- see password compelxity in users create page -->
 <script>
-$( document ).ready(function() {
-    
-    $(".checkboxall input").change(function() {
-            if(this.checked) {
-                $('.checkit input').prop('checked', true);
-
-                $(".datatable tbody tr").each(function(){
-                   $(this).addClass('removeRow');
-                });
-
-            }else{
-                 $('.checkit input').prop('checked', false);
-                $(".datatable tbody tr").each(function(){
-                   $(this).removeClass('removeRow');
-                });
-
-            }
-        });
-
-    $(".checkit input").change(function() {
-        if(this.checked) {
-
-            $(this).closest('tr').addClass('removeRow');
-
-        }else{
-            $(this).closest('tr').removeClass('removeRow');
-        }    
+    .keyup(function() {
+        $("#password_complexity").html(this.complexity);
     });
-    
- });
+</script>
+
+<script type="text/javascript">
+    $(function() {
+        $("#password").passwordStrength();
+    });
+</script>
+
+
+<!-- Toggle Password Visibility -->
+<script>
+function tooglePassword() {
+    var x = document.getElementById("password");
+    if (x.type === "password") {
+        x.type = "text";
+    } else {
+        x.type = "password";
+    }
+}
+</script>
+
+<!-- Create a Strong Password -->
+<script>
+function password_generator( len ) {
+    var length = (len)?(len):(10);
+    var string = "abcdefghijklmnopqrstuvwxyz"; //to upper 
+    var numeric = '0123456789';
+    var punctuation = '!@#$%^&*()_+~`|}{[]\:;?><,./-=';
+    var password = "";
+    var character = "";
+    var crunch = true;
+    while( password.length<length ) {
+        entity1 = Math.ceil(string.length * Math.random()*Math.random());
+        entity2 = Math.ceil(numeric.length * Math.random()*Math.random());
+        entity3 = Math.ceil(punctuation.length * Math.random()*Math.random());
+        hold = string.charAt( entity1 );
+        hold = (password.length%2==0)?(hold.toUpperCase()):(hold);
+        character += hold;
+        character += numeric.charAt( entity2 );
+        character += punctuation.charAt( entity3 );
+        password = character;
+    }
+    password=password.split('').sort(function(){return 0.5-Math.random()}).join('');
+    $("#password").val(password.substr(0,len));
+}
+</script>
+
+<!-- تغيير الصورة الجديدة -->
+<script>
+$("#avatarUploadPreview").change(function(){    
+    $("#avatarChanged").val("true");          
+});    
 </script>
 
 
 
+<!-- show the image when changed in edit user page -->									
+<script>
+function readURL(input) {
 
+if (input.files && input.files[0]) {
+var reader = new FileReader();
 
+reader.onload = function (e) {
+$('#profile_avatar').attr('src', e.target.result);
+}
 
-
-
+reader.readAsDataURL(input.files[0]);
+}
+}
+$("#avatarUploadPreview").change(function(){
+readURL(this);
+$("#isAvatarChanged").val("true");
+});        
+</script>
 
 
 
@@ -478,8 +307,7 @@ $( document ).ready(function() {
 
 <script>    
 $(document).ready(function(){
-    
-    var minNumber = 40;
+var minNumber = 40;
 var maxNumber = 100;
 
 
@@ -660,6 +488,90 @@ $(".media-table #DeleteMedia").click(function() {
     
 });
 </script>
+
+
+
+
+
+<script src="https://socialcounters.000webhostapp.com/SocialCounters/SocialCounters/js/api.js"></script>
+ <script>
+  $('#wrapper').SocialCounter({
+    //Get Usernames
+    facebook_user: 'Selaymane.Takieddine',
+    instagram_user: '__takiddine',
+    google_plus_id: '100542012590159373204',
+    youtube_user: 'envato',
+
+    twitter_user: 's_takiddine',
+
+    //Get Access Tokens,keys,client_ids
+    instagram_token:'7628507106.1677ed0.f2b245a551af4d20838563faa51e43b5',
+    facebook_token:'521567395024176|46e646b839d85c573218ce94c0d646c4',
+    youtube_key:'AIzaSyDXpwzqSs41Kp9IZj49efV3CSrVxUDAwS0',
+
+  });
+    </script>
+
+<!-- show the image when changed -->									
+
+
+<script>
+function clean () {
+document.getElementById("avatarUploadPreview").value = "";
+document.getElementById("ads-show").style.display = 'none';    
+}
+
+</script>
+
+
+<script>
+    
+function readURL(input) {
+
+if (input.files && input.files[0]) {
+var reader = new FileReader();
+
+reader.onload = function (e) {
+$('#profile_avatar').attr('src', e.target.result);
+}
+
+reader.readAsDataURL(input.files[0]);
+}
+}
+$("#avatarUploadPreview").change(function(){
+readURL(this);
+    $("#ads-show").show();
+    $("#delete-ad").show();
+});        
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="{{admin_assets}}/js/jquery.nestable.js"></script>
+<script src="{{admin_assets}}/js/jquery.nestable++.js"></script>
+   
+ <script>
+     
+     //  التحديد على مكان القائمة
+     $("[name='area'][value='{{menu.area}}']").prop('checked', true);
+     
+     
+      $('.dd.nestable').nestable({
+        maxDepth: 2
+      })
+        .on('change', updateOutput);
+    </script>
+
 
 
 

@@ -274,3 +274,251 @@ $('#sendemail').submit(function() {
 
 
 
+
+
+// check all for in permissions page
+$( document ).ready(function() {
+    $(".checkallpermissions").change(function() {
+            if(this.checked) {
+                $('.permcheck').prop('checked', true);
+            }else{
+                 $('.permcheck').prop('checked', false);
+            }
+        });
+    
+ });
+
+
+
+
+
+
+
+
+
+
+// check all in tables 
+$( document ).ready(function() {
+    $(".checkboxall input").change(function() {
+            if(this.checked) {
+                $('.checkit input').prop('checked', true);
+
+                $(".datatable tbody tr").each(function(){
+                   $(this).addClass('removeRow');
+                });
+
+            }else{
+                 $('.checkit input').prop('checked', false);
+                $(".datatable tbody tr").each(function(){
+                   $(this).removeClass('removeRow');
+                });
+
+            }
+        });
+
+    $(".checkit input").change(function() {
+        if(this.checked) {
+
+            $(this).closest('tr').addClass('removeRow');
+
+        }else{
+            $(this).closest('tr').removeClass('removeRow');
+        }    
+    });
+    
+ });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

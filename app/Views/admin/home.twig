@@ -10,299 +10,244 @@
 <!-- Content area -->
 <div class="content">
 				
-				
+<!-- header -->
 <div class="panel panel-flat">
-								<div class="panel-heading">
-									<h2 class="panel-title">مرحبا بك في لوحة التحكم ! <br><small>جمعنا لك بعض الروابط لمساعدتك على البدء:</small></h2>
-								</div>
-								
-								<div class="panel-body">
-								
-								<ul class="col-md-6 list list-icons">
-                                       <h4>الخطوات الأولى !</h4>
-                                        <li>
-											<a href="{{path_for('posts.create')}}"><i class="icon-plus3"></i>    اكتب مقالتك الأولى</a>
-										</li>
-										<li>
-											<a href="{{path_for('pages.create')}}"><i class="icon-plus3"></i> اضف صفحتك الجديدة</a>
-										</li>
-								</ul>
-								
-									<ul class='col-md-6 list list-icons'>
-									<h4>المزيد من الإجراءات !</h4>
-										<li>
-											<a href="{{path_for('settings.general')}}"><i class="icon-gear"></i> اعدادات الموقع </a>
-										</li>
-										<li>
-											<a href="{{path_for('settings.account')}}"><i class="icon-comment-discussion"></i>    اعدادات حسابي    </a>
-										</li>																				
-									</ul>									
-								</div>
-							</div>					
-                <div class="row">
-                
-                
-                <a href="{{path_for('products')}}">
-                
-						<div class="col-sm-6 col-md-3">
-							<div class="panel panel-body bg-blue-400 has-bg-image">
-								<div class="media no-margin">
-									<div class="media-body">
-										<h3 class="no-margin">{{count.products}}</h3>
-										<span class="text-uppercase text-size-mini">مجموع المنتجات</span>
-									</div>
+    <div class="panel-heading">
+    <h2 class="panel-title">
+        مرحبا بك في لوحة التحكم ! <br>
+        <small>جمعنا لك بعض الروابط لمساعدتك على البدء:</small>
+    </h2>
+    </div>
+    <div class="panel-body">
+        <ul class="col-md-6 list list-icons">
+            <h4>الخطوات الأولى !</h4>
+            <li>
+            <a href="{{path_for('posts.create')}}"><i class="icon-plus3"></i> اكتب مقالتك الأولى</a>
+            </li>
+            <li><a href="{{path_for('pages.create')}}"><i class="icon-plus3"></i> اضف صفحتك الجديدة</a></li>
+        </ul>
+        <ul class='col-md-6 list list-icons'>
+            <h4>المزيد من الإجراءات !</h4>
+            <li><a href="{{path_for('settings.general')}}"><i class="icon-gear"></i> اعدادات الموقع </a> </li>
+            <li><a href="{{path_for('settings.account')}}"><i class="icon-comment-discussion"></i>    اعدادات حسابي    </a> </li>
+        </ul>									
+    </div>
+</div>			
+<!--// header -->
 
-									<div class="media-right media-middle">
-										<i class="icon-basket icon-3x opacity-75"></i>
-									</div>
-								</div>
-							</div>
-						</div></a>
-<a href="{{path_for('pages')}}">
-						<div class="col-sm-6 col-md-3">
-							<div class="panel panel-body bg-danger-400 has-bg-image">
-								<div class="media no-margin">
-									<div class="media-body">
-										<h3 class="no-margin">{{count.posts}}</h3>
-										<span class="text-uppercase text-size-mini">مجموع المقالات</span>
-									</div>
-
-									<div class="media-right media-middle">
-										<i class="icon-file-empty2 icon-3x opacity-75"></i>
-									</div>
-								</div>
-							</div>
-						</div></a>
-<a href="{{path_for('users')}}">
-						<div class="col-sm-6 col-md-3">
-							<div class="panel panel-body bg-success-400 has-bg-image">
-								<div class="media no-margin">
-								<div class="media-body text-left">
-										<h3 class="no-margin">{{count.users}}</h3>
-										<span class="text-uppercase text-size-mini">مجموع الأعضاء</span>
-									</div>
-									
-									<div class="media-right media-middle">
-										<i class="icon-users2 icon-3x opacity-75"></i>
-									</div>
-
-									
-								</div>
-							</div>
-						</div></a>
-<a href="{{path_for('mail')}}">
-						<div class="col-sm-6 col-md-3">
-							<div class="panel panel-body bg-indigo-400 has-bg-image">
-								<div class="media no-margin">
-									<div class="media-body text-left">
-										<h3 class="no-margin">{{count.emails}}</h3>
-										<span class="text-uppercase text-size-mini">مجموع الرسائل</span>
-									</div>
-									
-									<div class="media-right media-middle">
-										<i class="icon-envelop2 icon-3x opacity-75"></i>
-									</div>
-								</div>
-							</div>
-						</div></a>
-				</div>
-				
-				<div class="row" id="wrapper"> 
-						<div class="col-sm-6 col-md-3">
-							<div class="panel panel-body panel-body-accent">
-								<div class="media no-margin">
-									<div class="media-left media-middle">
-										<i class="icon-facebook2 icon-3x" style="color:#3B5998;"></i>
-									</div>
-
-									<div class="media-body text-right">
-										<h3 class="no-margin text-semibold item facebook"><span class="count">2020</span></h3>
-										<span class="text-uppercase text-size-mini text-muted">معجب</span>
-									</div>
-								</div>
-							</div>
-						</div>
-
-						<div class="col-sm-6 col-md-3">
-							<div class="panel panel-body">
-								<div class="media no-margin">
-									<div class="media-left media-middle">
-										<i class="icon-twitter icon-3x" style="color:#1DA1F2;"></i>
-									</div>
-
-									<div class="media-body text-right">
-										<h3 class="no-margin text-semibold item twitter"><span class="count"></span></h3>
-										<span class="text-uppercase text-size-mini text-muted">متابع</span>
-									</div>
-								</div>
-							</div>
-						</div>
-
-						<div class="col-sm-6 col-md-3">
-							<div class="panel panel-body">
-								<div class="media no-margin">
-									<div class="media-body">
-										<h3 class="no-margin text-semibold item youtube"><span class="count"></span></h3>
-										<span class="text-uppercase text-size-mini text-muted">مشترك</span>
-									</div>
-
-									<div class="media-right media-middle" style="color:#c4302b;">
-										<i  class="icon-youtube3 icon-3x"></i>
-									</div>
-								</div>
-							</div>
-						</div>
-
-						<div class="col-sm-6 col-md-3">
-							<div class="panel panel-body">
-								<div class="media no-margin">
-									<div class="media-body ">
-										<h3 class="no-margin text-semibold item instagram"><span class="count"></span></h3>
-										<span class="text-uppercase text-size-mini text-muted">متابع</span>
-									</div>
-
-									<div class="media-right media-middle" style="color:#8a3ab9;">
-										<i class="icon-instagram icon-3x"></i>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				
-				
-				<div class="row">
-				    <div class="col-md-4">
-                    
-                    
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <h6 class="panel-title">معلومات عامة
-                                <a class="heading-elements-toggle"><i class="icon-more"></i></a>
-                            </h6>
-                            <div class="heading-elements">
-                                <ul class="icons-list">
-                                    <li><a data-action="collapse"></a></li>
-                                    <li><a data-action="close"></a></li>
-                                </ul>
-                            </div>
+<!-- statistiques -->
+<div class="row">
+        <a href="{{path_for('products')}}">
+        <div class="col-sm-6 col-md-3">
+            <div class="panel panel-body bg-blue-400 has-bg-image">
+                <div class="media no-margin">
+                    <div class="media-body">
+                        <h3 class="no-margin">{{count.products}}</h3>
+                        <span class="text-uppercase text-size-mini">مجموع المنتجات</span>
+                    </div>
+                    <div class="media-right media-middle">
+                        <i class="icon-basket icon-3x opacity-75"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </a>
+        <a href="{{path_for('pages')}}">
+            <div class="col-sm-6 col-md-3">
+                <div class="panel panel-body bg-danger-400 has-bg-image">
+                    <div class="media no-margin">
+                        <div class="media-body">
+                            <h3 class="no-margin">{{count.posts}}</h3>
+                            <span class="text-uppercase text-size-mini">مجموع المقالات</span>
                         </div>
-<style>
-.no-border tr td {border: 0 !important;border-bottom: 1px solid #0000000f !important;}
-.no-border tr:last-child td { border: 0 !important; }                        
-</style>
-                        <div class="panel-body">
-                            <table class="table border-dashed no-border">
-                                    <tr>
-				                        <td>نسخة لوحة التحكم</td>
-				                        <td>1.0</td>
-				                    </tr>
-				                    <tr>
-				                        <td>نسخة php</td>
-				                        <td>{{info.phpversion}}</td>
-				                    </tr>
-				                    <tr>
-				                        <td>نسخة mysql</td>
-				                        <td>{{info.mysqlversion}}</td>
-				                    </tr>
-				                    <tr>
-                                        <td>  حجم ملفات الموقع</td>
-				                        <td>{{info.filesize}}</td>
-				                    </tr>
-				                    <tr>
-                                        <td>  حجم قاعدة البيانات </td>
-				                        <td>{{info.databasesize}}</td>
-				                    </tr>
-				                </table>
+                        <div class="media-right media-middle">
+                            <i class="icon-file-empty2 icon-3x opacity-75"></i>
                         </div>
                     </div>
-                    
-                    
-                    
-                    
-
-				    </div>
-				   <div class="col-md-4">
-                   <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <h6 class="panel-title">حالة الطقس ب الدار البيضاء
-                                <a class="heading-elements-toggle"><i class="icon-more"></i></a>
-                            </h6>
-                            <div class="heading-elements">
-                                <ul class="icons-list">
-                                    <li><a data-action="collapse"></a></li>
-                                    <li><a data-action="close"></a></li>
-                                </ul>
-                            </div>
+                </div>
+            </div>
+        </a>
+        <a href="{{path_for('users')}}">
+            <div class="col-sm-6 col-md-3">
+                <div class="panel panel-body bg-success-400 has-bg-image">
+                    <div class="media no-margin">
+                    <div class="media-body text-left">
+                            <h3 class="no-margin">{{count.users}}</h3>
+                            <span class="text-uppercase text-size-mini">مجموع الأعضاء</span>
                         </div>
-
-                        <div class="panel-body">
-                            <table class="table border-dashed no-border">
-                                    <tr>
-				                        <td>درجة الحرارة</td>
-				                        <td>{{temp.temp}}c</td>
-				                    </tr>
-				                    <tr>
-				                        <td>الرطوبة</td>
-				                        <td>{{temp.Humidity|raw}}</td>
-				                    </tr>
-				                    <tr>
-				                        <td>سرعة الرياح</td>
-				                        <td>{{temp.Wind|raw}}</td>
-				                    </tr>
-				                    <tr>
-                                        <td> شروق الشمس </td>
-				                        <td>{{temp.Sunrise|raw}}</td>
-				                    </tr>
-				                    <tr>
-                                        <td>  غروب الشمس </td>
-				                        <td>{{temp.Sunset|raw}}</td>
-				                    </tr>
-				                </table>
+                        <div class="media-right media-middle">
+                            <i class="icon-users2 icon-3x opacity-75"></i>
                         </div>
                     </div>
-                   </div> 
-				       
-				    </div>
-				</div>
+                </div>
+            </div>
+        </a>
+        <a href="{{path_for('mail')}}">
+            <div class="col-sm-6 col-md-3">
+                <div class="panel panel-body bg-indigo-400 has-bg-image">
+                    <div class="media no-margin">
+                        <div class="media-body text-left">
+                            <h3 class="no-margin">{{count.emails}}</h3>
+                            <span class="text-uppercase text-size-mini">مجموع الرسائل</span>
+                        </div>
+                        <div class="media-right media-middle">
+                            <i class="icon-envelop2 icon-3x opacity-75"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </a>
+</div>
+<!--// statistiques -->
+
+<!-- social media statistiques -->
+<div class="row" id="wrapper"> 
+<div class="col-sm-6 col-md-3">
+    <div class="panel panel-body panel-body-accent">
+        <div class="media no-margin">
+            <div class="media-left media-middle">
+                <i class="icon-facebook2 icon-3x" style="color:#3B5998;"></i>
+            </div>
+
+            <div class="media-body text-right">
+                <h3 class="no-margin text-semibold item facebook"><span class="count">2020</span></h3>
+                <span class="text-uppercase text-size-mini text-muted">معجب</span>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-sm-6 col-md-3">
+    <div class="panel panel-body">
+        <div class="media no-margin">
+            <div class="media-left media-middle">
+                <i class="icon-twitter icon-3x" style="color:#1DA1F2;"></i>
+            </div>
+
+            <div class="media-body text-right">
+                <h3 class="no-margin text-semibold item twitter"><span class="count"></span></h3>
+                <span class="text-uppercase text-size-mini text-muted">متابع</span>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-sm-6 col-md-3">
+    <div class="panel panel-body">
+        <div class="media no-margin">
+            <div class="media-body">
+                <h3 class="no-margin text-semibold item youtube"><span class="count"></span></h3>
+                <span class="text-uppercase text-size-mini text-muted">مشترك</span>
+            </div>
+
+            <div class="media-right media-middle" style="color:#c4302b;">
+                <i  class="icon-youtube3 icon-3x"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="col-sm-6 col-md-3">
+    <div class="panel panel-body">
+        <div class="media no-margin">
+            <div class="media-body ">
+                <h3 class="no-margin text-semibold item instagram"><span class="count"></span></h3>
+                <span class="text-uppercase text-size-mini text-muted">متابع</span>
+            </div>
+            <div class="media-right media-middle" style="color:#8a3ab9;">
+                <i class="icon-instagram icon-3x"></i>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<!--// social media statistiques -->	
 				
-				
+<!-- info -->
+<div class="row">
+        <div class="col-md-4">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h6 class="panel-title">معلومات عامة
+                        <a class="heading-elements-toggle"><i class="icon-more"></i></a>
+                    </h6>
+                    <div class="heading-elements">
+                        <ul class="icons-list">
+                            <li><a data-action="collapse"></a></li>
+                            <li><a data-action="close"></a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <table class="table border-dashed no-border">
+                            <tr>
+                                <td>نسخة لوحة التحكم</td>
+                                <td>1.0</td>
+                            </tr>
+                            <tr>
+                                <td>نسخة php</td>
+                                <td>{{info.phpversion}}</td>
+                            </tr>
+                            <tr>
+                                <td>نسخة mysql</td>
+                                <td>{{info.mysqlversion}}</td>
+                            </tr>
+                            <tr>
+                                <td>  حجم ملفات الموقع</td>
+                                <td>{{info.filesize}}</td>
+                            </tr>
+                            <tr>
+                                <td>  حجم قاعدة البيانات </td>
+                                <td>{{info.databasesize}}</td>
+                            </tr>
+                        </table>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+           <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h6 class="panel-title">حالة الطقس ب الدار البيضاء
+                        <a class="heading-elements-toggle"><i class="icon-more"></i></a>
+                    </h6>
+                    <div class="heading-elements">
+                        <ul class="icons-list">
+                            <li><a data-action="collapse"></a></li>
+                            <li><a data-action="close"></a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="panel-body">
+                    <table class="table border-dashed no-border">
+                            <tr>
+                                <td>درجة الحرارة</td>
+                                <td>{{temp.temp}}c</td>
+                            </tr>
+                            <tr>
+                                <td>الرطوبة</td>
+                                <td>{{temp.Humidity|raw}}</td>
+                            </tr>
+                            <tr>
+                                <td>سرعة الرياح</td>
+                                <td>{{temp.Wind|raw}}</td>
+                            </tr>
+                            <tr>
+                                <td> شروق الشمس </td>
+                                <td>{{temp.Sunrise|raw}}</td>
+                            </tr>
+                            <tr>
+                                <td>  غروب الشمس </td>
+                                <td>{{temp.Sunset|raw}}</td>
+                            </tr>
+                        </table>
+                </div>
+            </div>
+       </div> 
+</div>
+<!-- info -->	
 
 <div class="footer text-muted text-size-small">لوحة تحكم أفراس®  الحقوق 2018 © شكراً لثقك بنا.</div>
+
+
 </div>
 </div>
-
-
-
-
-    <script src="https://socialcounters.000webhostapp.com/SocialCounters/SocialCounters/js/api.js"></script>
- <script>
-      $('#wrapper').SocialCounter({
-        //Get Usernames
-        facebook_user: 'Selaymane.Takieddine',
-        instagram_user: '__takiddine',
-        google_plus_id: '100542012590159373204',
-        youtube_user: 'envato',
-
-        twitter_user: 's_takiddine',
-      
-       
-        //Get Access Tokens,keys,client_ids
-        instagram_token:'7628507106.1677ed0.f2b245a551af4d20838563faa51e43b5',
-        facebook_token:'521567395024176|46e646b839d85c573218ce94c0d646c4',
-        youtube_key:'AIzaSyDXpwzqSs41Kp9IZj49efV3CSrVxUDAwS0',
-         
-      });
-    </script>
-
-
-
-
-
-
-
-
-
 {% endblock %}
-
-
-

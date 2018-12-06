@@ -7,10 +7,10 @@
 
     <!-- Content area -->
     <div class="content">
-
         {% include "admin/elements/flash.twig" %}
         
         <h1>اضافة عضو جديد</h1>
+        <p class="text-muted">* كل الحقول مطلوبة ، المرجوا ملأ كل الحقول بالمعلومات المطلوبة</p>
         <div class="col-md-12">
             <div class="panel panel-flat col-md-12">
                 <div class="panel-body">
@@ -21,21 +21,19 @@
                             <div class="form-group">
                                 <label class="control-label col-lg-2">اسم المستخدم</label>
                                 <div class="col-lg-10">
-                                    <input type="text" class="form-control frequired" autocomplete="new-password" name="username" placeholder="@username" value="{{ old.username }}">
+                                    <input type="text" class="form-control frequired" autocomplete="new-password" name="username" placeholder="@username" value="{{ old.username }}" required >
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="control-label col-lg-2">البريد الإلكتروني</label>
                                 <div class="col-lg-10">
-                                    <input type="text" class="form-control frequired" autocomplete="new-password" value="{{ old.email }}" name="email" placeholder="البريد الإلكتروني">
+                                    <input type="email" class="form-control frequired" autocomplete="new-password" value="{{ old.email }}" name="email" placeholder="البريد الإلكتروني" required>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="control-label col-lg-2">كلمة المرور</label>
                                 <div class="col-lg-10">
-                                    <input type="password" autocomplete="new-password" value="{{ old.password }}" class="form-control frequired" name="password" id="password" placeholder="كلمة المرور">
-                                     
-                       
+                                    <input type="password" autocomplete="new-password" value="{{ old.password }}" class="form-control frequired" name="password" id="password" placeholder="كلمة المرور" required> 
                                 </div>
                             </div>
                             <div class="form-group">
@@ -74,16 +72,4 @@
         </div>
     </div>
 </div>            
- <script>
-            .keyup(function() {
-                $("#password_complexity").html(this.complexity);
-            });
-        </script>
-        <script type="text/javascript">
-            $(function() {
-                $("#password").passwordStrength();
-            });
-        </script>
 {% endblock %}	
-            
-            

@@ -167,52 +167,6 @@
     
     
     
-    			
-<!-- show the image when changed -->									
-
-
-<script>
-function clean () {
-document.getElementById("avatarUploadPreview").value = "";
-document.getElementById("ads-show").style.display = 'none';    
-}
-
-</script>
-
-<script>
-$("#deleteoldad").click(function(){
-    $("#isAdChanged").val("true");
-    $("#ads-show").hide();
-    $("#deleteoldad").remove();
-
-});
-</script>
-
-
-
-
-
-<script>
-    
-function readURL(input) {
-
-if (input.files && input.files[0]) {
-var reader = new FileReader();
-
-reader.onload = function (e) {
-$('#profile_avatar').attr('src', e.target.result);
-}
-
-reader.readAsDataURL(input.files[0]);
-}
-}
-$("#avatarUploadPreview").change(function(){
-readURL(this);
-    $("#isAdChanged").val("true");
-    $("#ads-show").show();
-    $("#delete-ad").show();
-});        
-</script>
 
 <!-- set the select -->		
 <script> $('.areaUndetected').select2({ placeholder: 'تحديد مكان الإعلان',}); </script>
