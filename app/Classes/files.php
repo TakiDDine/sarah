@@ -3,10 +3,23 @@
 namespace App\Classes;
 
 use \App\Classes\app;
+use \App\Classes\Helper;
 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class files {
+    
+    
+    private $helper;
+    
+    public function __construct() {
+        
+        $this->helper = new helper();
+
+      
+        
+        
+    }
     
     
     /*
@@ -16,7 +29,7 @@ class files {
         $handle = new \upload($file);
         if ($handle->uploaded) {
             
-        $nameimmg = app::str_random();
+        $nameimmg = $this->helper->str_random();
         $handle->file_new_name_body   = $nameimmg;
 
         $handle->process($path);
@@ -35,7 +48,7 @@ class files {
         $handle = new \upload($file);
         if ($handle->uploaded) {
             
-        $nameimmg = app::str_random();
+        $nameimmg = $this->helper->str_random();
         $handle->file_new_name_body   = $nameimmg;
 
         $handle->process($path);
@@ -54,7 +67,7 @@ class files {
         $handle = new \upload($file);
         if ($handle->uploaded) {
             
-        $nameimmg = app::str_random();
+        $nameimmg = $this->helper->str_random();
         $handle->file_new_name_body   = $nameimmg;
 
         $handle->process($path);

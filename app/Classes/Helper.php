@@ -6,6 +6,24 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Helper {
     
+    
+    /*
+    *    start a session
+    */
+   public static function start_session(){
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
+    }
+        
+    /*
+    *    Create a Random String
+    */
+    public function str_random($length = 20) {
+        $pool = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        return substr(str_shuffle(str_repeat($pool, 5)), 0, $length);
+    }
+    
     /*
     *   Get a Folder size in bytes
     */
@@ -16,6 +34,7 @@ class Helper {
         }
         return $size;
     }
+    
 
     /*
     *   Format bytes to kilobytes, megabytes, gigabytes
@@ -457,6 +476,157 @@ class Helper {
   
     
     
+    
+    
+     /*
+    *   remove http://, www and slash from URL
+    *   example : http://www.google.com/exampleUri  --> google.com 
+    */
+    public function urlToDomain ($input){
+        
+        // in case scheme relative URI is passed, e.g., //www.google.com/
+        $input = trim($input, '/');
+
+        // If scheme not included, prepend it
+        if (!preg_match('#^http(s)?://#', $input)) {
+            $input = 'http://' . $input;
+        }
+
+        $urlParts = parse_url($input);
+
+        // remove www
+        $domain = preg_replace('/^www\./', '', $urlParts['host']);
+
+        return $domain;
+    }
+    
+    
+    
+    
+    
+     /*
+    *    Get the full Url of the current Page
+    */
+    public function Get_Full_Url(){
+        $actual_link = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+        return $actual_link;
+
+    }
+    
+    
+    
+        
+    public function meta_redirect($sec,$page){
+        echo '<meta http-equiv="refresh" content="'.$sec.'; URL='.$page.'"/>';
+    }
+    
+    
+    /**
+     * Mulit-byte Unserialize (http://stackoverflow.com/questions/2853454/php-unserialize-fails-with-non-encoded-characters)
+     *
+     * UTF-8 will screw up a serialized string
+     *
+     * @access private
+     * @param string
+     * @return string
+     */
+    public function mb_unserialize($string) {
+        $string = preg_replace('!s:(\d+):"(.*?)";!se', "'s:'.strlen('$2').':\"$2\";'", $string);
+        return unserialize($string);
+    }
+    
+    
+ /*
+        *     get youtube Video ID From the URL
+        */
+      public  function getYoutubeIdFromUrl($url) {
+            $parts = parse_url($url);
+            if(isset($parts['query'])){
+                parse_str($parts['query'], $qs);
+                if(isset($qs['v'])){
+                    return $qs['v'];
+                }else if(isset($qs['vi'])){
+                    return $qs['vi'];
+                }
+            }
+            if(isset($parts['path'])){
+                $path = explode('/', trim($parts['path'], '/'));
+                return $path[count($path)-1];
+            }
+            return false;
+        }
+
+
+        /*
+        *       Iframe youtube video
+        */
+       public function iframeVideo($url){  
+            $videoID = getYoutubeIdFromUrl($url);
+            echo '<div class="embed-responsive embed-responsive-16by9"><iframe class="embed-responsive-item" src=" https://www.youtube.com/embed/'.$videoID .'" allowfullscreen></iframe></div>' ;
+        }
+    
+    
+    
+    
+    
+    
+function human_time_diff( $from, $to = '' ) {
+    if ( empty( $to ) ) {
+        $to = time();
+    }
+ 
+    $diff = (int) abs( $to - $from );
+ 
+    if ( $diff < HOUR_IN_SECONDS ) {
+        $mins = round( $diff / MINUTE_IN_SECONDS );
+        if ( $mins <= 1 )
+            $mins = 1;
+        /* translators: Time difference between two dates, in minutes (min=minute). 1: Number of minutes */
+        $since = sprintf( _n( '%s min', '%s mins', $mins ), $mins );
+    } elseif ( $diff < DAY_IN_SECONDS && $diff >= HOUR_IN_SECONDS ) {
+        $hours = round( $diff / HOUR_IN_SECONDS );
+        if ( $hours <= 1 )
+            $hours = 1;
+        /* translators: Time difference between two dates, in hours. 1: Number of hours */
+        $since = sprintf( _n( '%s hour', '%s hours', $hours ), $hours );
+    } elseif ( $diff < WEEK_IN_SECONDS && $diff >= DAY_IN_SECONDS ) {
+        $days = round( $diff / DAY_IN_SECONDS );
+        if ( $days <= 1 )
+            $days = 1;
+        /* translators: Time difference between two dates, in days. 1: Number of days */
+        $since = sprintf( _n( '%s day', '%s days', $days ), $days );
+    } elseif ( $diff < MONTH_IN_SECONDS && $diff >= WEEK_IN_SECONDS ) {
+        $weeks = round( $diff / WEEK_IN_SECONDS );
+        if ( $weeks <= 1 )
+            $weeks = 1;
+        /* translators: Time difference between two dates, in weeks. 1: Number of weeks */
+        $since = sprintf( _n( '%s week', '%s weeks', $weeks ), $weeks );
+    } elseif ( $diff < YEAR_IN_SECONDS && $diff >= MONTH_IN_SECONDS ) {
+        $months = round( $diff / MONTH_IN_SECONDS );
+        if ( $months <= 1 )
+            $months = 1;
+        /* translators: Time difference between two dates, in months. 1: Number of months */
+        $since = sprintf( _n( '%s month', '%s months', $months ), $months );
+    } elseif ( $diff >= YEAR_IN_SECONDS ) {
+        $years = round( $diff / YEAR_IN_SECONDS );
+        if ( $years <= 1 )
+            $years = 1;
+        /* translators: Time difference between two dates, in years. 1: Number of years */
+        $since = sprintf( _n( '%s year', '%s years', $years ), $years );
+    }
+ 
+    /**
+     * Filters the human readable difference between two timestamps.
+     *
+     * @since 4.0.0
+     *
+     * @param string $since The difference in human readable text.
+     * @param int    $diff  The difference in seconds.
+     * @param int    $from  Unix timestamp from which the difference begins.
+     * @param int    $to    Unix timestamp to end the time difference.
+     */
+    return apply_filters( 'human_time_diff', $since, $diff, $from, $to );
+}
     
     
     

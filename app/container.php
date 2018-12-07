@@ -46,9 +46,6 @@ $container['notAllowedHandler'] = function ($container) {
     };
 };
 
-//ini_set("log_errors", 1);
-//ini_set("error_log", BASEPATH."/php-error.log");
-//error_log( "Hello, errors!" );
 
 
 //  Error Handling
@@ -85,12 +82,6 @@ $container['view'] = function ($c) {
     $view->getEnvironment()->addglobal('flash',$c->flash);
     
     
-    // Adding DisplayStatue To twig
-    $filter = new Twig_SimpleFilter('displayRole', function ($username) {
-        return User::displayRole($username);
-    });
-    $view->getEnvironment()->addFilter($filter);
-    
     $filter = new Twig_SimpleFilter('displayStatue', function ($username) {
         return User::displayStatue($username);
     });
@@ -118,17 +109,7 @@ $container['view'] = function ($c) {
         return $date;
     });
     $view->getEnvironment()->addFilter($filter);
-    
-    $filter = new Twig_SimpleFilter('displayGender', function ($gender) {
-        if($gender == 'male') {
-            return 'مذكر';
-        }else{
-            return 'أنثى';
-        }
-    });
-    $view->getEnvironment()->addFilter($filter);
-    
-    
+  
     
     
    $filter = new Twig_SimpleFilter('file_size', function ($file) {
@@ -203,6 +184,12 @@ $container['view'] = function ($c) {
     $view->getEnvironment()->addFilter($filter);
     
     
+    $filter = new Twig_SimpleFilter('fuckit', function ($time) {
+        return st($time);
+    });
+    $view->getEnvironment()->addFilter($filter);
+    
+    
     
     
     $filter = new Twig_SimpleFilter('makeNiceTime', function ($time) {
@@ -215,12 +202,9 @@ $container['view'] = function ($c) {
 };
 
 
-/*
-*    Connect To DataBase
-*/
-//try{
+// Connect To DataBase
+
     $capsule = new Capsule;
-//    $capsule->addConnection($container['conf']['db']);
    $capsule->addConnection([
         'driver'    => $container['conf']['db.driver'],
         'host'      => $container['conf']['db.host'],
@@ -234,13 +218,6 @@ $container['view'] = function ($c) {
     ]);
 
 
-//    throw new Exception();
-//
-//}
-//catch (Exception $e) {
-//    echo '<center><h1>مشكلة في الإتصال بقاعدة البيانات</h1><h2> المرجو مراجعة معلومات الإتصال بقاعدة البيانات</h2></center>';exit;
-//    //code to handle the exception
-//}
    // Make this Capsule instance available globally via static methods... (optional)
     $capsule->setAsGlobal();
 

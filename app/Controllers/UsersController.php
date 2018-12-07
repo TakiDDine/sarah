@@ -24,7 +24,7 @@ class UsersController extends Controller{
             $limit          = 10; // Number of Users on one page   
             $lastpage       = (ceil($count / $limit) == 0 ? 1 : ceil($count / $limit));    // the number of the pages
             $skip           = ($page - 1) * $limit;
-            $users          = $this->db->table('users')->skip($skip)->take($limit)->orderBy('created_at', 'desc')->get();
+            $users          = User::skip($skip)->take($limit)->orderBy('created_at', 'desc')->get();
 
             // Search Logic
             if($request->getParam('search')){

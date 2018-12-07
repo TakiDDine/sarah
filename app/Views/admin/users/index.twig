@@ -155,6 +155,12 @@
         {% for user in users %}
         
         {% if user.statue != 'supper' %}
+        
+       
+        
+        
+        
+        
          <tr>
             <td class="checkit"><input type="checkbox" name="checkaction[]" value="{{user.id}}"></td>
              <td>{{ user.id }}</td>
@@ -168,8 +174,8 @@
             </td>
              <td>{{ user.email}}</td>
              <td>{{ user.created_at|makeNiceTime }}</td>
-             <td>{{ user.username|displayRole }}</td>
-             <td>{{ user.username|displayStatue }}</td>
+             <td>{{ user.role() }}</td>
+             <td>{{ user.statue() }}</td>
              <td>
               <a href="{{ path_for('users.edit', {'username': user.username}) }}" class="text-primary-600">
                   <i class="icon-pencil7 position-left"></i>تعديل </a>
