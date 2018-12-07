@@ -1227,6 +1227,41 @@ function human_time_diff( $from, $to = '' ) {
 }
     
     
+    
+    
+    
+    
+    
+
+    
+	/**
+	 * Returns true if $number is an integer or integer string
+	 *
+	 * PHP's native is_int() functions returns false on strings like '23' or '1'.
+	 * I will evaluate those integer strings to true.
+	 *
+	 * For example:
+	 *
+	 *     is_int(1);        // returns true
+	 *     Num::isInt(1);    // returns true
+	 *
+	 *     is_int('1');      // returns false
+	 *     Num::isInt('1');  // returns true
+	 *
+	 * @since  0.1.0
+	 *
+	 * @param  int|float  $number  the number to test
+	 *
+	 * @return  bool  true if $number is an integer or integer string
+	 */
+	public function isInt($number) 
+	{	
+		return is_numeric($number) && is_int(+$number);
+	}
+    
+    
+    
+    
   public function is_json($string, $return = false)
     {
         if (!is_string($string) || empty($string)) {
