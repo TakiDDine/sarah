@@ -33,6 +33,42 @@ class Helper {
 	}
     
     
+    
+/**
+	 * Unix to "Human"
+	 *
+	 * Formats Unix timestamp to the following prototype: 2006-08-21 11:35 PM
+	 *
+	 * @param	int	Unix timestamp
+	 * @param	bool	whether to show seconds
+	 * @param	string	format: us or euro
+	 * @return	string
+	 */
+	function unix_to_human($time = '', $seconds = FALSE, $fmt = 'us')
+	{
+		$r = date('Y', $time).'-'.date('m', $time).'-'.date('d', $time).' ';
+		if ($fmt === 'us')
+		{
+			$r .= date('h', $time).':'.date('i', $time);
+		}
+		else
+		{
+			$r .= date('H', $time).':'.date('i', $time);
+		}
+		if ($seconds)
+		{
+			$r .= ':'.date('s', $time);
+		}
+		if ($fmt === 'us')
+		{
+			return $r.' '.date('A', $time);
+		}
+		return $r;
+	}
+    
+    
+    
+    
 	/**
 	 * Fetch an item from the COOKIE array
 	 *
@@ -1191,12 +1227,77 @@ function human_time_diff( $from, $to = '' ) {
 }
     
     
+  public function is_json($string, $return = false)
+    {
+        if (!is_string($string) || empty($string)) {
+            return false;
+        }
+        $decoded = json_decode($string, true);
+        if (json_last_error() != JSON_ERROR_NONE) {
+            return false;
+        }
+        return ($return ? $decoded : true);
+    }    
     
-    
-    
-    
-    
-    
+/**
+	 * Returns a string in camel case
+	 *
+	 * For example:
+	 *
+	 *     Str::strtocamelcase('Hello world');   // returns "helloWorld"
+	 *     Str::strtocamelcase('H3LLO WORLD!');  // returns "helloWorld"
+	 *     Str::strtocamelcase('hello_world');   // returns "helloWorld"
+	 * 
+	 * @since  0.1.0
+	 *
+	 * @param  string  $string  the string to camel-case
+	 *
+	 * @return  string  the camel-cased string
+	 *
+	 * @throws  \BadMethodCallException    if $string is empty
+	 * @throws  \InvalidArgumentException  if $string is not a string
+	 */
+	public function strtocamelcase($string)
+	{		
+		// if $string is given
+		if ($string !== null) {
+			// if $string is actually a string
+			if (is_string($string)) {
+				// if $string is not empty
+				if (strlen($string)) {
+					// trim the string
+					$string = trim($string);
+			
+					// replace underscores ("_") and hyphens ("-") with spaces (" ")
+					$string = str_replace(array('-', '_'), ' ', $string);
+					
+					// lower-case everything
+					$string = strtolower($string);
+			
+					// capitalize each word
+					$string = ucwords($string);
+			
+					// remove spaces
+					$string = str_replace(' ', '', $string);
+			
+					// lower-case the first word
+					$string = lcfirst($string);
+			
+					// remove any non-alphanumeric characters
+					$string = preg_replace("#[^a-zA-Z0-9]+#", '', $string);
+				}
+			} else {
+				throw new \InvalidArgumentException(
+					__METHOD__." expects the first parameter, the string, to be a string"
+				);
+			}
+		} else {
+			throw new \BadMethodCallException(
+				__METHOD__." expects one parameter, a string to camel-case"
+			);
+		}
+		return $string;
+	} 
     
     
 }

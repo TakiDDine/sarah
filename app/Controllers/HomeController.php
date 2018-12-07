@@ -14,15 +14,7 @@ class HomeController extends Controller{
   
     public function home($request,$response) {
         
- 
-        
-     
-        
-        st($this->helper->now(),1);
-        
-        
-        
-        
+
         
       $count = [];
         
