@@ -11,9 +11,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class AuthController extends Controller {
     
-    private $AdminLoginRoute ;
-    
-    
     
     
     public function getLogin($request,$response) {

@@ -58,7 +58,7 @@ return  [
         'media'              => SCRIPTDIR.'public/uploads/media/',
     ],  
     
-    'app' => [
+    'paypal' => [
         'mode'               => '',
         'sandbox_cliend_id'  => 'AX5d1kpazzEitZjguYXvGfImA6xfv8EKWh2udD5bDww0sipG_ro6wkFU6CcF_DBdgj0fspBSnUqbaG4l',
         'sandbox_secret_id'  => 'EBYBEXeyPidw4tEbLKd5ELny6DZWFiGcW6G59aJ6-Z-P4Jwmf_z_KAvHa5k5jMe8x7Whsx2oB2vemBAZ',

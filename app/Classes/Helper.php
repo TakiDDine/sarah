@@ -7,6 +7,116 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Helper {
     
     
+    
+    
+	/**
+	 * Delete a COOKIE
+	 *
+	 * @param	mixed
+	 * @param	string	the cookie domain. Usually: .yourdomain.com
+	 * @param	string	the cookie path
+	 * @param	string	the cookie prefix
+	 * @return	void
+	 */
+    public function delete_cookie($name, $domain = '', $path = '/', $prefix = '')
+	{
+		set_cookie($name, '', '', $domain, $path, $prefix);
+	}
+    
+    
+    /**
+	 * Get "now" time
+	 */
+    function now()
+	{
+      return  date("Y-m-d H:i:s");
+	}
+    
+    
+	/**
+	 * Fetch an item from the COOKIE array
+	 *
+	 * @param	string
+	 * @param	bool
+	 * @return	mixed
+	 */
+	public function get_cookie($index, $xss_clean = FALSE)
+	{
+		$prefix = isset($_COOKIE[$index]) ? '' : config_item('cookie_prefix');
+		return get_instance()->input->cookie($prefix.$index, $xss_clean);
+	}
+    
+	/**
+	 * Set cookie
+	 *
+	 * Accepts seven parameters, or you can submit an associative
+	 * array in the first parameter containing all the values.
+	 *
+	 * @param	mixed
+	 * @param	string	the value of the cookie
+	 * @param	int	the number of seconds until expiration
+	 * @param	string	the cookie domain.  Usually:  .yourdomain.com
+	 * @param	string	the cookie path
+	 * @param	string	the cookie prefix
+	 * @param	bool	true makes the cookie secure
+	 * @param	bool	true makes the cookie accessible via http(s) only (no javascript)
+	 * @return	void
+	 */
+	public function set_cookie($name, $value = '', $expire = 0, $domain = '', $path = '/', $prefix = '', $secure = NULL, $httponly = NULL)
+	{
+		// Set the config file options
+		get_instance()->input->set_cookie($name, $value, $expire, $domain, $path, $prefix, $secure, $httponly);
+	}
+    
+    /**
+	 * Create a Directory Map
+	 *
+	 * Reads the specified directory and builds an array
+	 * representation of it. Sub-folders contained with the
+	 * directory will be mapped as well.
+	 *
+	 * @param	string	$source_dir		Path to source
+	 * @param	int	$directory_depth	Depth of directories to traverse
+	 *						(0 = fully recursive, 1 = current dir, etc)
+	 * @param	bool	$hidden			Whether to show hidden files
+	 * @return	array
+	 */
+	public function directory_map($source_dir, $directory_depth = 0, $hidden = FALSE)
+	{
+		if ($fp = @opendir($source_dir))
+		{
+			$filedata	= array();
+			$new_depth	= $directory_depth - 1;
+			$source_dir	= rtrim($source_dir, DIRECTORY_SEPARATOR).DIRECTORY_SEPARATOR;
+			while (FALSE !== ($file = readdir($fp)))
+			{
+				// Remove '.', '..', and hidden files [optional]
+				if ($file === '.' OR $file === '..' OR ($hidden === FALSE && $file[0] === '.'))
+				{
+					continue;
+				}
+				is_dir($source_dir.$file) && $file .= DIRECTORY_SEPARATOR;
+				if (($directory_depth < 1 OR $new_depth > 0) && is_dir($source_dir.$file))
+				{
+					$filedata[$file] = $this->directory_map($source_dir.$file, $new_depth, $hidden);
+				}
+				else
+				{
+					$filedata[] = $file;
+				}
+			}
+			closedir($fp);
+			return $filedata;
+		}
+		return FALSE;
+	}
+    
+    
+    public function list_files(){
+        
+    }
+    
+    
     /*
     *    start a session
     */
@@ -16,6 +126,458 @@ class Helper {
         }
     }
         
+    
+/**
+	 * Word Limiter
+	 *
+	 * Limits a string to X number of words.
+	 *
+	 * @param	string
+	 * @param	int
+	 * @param	string	the end character. Usually an ellipsis
+	 * @return	string
+	 */
+	public function word_limiter($str, $limit = 100, $end_char = '&#8230;')
+	{
+		if (trim($str) === '')
+		{
+			return $str;
+		}
+		preg_match('/^\s*+(?:\S++\s*+){1,'.(int) $limit.'}/', $str, $matches);
+		if (strlen($str) === strlen($matches[0]))
+		{
+			$end_char = '';
+		}
+		return rtrim($matches[0]).$end_char;
+	}
+
+
+	/**
+	 * Character Limiter
+	 *
+	 * Limits the string based on the character count.  Preserves complete words
+	 * so the character count may not be exactly as specified.
+	 *
+	 * @param	string
+	 * @param	int
+	 * @param	string	the end character. Usually an ellipsis
+	 * @return	string
+	 */
+	function character_limiter($str, $n = 500, $end_char = '&#8230;')
+	{
+		if (mb_strlen($str) < $n)
+		{
+			return $str;
+		}
+		// a bit complicated, but faster than preg_replace with \s+
+		$str = preg_replace('/ {2,}/', ' ', str_replace(array("\r", "\n", "\t", "\v", "\f"), ' ', $str));
+		if (mb_strlen($str) <= $n)
+		{
+			return $str;
+		}
+		$out = '';
+		foreach (explode(' ', trim($str)) as $val)
+		{
+			$out .= $val.' ';
+			if (mb_strlen($out) >= $n)
+			{
+				$out = trim($out);
+				return (mb_strlen($out) === mb_strlen($str)) ? $out : $out.$end_char;
+			}
+		}
+	}
+
+
+
+/**
+	 * Phrase Highlighter
+	 *
+	 * Highlights a phrase within a text string
+	 *
+	 * @param	string	$str		the text string
+	 * @param	string	$phrase		the phrase you'd like to highlight
+	 * @param	string	$tag_open	the openging tag to precede the phrase with
+	 * @param	string	$tag_close	the closing tag to end the phrase with
+	 * @return	string
+	 */
+	public function highlight_phrase($str, $phrase, $tag_open = '<mark>', $tag_close = '</mark>')
+	{
+		return ($str !== '' && $phrase !== '')
+			? preg_replace('/('.preg_quote($phrase, '/').')/i'.(UTF8_ENABLED ? 'u' : ''), $tag_open.'\\1'.$tag_close, $str)
+			: $str;
+	}
+    
+
+public function highlight_code($str)
+	{
+		/* The highlight string function encodes and highlights
+		 * brackets so we need them to start raw.
+		 *
+		 * Also replace any existing PHP tags to temporary markers
+		 * so they don't accidentally break the string out of PHP,
+		 * and thus, thwart the highlighting.
+		 */
+		$str = str_replace(
+			array('&lt;', '&gt;', '<?', '?>', '<%', '%>', '\\', '</script>'),
+			array('<', '>', 'phptagopen', 'phptagclose', 'asptagopen', 'asptagclose', 'backslashtmp', 'scriptclose'),
+			$str
+		);
+		// The highlight_string function requires that the text be surrounded
+		// by PHP tags, which we will remove later
+		$str = highlight_string('<?php '.$str.' ?>', TRUE);
+		// Remove our artificially added PHP, and the syntax highlighting that came with it
+		$str = preg_replace(
+			array(
+				'/<span style="color: #([A-Z0-9]+)">&lt;\?php(&nbsp;| )/i',
+				'/(<span style="color: #[A-Z0-9]+">.*?)\?&gt;<\/span>\n<\/span>\n<\/code>/is',
+				'/<span style="color: #[A-Z0-9]+"\><\/span>/i'
+			),
+			array(
+				'<span style="color: #$1">',
+				"$1</span>\n</span>\n</code>",
+				''
+			),
+			$str
+		);
+		// Replace our markers back to PHP tags.
+		return str_replace(
+			array('phptagopen', 'phptagclose', 'asptagopen', 'asptagclose', 'backslashtmp', 'scriptclose'),
+			array('&lt;?', '?&gt;', '&lt;%', '%&gt;', '\\', '&lt;/script&gt;'),
+			$str
+		);
+	}
+
+
+
+
+
+    
+    /**
+     * Normalizes a file/directory path.
+     *
+     * The normalization does the following work:
+     *
+     * - Convert all directory separators into `DIRECTORY_SEPARATOR` (e.g. "\a/b\c" becomes "/a/b/c")
+     * - Remove trailing directory separators (e.g. "/a/b/c/" becomes "/a/b/c")
+     * - Turn multiple consecutive slashes into a single one (e.g. "/a///b/c" becomes "/a/b/c")
+     * - Remove ".." and "." based on their meanings (e.g. "/a/./b/../c" becomes "/a/c")
+     *
+     * @param string $path the file/directory path to be normalized
+     * @param string $ds the directory separator to be used in the normalized result. Defaults to `DIRECTORY_SEPARATOR`.
+     * @return string the normalized file/directory path
+     */
+    public static function normalizePath($path, $ds = DIRECTORY_SEPARATOR)
+    {
+        $path = rtrim(strtr($path, '/\\', $ds . $ds), $ds);
+        if (strpos($ds . $path, "{$ds}.") === false && strpos($path, "{$ds}{$ds}") === false) {
+            return $path;
+        }
+        // the path may contain ".", ".." or double slashes, need to clean them up
+        if (strpos($path, "{$ds}{$ds}") === 0 && $ds == '\\') {
+            $parts = [$ds];
+        } else {
+            $parts = [];
+        }
+        foreach (explode($ds, $path) as $part) {
+            if ($part === '..' && !empty($parts) && end($parts) !== '..') {
+                array_pop($parts);
+            } elseif ($part === '.' || $part === '' && !empty($parts)) {
+                continue;
+            } else {
+                $parts[] = $part;
+            }
+        }
+        $path = implode($ds, $parts);
+        return $path === '' ? '.' : $path;
+    }
+    
+    
+    
+    
+      /**
+     * Determines the MIME type based on the extension name of the specified file.
+     * This method will use a local map between extension names and MIME types.
+     * @param string $file the file name.
+     * @param string $magicFile the path (or alias) of the file that contains all available MIME type information.
+     * If this is not set, the file specified by [[mimeMagicFile]] will be used.
+     * @return string|null the MIME type. Null is returned if the MIME type cannot be determined.
+     */
+    public static function getMimeTypeByExtension($file, $magicFile = null)
+    {
+        $mimeTypes = static::loadMimeTypes($magicFile);
+        if (($ext = pathinfo($file, PATHINFO_EXTENSION)) !== '') {
+            $ext = strtolower($ext);
+            if (isset($mimeTypes[$ext])) {
+                return $mimeTypes[$ext];
+            }
+        }
+        return null;
+    }
+    
+    
+    
+    
+    
+    /**
+     * Copies a whole directory as another one.
+     * The files and sub-directories will also be copied over.
+     * @param string $src the source directory
+     * @param string $dst the destination directory
+     * @param array $options options for directory copy. Valid options are:
+     *
+     * - dirMode: integer, the permission to be set for newly copied directories. Defaults to 0775.
+     * - fileMode:  integer, the permission to be set for newly copied files. Defaults to the current environment setting.
+     * - filter: callback, a PHP callback that is called for each directory or file.
+     *   The signature of the callback should be: `function ($path)`, where `$path` refers the full path to be filtered.
+     *   The callback can return one of the following values:
+     *
+     *   * true: the directory or file will be copied (the "only" and "except" options will be ignored)
+     *   * false: the directory or file will NOT be copied (the "only" and "except" options will be ignored)
+     *   * null: the "only" and "except" options will determine whether the directory or file should be copied
+     *
+     * - only: array, list of patterns that the file paths should match if they want to be copied.
+     *   A path matches a pattern if it contains the pattern string at its end.
+     *   For example, '.php' matches all file paths ending with '.php'.
+     *   Note, the '/' characters in a pattern matches both '/' and '\' in the paths.
+     *   If a file path matches a pattern in both "only" and "except", it will NOT be copied.
+     * - except: array, list of patterns that the files or directories should match if they want to be excluded from being copied.
+     *   A path matches a pattern if it contains the pattern string at its end.
+     *   Patterns ending with '/' apply to directory paths only, and patterns not ending with '/'
+     *   apply to file paths only. For example, '/a/b' matches all file paths ending with '/a/b';
+     *   and '.svn/' matches directory paths ending with '.svn'. Note, the '/' characters in a pattern matches
+     *   both '/' and '\' in the paths.
+     * - caseSensitive: boolean, whether patterns specified at "only" or "except" should be case sensitive. Defaults to true.
+     * - recursive: boolean, whether the files under the subdirectories should also be copied. Defaults to true.
+     * - beforeCopy: callback, a PHP callback that is called before copying each sub-directory or file.
+     *   If the callback returns false, the copy operation for the sub-directory or file will be cancelled.
+     *   The signature of the callback should be: `function ($from, $to)`, where `$from` is the sub-directory or
+     *   file to be copied from, while `$to` is the copy target.
+     * - afterCopy: callback, a PHP callback that is called after each sub-directory or file is successfully copied.
+     *   The signature of the callback should be: `function ($from, $to)`, where `$from` is the sub-directory or
+     *   file copied from, while `$to` is the copy target.
+     * - copyEmptyDirectories: boolean, whether to copy empty directories. Set this to false to avoid creating directories
+     *   that do not contain files. This affects directories that do not contain files initially as well as directories that
+     *   do not contain files at the target destination because files have been filtered via `only` or `except`.
+     *   Defaults to true. This option is available since version 2.0.12. Before 2.0.12 empty directories are always copied.
+     * @throws InvalidArgumentException if unable to open directory
+     */
+    public static function copyDirectory($src, $dst, $options = [])
+    {
+        $src = static::normalizePath($src);
+        $dst = static::normalizePath($dst);
+        if ($src === $dst || strpos($dst, $src . DIRECTORY_SEPARATOR) === 0) {
+            throw new InvalidArgumentException('Trying to copy a directory to itself or a subdirectory.');
+        }
+        $dstExists = is_dir($dst);
+        if (!$dstExists && (!isset($options['copyEmptyDirectories']) || $options['copyEmptyDirectories'])) {
+            static::createDirectory($dst, isset($options['dirMode']) ? $options['dirMode'] : 0775, true);
+            $dstExists = true;
+        }
+        $handle = opendir($src);
+        if ($handle === false) {
+            throw new InvalidArgumentException("Unable to open directory: $src");
+        }
+        if (!isset($options['basePath'])) {
+            // this should be done only once
+            $options['basePath'] = realpath($src);
+            $options = static::normalizeOptions($options);
+        }
+        while (($file = readdir($handle)) !== false) {
+            if ($file === '.' || $file === '..') {
+                continue;
+            }
+            $from = $src . DIRECTORY_SEPARATOR . $file;
+            $to = $dst . DIRECTORY_SEPARATOR . $file;
+            if (static::filterPath($from, $options)) {
+                if (isset($options['beforeCopy']) && !call_user_func($options['beforeCopy'], $from, $to)) {
+                    continue;
+                }
+                if (is_file($from)) {
+                    if (!$dstExists) {
+                        // delay creation of destination directory until the first file is copied to avoid creating empty directories
+                        static::createDirectory($dst, isset($options['dirMode']) ? $options['dirMode'] : 0775, true);
+                        $dstExists = true;
+                    }
+                    copy($from, $to);
+                    if (isset($options['fileMode'])) {
+                        @chmod($to, $options['fileMode']);
+                    }
+                } else {
+                    // recursive copy, defaults to true
+                    if (!isset($options['recursive']) || $options['recursive']) {
+                        static::copyDirectory($from, $to, $options);
+                    }
+                }
+                if (isset($options['afterCopy'])) {
+                    call_user_func($options['afterCopy'], $from, $to);
+                }
+            }
+        }
+        closedir($handle);
+    }
+
+    
+    
+    
+    
+  /**
+     * Removes a file or symlink in a cross-platform way
+     *
+     * @param string $path
+     * @return bool
+     *
+     * @since 2.0.14
+     */
+    public static function unlink($path)
+    {
+        $isWindows = DIRECTORY_SEPARATOR === '\\';
+        if (!$isWindows) {
+            return unlink($path);
+        }
+        if (is_link($path) && is_dir($path)) {
+            return rmdir($path);
+        }
+        try {
+            return unlink($path);
+        } catch (ErrorException $e) {
+            // last resort measure for Windows
+            if (function_exists('exec') && file_exists($path)) {
+                exec('DEL /F/Q ' . escapeshellarg($path));
+                return !file_exists($path);
+            }
+            return false;
+        }
+    }
+
+    
+    
+    /**
+     * Returns the files found under the specified directory and subdirectories.
+     * @param string $dir the directory under which the files will be looked for.
+     * @param array $options options for file searching. Valid options are:
+     *
+     * - `filter`: callback, a PHP callback that is called for each directory or file.
+     *   The signature of the callback should be: `function ($path)`, where `$path` refers the full path to be filtered.
+     *   The callback can return one of the following values:
+     *
+     *   * `true`: the directory or file will be returned (the `only` and `except` options will be ignored)
+     *   * `false`: the directory or file will NOT be returned (the `only` and `except` options will be ignored)
+     *   * `null`: the `only` and `except` options will determine whether the directory or file should be returned
+     *
+     * - `except`: array, list of patterns excluding from the results matching file or directory paths.
+     *   Patterns ending with slash ('/') apply to directory paths only, and patterns not ending with '/'
+     *   apply to file paths only. For example, '/a/b' matches all file paths ending with '/a/b';
+     *   and `.svn/` matches directory paths ending with `.svn`.
+     *   If the pattern does not contain a slash (`/`), it is treated as a shell glob pattern
+     *   and checked for a match against the pathname relative to `$dir`.
+     *   Otherwise, the pattern is treated as a shell glob suitable for consumption by `fnmatch(3)`
+     *   with the `FNM_PATHNAME` flag: wildcards in the pattern will not match a `/` in the pathname.
+     *   For example, `views/*.php` matches `views/index.php` but not `views/controller/index.php`.
+     *   A leading slash matches the beginning of the pathname. For example, `/*.php` matches `index.php` but not `views/start/index.php`.
+     *   An optional prefix `!` which negates the pattern; any matching file excluded by a previous pattern will become included again.
+     *   If a negated pattern matches, this will override lower precedence patterns sources. Put a backslash (`\`) in front of the first `!`
+     *   for patterns that begin with a literal `!`, for example, `\!important!.txt`.
+     *   Note, the '/' characters in a pattern matches both '/' and '\' in the paths.
+     * - `only`: array, list of patterns that the file paths should match if they are to be returned. Directory paths
+     *   are not checked against them. Same pattern matching rules as in the `except` option are used.
+     *   If a file path matches a pattern in both `only` and `except`, it will NOT be returned.
+     * - `caseSensitive`: boolean, whether patterns specified at `only` or `except` should be case sensitive. Defaults to `true`.
+     * - `recursive`: boolean, whether the files under the subdirectories should also be looked for. Defaults to `true`.
+     * @return array files found under the directory, in no particular order. Ordering depends on the files system used.
+     * @throws InvalidArgumentException if the dir is invalid.
+     */
+    public static function findFiles($dir, $options = [])
+    {
+        $dir = self::clearDir($dir);
+        $options = self::setBasePath($dir, $options);
+        $list = [];
+        $handle = self::openDir($dir);
+        while (($file = readdir($handle)) !== false) {
+            if ($file === '.' || $file === '..') {
+                continue;
+            }
+            $path = $dir . DIRECTORY_SEPARATOR . $file;
+            if (static::filterPath($path, $options)) {
+                if (is_file($path)) {
+                    $list[] = $path;
+                } elseif (is_dir($path) && (!isset($options['recursive']) || $options['recursive'])) {
+                    $list = array_merge($list, static::findFiles($path, $options));
+                }
+            }
+        }
+        closedir($handle);
+        return $list;
+    }
+    
+     /**
+     * Creates a new directory.
+     *
+     * This method is similar to the PHP `mkdir()` function except that
+     * it uses `chmod()` to set the permission of the created directory
+     * in order to avoid the impact of the `umask` setting.
+     *
+     * @param string $path path of the directory to be created.
+     * @param int $mode the permission to be set for the created directory.
+     * @param bool $recursive whether to create parent directories if they do not exist.
+     * @return bool whether the directory is created successfully
+     * @throws \yii\base\Exception if the directory could not be created (i.e. php error due to parallel changes)
+     */
+    public static function createDirectory($path, $mode = 0775, $recursive = true)
+    {
+        if (is_dir($path)) {
+            return true;
+        }
+        $parentDir = dirname($path);
+        // recurse if parent dir does not exist and we are not at the root of the file system.
+        if ($recursive && !is_dir($parentDir) && $parentDir !== $path) {
+            static::createDirectory($parentDir, $mode, true);
+        }
+        try {
+            if (!mkdir($path, $mode)) {
+                return false;
+            }
+        } catch (\Exception $e) {
+            if (!is_dir($path)) {// https://github.com/yiisoft/yii2/issues/9288
+                throw new \yii\base\Exception("Failed to create directory \"$path\": " . $e->getMessage(), $e->getCode(), $e);
+            }
+        }
+        try {
+            return chmod($path, $mode);
+        } catch (\Exception $e) {
+            throw new \yii\base\Exception("Failed to change permissions for directory \"$path\": " . $e->getMessage(), $e->getCode(), $e);
+        }
+    }
+    
+    
+        /**
+     * Removes an item from an array and returns the value. If the key does not exist in the array, the default value
+     * will be returned instead.
+     *
+     * Usage examples,
+     *
+     * ```php
+     * // $array = ['type' => 'A', 'options' => [1, 2]];
+     * // working with array
+     * $type = \yii\helpers\ArrayHelper::remove($array, 'type');
+     * // $array content
+     * // $array = ['options' => [1, 2]];
+     * ```
+     *
+     * @param array $array the array to extract value from
+     * @param string $key key name of the array element
+     * @param mixed $default the default value to be returned if the specified key does not exist
+     * @return mixed|null the value of the element if found, default value otherwise
+     */
+    public static function ArrayRemove(&$array, $key, $default = null)
+    {
+        if (is_array($array) && (isset($array[$key]) || array_key_exists($key, $array))) {
+            $value = $array[$key];
+            unset($array[$key]);
+            return $value;
+        }
+        return $default;
+    }    
+    
     /*
     *    Create a Random String
     */

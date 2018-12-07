@@ -26,14 +26,14 @@ class User extends model{
         
         $role = User::where('username',$this->username)->first();
         
-        if($role->role){
-            if($role == 1 ) {
+        if($role){
+            if($role->role == 1 ) {
                 echo '<span class="label label-primary">مستخدم عادي</span>';
             }
-            if($role == 2 ) {
+            if($role->role == 2 ) {
                 echo '<span class="label label label-success">مدير</span>';
             }
-            if($role == 3 ) {
+            if($role->role == 3 ) {
                 echo '<span class="label label-primary">غير معروف </span>';
             } 
         }
@@ -48,14 +48,14 @@ class User extends model{
     public function statue(){
         $statue = self::where('username',$this->username)->first();
         
-        if($statue->statue){
-            if($statue == 1 ) {
+        if($statue){
+            if($statue->statue == 1 ) {
                 echo '<span class="label border-left-success label-striped">مفعل</span>';
             }
-            if($statue == 2 ) {
+            if($statue->statue == 2 ) {
                 echo '<span class="label border-left-primary label-striped">ينتظر الموافقة</span>';
             }
-            if($statue == 3 ) {
+            if($statue->statue == 3 ) {
                 echo '<span class="label border-left-danger label-striped">محظور </span>';
             }   
         }
