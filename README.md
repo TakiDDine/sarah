@@ -66,12 +66,12 @@
 ## To do in version 1.4 ( 1/1/2019 )
 * log the activites of users
 * make timer for ads
+* send email to all users
+* ban ip's
+* 
 
 
 
-
-
-**
 
 
 للتواصل / contact
