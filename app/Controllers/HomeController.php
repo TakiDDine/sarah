@@ -15,8 +15,12 @@ class HomeController extends Controller{
     public function home($request,$response) {
         
 
+      
         
-      $count = [];
+       
+
+        
+        $count = [];
         
         // info
         $pdo = $this->db->connection()->getPdo();
@@ -32,14 +36,6 @@ class HomeController extends Controller{
         $decimals = 2;  
         $databasesize = number_format($size/(1024*1024),$decimals);
         
-                
-        
-        
-        
-        
-        
-        
-
         // Meteo
         $get = json_decode(file_get_contents('http://ip-api.com/json/'),true);
         date_default_timezone_set('Africa/Casablanca');
@@ -89,39 +85,10 @@ class HomeController extends Controller{
         return $this->container->view->render($response,'admin/errors/404.twig');
     }
    
-    public function download_zip($request,$response){
+    public function FileManager($request,$response){
         
-            // Get real path for our folder
-    $rootPath = realpath(BASEPATH);
-
-    // Initialize archive object
-    $zip = new \ZipArchive();
-    $zip->open(BASEPATH.'/file.zip', \ZipArchive::CREATE | \ZipArchive::OVERWRITE);
-
-    // Create recursive directory iterator
-    /** @var SplFileInfo[] $files */
-    $files = new \RecursiveIteratorIterator(
-        new \RecursiveDirectoryIterator($rootPath),
-        \RecursiveIteratorIterator::LEAVES_ONLY
-    );
-
-    foreach ($files as $name => $file)
-    {
-        // Skip directories (they would be added automatically)
-        if (!$file->isDir())
-        {
-            // Get real and relative path for current file
-            $filePath = $file->getRealPath();
-            $relativePath = substr($filePath, strlen($rootPath) + 1);
-
-            // Add current file to archive
-            $zip->addFile($filePath, $relativePath);
-        }
-    }
-
-    // Zip archive will be created only after closing object
-    $zip->close();
-
+     return $this->container->view->render($response,'FileManager.php');
+//        echo 'zabiiiiiiiiiiiiii';
     }
    
      

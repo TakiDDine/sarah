@@ -14,5 +14,4 @@ return array(
     'Pimple' => array($vendorDir . '/pimple/pimple/src'),
     'PayPal' => array($vendorDir . '/paypal/rest-api-sdk-php/lib'),
     'JShrink' => array($vendorDir . '/tedivm/jshrink/src'),
-    'Doctrine\\Common\\Inflector\\' => array($vendorDir . '/doctrine/inflector/lib'),
 );

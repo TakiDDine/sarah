@@ -7,9 +7,6 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Relations\Concerns\SupportsDefaultModels;
 
-/**
- * @mixin \Illuminate\Database\Eloquent\Builder
- */
 class BelongsTo extends Relation
 {
     use SupportsDefaultModels;
@@ -111,7 +108,9 @@ class BelongsTo extends Relation
         // our eagerly loading query so it returns the proper models from execution.
         $key = $this->related->getTable().'.'.$this->ownerKey;
 
-        $this->query->whereIn($key, $this->getEagerModelKeys($models));
+        $whereIn = $this->whereInMethod($this->related, $this->ownerKey);
+
+        $this->query->{$whereIn}($key, $this->getEagerModelKeys($models));
     }
 
     /**
@@ -253,7 +252,7 @@ class BelongsTo extends Relation
         }
 
         return $query->select($columns)->whereColumn(
-            $this->getQualifiedForeignKey(), '=', $query->getModel()->getTable().'.'.$this->ownerKey
+            $this->getQualifiedForeignKey(), '=', $query->qualifyColumn($this->ownerKey)
         );
     }
 
@@ -274,7 +273,7 @@ class BelongsTo extends Relation
         $query->getModel()->setTable($hash);
 
         return $query->whereColumn(
-            $hash.'.'.$query->getModel()->getKeyName(), '=', $this->getQualifiedForeignKey()
+            $hash.'.'.$this->ownerKey, '=', $this->getQualifiedForeignKey()
         );
     }
 
@@ -327,7 +326,7 @@ class BelongsTo extends Relation
      */
     public function getQualifiedForeignKey()
     {
-        return $this->child->getTable().'.'.$this->foreignKey;
+        return $this->child->qualifyColumn($this->foreignKey);
     }
 
     /**
@@ -347,7 +346,7 @@ class BelongsTo extends Relation
      */
     public function getQualifiedOwnerKeyName()
     {
-        return $this->related->getTable().'.'.$this->ownerKey;
+        return $this->related->qualifyColumn($this->ownerKey);
     }
 
     /**

@@ -1,11 +1,13 @@
 <?php
 
-/*!
+
+/*
  * AFRASS 1.0.0 (2018-11-18, 19:18)
- * http://takiddine.com
- * MIT licensed
  *
- * Copyright (C) 2018 Soulaimane Takiddine , http://takiddine.com
+ * Copyright (C) 2018 Soulaimane Takiddine 
+ * SITE  : http://takiddine.com
+ * EMAIL : takiddine.job@gmail.com
+ * 
  */
 
 defined('BASEPATH') OR exit('No direct script access allowed');
@@ -28,8 +30,23 @@ return  [
         'password'           => '',
         'charset'            => 'utf8',
         'collation'          => 'utf8_general_ci',
-        'strict'             =>  'false'
+        'strict'             => 'false',
+        'prefix'             => 'na_'
     ],
+    
+    
+    'region' => [
+            'time_format' => 'g:i a',
+            'date_format' => 'm/d/Y',
+            'datetime_separator' => ' ',
+            'timezone' => null
+    ],
+    
+    'admin'  => [
+            'max_upload_size' => '5242880',
+    ],
+    
+    
     
     'url' => [
         'base'               => SCRIPTURL,
@@ -58,5 +75,6 @@ return  [
         'media'              => SCRIPTDIR.'public/uploads/media/',
     ] 
 
+    
     
 ];

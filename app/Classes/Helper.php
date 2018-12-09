@@ -6,6 +6,110 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Helper {
     
+/**
+ * Created by IntelliJ IDEA.
+ * User: hefang
+ * Date: 2018/12/4
+ * Time: 08:42
+ */
+
+    
+    
+    /**
+     * 列出目录内的子目录和文件
+     * @param string $rootDir 根目录
+     * @param callable|null $filter 过滤器
+     *
+     * 如只列出'a'开头的文件和目录: function(string $file){return $file{0} === "a";}
+     * @return array
+     */
+    public static function listFilesAndDirs(string $rootDir, callable $filter = null): array
+    {
+        if (!is_dir($rootDir)) return [];
+        $res = [];
+        if ($rootDir{strlen($rootDir) - 1} !== DIRECTORY_SEPARATOR) {
+            $rootDir = $rootDir . DIRECTORY_SEPARATOR;
+        }
+        $items = scandir($rootDir);
+        foreach ($items as $item) {
+            if ($item === "." || $item === "..") continue;
+            $file = $rootDir . $item;
+            if (!is_callable($filter) || $filter($file)) {
+                $res[] = $file;
+            }
+            if (is_dir($file)) {
+                $sub = self::listFilesAndDirs($file);
+                if (!empty($sub)) {
+                    $res = array_merge($res, $sub);
+                }
+            }
+        }
+        return $res;
+    }
+    /**
+     * 列出目录内的所有文件
+     * @param string $rootDir 根目录
+     * @param callable|null $filter 过滤器
+     * @return array
+     */
+    public static function listFiles(string $rootDir, callable $filter = null): array
+    {
+        $array = self::listFilesAndDirs($rootDir, function (string $file) {
+            return is_file($file);
+        });
+        return is_callable($filter) ? array_filter($array, $filter) : $array;
+    }
+    /**
+     * 列出目录内的所有子目录
+     * @param string $rootDir 根目录
+     * @param callable|null $filter 过滤器
+     * @return array
+     */
+    public static function listDirs(string $rootDir, callable $filter = null): array
+    {
+        $array = self::listFilesAndDirs($rootDir, function (string $file) {
+            return is_dir($file);
+        });
+        return is_callable($filter) ? array_filter($array, $filter) : $array;
+    }
+    /**
+     * 删除文件或目录, 或是文件则直接删除, 若是目录则删除目录本身以及目录内所有文件和子目录
+     * @param string $fileOrDir 要删除的文件或目录
+     * @return int 删除的文件和目录数
+     */
+    public static function delete(string $fileOrDir): int
+    {
+        if (is_dir($fileOrDir)) {
+            return self::cleanDir($fileOrDir) + (rmdir($fileOrDir) ? 1 : 0);
+        }
+        return unlink($fileOrDir) ? 1 : 0;
+    }
+    /**
+     * 清空目录, 不删除目录本身
+     * @param string $dir 要清空的目录
+     * @return int 删除的文件和子目录数
+     */
+    public static function cleanDir(string $dir)
+    {
+        $files = array_reverse(self::listFilesAndDirs($dir));
+        $count = 0;
+        foreach ($files as $file) {
+            if (is_dir($file)) {
+                $count += (rmdir($file) ? 1 : 0);
+            } else {
+                $count += (unlink($file) ? 1 : 0);
+            }
+        }
+        return $count;
+    }
+    public static function appendDirSeparator(string $dir)
+    {
+        if ($dir{strlen($dir) - 1} === DIRECTORY_SEPARATOR) return $dir;
+        return $dir . DIRECTORY_SEPARATOR;
+    }
+    /***************************** File Helper End ****************/
+
+    
     
     
     
@@ -32,7 +136,7 @@ class Helper {
       return  date("Y-m-d H:i:s");
 	}
     
-    
+
     
 /**
 	 * Unix to "Human"
@@ -148,9 +252,9 @@ class Helper {
 	}
     
     
-    public function list_files(){
-        
-    }
+    
+    
+  
     
     
     /*
@@ -188,6 +292,10 @@ class Helper {
 	}
 
 
+    
+    
+
+    
 	/**
 	 * Character Limiter
 	 *
@@ -290,6 +398,7 @@ public function highlight_code($str)
     
     /**
      * Normalizes a file/directory path.
+     * 
      *
      * The normalization does the following work:
      *
@@ -351,6 +460,66 @@ public function highlight_code($str)
     }
     
     
+        /**
+     * Get usage memory
+     *
+     * @param bool $isPeak
+     * @return string
+     */
+    public function getMemory($isPeak = true)
+    {
+        if ($isPeak) {
+            $memory = memory_get_peak_usage(false);
+        } else {
+            $memory = memory_get_usage(false);
+        }
+        return $this->format($memory);
+    }
+    
+    
+    
+    /**
+ * Extract only digit characters
+* 
+ * @param $value
+ * @return mixed
+ */
+function strToDigit($value)
+{
+	$value = preg_replace('/[^0-9]/', '', $value);
+	
+	return $value;
+}
+    
+    
+     /**
+     * Quickest way for getting first file line
+     *
+     * @param string $filepath
+     * @return string|null
+     */
+    public static function firstLine($filepath)
+    {
+        if (file_exists($filepath)) {
+            $cacheRes = fopen($filepath, 'rb');
+            $firstLine = fgets($cacheRes);
+            fclose($cacheRes);
+            return $firstLine;
+        }
+        return null;
+    }
+    
+    
+    /**
+     * Check is current path regular file
+     *
+     * @param string $path
+     * @return bool
+     */
+    public static function isFile($path): bool
+    {
+        return file_exists($path) && is_file($path);
+    }
     
     
     
@@ -646,6 +815,40 @@ public function highlight_code($str)
     }
 
 
+    
+  /**
+     * Nice formatting for computer sizes (Bytes).
+     *
+     * @param   integer|float $bytes    The number in bytes to format
+     * @param   integer       $decimals The number of decimal points to include
+     * @return  string
+     */
+    public function format($bytes, $decimals = 2): string
+    {
+        $exp = 0;
+        $value = 0;
+        $symbol = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
+        $bytes = (float)$bytes;
+        if ($bytes > 0) {
+            $exp = floor(log($bytes) / log(1024));
+            $value = ($bytes / (1024 ** floor($exp)));
+        }
+        if ($symbol[$exp] === 'B') {
+            $decimals = 0;
+        }
+        return number_format($value, $decimals, '.', '') . ' ' . $symbol[$exp];
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     /*
     *   Format bytes to kilobytes, megabytes, gigabytes
     */
@@ -890,7 +1093,7 @@ public function highlight_code($str)
     
     
     /*
-    *   Deleting all files ( and the hidden files also) from a folder   
+    *   Deleting all files in a folder ( and the hidden files also)
     */
     public function delete_folders_files($path){
         $path = rtrim($path, '/').'/{,.}*';
@@ -913,8 +1116,31 @@ public function highlight_code($str)
         $_SERVER['REQUEST_URI']
       );
     }
-    
-    
+
+  
+   public function base_url($atRoot=FALSE, $atCore=FALSE, $parse=FALSE){
+        if (isset($_SERVER['HTTP_HOST'])) {
+            $http = isset($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) !== 'off' ? 'https' : 'http';
+            $hostname = $_SERVER['HTTP_HOST'];
+            $dir =  str_replace(basename($_SERVER['SCRIPT_NAME']), '', $_SERVER['SCRIPT_NAME']);
+
+            $core = preg_split('@/@', str_replace($_SERVER['DOCUMENT_ROOT'], '', realpath(dirname(__FILE__))), NULL, PREG_SPLIT_NO_EMPTY);
+            $core = $core[0];
+
+            $tmplt = $atRoot ? ($atCore ? "%s://%s/%s/" : "%s://%s/") : ($atCore ? "%s://%s/%s/" : "%s://%s%s");
+            $end = $atRoot ? ($atCore ? $core : $hostname) : ($atCore ? $core : $dir);
+            $base_url = sprintf( $tmplt, $http, $hostname, $end );
+        }
+        else $base_url = 'http://localhost/';
+
+        if ($parse) {
+            $base_url = parse_url($base_url);
+            if (isset($base_url['path'])) if ($base_url['path'] == '/') $base_url['path'] = '';
+        }
+
+        return $base_url;
+    }
+
   /*
     *   Function to Get Snippet from a string , 
     *   @str = the text you want to get snippet from

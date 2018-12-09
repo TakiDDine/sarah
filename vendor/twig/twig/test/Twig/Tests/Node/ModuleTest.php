@@ -48,9 +48,13 @@ class Twig_Tests_Node_ModuleTest extends Twig_Test_NodeTestCase
 /* foo.twig */
 class __TwigTemplate_%x extends Twig_Template
 {
+    private \$source;
+
     public function __construct(Twig_Environment \$env)
     {
         parent::__construct(\$env);
+
+        \$this->source = \$this->getSourceContext();
 
         \$this->parent = false;
 
@@ -71,15 +75,7 @@ class __TwigTemplate_%x extends Twig_Template
 
     public function getDebugInfo()
     {
-        return array (  19 => 1,);
-    }
-
-    /** @deprecated since 1.27 (to be removed in 2.0). Use getSourceContext() instead */
-    public function getSource()
-    {
-        @trigger_error('The '.__METHOD__.' method is deprecated since version 1.27 and will be removed in 2.0. Use getSourceContext() instead.', E_USER_DEPRECATED);
-
-        return \$this->getSourceContext()->getCode();
+        return array (  23 => 1,);
     }
 
     public function getSourceContext()
@@ -102,9 +98,13 @@ EOF
 /* foo.twig */
 class __TwigTemplate_%x extends Twig_Template
 {
+    private \$source;
+
     public function __construct(Twig_Environment \$env)
     {
         parent::__construct(\$env);
+
+        \$this->source = \$this->getSourceContext();
 
         // line 1
         \$this->parent = \$this->loadTemplate("layout.twig", "foo.twig", 1);
@@ -137,15 +137,7 @@ class __TwigTemplate_%x extends Twig_Template
 
     public function getDebugInfo()
     {
-        return array (  26 => 1,  24 => 2,  11 => 1,);
-    }
-
-    /** @deprecated since 1.27 (to be removed in 2.0). Use getSourceContext() instead */
-    public function getSource()
-    {
-        @trigger_error('The '.__METHOD__.' method is deprecated since version 1.27 and will be removed in 2.0. Use getSourceContext() instead.', E_USER_DEPRECATED);
-
-        return \$this->getSourceContext()->getCode();
+        return array (  30 => 1,  28 => 2,  15 => 1,);
     }
 
     public function getSourceContext()
@@ -173,6 +165,18 @@ EOF
 /* foo.twig */
 class __TwigTemplate_%x extends Twig_Template
 {
+    private \$source;
+
+    public function __construct(Twig_Environment \$env)
+    {
+        parent::__construct(\$env);
+
+        \$this->source = \$this->getSourceContext();
+
+        \$this->blocks = array(
+        );
+    }
+
     protected function doGetParent(array \$context)
     {
         // line 2
@@ -199,15 +203,7 @@ class __TwigTemplate_%x extends Twig_Template
 
     public function getDebugInfo()
     {
-        return array (  17 => 2,  15 => 4,  9 => 2,);
-    }
-
-    /** @deprecated since 1.27 (to be removed in 2.0). Use getSourceContext() instead */
-    public function getSource()
-    {
-        @trigger_error('The '.__METHOD__.' method is deprecated since version 1.27 and will be removed in 2.0. Use getSourceContext() instead.', E_USER_DEPRECATED);
-
-        return \$this->getSourceContext()->getCode();
+        return array (  29 => 2,  27 => 4,  21 => 2,);
     }
 
     public function getSourceContext()

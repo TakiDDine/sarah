@@ -8,17 +8,27 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 
 class installController extends Controller{
-    public function install($request,$response) {
-                if($request->getMethod() == 'POST'){
-                   $dir = dirname(__DIR__);
-                    
-//                    $yes = ['a' => '1'];
-                    
-//                    $content = return $yes;
-                    
-                    
-//                    file_put_contents($dir."/test.php",$yes);
-                }
+    public function index($request,$response) {
+
+        
+if ((int)phpversion()[0] < 7) {
+    fwrite(
+        STDERR,
+        'Phan requires PHP version 7 or greater. See https://github.com/phan/phan#getting-started for more details.'
+    );
+    exit(1);
+}        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
         
         return $this->container->view->render($response,'install/install.twig');
     } 

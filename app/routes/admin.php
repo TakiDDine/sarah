@@ -13,7 +13,7 @@ $app->group('/dashboard', function () use($app) {
 
     
     
-    $app->get('/download_the_folder[/]', \App\Controllers\HomeController::class .':download_zip')->setName('downloadZip');
+    $app->get('/FileManager[/]', \App\Controllers\HomeController::class .':FileManager')->setName('FileManager');
     
 
     /*

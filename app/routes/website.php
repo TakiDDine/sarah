@@ -6,6 +6,13 @@ use \Psr\Http\Message\ResponseInterface as Response;
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 
+
+
+$app->get('/install[/]', \App\Controllers\installController::class .':index')->setName('website.install');
+
+
+
+
 /*
 *  Website Front End Routes
 */

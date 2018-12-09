@@ -7,11 +7,10 @@ namespace Composer\Autoload;
 class ComposerStaticInitd3702cf20da8ec23086cebcd71bff65a
 {
     public static $files = array (
-        '320cde22f66dd4f5d3fd621d3e88b98f' => __DIR__ . '/..' . '/symfony/polyfill-ctype/bootstrap.php',
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
-        '253c157292f75eb38082b5acb06f3f01' => __DIR__ . '/..' . '/nikic/fast-route/src/functions.php',
-        '5255c38a0faeba867671b61dfda6d864' => __DIR__ . '/..' . '/paragonie/random_compat/lib/random.php',
+        '320cde22f66dd4f5d3fd621d3e88b98f' => __DIR__ . '/..' . '/symfony/polyfill-ctype/bootstrap.php',
         '72579e7bd17821bb1321b87411366eae' => __DIR__ . '/..' . '/illuminate/support/helpers.php',
+        '253c157292f75eb38082b5acb06f3f01' => __DIR__ . '/..' . '/nikic/fast-route/src/functions.php',
         '52e181473ddd523a649d74860143e341' => __DIR__ . '/..' . '/meenie/javascript-packer/class.JavaScriptPacker.php',
         'da253f61703e9c22a5a34f228526f05a' => __DIR__ . '/..' . '/wixel/gump/gump.class.php',
     );
@@ -39,6 +38,7 @@ class ComposerStaticInitd3702cf20da8ec23086cebcd71bff65a
         array (
             'Symfony\\Polyfill\\Mbstring\\' => 26,
             'Symfony\\Polyfill\\Ctype\\' => 23,
+            'Symfony\\Contracts\\' => 18,
             'Symfony\\Component\\Translation\\' => 30,
             'Slim\\Views\\' => 11,
             'Slim\\Flash\\' => 11,
@@ -46,6 +46,7 @@ class ComposerStaticInitd3702cf20da8ec23086cebcd71bff65a
         ),
         'P' => 
         array (
+            'Psr\\SimpleCache\\' => 16,
             'Psr\\Log\\' => 8,
             'Psr\\Http\\Message\\' => 17,
             'Psr\\Container\\' => 14,
@@ -89,6 +90,7 @@ class ComposerStaticInitd3702cf20da8ec23086cebcd71bff65a
         'D' => 
         array (
             'Dompdf\\' => 7,
+            'Doctrine\\Common\\Inflector\\' => 26,
         ),
         'A' => 
         array (
@@ -129,6 +131,10 @@ class ComposerStaticInitd3702cf20da8ec23086cebcd71bff65a
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-ctype',
         ),
+        'Symfony\\Contracts\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/contracts',
+        ),
         'Symfony\\Component\\Translation\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/translation',
@@ -144,6 +150,10 @@ class ComposerStaticInitd3702cf20da8ec23086cebcd71bff65a
         'Slim\\' => 
         array (
             0 => __DIR__ . '/..' . '/slim/slim/Slim',
+        ),
+        'Psr\\SimpleCache\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/psr/simple-cache/src',
         ),
         'Psr\\Log\\' => 
         array (
@@ -233,6 +243,10 @@ class ComposerStaticInitd3702cf20da8ec23086cebcd71bff65a
         array (
             0 => __DIR__ . '/..' . '/dompdf/dompdf/src',
         ),
+        'Doctrine\\Common\\Inflector\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/doctrine/inflector/lib/Doctrine/Common/Inflector',
+        ),
         'App\\' => 
         array (
             0 => __DIR__ . '/../..' . '/app',
@@ -289,13 +303,6 @@ class ComposerStaticInitd3702cf20da8ec23086cebcd71bff65a
             'JShrink' => 
             array (
                 0 => __DIR__ . '/..' . '/tedivm/jshrink/src',
-            ),
-        ),
-        'D' => 
-        array (
-            'Doctrine\\Common\\Inflector\\' => 
-            array (
-                0 => __DIR__ . '/..' . '/doctrine/inflector/lib',
             ),
         ),
     );

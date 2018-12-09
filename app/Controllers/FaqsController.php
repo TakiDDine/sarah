@@ -20,20 +20,26 @@ class FaqsController  extends Controller {
                 $skip           = ($page - 1) * $limit;
                 $posts          = Faqs::skip($skip)->take($limit)->orderBy('created_at', 'desc')->get();
 
-                return $this->view->render($response, 'admin/faq/index.twig', [
-                    'pagination'    => [
-                        'needed'        => $count > $limit,
-                        'count'         => $count,
-                        'page'          => $page,
-                        'lastpage'      => $lastpage,
-                        'limit'         => $limit,
-                        'prev'          => $page-1,
-                        'next'          => $page+1,
-                        'start'          => max(1, $page - 4),
-                        'end'          => min($page + 4, $lastpage),
-                    ],
-                  'posts'=>$posts ,
-                ]);
+           
+    $result = array();
+    foreach ($posts->toArray() as $element) {
+        $result[$element['category']][] = $element;
+        
+        // هادي غير انا اللي زدتها ، باش تميز كل وحدة بالأيدي ديالها ، وأصلا راه فكرة ساهلة ، مالك محمقنا
+//        $result[$element['category']]['category'] = $element['category'];
+    }
+           
+           
+//           st($result,1);
+           
+           
+           
+           
+                return $this->view->render($response, 'admin/faq/index.twig', ['faqs'=>$result]);
+           
+
+        
+           
         }
 
     

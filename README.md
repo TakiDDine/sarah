@@ -46,13 +46,34 @@
 * رابط الإسترجاع لكلمة المرور صالح لمدة 30 دقيقة فقط 
 
 
-## البرمجة
-* added many functions to helper class
-* code refactoring and cleanup
+## To do in version 1.3 ( 20 Decembre 2018 )
+* save users sessions in database
+* organize html files & compress them automaticly, Remove all inline css ( 1 day )
+* organize the helpers (2 days)
+* add csrf security for each form in the admin indivudualy (1 day)
+* add permissions to controllers (1 day)
+* add the file manger  (1 day)
+* add users registred stats to dashboard  , use pie charts ( 1 day)
+* get visitors google analytics stats to dashboard home (1 day )
+* good idea for assets , grab it from here --> https://github.com/yakuzan/assets (0.5 day)
+* Prevent robots from indexing login and install of admin ( 3 houres)
+* add this library --> https://github.com/drmonkeyninja/social-share-url (3 houres)
+* add this library --> https://github.com/drmonkeyninja/cakephp-video-helper (3 houres)
+* add the api of mailchimp for the email list
 
 
-## To do
-* good idea for assets , grab it from here --> https://github.com/yakuzan/assets
-* 
 
+## To do in version 1.4 ( 1/1/2019 )
+* log the activites of users
+* make timer for ads
+
+
+
+
+
+**
+
+
+للتواصل / contact
+takiddine.job@gmail.com
 
