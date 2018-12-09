@@ -68,7 +68,10 @@
 * make timer for ads
 * send email to all users
 * ban ip's
-* 
+* add the progress bar with percentage when uploading files
+* add categories filter in post
+* create usermeta system
+* for the posts 
 
 
 
