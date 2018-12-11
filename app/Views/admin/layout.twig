@@ -48,8 +48,52 @@
     <!-- costum css -->
     <link href="{{ admin_assets }}css/costum.css" rel="stylesheet" type="text/css" />
 
+<style>
+    .empty_state_icon {
+    font-size: 176px;
+    opacity: 0.1;
+}
+    </style>
+      <style>
+    @media all and (min-width:0px) and (max-width: 600px) {
+
+.table-striped tr th {
+    display: none;
+}
+.table-striped tr td {
+    display: none;
+    border:none !important;
+}
+
+.table-striped tr th:nth-child(2) {
+    display: inline-block;
+    width:20% !important;
+}
+.table-striped tr th:nth-child(3) {
+    display: inline-block;
+    width:60% !important;
+}
+.table-striped tr th:last-child {
+    display: inline-block;
+    width:20% !important;
+}
 
 
+
+.table-striped tr td:nth-child(2) {
+    display: inline-block;
+    width:20% !important;
+}
+.table-striped tr td:nth-child(3) {
+    display: inline-block;
+    width:60% !important;
+}
+.table-striped tr td:last-child{
+    display: inline-block;
+    width:20% !important;
+}    
+    }
+</style> 
 
 
 <!-- Full width modal -->

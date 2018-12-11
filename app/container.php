@@ -310,6 +310,8 @@ $container['view']->getEnvironment()->addGlobal('cart', $maincart);
 
   
 
+
+
 /*
 *   Add admin to view
 */
@@ -327,23 +329,16 @@ if(isset($_SESSION['auth-user'])) {
 
 
 
-//
-//if(isset($_GET['lang'])){
-//    
-//    if(file_exists($file)):
-//        $container['view']->getEnvironment()->addGlobal('l', Config::load($file));
-//        $_SESSION['lang'] = Config::load($file);    
-//    endif;
-//}
-
-if(!isset($_SESSION['lang'])){
-    $file = BASEPATH.'/app/lang/admin/ar.php';
-    if(file_exists($file)):
-        $container['view']->getEnvironment()->addGlobal('l', Config::load($file));
-        $_SESSION['l'] = Config::load($file);    
-    endif;
+if(isset($_GET['lang'])) {
+    setcookie('lang', $_GET['lang'], time()+3600 , '/');
+    header('Location: http://sarah.local/dashboard/'); 
+    $file = BASEPATH.'/app/lang/admin/'.$_GET['lang'].'.php';
+    $container['view']->getEnvironment()->addGlobal('l', Config::load($file));
 }
+$lg = !isset($_COOKIE['lang']) ? 'en' : $_COOKIE['lang'];
 
+$file = BASEPATH.'/app/lang/admin/'.$lg.'.php';
+$container['view']->getEnvironment()->addGlobal('l', Config::load($file));
 
 
 

@@ -1,7 +1,7 @@
 <!-- Main navbar -->
 <div class="navbar navbar-inverse">
     <div class="navbar-header">
-        <a class="navbar-brand" href="{{path_for('admin.index')}}">لوحة التحكم</a>
+        <a class="navbar-brand" href="{{path_for('admin.index')}}">{{l.navbar.1}}</a>
 
         <ul class="nav navbar-nav visible-xs-block">
             <li><a data-toggle="collapse" data-target="#navbar-mobile"><i class="icon-tree5"></i></a></li>
@@ -12,7 +12,7 @@
     <div class="navbar-collapse collapse" id="navbar-mobile">
         <ul class="nav navbar-nav">
             <li><a class="sidebar-control sidebar-main-toggle hidden-xs "><i class="icon-paragraph-justify3"></i></a></li>
-            <li><a target="_blank" href="{{path_for('website.home')}}">زيارة الموقع</a></li>
+            <li><a target="_blank" href="{{path_for('website.home')}}">{{l.navbar.2}}</a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
            
@@ -25,8 +25,8 @@
 					</a>
 
 					<ul class="dropdown-menu">
-                            <li><a class="deutsch" href="?lang=ar"><img src="/admin_assets/images/ma.png" alt=""> العربية</a></li>
-                            <li><a class="deutsch" href="?lang=en"><img src="/admin_assets/images/gb.png" alt=""> English</a></li>
+                            <li><a class="deutsch" href="{{path_for('admin.index')}}?lang=ar"><img src="/admin_assets/images/ma.png" alt=""> العربية</a></li>
+                            <li><a class="deutsch" href="{{path_for('admin.index')}}?lang=en"><img src="/admin_assets/images/gb.png" alt=""> English</a></li>
             
 					</ul>
 				</li>
@@ -42,8 +42,8 @@
                 </a>
 
                 <ul class="dropdown-menu dropdown-menu-right">
-                    <li><a href="{{path_for('settings.account')}}"><i class="icon-cog5"></i> اعدادات الحساب</a></li>
-                    <li><a href="{{path_for('logout')}}"><i class="icon-switch2"></i> تسجيل الخروج</a></li>
+                    <li><a href="{{path_for('settings.account')}}"><i class="icon-cog5"></i> {{l.navbar.3}}</a></li>
+                    <li><a href="{{path_for('logout')}}"><i class="icon-switch2"></i>{{l.navbar.4}}</a></li>
                 </ul>
             </li>
         </ul>

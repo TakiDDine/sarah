@@ -43,39 +43,41 @@
  <a href="javascript:void(0);" data-toggle="modal" data-target="#modal_iconified" class="btn bg-danger btn-labeled heading-btn"><b><i class="icon-trash"></i></b>{{l.orders.5}}</a>
                         
                         </div>
-		            <!-- Iconified modal -->
-					<div id="modal_iconified" class="modal fade">
-						<div class="modal-dialog">
-							<div class="modal-content">
-								<div class="modal-header">
-									<button type="button" class="close" data-dismiss="modal">&times;</button>
-									<h5 class="modal-title"><i class="icon-menu7"></i> &nbsp;تنبيه وتحذير</h5>
-								</div>
 
-								<div class="modal-body">
-									<div class="alert alert-info alert-styled-left text-blue-800 content-group">
-						                <span class="text-semibold">رجاء !</span> انتبه من الخطوة التالية.
-						                <button type="button" class="close" data-dismiss="alert">×</button>
-						            </div>
+                
+    <div id="modal_iconified" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">×</button>
+                <h5 class="modal-title"><i class="icon-menu7"></i> &nbsp;{{l.bulk_modal.1}}</h5>
+            </div>
 
-									<h6 class="text-semibold"><i class="icon-law position-left"></i> حذف البيانات</h6>
-									<p>عند قيامك بحذف كل الأعضاء فأنت تتحمل كامل المسؤولية ، لا يمكن التراجع عن هذه الخطوة فور اتخاذها 
-									<br>
-									رجاءً، خذ نسخة احتياطية قبل اتخاذ هذا القرار
-									</p>
+            <div class="modal-body">
+                <div class="alert alert-info alert-styled-left text-blue-800 content-group">
+                    {{l.bulk_modal.2}}
+                    <button type="button" class="close" data-dismiss="alert">×</button>
+                </div>
+                {{l.bulk_modal.4}}
+                <p>
+                <br>
+                </p>
+            </div>
 
-									
-								</div>
+            <div class="modal-footer">
+                <a href="{{ path_for('orders.blukdelete') }}" class="btn btn-link text-danger">
+                {{l.bulk_modal.6}}</a>
+                <button class="btn btn-primary" data-dismiss="modal"> {{l.bulk_modal.7}} </button>
+            </div>
+        </div>
+    </div>
+    </div> 
 
-								<div class="modal-footer">
-									<a href="{{path_for('orders.blukdelete')}}" class="btn btn-link text-danger"  >
-									 أنا موافق ، رجاءً قم بحذف كل البيانات</a>
-									<button class="btn btn-primary" data-dismiss="modal"> اغلاق </button>
-								</div>
-							</div>
-						</div>
-					</div>
-					<!-- /iconified modal -->
+                
+                
+                
+                
+                
 					{% endif %}
 					</div>
 				</div>
