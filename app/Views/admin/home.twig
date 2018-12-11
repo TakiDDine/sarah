@@ -13,23 +13,20 @@
 <!-- header -->
 <div class="panel panel-flat">
     <div class="panel-heading">
-    <h2 class="panel-title">
-        مرحبا بك في لوحة التحكم ! <br>
-        <small>جمعنا لك بعض الروابط لمساعدتك على البدء:</small>
-    </h2>
+    <h2 class="panel-title">{{l.home.0}} <br><small>{{l.home.1}}</small></h2>
     </div>
     <div class="panel-body">
         <ul class="col-md-6 list list-icons">
-            <h4>الخطوات الأولى !</h4>
+            <h4>{{l.home.2}}</h4>
             <li>
-            <a href="{{path_for('posts.create')}}"><i class="icon-plus3"></i> اكتب مقالتك الأولى</a>
+            <a href="{{path_for('posts.create')}}"><i class="icon-plus3"></i> {{l.home.3}}</a>
             </li>
-            <li><a href="{{path_for('pages.create')}}"><i class="icon-plus3"></i> اضف صفحتك الجديدة</a></li>
+            <li><a href="{{path_for('pages.create')}}"><i class="icon-plus3"></i> {{l.home.4}}</a></li>
         </ul>
         <ul class='col-md-6 list list-icons'>
-            <h4>المزيد من الإجراءات !</h4>
-            <li><a href="{{path_for('settings.general')}}"><i class="icon-gear"></i> اعدادات الموقع </a> </li>
-            <li><a href="{{path_for('settings.account')}}"><i class="icon-comment-discussion"></i>    اعدادات حسابي    </a> </li>
+            <h4>{{l.home.5}}</h4>
+            <li><a href="{{path_for('settings.general')}}"><i class="icon-gear"></i>{{l.home.6}} </a> </li>
+            <li><a href="{{path_for('settings.account')}}"><i class="icon-comment-discussion"></i> {{l.home.7}}  </a> </li>
         </ul>									
     </div>
 </div>			
@@ -43,7 +40,7 @@
                 <div class="media no-margin">
                     <div class="media-body">
                         <h3 class="no-margin">{{count.products}}</h3>
-                        <span class="text-uppercase text-size-mini">مجموع المنتجات</span>
+                        <span class="text-uppercase text-size-mini"> {{l.home.8}} </span>
                     </div>
                     <div class="media-right media-middle">
                         <i class="icon-basket icon-3x opacity-75"></i>
@@ -58,7 +55,7 @@
                     <div class="media no-margin">
                         <div class="media-body">
                             <h3 class="no-margin">{{count.posts}}</h3>
-                            <span class="text-uppercase text-size-mini">مجموع المقالات</span>
+                            <span class="text-uppercase text-size-mini">{{l.home.9}}</span>
                         </div>
                         <div class="media-right media-middle">
                             <i class="icon-file-empty2 icon-3x opacity-75"></i>
@@ -73,7 +70,7 @@
                     <div class="media no-margin">
                     <div class="media-body text-left">
                             <h3 class="no-margin">{{count.users}}</h3>
-                            <span class="text-uppercase text-size-mini">مجموع الأعضاء</span>
+                            <span class="text-uppercase text-size-mini">{{l.home.10}}</span>
                         </div>
                         <div class="media-right media-middle">
                             <i class="icon-users2 icon-3x opacity-75"></i>
@@ -88,7 +85,7 @@
                     <div class="media no-margin">
                         <div class="media-body text-left">
                             <h3 class="no-margin">{{count.emails}}</h3>
-                            <span class="text-uppercase text-size-mini">مجموع الرسائل</span>
+                            <span class="text-uppercase text-size-mini">{{l.home.11}}</span>
                         </div>
                         <div class="media-right media-middle">
                             <i class="icon-envelop2 icon-3x opacity-75"></i>
@@ -111,7 +108,7 @@
 
             <div class="media-body text-right">
                 <h3 class="no-margin text-semibold item facebook"><span class="count">2020</span></h3>
-                <span class="text-uppercase text-size-mini text-muted">معجب</span>
+                <span class="text-uppercase text-size-mini text-muted">{{l.home.12}}</span>
             </div>
         </div>
     </div>
@@ -125,7 +122,7 @@
 
             <div class="media-body text-right">
                 <h3 class="no-margin text-semibold item twitter"><span class="count"></span></h3>
-                <span class="text-uppercase text-size-mini text-muted">متابع</span>
+                <span class="text-uppercase text-size-mini text-muted">{{l.home.13}}</span>
             </div>
         </div>
     </div>
@@ -135,7 +132,7 @@
         <div class="media no-margin">
             <div class="media-body">
                 <h3 class="no-margin text-semibold item youtube"><span class="count"></span></h3>
-                <span class="text-uppercase text-size-mini text-muted">مشترك</span>
+                <span class="text-uppercase text-size-mini text-muted">{{l.home.14}}</span>
             </div>
 
             <div class="media-right media-middle" style="color:#c4302b;">
@@ -150,7 +147,7 @@
         <div class="media no-margin">
             <div class="media-body ">
                 <h3 class="no-margin text-semibold item instagram"><span class="count"></span></h3>
-                <span class="text-uppercase text-size-mini text-muted">متابع</span>
+                <span class="text-uppercase text-size-mini text-muted">{{l.home.15}}</span>
             </div>
             <div class="media-right media-middle" style="color:#8a3ab9;">
                 <i class="icon-instagram icon-3x"></i>
@@ -166,7 +163,7 @@
         <div class="col-md-4">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <h6 class="panel-title">معلومات عامة
+                    <h6 class="panel-title">{{l.home.16}}
                         <a class="heading-elements-toggle"><i class="icon-more"></i></a>
                     </h6>
                     <div class="heading-elements">
@@ -179,23 +176,23 @@
                 <div class="panel-body">
                     <table class="table border-dashed no-border">
                             <tr>
-                                <td>نسخة لوحة التحكم</td>
+                                <td>{{l.home.17}}</td>
                                 <td>1.0</td>
                             </tr>
                             <tr>
-                                <td>نسخة php</td>
+                                <td>{{l.home.18}}</td>
                                 <td>{{info.phpversion}}</td>
                             </tr>
                             <tr>
-                                <td>نسخة mysql</td>
+                                <td>{{l.home.19}}</td>
                                 <td>{{info.mysqlversion}}</td>
                             </tr>
                             <tr>
-                                <td>  حجم ملفات الموقع</td>
+                                <td> {{l.home.20}}</td>
                                 <td>{{info.filesize}}</td>
                             </tr>
                             <tr>
-                                <td>  حجم قاعدة البيانات </td>
+                                <td> {{l.home.21}} </td>
                                 <td>{{info.databasesize}}</td>
                             </tr>
                         </table>
@@ -205,7 +202,7 @@
         <div class="col-md-4">
            <div class="panel panel-default">
                 <div class="panel-heading">
-                    <h6 class="panel-title">حالة الطقس ب الدار البيضاء
+                    <h6 class="panel-title">{{l.home.22}}
                         <a class="heading-elements-toggle"><i class="icon-more"></i></a>
                     </h6>
                     <div class="heading-elements">
@@ -216,26 +213,27 @@
                     </div>
                 </div>
 
+               
                 <div class="panel-body">
                     <table class="table border-dashed no-border">
                             <tr>
-                                <td>درجة الحرارة</td>
+                                <td>{{l.home.23}}</td>
                                 <td>{{temp.temp}}c</td>
                             </tr>
                             <tr>
-                                <td>الرطوبة</td>
+                                <td>{{l.home.24}}</td>
                                 <td>{{temp.Humidity|raw}}</td>
                             </tr>
                             <tr>
-                                <td>سرعة الرياح</td>
+                                <td>{{l.home.25}}</td>
                                 <td>{{temp.Wind|raw}}</td>
                             </tr>
                             <tr>
-                                <td> شروق الشمس </td>
+                                <td> {{l.home.26}} </td>
                                 <td>{{temp.Sunrise|raw}}</td>
                             </tr>
                             <tr>
-                                <td>  غروب الشمس </td>
+                                <td>  {{l.home.27}} </td>
                                 <td>{{temp.Sunset|raw}}</td>
                             </tr>
                         </table>
@@ -245,7 +243,7 @@
 </div>
 <!-- info -->	
 
-<div class="footer text-muted text-size-small">لوحة تحكم أفراس®  الحقوق 2018 © شكراً لثقك بنا.</div>
+
 
 
 </div>

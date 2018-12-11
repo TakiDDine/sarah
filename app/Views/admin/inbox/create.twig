@@ -1,6 +1,6 @@
 {% extends "admin/layout.twig" %}
 
-{% block title %} اضافة مقالة جديدة {% endblock %}
+{% block title %} {{l.inboxcreate.300}} {% endblock %}
 
 
 {% block content %}
@@ -32,7 +32,7 @@
 				<div class="page-header page-header-transparent">
 					<div class="page-header-content">
 						<div class="page-title">
-							<h1> <span class="text-semibold">ارسال اميل جديد</span></h1>
+							<h1> <span class="text-semibold">{{l.inboxcreate.300}}</span></h1>
 						</div>
 
                     
@@ -56,16 +56,16 @@
 
 <div class="col-md-8">								
     <div class="form-group">
-        <label>اميل المستقبل </label>
+        <label>{{l.inboxcreate.301}}</label>
         <input type="email" class="form-control frequired" name="reciever_email" placeholder="اميل المستقبل" value="{{old.reciever_email}}" />
     </div>
     <div class="form-group">
-        <label> عنوان الإميل </label>
+        <label> {{l.inboxcreate.302}} </label>
         <input type="text" class="form-control frequired" name="subject" placeholder=" عنوان الإميل" value="{{old.subject}}" />
     </div>	
     <textarea name="body" id="posteditor" >{{old.body}}</textarea>
     <br>
-    <button type="submit" class="btn btn-block btn-primary">ارسال الإميل <i class="icon-arrow-left13 position-right"></i></button>
+    <button type="submit" class="btn btn-block btn-primary">{{l.inboxcreate.303}}<i class="icon-arrow-left13 position-right"></i></button>
     <br>
     <div id="result"></div>
 </div>					
@@ -80,7 +80,7 @@
 											<i class="icon-info3"></i>
 										</span>
 
-											هل تحتاج مساعدة ؟
+											{{l.inboxcreate.304}}
 										
 									</h5>
 
@@ -88,29 +88,29 @@
 									<ul class="list list-icons">
 										<li>
 											<i class="icon-checkmark-circle text-success position-left"></i>
-											<b>اميل المستقبل</b>
+											<b>{{l.inboxcreate.305}}</b>
 											<br>
-											<p class="mg10">هو اميل الشخص الذي سترسل له الرسالة</p>
+											<p class="mg10">{{l.inboxcreate.306}}</p>
 										</li>
 										<li>
 											<i class="icon-checkmark-circle text-success position-left"></i>
-											<b>عنوان الإميل </b>
+											<b>{{l.inboxcreate.307}} </b>
 											<br>
-											<p class="mg10">العنوان سيظهر للمستخدم قبل فتح الرسالة في علبته</p>
+											<p class="mg10">{{l.inboxcreate.308}}</p>
 										</li>                                        
 								            <li>
 											<i class="icon-checkmark-circle text-success position-left"></i>
-											<b>نص الرسالة</b>
+											<b>{{l.inboxcreate.309}}</b>
 											<br>
-											<p class="mg10"> هو الرسالة التي سترسلها ،  تكتب الرسالة في الخانة الثالثة </p>
+											<p class="mg10"> {{l.inboxcreate.310}} </p>
 										</li>
 										
 									<li>
 								<i class="icon-checkmark-circle text-success position-left"></i>
-											<b>ارسال الرسالة</b>
+											<b>{{l.inboxcreate.311}}</b>
 											<br>
 											<p class="mg10">
-											   اضغط ارسال الرسالة ، الزر باللون الأزرق عند انتهائك من أجل ارسالها
+											   {{l.inboxcreate.312}}
 											</p>
 										</li>										
 										

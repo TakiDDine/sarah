@@ -1,6 +1,6 @@
 {% extends "admin/layout.twig" %}
 
-{% block title %}  الأعضاء | {{ user.username}}  {% endblock %}
+{% block title %}  {{l.usersedit.2}} | {{ user.username}}  {% endblock %}
 
 
 {% block content %}
@@ -17,7 +17,7 @@
 <div class="page-header page-header-transparent">
     <div class="page-header-content">
         <div class="page-title">
-            <h1> <span class="text-semibold">تعديل الحساب</span></h1>
+            <h1> <span class="text-semibold">{{l.usersedit.3}}</span></h1>
         </div>
      </div>
 </div>
@@ -35,7 +35,7 @@
 <!-- صورة الحساب -->		
 <div class="panel panel-flat">
     <div class="panel-heading">
-        <h5 class="panel-title">صورة الحساب</h5>
+        <h5 class="panel-title">{{l.usersedit.4}}</h5>
     </div>
     <div class="panel-body">
         <div class="row">
@@ -45,10 +45,12 @@
             <br>
             <br>
             <center>
-                <label for="avatarUploadPreview" class="btn btn-danger btn-rounded"><i class="icon-image2 position-left"></i> اختيار الصورة</label>
+                <label for="avatarUploadPreview" class="btn btn-danger btn-rounded"><i class="icon-image2 position-left"></i>
+                {{l.usersedit.5}}
+                </label>
             </center>
             
-            <p class="text-center text-muted">الصيغ المسموح بها : png, jpg</p>
+            <p class="text-center text-muted"> {{l.usersedit.6}}</p>
             <input name="avatar" id="avatarUploadPreview" accept="image/jpg, image/jpeg, image/png" style="visibility:hidden;" type="file" />
         </div>
     </div>
@@ -59,8 +61,8 @@
 <!-- المعلومات الشخصية -->			
 <div class="panel panel-flat">
     <div class="panel-heading">
-        <h5 class="panel-title">تعديل المعلومات الشخصية</h5>
-        <p>لا تقلق ، كل المعلومات آمنة ، لا نشاركها مع أية جهة</p>
+        <h5 class="panel-title">{{l.usersedit.7}}</h5>
+        <p>{{l.usersedit.8}}</p>
     </div>
     
     <div class="panel-body">
@@ -70,13 +72,13 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label>اسم المستخدم:</label>
+                                <label>{{l.usersedit.9}}</label>
                                 <input type="text" class="form-control frequired" value="{{user.username}}" name="username" placeholder="@username">
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label>الإسم الكامل:</label>
+                                <label>{{l.usersedit.10}}</label>
                                 <input type="text" class="form-control" value="{{user.full_name}}" name="full_name" placeholder="اسمك الحقيقي الكامل">
                             </div>
                         </div>                        
@@ -84,13 +86,13 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label>البريد الإلكتروني:</label>
+                                <label>{{l.usersedit.11}}</label>
                                 <input type="text" class="form-control frequired" value="{{user.email}}" name="email" placeholder="البريد الإلكتروني">
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label>رقم الهاتف :</label>
+                                <label>{{l.usersedit.12}}</label>
                                 <input type="text" class="form-control" value='{{user.phone}}' name="phone" placeholder="رقم الهاتف">
                             </div>
                         </div>
@@ -98,7 +100,7 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label>الدولة:</label>
+                                <label>{{l.usersedit.13}}</label>
                                 <select style="width:100%;" class="country" name="country">
                                     {% for key,country in countries %}
                                         <option value="{{key}}">{{country}}</option>
@@ -108,24 +110,24 @@
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label>تاريخ الميلاد:</label>
+                                <label>{{l.usersedit.14}}</label>
                                 <input type="date" placeholder="ادخل تاريخ الميلاد" class="form-control">
                             </div>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="display-block">الجنس:</label>
+                        <label class="display-block">{{l.usersedit.15}}</label>
                         <label class="radio-inline">
 							<input type="radio" value='male' class="styled" name="gender" {% if user.gender  == 'male' %} checked="checked" {% endif %}>
-												مذكر
+												{{l.usersedit.16}}
 								</label>
                         <label class="radio-inline">
 							<input type="radio" value='female' class="styled" name="gender" {% if user.gender  == 'female' %} checked="checked" {% endif %}>
-												أنثى
+												{{l.usersedit.17}}
 						</label>
                     </div>
                     <div class="form-group">
-                        <label>نبذة تعريفية:</label>
+                        <label>{{l.usersedit.18}}</label>
                         <textarea name="description" class='form-control' cols="5" rows="5" placeholder="ادخل النبذة التعريفية هنا">{{user.description}}</textarea>
                     </div>
                 </fieldset>
@@ -139,8 +141,8 @@
 <!-- كلمة المرور -->										
 <div class="panel panel-flat">
     <div class="panel-heading">
-        <h3 class="panel-title">تعديل كلمة المرور</h3>
-        <p>تذكر ، كلمة المرور يجب ان تكون قوية وغير متداولة ، من أجل حمايتك !</p>
+        <h3 class="panel-title">{{l.usersedit.19}}</h3>
+        <p>{{l.usersedit.20}}</p>
     </div>
     <div class="panel-body">
         <fieldset class="content-group">
@@ -155,7 +157,7 @@
                 </div>
             </div>
             <div class="col-md-3">
-                <a onclick="password_generator()" class="btn btn-primary">انشاء كلمة مرور قوية </a>
+                <a onclick="password_generator()" class="btn btn-primary">{{l.usersedit.21}}</a>
             </div>
         </fieldset>
     </div>
@@ -165,12 +167,12 @@
 <!-- السوشيال ميديا -->
 <div class="panel panel-flat">
     <div class="panel-heading">
-        <h3 class="panel-title">روابط السوشيال ميديا</h3>
+        <h3 class="panel-title">{{l.usersedit.22}}</h3>
     </div>
     <div class="panel-body">
         <div class="row">
             <div class="form-group">
-                <label class="control-label col-lg-2">الفيسبوك</label>
+                <label class="control-label col-lg-2">{{l.usersedit.23}}</label>
                 <div class="col-lg-10">
                     <input type="text" class="form-control" value="{{user.facebook}}" name="facebook" placeholder="facebook">
                 </div>
@@ -179,7 +181,7 @@
         <br>
         <div class="row">
             <div class="form-group">
-                <label class="control-label col-lg-2">تويتر</label>
+                <label class="control-label col-lg-2">{{l.usersedit.24}}</label>
                 <div class="col-lg-10">
                     <input type="text" class="form-control" value="{{user.twitter}}" name="twitter" placeholder="twitter">
                 </div>
@@ -188,7 +190,7 @@
         <br>
         <div class="row">
             <div class="form-group">
-                <label class="control-label col-lg-2">يوتيوب</label>
+                <label class="control-label col-lg-2">{{l.usersedit.25}}</label>
                 <div class="col-lg-10">
                     <input type="text" class="form-control" value='{{user.youtube}}' name="youtube" placeholder="youtube">
                 </div>
@@ -201,7 +203,7 @@
 
 <!-- تحديث البيانات -->
 <div class="text-right">
-<button type="submit" class="btn btn-block btn-primary">تحديث البيانات <i class="icon-arrow-left13 position-right"></i></button>
+<button type="submit" class="btn btn-block btn-primary">{{l.usersedit.26}}<i class="icon-arrow-left13 position-right"></i></button>
 </div>
 <!--// تحديث البيانات -->  
 <br>
@@ -222,20 +224,20 @@
 
     <div class="panel panel-white">
         <div class="panel-heading ">
-            <h6 class="panel-title">الحساب</h6>
+            <h6 class="panel-title">{{l.usersedit.27}}</h6>
         </div>
 
         <div class="list-group no-border no-padding-top">
 
-            <a onclick="document.getElementById('blockuserForm').submit();" class="list-group-item text-indigo-400"><i class="icon-user-cancel"></i> حظر الحساب</a>
+            <a onclick="document.getElementById('blockuserForm').submit();" class="list-group-item text-indigo-400"><i class="icon-user-cancel"></i> {{l.usersedit.28}}</a>
 
-            <a onclick="document.getElementById('ActivateuserForm').submit();" class="list-group-item text-success"><i class="icon-user-check"></i> تفعيل الحساب</a>
-            <a onclick="document.getElementById('DeleteuserForm').submit();" class="list-group-item text-danger"><i class="icon-user-minus"></i>  حذف الحساب</a>
+            <a onclick="document.getElementById('ActivateuserForm').submit();" class="list-group-item text-success"><i class="icon-user-check"></i> {{l.usersedit.29}}</a>
+            <a onclick="document.getElementById('DeleteuserForm').submit();" class="list-group-item text-danger"><i class="icon-user-minus"></i>  {{l.usersedit.30}}</a>
 
         </div>
     </div>
 
-    <div class="panel panel-white">
+    <div class="panel panel-white hidden">
         <div class="panel-heading">
             <h6 class="panel-title">تعيين المستخدم ك :</h6>
         </div>
@@ -252,7 +254,7 @@
     </div>
 
 
-    <div class="panel panel-white">
+    <div class="panel panel-white hidden">
         <div class="panel-heading">
             <h6 class="text-semibold panel-title">
                 تحميل نسخة من المعلومات

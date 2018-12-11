@@ -1,5 +1,6 @@
 {% extends "admin/layout.twig" %}
-{% block title %} الإعدادات العامة {% endblock %}
+{% block title %} {{l.settings.114}} {% endblock %}
+
 
 {% block content %}
 
@@ -10,12 +11,12 @@
 <div class="page-header page-header-transparent">
     <div class="page-header-content">
         <div class="page-title">
-            <h1> <span class="text-semibold">الإعدادات</span></h1>
+            <h1> <span class="text-semibold">{{l.settings.114}}</span></h1>
         </div>
 
         <div class="heading-elements">
-            <a href="?export=database" class="btn bg-blue btn-labeled heading-btn"><b><i class="icon-download"></i></b> تحميل قاعدة البيانات</a>
-            <a href="{{ path_for('logs')}}" class="btn bg-blue heading-btn"> سجل التعديلات</a>
+            <a href="?export=database" class="btn bg-blue btn-labeled heading-btn"><b><i class="icon-download"></i></b> {{l.settings.116}}</a>
+            <a href="{{ path_for('logs')}}" class="btn bg-blue heading-btn"> {{l.settings.117}}</a>
 
 
         </div>
@@ -29,8 +30,8 @@
 <div class="col-md-8">
 	<div class="panel panel-flat">
 		<div class="panel-heading no-padding-bottom">
-			<h3 class="panel-title">المعلومات الخاصة بالموقع</h3>
-			<p class="no-margin-bottom">المرجوا ادخال المعلومات التالية بعناية</p>
+			<h3 class="panel-title">{{l.settings.118}}</h3>
+			<p class="no-margin-bottom">{{l.settings.119}}</p>
 		</div>
 		<div class="panel-body">
 			<form class="form-horizontal" id="generalSettings" method="post" action="{{path_for('settings.general')}}" enctype='multipart/form-data'>
@@ -56,10 +57,11 @@
                     </style>
 					
 					<div class="form-group">
-						<label class="control-label col-lg-3">شعار الموقع</label>
+						<label class="control-label col-lg-3">{{l.settings.120}}</label>
 						<div class="col-lg-9">
 							<div class="col-lg-3">
-							   <label for="logo" class="btn btn-danger btn-rounded"><i class="icon-image2 position-left"></i> اختيار الصورة </label>
+							   <label for="logo" class="btn btn-danger btn-rounded"><i class="icon-image2 position-left"></i>
+							    {{l.settings.121}}</label>
 							   <input name="logo" id="logo" accept="image/jpg, image/jpeg, image/png" style="visibility:hidden;" type="file" />
 						</div>
 						</div>
@@ -73,10 +75,10 @@
 					</div>
 					
 					<div class="form-group">
-						<label class="control-label col-lg-3">ايقونة الموقع </label>
+						<label class="control-label col-lg-3">{{l.settings.122}} </label>
 						<div class="col-lg-9">
 							<div class="col-lg-3">
-							   <label for="favicon" class="btn btn-danger btn-rounded"><i class="icon-image2 position-left"></i> اختيار الصورة </label>
+							   <label for="favicon" class="btn btn-danger btn-rounded"><i class="icon-image2 position-left"></i> اختيار {{l.settings.123}} </label>
 							   <input name="favicon" id="favicon" accept="image/jpg, image/jpeg, image/png" style="visibility:hidden;" type="file" />
 						</div>
 						</div>
@@ -91,93 +93,94 @@
 					</div>
 					<hr>
 					<div class="form-group">
-						<label class="control-label col-lg-3">اسم الموقع</label>
+						<label class="control-label col-lg-3">{{l.settings.124}}</label>
 						<div class="col-lg-9">
-							<input type="text" class="form-control frequired" value="{{ 'name'|options }}" name="name" placeholder="اسم الموقع">
+							<input type="text" class="form-control frequired" value="{{ 'name'|options }}" name="name" 
+							placeholder="{{l.settings.124}}" />
 						</div>
 					</div>
 					<div class="form-group">
-						<label class="control-label col-lg-3">سطر الوصف</label>
+						<label class="control-label col-lg-3">{{l.settings.125}}</label>
 						<div class="col-lg-9">
 							<input type="text" class="form-control"  value="{{ 'description'|options }}" name="description" placeholder="اسم الموقع">
-							<p>بكلمات قليلة، أكتب نبذة قصيرة عن الموقع.</p>
+							<p>{{l.settings.126}}</p>
 						</div>
 					</div>	
 					<div class="form-group">
-						<label class="control-label col-lg-3">الكلمات المفتاحية</label>
+						<label class="control-label col-lg-3">{{l.settings.127}}</label>
 						<div class="col-lg-9">
 							<textarea name="keywords" class="form-control" rows="3">{{ 'keywords'|options }}</textarea>
 						</div>
 					</div>				
 					<div class="form-group">
-						<label class="control-label col-lg-3">حالة الموقع</label>
+						<label class="control-label col-lg-3">{{l.settings.128}}</label>
 						<div class="col-lg-9">
 							<select name="mode" class="form-control">
                                {% if 'mode'|options  == '1' %}
-                                <option value="1" class="form-control">يعمل</option>
-                                <option value="2" class="form-control">حالة الصيانة</option>
+                                <option value="1" class="form-control">{{l.settings.129}}</option>
+                                <option value="2" class="form-control">{{l.settings.130}}</option>
                                 {% endif %}
                                 
                                 {% if 'mode'|options  == '2' %}
-                                <option value="2" class="form-control">حالة الصيانة</option>
-                                <option value="1" class="form-control">يعمل</option>
+                                <option value="2" class="form-control">{{l.settings.130}}</option>
+                                <option value="1" class="form-control">{{l.settings.129}}</option>
                                 {% endif %}
                                 
                             </select>
 						</div>
 					</div>
 					<div class="form-group">
-						<label class="control-label col-lg-3">السماح بالتعليقات</label>
+						<label class="control-label col-lg-3">{{l.settings.133}}</label>
 						<div class="col-lg-9">
 							<select name="statue" class="form-control">
-                                <option value="1" class="form-control">السماح بالتعليق</option>
-                                <option value="2" class="form-control">غلق التعليقات</option>
+                                <option value="1" class="form-control">{{l.settings.134}}</option>
+                                <option value="2" class="form-control">{{l.settings.135}}</option>
                             </select>
 						</div>
 					</div>	
 					<div class="form-group">
-						<label class="control-label col-lg-3">اللغة الرسمية للموقع</label>
+						<label class="control-label col-lg-3">{{l.settings.136}}</label>
 						<div class="col-lg-9">
 							<select name="statue" class="form-control">
-                                <option value="1" class="form-control">العربية</option>
-                                <option value="2" class="form-control">الإنجليزية</option>
+                                <option value="1" class="form-control">{{l.settings.137}}</option>
+                                <option value="2" class="form-control">{{l.settings.138}}</option>
                             </select>
 						</div>
 					</div>	
 					<div class="form-group">
-						<label class="control-label col-lg-3">رقم الهاتف</label>
+						<label class="control-label col-lg-3">{{l.settings.139}}</label>
 						<div class="col-lg-9">
 							<input type="text" class="form-control" value="{{ 'phone'|options }}" name="phone" placeholder="رقم الهاتف" />
 						</div>
 					</div>
 					<div class="form-group">
-						<label class="control-label col-lg-3">البريد الإلكتروني</label>
+						<label class="control-label col-lg-3">{{l.settings.140}}</label>
 						<div class="col-lg-9">
 							<input type="text" value="{{ 'email'|options }}" class="form-control" name="email" placeholder="البريد الإلكتروني" />
 						</div>
 					</div>	
 					<div class="form-group">
-						<label class="control-label col-lg-3">العنوان على ارض الواقع</label>
+						<label class="control-label col-lg-3">{{l.settings.141}}</label>
 						<div class="col-lg-9">
 							<input type="text" value="{{ 'adress'|options }}" class="form-control" name="adress" placeholder="العنوان على ارض الواقع" />
 						</div>
 					</div>		
 					
                     <div class="form-group">
-						<label class="control-label col-lg-3">رمز Google Analitycs</label>
+						<label class="control-label col-lg-3">{{l.settings.142}}</label>
 						<div class="col-lg-9">
 							<input type="text" value="{{ 'ganalitycs'|options }}" class="form-control" name="ganalitycs" placeholder="رمز Google Analitycs" />
 						</div>
 					</div>	
                     
                     <div class="form-group">
-						<label class="control-label col-lg-3">رابط تطبيق على جوجل بلاي</label>
+						<label class="control-label col-lg-3">{{l.settings.143}}</label>
 						<div class="col-lg-9">
 							<input type="text" value="" class="form-control" name="" placeholder="Google play App link" />
 						</div>
 					</div>	                    
                     <div class="form-group">
-						<label class="control-label col-lg-3">رابط تطبيق على ابل ستور</label>
+						<label class="control-label col-lg-3">{{l.settings.144}}</label>
 						<div class="col-lg-9">
 							<input type="text" value="" class="form-control" name="" placeholder="Apple Store App link" />
 						</div>
@@ -193,7 +196,7 @@
 				</fieldset>
 				<div class="text-right">
 					<input type="hidden" name="validate" value="general_settings">
-					<button type="submit" class="btn btn-primary">تحديث المعلومات<i class="icon-arrow-left13 position-right"></i></button>
+					<button type="submit" class="btn btn-primary">{{l.settings.145}}<i class="icon-arrow-left13 position-right"></i></button>
 				</div>
 				<br>
 				<div id="result"></div>
@@ -209,7 +212,7 @@
 											<i class="icon-info3"></i>
 										</span>
 
-											هل تحتاج مساعدة ؟
+											{{l.settings.146}}
 										
 									</h5>
 
@@ -217,28 +220,28 @@
 									<ul class="list list-icons">
 										<li>
 											<i class="icon-checkmark-circle text-success position-left"></i>
-											<b>شعار الموقع</b>
+											<b>{{l.settings.147}}</b>
 											<br>
-											<p class="mg10">الشعار يوجد في جميع الصفحات في الأعلى،</p>
+											<p class="mg10">{{l.settings.148}}</p>
 										</li>
 										<li>
 											<i class="icon-checkmark-circle text-success position-left"></i>
-											<b>ايقونة الموقع</b>
+											<b>{{l.settings.149}}</b>
 											<br>
-											<p class="mg10">هي تلك الأيقونة التي تظهر بجانب الإسم في توبيب المتصفح</p>
+											<p class="mg10">{{l.settings.150}}</p>
 										</li>                                        
 								            <li>
 											<i class="icon-checkmark-circle text-success position-left"></i>
-											<b>الكلمات المفتاحية</b>
+											<b>{{l.settings.151}}</b>
 											<br>
-											<p class="mg10"> تساعدك في الظهور بشكل فعال في محركات البحث ، يستحسن ان تضع فيها كلمات دلالية على محتوى موقعك </p>
+											<p class="mg10">{{l.settings.152}}</p>
 										</li>
 										<li>
 											<i class="icon-checkmark-circle text-success position-left"></i>
-											<b>رمز Google Analitycs</b>
+											<b>{{l.settings.153}}</b>
 											<br>
 											<p class="mg10">
-											    هذا الرمز يمكنك الحصول عليه عند اضافة موقعك الى احصيئات جوجل
+											    {{l.settings.154}}
 											</p>
 										</li>
 																	
@@ -249,31 +252,8 @@
         </div>
         
 							
-							
-							
+
         
-        <style>
-        .ads-preview img {
-    width: 100%;
-}
-        </style>
-        <div class="panel panel-flat"  style="display:none;" id="ads-show"> 
-        <div class="panel-heading">
-            معاينة الإعلان
-            <div  class="heading-elements"  >
-            
-            <ul class="icons-list">
-                <li style="display:none" id='delete-ad'><a onclick="clean()" ><i class="icon-cross2 position-right" ></i> حذف الصورة </a></li>
-            </ul>
-            
-            
-            
-            </div>
-            
-            
-        </div>
-    
-</div>
     </div>
 
 </div>

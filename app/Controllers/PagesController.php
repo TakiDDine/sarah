@@ -66,8 +66,7 @@ class PagesController extends Controller {
                 return $response->withRedirect($this->router->pathFor('posts'));        
           }
 
-          $categories = PostsCategories::all();
-          return $this->view->render($response,'admin/posts/create.twig',compact('categories')); 
+          return $this->view->render($response,'admin/pages/create.twig'); 
     }
     
     public function delete($request,$response,$args) {

@@ -1,5 +1,5 @@
 {% extends "admin/layout.twig" %}
-{% block title %} الإعلانات {% endblock %}
+{% block title %} {{l.createads.2}} {% endblock %}
 
 {% block content %}	
 
@@ -12,7 +12,7 @@
 <div class="page-header page-header-transparent">
     <div class="page-header-content">
         <div class="page-title">
-            <h1><span class="text-semibold">اضافة اعلان جديد</span></h1>
+            <h1><span class="text-semibold">{{l.createads.2}}</span></h1>
         </div>
     </div>
 </div>
@@ -34,7 +34,7 @@
 
                 
 <div class="form-group switechers">
-    <label class="control-label col-lg-3">تفعيل الاعلان</label>
+    <label class="control-label col-lg-3">{{l.createads.3}}</label>
     <div class="col-lg-9">
         <label class="adminswitch">
     <input name='active' type="checkbox"  value="active" checked />
@@ -45,35 +45,35 @@
                     
                     
 <div class="form-group">
-    <label class="control-label col-lg-3">عنوان الاعلان</label>
+    <label class="control-label col-lg-3">{{l.createads.4}}</label>
     <div class="col-lg-9">
         <input type="text" class="form-control" name="name" />
-        <p class="text-muted">عنوان للإعلان - ( ليس مهماً لكنه اضفه من أجل تمييز الإعلانات بلوحة التحكم) .</p>
+        <p class="text-muted">{{l.createads.5}} .</p>
     </div>
 </div>
 					
-					<div class="tie-option-pre-label">صورة الإعلان</div>
+					<div class="tie-option-pre-label">{{l.createads.6}}</div>
 					<hr>
 					<div class="form-group">
-						<label class="control-label col-lg-3">صورة الاعلان</label>
+						<label class="control-label col-lg-3">{{l.createads.7}}</label>
 						<div class="col-lg-3">
-							   <label for="avatarUploadPreview" class="btn btn-danger btn-rounded"><i class="icon-image2 position-left"></i> اختيار الصورة </label>
+							   <label for="avatarUploadPreview" class="btn btn-danger btn-rounded"><i class="icon-image2 position-left"></i>{{l.createads.8}} </label>
 							   <input name="image" id="avatarUploadPreview" accept="image/jpg, image/jpeg, image/png" style="visibility:hidden;" type="file" />
 						</div>
 						
 					</div>
 					
 					<div class="form-group">
-						<label class="control-label col-lg-3">رابط الاعلان</label>
+						<label class="control-label col-lg-3">{{l.createads.9}}</label>
 						<div class="col-lg-9">
 							<input type="text" class="form-control" name="link" />
 						</div>
 					</div>
 					
-					<div class="tie-option-pre-label">- أو - كود إعلان خاص</div>
+					<div class="tie-option-pre-label">{{l.createads.10}}</div>
 					<hr>
 					<div class="form-group">
-						<label class="control-label col-lg-3">كود إعلان خاص
+						<label class="control-label col-lg-3">{{l.createads.11}}
 						</label>
 						<div class="col-lg-9">
 							<textarea name="codehtml" class="form-control" rows="8"></textarea>
@@ -83,7 +83,7 @@
 	
 				</fieldset>
 				<div class="text-right">
-					<button type="submit" class="btn btn-primary" id="Submit_AD_ADS_FORM">اضافة الإعلان<i class="icon-arrow-left13 position-right"></i></button>
+					<button type="submit" class="btn btn-primary" id="Submit_AD_ADS_FORM">{{l.createads.12}}<i class="icon-arrow-left13 position-right"></i></button>
 				</div>
 			
 		</div>
@@ -98,8 +98,8 @@
 										<span class="label label-flat label-rounded label-icon border-grey text-grey mr-10">
 											<i class="icon-info3"></i>
 										</span>
-
-											هل تحتاج مساعدة ؟
+{{l.createads.13}}
+											
 										
 									</h5>
 
@@ -107,44 +107,44 @@
 									<ul class="list list-icons">
 										<li>
 											<i class="icon-checkmark-circle text-success position-left"></i>
-											<b>تفعيل الإعلان</b>
+											<b>{{l.createads.14}}</b>
 											<br>
-											<p class="mg10">عند تفعيل الإعلان سيظهر - و عدم تفعيله سيجعله ملغيا</p>
+											<p class="mg10">{{l.createads.15}}</p>
 										</li>
 										<li>
 											<i class="icon-checkmark-circle text-success position-left"></i>
-											<b>عنوان الإعلان</b>
+											<b>{{l.createads.16}}</b>
 											<br>
-											<p class="mg10">العنوان ليس مهماً ، لكن يفضل ان تضيفه من أجل تمييز كل إعلان عن الآخر</p>
+											<p class="mg10">{{l.createads.17}}</p>
 										</li>                                        
 								            <li>
 											<i class="icon-checkmark-circle text-success position-left"></i>
-											<b>رابط الإعلان</b>
+											<b>{{l.createads.18}}</b>
 											<br>
-											<p class="mg10">تأكد جيداً ان الرابط يبدأ بــ <span dir="ltr">http://</span> </p>
+											<p class="mg10">{{l.createads.19}}<span dir="ltr">http://</span> </p>
 										</li>
 										<li>
 											<i class="icon-checkmark-circle text-success position-left"></i>
-											<b>صورة الإعلان</b>
+											<b>{{l.createads.20}}</b>
 											<br>
 											<p class="mg10">
-											    يقبل فقط الإمتدادات التالية : 
+											    {{l.createads.21}}
 											    jpeg,png,gif
 											</p>
 										</li>
 									<li>
 											<i class="icon-checkmark-circle text-success position-left"></i>
-											<b>كود إعلان خاص</b>
+											<b>{{l.createads.23}}</b>
 											<br>
 											<p class="mg10">
-											   يمكنك اضافة كود أدسنس ، أو اي كود html
+											   {{l.createads.24}}
 											</p>
 										</li>										
 										<li>
 											<i class="icon-checkmark-circle text-success position-left"></i>
-											<b>تنبيه</b> 
+											<b>{{l.createads.25}}</b> 
 											<br>
-											<p class="mg10"> عند اضافة الكود في الإعلان ، سيتم إلغاء الصورة والرابط والنص </p>
+											<p class="mg10"> {{l.createads.26}} </p>
 										</li>
 
 									</ul>
@@ -153,7 +153,7 @@
         
 							<div class="panel panel-white">
 								<div class="panel-heading">
-									<h6 class="panel-title"> تحدد مكان الإعلان :</h6>
+									<h6 class="panel-title"> {{l.createads.27}}</h6>
 								</div>
 
 								<div class="panel-body">
@@ -178,11 +178,11 @@
 
         <div class="panel panel-flat"  style="display:none;" id="ads-show"> 
         <div class="panel-heading">
-            معاينة الإعلان
+           {{l.createads.35}}
             <div  class="heading-elements"  >
             
             <ul class="icons-list">
-                <li style="display:none" id='delete-ad'><a onclick="clean()" ><i class="icon-cross2 position-right" ></i> حذف الصورة </a></li>
+                <li style="display:none" id='delete-ad'><a onclick="clean()" ><i class="icon-cross2 position-right" ></i> {{l.createads.36}} </a></li>
             </ul>
             
             

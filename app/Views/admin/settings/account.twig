@@ -1,6 +1,5 @@
-
 {% extends "admin/layout.twig" %}
-{% block title %} تعديل الحساب  {% endblock %}
+{% block title %} {{l.SettingsAccount.165}} {% endblock %}
 {% block content %}
 
 <!-- Main content -->
@@ -11,8 +10,8 @@
 				<div class="page-header page-header-transparent">
 					<div class="page-header-content">
 						<div class="page-title">
-							<h1><span class="text-semibold">اعدادات حسابي</span></h1>
-							<p class="text-muted">* هذا الحساب لا يمكن حذفه نهائيا ، هو المتحكم الكامل في لوحة التحكم</p>
+							<h1><span class="text-semibold">{{l.SettingsAccount.166}}</span></h1>
+							<p class="text-muted">{{l.SettingsAccount.167}}</p>
 						</div>
 
 						<div class="heading-elements">
@@ -29,28 +28,28 @@
  <div class="col-md-8">
                 <div class="panel panel-flat col-md-12">
                     <div class="panel-heading no-padding-bottom">
-                        <h3 class="panel-title">الإعدادات</h3>
-                        <p class="no-margin-bottom">المرجوا ادخال المعلومات التالية بعناية</p>
+                        <h3 class="panel-title">{{l.SettingsAccount.168}}</h3>
+                        <p class="no-margin-bottom">{{l.SettingsAccount.169}}</p>
                     </div>
                     <div class="panel-body">
                         <form class="form-horizontal" method="post" id='AdminGeneralInfo' action="{{path_for('settings.account')}}">
                             <fieldset class="content-group">
                                 <legend class="text-bold"></legend>
                                 <div class="form-group">
-                                    <label class="control-label col-lg-3">اسم المستخدم	</label>
+                                    <label class="control-label col-lg-3">{{l.SettingsAccount.170}}</label>
                                     <div class="col-lg-9">
                                         <input type="text" class="form-control frequired" value='{{user.username}}' name="username" />
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="control-label col-lg-3">البريد الإلكتروني	</label>
+                                    <label class="control-label col-lg-3">{{l.SettingsAccount.171}}</label>
                                     <div class="col-lg-9">
                                         <input type="text" class="form-control frequired" value='{{user.email}}' name="email" />
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <input type="hidden" name="validate" value='validate_my_settings' />
-                                    <button type="submit" class="btn btn-primary btn-block active no-marin-bottom">تحديث المعلومات</button>
+                                    <button type="submit" class="btn btn-primary btn-block active no-marin-bottom">{{l.SettingsAccount.172}}</button>
                                 </div>
                             </fieldset>
                         </form>
@@ -61,8 +60,8 @@
 
                 <div class="panel panel-flat col-md-12">
                     <div class="panel-heading no-padding-bottom">
-                        <h3 class="panel-title">كلمة المرور</h3>
-                        <p class="no-margin-bottom">المرجوا ادخال المعلومات التالية بعناية</p>
+                        <h3 class="panel-title">{{l.SettingsAccount.173}}</h3>
+                        <p class="no-margin-bottom">{{l.SettingsAccount.174}}</p>
                     </div>
                     <div class="panel-body">
                         <form class="form-horizontal" id="AdminPasswords" method="post" action="{{path_for('settings.account')}}">
@@ -70,31 +69,30 @@
                             <fieldset class="content-group">
                                 <legend class="text-bold"></legend>
                                 <div class="form-group">
-                                    <label class="control-label col-lg-3">كلمة المرور الحالية	</label>
+                                    <label class="control-label col-lg-3">{{l.SettingsAccount.175}}</label>
                                     <div class="col-lg-9">
                                         <input type="password" class="form-control frequired"  name="old_pass" />
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="control-label col-lg-3">كلمة المرور الجديدة		</label>
+                                    <label class="control-label col-lg-3">{{l.SettingsAccount.176}}</label>
                                     <div class="col-lg-9">
                                         <input type="password" class="form-control frequired" id="new_pass"  name="new_pass" />
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="control-label col-lg-3">إعادة كلمة المرور الجديدة			</label>
+                                    <label class="control-label col-lg-3">{{l.SettingsAccount.177}}</label>
                                     <div class="col-lg-9"> 
                                         <input type="password" class="form-control frequired" id='new_pass_re' name="new_pass_re" />
                                     </div>
                                 </div>                                
                                 <div class="form-group">
                                     <input type="hidden" name="validate" value='validate_my_pass' />
-                                    <button type="submit" class="btn btn-primary btn-block active">تحديث كلمة المرور</button>
-
+                                    <button type="submit" class="btn btn-primary btn-block active">{{l.SettingsAccount.178}}</button>
                                 </div>
                             </fieldset>
                         </form>
-                                                   <div id="resultpassword"></div>
+                        <div id="resultpassword"></div>
                     </div>
                 </div>
                 
@@ -102,7 +100,6 @@
                 </div>
                 
 <div class="col-md-4">
-<!--<div class="sidebar-detached">-->
 						<div class="sidebar-default sidebar-separate">
 							<div class="sidebar-content">
 
@@ -118,7 +115,7 @@
 											<h1 class="text-semibold no-margin-bottom" style="margin-top: -11px;">
 												{{user.full_name}}
 											</h1>
-											<h6>مدير الموقع </h6>
+											<h6>{{l.SettingsAccount.179}} </h6>
 
 										</div>
 										
@@ -127,19 +124,19 @@
 									<div class="panel no-border-top no-border-radius-top">
 									<table class="table">
 									    <tr>
-									        <td>البريد الإلكتروني</td>
+									        <td>{{l.SettingsAccount.180}}</td>
 									        <td>{{user.email}}</td>
 									    </tr>
 									    <tr>
-									        <td>تاريخ التسجيل</td>
+									        <td>{{l.SettingsAccount.181}}</td>
 									        <td>{{user.created_at.toDateTimeString()|makeNiceTime}}</td>
 									    </tr>	
 									    <tr>
-									        <td>الدولة</td>
+									        <td>{{l.SettingsAccount.182}}</td>
 									        <td>{{user.country}}</td>
 									    </tr>		
 									    <tr>
-									        <td colspan="2" class="text-center"><a href="{{path_for('logout')}}"><i class="icon-switch2"></i> تسجيل الخروج</a></td>
+									        <td colspan="2" class="text-center"><a href="{{path_for('logout')}}"><i class="icon-switch2"></i> {{l.SettingsAccount.183}}</a></td>
 									    </tr>									    							    								    
 									</table>
 									

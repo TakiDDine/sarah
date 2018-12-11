@@ -1,6 +1,6 @@
 {% extends "admin/layout.twig" %}
 
-{% block title %} انشاء صفحة جديدة {% endblock %}
+{% block title %} {{l.postsedit.2}} {% endblock %}
 
 
 {% block content %}
@@ -15,7 +15,7 @@
 				<div class="page-header page-header-transparent">
 					<div class="page-header-content">
 						<div class="page-title">
-							<h1>تحرير المقالة</h1>
+							<h1>{{l.postsedit.2}}</h1>
 						</div>
 
 						
@@ -45,17 +45,17 @@
 
 <!-- sidebar -->
 <div class="col-md-3">
-    <button type="submit" class="btn btn-block btn-primary">تحديث المقالة <i class="icon-arrow-left13 position-right"></i></button>
+    <button type="submit" class="btn btn-block btn-primary">{{l.postsedit.3}} <i class="icon-arrow-left13 position-right"></i></button>
     <br>
     <!-- post categories -->
     <div class="panel panel-white">
         <div class="panel-heading">
-            <h6 class="panel-title"> تصنيف المقالة </h6>
+            <h6 class="panel-title"> {{l.postsedit.4}} </h6>
         </div>
 
         <div class="panel-body">
              <select  name="postCategory" style="width:100%;" class="postCategory">
-                <option value="0">غير محدد بعد</option>
+                <option value="0">{{l.postsedit.5}}</option>
                     {% for categorie in categories %}
                     <option value="{{categorie.id}}">{{categorie.name}}</option>
                     {% endfor %} 
@@ -67,11 +67,11 @@
     <!-- post Thumbnail -->
     <div class="panel panel-white">
                 <div class="panel-heading ">
-                    <h6 class="panel-title">الصورة البارزة </h6>
+                    <h6 class="panel-title">{{l.postsedit.6}}</h6>
                     <div class="heading-elements" >
                         <ul class="icons-list">
                         {% if post.thumbnail  != " "  %}
-                            <li><a id="deleteImage"><i class="icon-cross2 position-right"></i> حذف الصورة </a></li>
+                            <li><a id="deleteImage"><i class="icon-cross2 position-right"></i> {{l.postsedit.7}} </a></li>
                         {% endif %}
                         </ul>
                     </div>
@@ -85,7 +85,7 @@
                 
                 <!-- thumbnail tools -->
                 <div class="thumbnail-tools" {% if post.thumbnail  != " "  %} style="display:none;" {% endif %}>
-                  <label for="Upload-thumbnail"  ><i class="icon-image2 position-left"></i> اختيار الصورة </label>
+                  <label for="Upload-thumbnail"  ><i class="icon-image2 position-left"></i>{{l.postsedit.8}} </label>
                   <input name="post_thumbnail" id="Upload-thumbnail" accept="image/jpg, image/jpeg, image/png" type="file" />  
                 </div>
                 <!-- thumbnail tools -->

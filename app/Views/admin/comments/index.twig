@@ -1,5 +1,5 @@
 {% extends "admin/layout.twig" %}
-{% block title %} التعليقات {% endblock %}
+{% block title %} {{l.comment.0}} {% endblock %}
 
 {% block content %}
 
@@ -15,12 +15,12 @@
 <div class="page-header page-header-transparent">
     <div class="page-header-content">
         <div class="page-title">
-            <h1><i class="icon-arrow-right6 position-left"></i> <span class="text-semibold">التعليقات</span></h1>
+            <h1><i class="icon-arrow-right6 position-left"></i> <span class="text-semibold">{{l.comment.0}}</span></h1>
         </div>
  
         <div class="heading-elements">
                   
- <a href="javascript:void(0);" data-toggle="modal" data-target="#modal_iconified" class="btn bg-danger btn-labeled heading-btn"><b><i class="icon-trash"></i></b> حذف كل المقالات</a>
+ <a href="javascript:void(0);" data-toggle="modal" data-target="#modal_iconified" class="btn bg-danger btn-labeled heading-btn"><b><i class="icon-trash"></i></b>{{l.comment.2}}</a>
                         
                         
 		            <!-- Iconified modal -->
@@ -75,10 +75,10 @@
 		<table class="table datatable datatable-basic">
 			<thead>
 				<tr>
-					<th><b>الكاتب</b></th>
-					<th><b>التعليق</b></th>
-					<th><b>تاريخ</b></th>
-					<th class="col-md-1 text-center"><b>تعديل</b></th>
+					<th><b>{{l.comment.3}}</b></th>
+					<th><b>{{l.comment.4}}</b></th>
+					<th><b>{{l.comment.5}}</b></th>
+					<th class="col-md-1 text-center"><b>{{l.comment.6}}</b></th>
 				</tr>
 			</thead>
 			<tbody>
@@ -95,10 +95,10 @@
 								</a>
 								<ul class="dropdown-menu dropdown-menu-right">
 								<li>
-								<a href="{{ path_for('website.post', {'id': comment.post_id}) }}#comment-{{comment.id}}" class="text-success show_cmt"><i class="icon-eye"></i><b>عرض التعليق</b></a>
+								<a href="{{ path_for('website.post', {'id': comment.post_id}) }}#comment-{{comment.id}}" class="text-success show_cmt"><i class="icon-eye"></i><b>{{l.comment.7}}</b></a>
 								</li>
-									<li><a href="{{ path_for('comments.edit', {'id': comment.id}) }}" class="text-primary-600"><i class="icon-pencil7"></i><b>تعديل التعليق </b></a></li>
-									<li><a href="{{ path_for('comments.delete', {'id': comment.id}) }}" class='text-danger'><i class="icon-trash"></i><b> حذف التعليق </b></a></li>
+									<li><a href="{{ path_for('comments.edit', {'id': comment.id}) }}" class="text-primary-600"><i class="icon-pencil7"></i><b>{{l.comment.8}}</b></a></li>
+									<li><a href="{{ path_for('comments.delete', {'id': comment.id}) }}" class='text-danger'><i class="icon-trash"></i><b>{{l.comment.9}} </b></a></li>
 								</ul>
 							</li>
 						</ul>

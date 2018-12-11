@@ -25,6 +25,7 @@ if (session_status() == PHP_SESSION_NONE) {
 
 
 
+
 // Set the container
 $container = $app->getContainer();
 
@@ -326,18 +327,20 @@ if(isset($_SESSION['auth-user'])) {
 
 
 
-if(isset($_GET['lang'])){
-    $file = BASEPATH.'/app/lang/admin/'.$_GET['lang'].'.php';
-    if(file_exists($file)):
-        $container['view']->getEnvironment()->addGlobal('lang', Config::load($file));
-        $_SESSION['lang'] = Config::load($file);    
-    endif;
-}
+//
+//if(isset($_GET['lang'])){
+//    
+//    if(file_exists($file)):
+//        $container['view']->getEnvironment()->addGlobal('l', Config::load($file));
+//        $_SESSION['lang'] = Config::load($file);    
+//    endif;
+//}
+
 if(!isset($_SESSION['lang'])){
     $file = BASEPATH.'/app/lang/admin/ar.php';
     if(file_exists($file)):
-        $container['view']->getEnvironment()->addGlobal('lang', Config::load($file));
-        $_SESSION['lang'] = Config::load($file);    
+        $container['view']->getEnvironment()->addGlobal('l', Config::load($file));
+        $_SESSION['l'] = Config::load($file);    
     endif;
 }
 

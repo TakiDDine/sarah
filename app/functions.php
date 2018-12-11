@@ -28,12 +28,12 @@ use \App\Classes\Helper;
     $helper = new helper();
 //st($helper->getMemory(),1);
 
+//   unset($_SESSION['lang']);
+//   st($_SESSION,1);
 
-   
-
     
     
-    
+//    st($_SESSION,1);
     
     
    

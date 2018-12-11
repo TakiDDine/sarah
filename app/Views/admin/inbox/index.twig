@@ -1,5 +1,5 @@
 {% extends "admin/layout.twig" %}
-{% block title %} البريد الوارد {% endblock %}
+{% block title %} {{l.inbox.0}} {% endblock %}
 
 
 
@@ -13,7 +13,7 @@
 				<div class="page-header page-header-transparent">
 					<div class="page-header-content">
 						<div class="page-title">
-							<h1> <span class="text-semibold">البريد </span></h1>
+							<h1> <span class="text-semibold">{{l.inbox.0}} </span></h1>
 							<p></p>
 								</div>	
 						
@@ -96,9 +96,9 @@
 			<i class=" icon-envelop5 empty_state_icon"></i>
 		<h4 style="color: #ababab;"> 
 
-   يبدوا انك لم ترسل اية اميلات لحد الآن ، او انك قمت بحذف علبة البريد 
+   {{l.inbox.1}}
    <br>
-    عند ارسالك لإميلات ستظهر هنا 
+    {{l.inbox.2}}
 		</h4>
 		
 			</div>
@@ -124,10 +124,10 @@
         <table class="table datatable-basic mails-table">
             <thead>
                 <tr>
-                    <th><b>عنوان الرسالة</b></th>
-                    <th><b>لـ :</b></th>
-                    <th><b>تاريخ الإرسال</b></th>
-                    <th class="text-center"><b>تعديل</b></th>
+                    <th><b>{{l.inbox.3}}</b></th>
+                    <th><b>{{l.inbox.4}}</b></th>
+                    <th><b>{{l.inbox.5}}</b></th>
+                    <th class="text-center"><b>{{l.inbox.6}}</b></th>
                 </tr>
             </thead>
             <tbody>
@@ -146,13 +146,13 @@
                      
                      <li>
                         <a href="{{ path_for('inbox.edit', {'id': item.id }) }}" class="text-danger-600">
-                  <i class="icon-cross2 position-left"></i>معاينة 
+                  <i class="icon-cross2 position-left"></i>{{l.inbox.7}} 
                       </a>
                         </li>
                       
                         <li>
                         <a href="{{ path_for('inbox.delete', {'id': product.id }) }}" class="text-danger-600">
-                  <i class="icon-cross2 position-left"></i>حذف 
+                  <i class="icon-cross2 position-left"></i>{{l.inbox.8}} 
                       </a>
                         </li>
                         

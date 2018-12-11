@@ -1,6 +1,6 @@
 {% extends "admin/layout.twig" %}
 
-{% block title %} انشاء صفحة جديدة {% endblock %}
+{% block title %} {{l.pagesedit.103}} {% endblock %}
 
 
 {% block content %}
@@ -15,7 +15,7 @@
 				<div class="page-header page-header-transparent">
 					<div class="page-header-content">
 						<div class="page-title">
-							<h1>تحرير المقالة</h1>
+							<h1>{{l.pagesedit.103}}</h1>
 						</div>
 
 						
@@ -45,18 +45,18 @@
 
 <!-- sidebar -->
 <div class="col-md-3">
-    <button type="submit" class="btn btn-block btn-primary">تحديث المقالة <i class="icon-arrow-left13 position-right"></i></button>
+    <button type="submit" class="btn btn-block btn-primary">{{l.pagesedit.104}} <i class="icon-arrow-left13 position-right"></i></button>
     <br>
     
     
     <!-- post Thumbnail -->
     <div class="panel panel-white">
                 <div class="panel-heading ">
-                    <h6 class="panel-title">الصورة البارزة </h6>
+                    <h6 class="panel-title">{{l.pagesedit.105}} </h6>
                     <div class="heading-elements" >
                         <ul class="icons-list">
                         {% if post.thumbnail  != " "  %}
-                            <li><a id="deleteImage"><i class="icon-cross2 position-right"></i> حذف الصورة </a></li>
+                            <li><a id="deleteImage"><i class="icon-cross2 position-right"></i> {{l.pagesedit.106}} </a></li>
                         {% endif %}
                         </ul>
                     </div>
@@ -70,7 +70,7 @@
                 
                 <!-- thumbnail tools -->
                 <div class="thumbnail-tools" {% if post.thumbnail  != " "  %} style="display:none;" {% endif %}>
-                  <label for="Upload-thumbnail"  ><i class="icon-image2 position-left"></i> اختيار الصورة </label>
+                  <label for="Upload-thumbnail"  ><i class="icon-image2 position-left"></i> {{l.pagesedit.107}} </label>
                   <input name="post_thumbnail" id="Upload-thumbnail" accept="image/jpg, image/jpeg, image/png" type="file" />  
                 </div>
                 <!-- thumbnail tools -->

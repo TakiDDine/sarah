@@ -1,4 +1,7 @@
 {% extends "admin/layout.twig" %}
+{% block title %}  {{l.pages.71}} {% endblock %}
+
+
 {% block content %}
 
 
@@ -12,15 +15,15 @@
 <div class="page-header page-header-transparent">
     <div class="page-header-content">
         <div class="page-title">
-            <h1><i class="icon-arrow-right6 position-left"></i> <span class="text-semibold">الصفحات</span></h1>
+            <h1><i class="icon-arrow-right6 position-left"></i> <span class="text-semibold">{{l.pages.71}}</span></h1>
         </div>
 
         <div class="heading-elements">
            {% if posts is not empty %}
             <a href="{{ path_for('pages.create') }}" class="btn bg-blue btn-labeled heading-btn"><b>
-            <i class="icon-plus3"></i></b> اضافة صفحة جديدة</a>
+            <i class="icon-plus3"></i></b> {{l.pages.72}}</a>
             
- <a href="javascript:void(0);" data-toggle="modal" data-target="#modal_iconified" class="btn bg-danger btn-labeled heading-btn"><b><i class="icon-trash"></i></b> حذف كل الصفحات</a>
+ <a href="javascript:void(0);" data-toggle="modal" data-target="#modal_iconified" class="btn bg-danger btn-labeled heading-btn"><b><i class="icon-trash"></i></b> {{l.pages.73}}</a>
                         
                         
 		            <!-- Iconified modal -->
@@ -81,11 +84,10 @@
 			<div class="empty_state text-center">
 			    
 			<i class="icon-pencil6 empty_state_icon"></i>
-		<h4> 
-        مرحبا !
-		    لا توجد لديك أية صفحات حالياً ، يمكنك اضافة صفحات جديدة 
+		<h4> {{l.pages.74}}
 		</h4>
-		<a href="{{ path_for('pages.create') }}" class="btn bg-blue btn-labeled heading-btn"><b><i class="icon-plus3"></i></b> اضافة صفحة جديد</a>
+		<a href="{{ path_for('pages.create') }}" class="btn bg-blue btn-labeled heading-btn"><b><i class="icon-plus3"></i></b>
+		{{l.pages.75}}</a>
 		
 		
 		
@@ -103,6 +105,7 @@
 {% if posts is not empty %}
 <form action="{{path_for('pages.mutliAction')}}" method="POST">
 
+<!--
 <div class=" navbar navbar-default navbar-component navbar-xs transparent">
     <div class="col-md-2">
         <select name="takeAction" id="" class="form-control takeAction">
@@ -114,6 +117,7 @@
        <input type="submit" class='btn btn-primary' name="delete" value="تطبيق" /> 
     </div>
 </div>
+-->
 
 
 <div class="panel panel-flat">
@@ -121,10 +125,10 @@
             <thead>
                 <tr>
                    <th class='checkboxall'><input type="checkbox"></th>
-                    <th><b>عنوان الصفحة</b></th>
-                    <th><b>كاتب الصفحة</b></th>
-                    <th><b>تاريخ الإنشاء</b></th>
-                    <th class="text-center"><b>تعديل</b></th>
+                    <th><b>{{l.pages.79}}</b></th>
+                    <th><b>{{l.pages.80}}</b></th>
+                    <th><b>{{l.pages.81}}</b></th>
+                    <th class="text-center"><b>{{l.pages.82}}</b></th>
                 </tr>
             </thead>
             
@@ -134,7 +138,7 @@
                     <td class="checkit"><input type="checkbox" name="checkaction[]" value="{{post.id}}"></td>
                     <td>
                         {% if post.title is empty %}
-                        <a href="{{path_for('pages.edit', {id : post.id})}}">صفحة بدون عنوان</a>
+                        <a href="{{path_for('pages.edit', {id : post.id})}}">{{l.pages.83}}</a>
                         {% else %}
                         <a href="{{path_for('pages.edit', {id : post.id})}}">{{ post.title}}</a>
                         {% endif %}
@@ -148,12 +152,13 @@
                                     <i class="icon-menu9"></i>
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-right">
-                                    <li><a href="{{path_for('website.post', {id : post.id})}}"class="text-success show_cmt"><i class="icon-eye"></i><b>عرض الصفحة</b></a></li>
-                                    <li><a href="{{path_for('pages.edit', {id : post.id})}}" class=""><i class="icon-pencil7"></i><b>تعديل الصفحة </b></a></li>
-                                    <li><a href="{{path_for('pages.delete', {id : post.id})}}" class="text-danger"><i class="icon-trash"></i><b>حذف الصفحة </b></a></li>
+                                    <li><a href="{{path_for('website.post', {id : post.id})}}"class="text-success show_cmt"><i class="icon-eye"></i><b>{{l.pages.84}}</b></a></li>
+                                    <li><a href="{{path_for('pages.edit', {id : post.id})}}" class=""><i class="icon-pencil7"></i>
+                                    <b>{{l.pages.85}}</b></a></li>
+                                    <li><a href="{{path_for('pages.delete', {id : post.id})}}" class="text-danger"><i class="icon-trash"></i><b>{{l.pages.86}}</b></a></li>
                                      <li>
                         <a href="{{path_for('pages.duplicate', {id : post.id})}}" class="text-bg-info">
-                  <i class="icon-stack-plus position-left"></i>تكرار 
+                  <i class="icon-stack-plus position-left"></i>{{l.pages.87}} 
               </a>
                         
                         </li>

@@ -1,5 +1,5 @@
 {% extends "admin/layout.twig" %}
-{% block title %} القوائم {% endblock %}
+{% block title %} {{l.menus.37}} {% endblock %}
 
 {% block content %}
 
@@ -19,11 +19,11 @@
 <div class="page-header page-header-transparent">
     <div class="page-header-content">
         <div class="page-title">
-            <h1><i class="icon-arrow-right6 position-left"></i> <span class="text-semibold">القوائم</span></h1>
+            <h1><i class="icon-arrow-right6 position-left"></i> <span class="text-semibold">{{l.menus.37}}</span></h1>
         </div>
         <div class="heading-elements">
          <a href="javascript:void(0);" data-toggle="modal" data-target="#modal_iconified" 
-         class="btn bg-danger btn-labeled heading-btn"><b><i class="icon-trash"></i></b> حذف كل القوائم</a>
+         class="btn bg-danger btn-labeled heading-btn"><b><i class="icon-trash"></i></b>{{l.menus.38}}</a>
         </div>
     </div>
 </div>
@@ -42,15 +42,15 @@
 							<div class="modal-content">
 								<div class="modal-header">
 									<button type="button" class="close" data-dismiss="modal">&times;</button>
-									<h5 class="modal-title">انشاء قائمة جديدة</h5>
+									<h5 class="modal-title">{{l.menus.40}}</h5>
 								</div>
 								<div class="modal-body">
 								<div id="result"></div>
-									<h6 class="text-semibold">ادخل اسم للقائمة</h6>
-									<input type="text" class="form-control frequired" name="name" placeholder="اسم القائمة"  />
+									<h6 class="text-semibold">{{l.menus.41}}</h6>
+									<input type="text" class="form-control frequired" name="name" placeholder="{{l.menus.39}}"  />
 								</div>
 								<div class="modal-footer">
-									<button type="submit" class="btn btn-primary">اضافة القائمة</button>
+									<button type="submit" class="btn btn-primary">{{l.menus.42}}</button>
 								</div>
 							</div>
 							</form>
@@ -126,14 +126,14 @@
 								<div class="modal-body">
 									    <form class="" id="menu-editor">
             <div class="form-group">
-              <label for="addInputName">الإسم</label>
+              <label for="addInputName">{{l.menus.43}}</label>
               <input type="text" class="form-control" id="editInputName" placeholder="Item name" required>
             </div>
             <div class="form-group">
-              <label for="addInputSlug">الرابط</label>
+              <label for="addInputSlug">{{l.menus.44}}</label>
               <input type="text" class="form-control" id="editInputSlug" placeholder="item-slug">
             </div>
-            <button class="btn btn-primary" data-dismiss="modal" id="editButton">تعديل</button>
+            <button class="btn btn-primary" data-dismiss="modal" id="editButton">{{l.menus.45}}</button>
           </form>
 								</div>
 
@@ -149,17 +149,17 @@
         <!-- Menus -->
         <div class="col-md-12">           
         <div class=" navbar navbar-default navbar-component navbar-xs"  style="padding:10px;">
-            <div class="col-md-2 " style="padding-top:10px;">اختر قائمة لتحريرها</div>
+            <div class="col-md-2 " style="padding-top:10px;">{{l.menus.46}}</div>
             <div class="col-md-3">
                 <select  name="areaUndetected" style="width:100%;" class="areaUndetected">
-                <option value="not_speci">— اختيار —</option>
+                <option value="not_speci">{{l.menus.47}}</option>
                 {% for menu in menus %}
                     <option value="{{path_for('menus.edit',{id:menu.id })}}">{{menu.name}}</option>
                 {% endfor %} 
                 </select>
             </div>
             <div class="col-md-3" style="padding-top:10px;"> 
-            أو . <a data-toggle="modal" data-target="#modal_default">أنشئ قائمة جديدة</a>
+            أو . <a data-toggle="modal" data-target="#modal_default">{{l.menus.48}}</a>
             </div>
         </div>
         </div>
@@ -172,7 +172,7 @@
 								<div class="panel panel-default">
 									<div class="panel-heading">
 										<h6 class="panel-title text-semibold">
-											<a data-toggle="collapse" data-parent="#menu-accordion" href="#accordion1"> الصفحات</a>
+											<a data-toggle="collapse" data-parent="#menu-accordion" href="#accordion1"> {{l.menus.49}}</a>
 										</h6>
 									</div>
 
@@ -195,7 +195,7 @@
 										  {% endfor %}
 										</ul>
                                         <div class="form-group">
-                                            <button class="btn btn-info" id="addButtonPages">اضف للقائمة</button>
+                                            <button class="btn btn-info" id="addButtonPages">{{l.menus.50}}</button>
                                         </div>
                                             </form>
 										
@@ -206,7 +206,7 @@
 								<div class="panel panel-default">
 									<div class="panel-heading">
 										<h6 class="panel-title text-semibold">
-											<a data-toggle="collapse" data-parent="#menu-accordion" href="#accordion2">المقالات</a>
+											<a data-toggle="collapse" data-parent="#menu-accordion" href="#accordion2">{{l.menus.51}}</a>
 										</h6>
 									</div>
 
@@ -232,7 +232,9 @@
 								<div class="panel panel-default">
 									<div class="panel-heading">
 										<h6 class="panel-title text-semibold">
-											<a data-toggle="collapse" data-parent="#menu-accordion" href="#accordion3">روابط مخصصة</a>
+											<a data-toggle="collapse" data-parent="#menu-accordion" href="#accordion3">
+											    {{l.menus.52}}
+											</a>
 										</h6>
 									</div>
 
@@ -242,15 +244,15 @@
                                             <form  id="menu-add">
                                             
                                             <div class="form-group">
-                                            <label for="addInputName">نص الرابط</label>
+                                            <label for="addInputName">{{l.menus.53}}</label>
                                             <input type="text" class="form-control" id="addInputName"  required>
                                             </div>
                                             <div class="form-group">
-                                            <label for="addInputSlug">الرابط</label>
+                                            <label for="addInputSlug">{{l.menus.54}}</label>
                                             <input type="text"  value='http://' class="form-control" id="addInputSlug"  required>
                                             </div>
                                             <div class="form-group">
-                                                <button class="btn btn-info" id="addButton">اضف للقائمة</button>
+                                                <button class="btn btn-info" id="addButton">{{l.menus.55}}</button>
                                             </div>
                                             </form>
 										</div>
@@ -269,10 +271,10 @@
             <div class="panel">
                 <div class="panel-heading" >
                     <h6 class="panel-title">
-                    <input type="text" name="menu_name" placeholder="اسم القائمة" value="{{menu.name}}" class="form-control" style="width:250px;" />
+                    <input type="text" name="menu_name" placeholder="{{l.menus.57}}" value="{{menu.name}}" class="form-control" style="width:250px;" />
                     </h6>
                     <div class="heading-elements">
-                        <button type="submit" class="btn btn-info" id="addButtonPages">حفظ القائمة</button>
+                        <button type="submit" class="btn btn-info" id="addButtonPages">{{l.menus.56}}</button>
                     </div>
                 </div>
             <legend style="padding-top: 0;margin-top: -9px;"></legend>
@@ -368,7 +370,9 @@
                 </ul>
                 </div>
                 <p>
-                    <a class="text-danger" style="margin-right:15px;" href="{{path_for('menus.delete',{id : menu.id})}}">حذف القائمة</a>
+                    <a class="text-danger" style="margin-right:15px;" href="{{path_for('menus.delete',{id : menu.id})}}">
+                        {{l.menus.64}}
+                    </a>
                 </p>
             </div>
             </form> 

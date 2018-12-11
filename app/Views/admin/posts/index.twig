@@ -1,4 +1,8 @@
 {% extends "admin/layout.twig" %}
+
+{% block title %}{{l.posts.1}} {% endblock %}
+
+
 {% block content %}
 
 
@@ -11,15 +15,15 @@
 <div class="page-header page-header-transparent">
     <div class="page-header-content">
         <div class="page-title">
-            <h1><i class="icon-arrow-right6 position-left"></i> <span class="text-semibold">المقالات</span></h1>
+            <h1><i class="icon-arrow-right6 position-left"></i> <span class="text-semibold">{{l.posts.1}}</span></h1>
         </div>
 
         <div class="heading-elements">
            {% if posts is not empty %}
             <a href="{{ path_for('posts.create') }}" class="btn bg-blue btn-labeled heading-btn"><b>
-            <i class="icon-plus3"></i></b> اضافة مقالة جديدة</a>
+            <i class="icon-plus3"></i></b> {{l.posts.2}}</a>
             
- <a href="javascript:void(0);" data-toggle="modal" data-target="#modal_iconified" class="btn bg-danger btn-labeled heading-btn"><b><i class="icon-trash"></i></b> حذف كل المقالات</a>
+ <a href="javascript:void(0);" data-toggle="modal" data-target="#modal_iconified" class="btn bg-danger btn-labeled heading-btn"><b><i class="icon-trash"></i></b> {{l.posts.3}}</a>
                         
                         
 		            <!-- Iconified modal -->
@@ -80,10 +84,13 @@
 			    
 			<i class="icon-pencil6 empty_state_icon"></i>
 		<h4> 
+       {{l.posts.4}}
         مرحبا !
 		    لا توجد لديك أية مقالات حالياً ، يمكنك اضافة مقالات جديدة 
 		</h4>
-		<a href="{{ path_for('posts.create') }}" class="btn bg-blue btn-labeled heading-btn"><b><i class="icon-plus3"></i></b> اضافة مقالة جديد</a>
+		<a href="{{ path_for('posts.create') }}" class="btn bg-blue btn-labeled heading-btn"><b><i class="icon-plus3"></i></b>
+		{{l.posts.5}}
+		</a>
 		
 		
 		
@@ -96,6 +103,7 @@
 {% if posts is not empty %}
 <form action="{{path_for('posts.mutliAction')}}" method="POST">
 
+<!--
 <div class=" navbar navbar-default navbar-component navbar-xs transparent">
     <div class="col-md-2">
         <select name="takeAction" id="" class="form-control takeAction">
@@ -107,16 +115,17 @@
        <input type="submit" class='btn btn-primary' name="delete" value="تطبيق" /> 
     </div>
 </div>
+-->
 
 <div class="panel panel-flat">
         <table class="table datatable">
             <thead>
                 <tr>
                     <th class='checkboxall'><input type="checkbox"></th>
-                    <th><b>عنوان المقالة</b></th>
-                    <th><b>كاتب المقالة</b></th>
-                    <th><b>تاريخ الإنشاء</b></th>
-                    <th class="text-center"><b>تعديل</b></th>
+                    <th><b>{{l.posts.7}}</b></th>
+                    <th><b>{{l.posts.8}}</b></th>
+                    <th><b>{{l.posts.9}}</b></th>
+                    <th class="text-center"><b>{{l.posts.10}}</b></th>
                 </tr>
             </thead>
             <tbody>
@@ -125,7 +134,7 @@
                    <td class="checkit"><input type="checkbox" name="checkaction[]" value="{{post.id}}"></td>
                     <td>
                         {% if post.title is empty %}
-                    <a href="{{path_for('posts.edit', {id : post.id})}}">مقالة بدون عنوان</a>
+                    <a href="{{path_for('posts.edit', {id : post.id})}}">{{l.posts.15}}</a>
                     {% else %}
                     <a href="{{path_for('posts.edit', {id : post.id})}}">{{ post.title}}</a>
                     {% endif %}
@@ -140,12 +149,12 @@
                                     <i class="icon-menu9"></i>
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-right">
-                                    <li><a href="{{path_for('website.post', {id : post.id})}}"class="text-success show_cmt"><i class="icon-eye"></i><b>عرض المقالة</b></a></li>
-                                    <li><a href="{{path_for('posts.edit', {id : post.id})}}" class=""><i class="icon-pencil7"></i><b>تعديل المقالة </b></a></li>
-                                    <li><a href="{{path_for('posts.delete', {id : post.id})}}" class="text-danger"><i class="icon-trash"></i><b>حذف المقالة </b></a></li>
+                                    <li><a href="{{path_for('website.post', {id : post.id})}}"class="text-success show_cmt"><i class="icon-eye"></i><b>{{l.posts.11}}</b></a></li>
+                                    <li><a href="{{path_for('posts.edit', {id : post.id})}}" class=""><i class="icon-pencil7"></i><b>{{l.posts.12}}</b></a></li>
+                                    <li><a href="{{path_for('posts.delete', {id : post.id})}}" class="text-danger"><i class="icon-trash"></i><b>{{l.posts.13}}</b></a></li>
                                      <li>
                         <a href="{{path_for('posts.duplicate', {id : post.id})}}" class="text-bg-info">
-                  <i class="icon-stack-plus position-left"></i>تكرار 
+                  <i class="icon-stack-plus position-left"></i>{{l.posts.14}} 
               </a>
                         
                         </li>

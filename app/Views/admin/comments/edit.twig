@@ -1,5 +1,5 @@
 {% extends "admin/layout.twig" %}
-{% block title %} تعديل التعليق{% endblock %}
+{% block title %} {{l.commentsedit.2}} {% endblock %}
 {% block content %}	
 
 
@@ -13,7 +13,7 @@
 				<div class="page-header page-header-transparent">
 					<div class="page-header-content">
 						<div class="page-title">
-							<h1> <span class="text-semibold">تعديل التعليق</span></h1>
+							<h1> <span class="text-semibold">{{l.commentsedit.2}}</span></h1>
 						</div>
 					</div>
 				</div>
@@ -30,12 +30,12 @@
             <form method="post" action="{{path_for('comments.edit' ,  {id : comment.id})}}">
                 <fieldset class="content-group">
                     <div class="form-group">
-                        <label class="control-label"> التعليق</label>
+                        <label class="control-label"> {{l.commentsedit.3}}</label>
                         <textarea class="form-control" id="" cols="30" rows="10" name="content">{{comment.content}}</textarea>
                     </div>
                     <div class="form-group">
                     <button type="submit" class="btn btn-primary">
-                    تحديث التعليق
+                       {{l.commentsedit.4}}
                     <i class="icon-arrow-left13 position-right"></i>
                     </button>
                     </div>

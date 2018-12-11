@@ -1,5 +1,5 @@
 {% extends "admin/layout.twig" %}
-{% block title %} الإعلانات {% endblock %}
+{% block title %} {{l.Adsedit.2}} {% endblock %}
 
 {% block content %}	
 
@@ -12,7 +12,7 @@
 <div class="page-header page-header-transparent">
     <div class="page-header-content">
         <div class="page-title">
-            <h1><span class="text-semibold">الإعلانات</span></h1>
+            <h1><span class="text-semibold">{{l.Adsedit.2}}</span></h1>
         </div>
     </div>
 </div>
@@ -37,7 +37,7 @@
 
                 
                 <div class="form-group switechers">
-                	<label class="control-label col-lg-3">تفعيل الاعلان</label>
+                	<label class="control-label col-lg-3">{{l.Adsedit.3}}</label>
                     <div class="col-lg-9">
                     <label class="adminswitch">
                         <input name='active' type="checkbox"  value="active"  {% if ads.statue  == 1 %} checked="checked" {% endif %} />
@@ -48,38 +48,38 @@
                     
                     
 					<div class="form-group">
-						<label class="control-label col-lg-3">عنوان الاعلان</label>
+						<label class="control-label col-lg-3">{{l.Adsedit.4}}</label>
 						<div class="col-lg-9">
 							<input type="text" class="form-control" name="name" value='{{ads.name}}'/>
-							<p class="text-muted">عنوان للإعلان - ( ليس مهماً لكنه اضفه من أجل تمييز الإعلانات بلوحة التحكم) .</p>
+							<p class="text-muted">{{l.Adsedit.5}}</p>
 						</div>
 					</div>
 					
-					<div class="tie-option-pre-label">صورة الإعلان</div>
+					<div class="tie-option-pre-label">{{l.Adsedit.6}}</div>
 					<hr>
 					<div class="form-group">
-						<label class="control-label col-lg-3">صورة الاعلان</label>
+						<label class="control-label col-lg-3">{{l.Adsedit.7}}</label>
 						<div class="col-lg-3">
-							   <label for="avatarUploadPreview" class="btn btn-danger btn-rounded"><i class="icon-image2 position-left"></i> اختيار الصورة </label>
+							   <label for="avatarUploadPreview" class="btn btn-danger btn-rounded"><i class="icon-image2 position-left"></i> {{l.Adsedit.8}}</label>
 							   <input name="image" id="avatarUploadPreview" accept="image/jpg, image/jpeg, image/png" style="visibility:hidden;" type="file" />
 						</div>
 						
 					</div>
 					
 					<div class="form-group">
-						<label class="control-label col-lg-3">رابط الاعلان</label>
+						<label class="control-label col-lg-3">{{l.Adsedit.9}}</label>
 						<div class="col-lg-9">
 							<input type="text" class="form-control" value='{{ads.url}}' name="link" />
 						</div>
 					</div>
 					
-					<div class="tie-option-pre-label">- أو - كود إعلان خاص</div>
+					<div class="tie-option-pre-label">{{l.Adsedit.10}}</div>
 					<hr>
 					<div class="form-group">
-						<label class="control-label col-lg-3">كود إعلان خاص
+						<label class="control-label col-lg-3">{{l.Adsedit.11}}
 						</label>
 						<div class="col-lg-9">
-                            <p class="text-muted">يمكن استعمال كود ادسنس هنا </p>
+                            <p class="text-muted">{{l.Adsedit.12}}</p>
 							<textarea name="codehtml" class="form-control" rows="8">{{ads.htmlcode}}</textarea>
 						</div>
 					</div>
@@ -87,7 +87,7 @@
 	
 				</fieldset>
 				<div class="text-right">
-					<button type="submit" class="btn btn-primary" >تحديث الإعلان<i class="icon-arrow-left13 position-right"></i></button>
+					<button type="submit" class="btn btn-primary" >{{l.Adsedit.13}}<i class="icon-arrow-left13 position-right"></i></button>
 				</div>
 		
 		</div>
@@ -99,7 +99,7 @@
 				
 	<div class="panel panel-white">
 								<div class="panel-heading">
-									<h6 class="panel-title"> تحدد مكان الإعلان :</h6>
+									<h6 class="panel-title"> {{l.Adsedit.14}}</h6>
 								</div>
 
 								<div class="panel-body">
@@ -127,13 +127,13 @@
         
         <div class="panel panel-flat" {% if ads.image  == " "  %}  style="display:none;" {% endif %}  id="ads-show"> 
         <div class="panel-heading">
-            معاينة الإعلان
+           {{l.Adsedit.22}}
             <div  class="heading-elements"  >
             
             <ul class="icons-list">
-                <li style="display:none" id='delete-ad'><a onclick="clean()" ><i class="icon-cross2 position-right" ></i> حذف الصورة </a></li>
+                <li style="display:none" id='delete-ad'><a onclick="clean()" ><i class="icon-cross2 position-right" ></i>{{l.Adsedit.23}}</a></li>
                 {% if ads.image  != " "  %}
-                    <li ><a id='deleteoldad'><i class="icon-cross2 position-right" ></i> حذف الصورة </a></li>
+                    <li ><a id='deleteoldad'><i class="icon-cross2 position-right" ></i> {{l.Adsedit.24}} </a></li>
                 {% endif %}
             </ul>
             

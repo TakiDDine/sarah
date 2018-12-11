@@ -1,20 +1,12 @@
 {% extends "admin/layout.twig" %}
-{% block title %}   اعدادات البريد الإلكتروني   {% endblock %}
+{% block title %}   {{l.others.201}}   {% endblock %}
 {% block content %}
 
 <!-- Main content -->
 <div class="content-wrapper">
 
 
-				<!-- Page header -->
-				<div class="page-header page-header-transparent">
-					<div class="page-header-content">
-						<div class="page-title">
-							<h1> <span class="text-semibold">اعدادات أخرى </span></h1>
-						</div>
-					</div>
-				</div>
-				<!-- /page header -->
+		
 
 
 <!-- Content area -->
@@ -29,12 +21,12 @@
 			<form class="form-horizontal" method="post" action="{{path_for('settings.others')}}">
 				<fieldset class="content-group">
 					<div class="form-group">
-						<label class="control-label"> اضافة أكواد html/css/js في أعلى الموقع </label>
+						<label class="control-label">{{l.others.202}}  </label>
 						<textarea  class="form-control" name="other_head_scripts" cols="30" rows="10">{{ 'other_head_scripts'|options }}</textarea>
 					</div>
 				</fieldset>
 				<div class="text-right">
-					<button type="submit" class="btn btn-primary">تحديث <i class="icon-arrow-left13 position-right"></i></button>
+					<button type="submit" class="btn btn-primary">{{l.others.203}}  <i class="icon-arrow-left13 position-right"></i></button>
 				</div>
 			</form>
 		</div>
@@ -47,12 +39,12 @@
 			<form class="form-horizontal" method="post" action="{{path_for('settings.others')}}">
 				<fieldset class="content-group">
 					<div class="form-group">
-						<label class="control-label"> اضافة أكواد html/css/js في أسفل الموقع </label>
+						<label class="control-label"> {{l.others.204}}  </label>
 						<textarea  class="form-control" name="other_footer_scripts" cols="30" rows="10">{{ 'other_footer_scripts'|options }}</textarea>
 					</div>
 				</fieldset>
 				<div class="text-right">
-					<button type="submit" class="btn btn-primary">تحديث <i class="icon-arrow-left13 position-right"></i></button>
+					<button type="submit" class="btn btn-primary">{{l.others.205}}  <i class="icon-arrow-left13 position-right"></i></button>
 				</div>
 			</form>
 		</div>
@@ -66,7 +58,7 @@
 											<i class="icon-info3"></i>
 										</span>
 
-											هل تحتاج مساعدة ؟
+											{{l.others.206}} 
 										
 									</h5>
 
@@ -74,19 +66,19 @@
 									<ul class="list list-icons">
 										<li>
 											<i class="icon-checkmark-circle text-success position-left"></i>
-											<b>الخانة الأولى</b>
+											<b>{{l.others.207}} </b>
 											<br>
-											<p class="mg10">تضع فيها الأكواد التي تريد أن تظهر بين وسمي 
+											<p class="mg10">{{l.others.208}} 
 											
 											<br>
 											&lt;head&gt;&lt;/head&gt;</p>
 										</li>
 										<li>
 											<i class="icon-checkmark-circle text-success position-left"></i>
-											<b>الخانة الثانية</b>
+											<b>{{l.others.210}} </b>
 											<br>
 											<p class="mg10">
-											    تضع فيها الأكواد التي تريد ان تظهر قبل وسم
+											   {{l.others.211}} 
 											    <br>
                                         &lt;/body&gt;
 
@@ -97,10 +89,10 @@
 										</li>                                        
 								            <li>
 											<i class="icon-checkmark-circle text-success position-left"></i>
-											<b>تنبيه</b>
+											<b>{{l.others.213}} </b>
 											<br>
 											<p class="mg10">
-											قبل اضافة اية اكواد تأكد من أنها من مواقع آمنة ، اضافة اكواد غير آمنة قد يؤثر على حماية موقعك
+											    {{l.others.214}} 
 											 </p>
 										</li>
 										

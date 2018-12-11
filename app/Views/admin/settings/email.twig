@@ -1,5 +1,5 @@
 {% extends "admin/layout.twig" %}
-{% block title %}   اعدادات البريد الإلكتروني   {% endblock %}
+{% block title %}  {{l.Email.219}}  {% endblock %}
 {% block content %}
 
 <!-- Main content -->
@@ -10,7 +10,7 @@
 				<div class="page-header page-header-transparent">
 					<div class="page-header-content">
 						<div class="page-title">
-							<h1> <span class="text-semibold">اعدادات البريد الإلكتروني </span></h1>
+							<h1> <span class="text-semibold">{{l.Email.219}}</span></h1>
 						</div>
 					</div>
 				</div>
@@ -28,25 +28,25 @@
 			<form class="form-horizontal" method="post" action="{{path_for('settings.email')}}">
 				<fieldset class="content-group">
 					<div class="form-group">
-						<label class="control-label col-lg-3"> خادم البريد  [SMTP Host] </label>
+						<label class="control-label col-lg-3"> {{l.Email.221}} </label>
 						<div class="col-lg-9">
 							<input type="text" class="form-control" value="{{ 'SMTP_Host'|options }}" name="Host" />
 						</div>
 					</div>
 					<div class="form-group">
-						<label class="control-label col-lg-3"> المنفذ  [SMTP Port] </label>
+						<label class="control-label col-lg-3"> {{l.Email.222}} </label>
 						<div class="col-lg-9">
 							<input type="text" class="form-control" value="{{ 'SMTP_Port'|options }}" name="Port" />
 						</div>
 					</div>					
 					<div class="form-group">
-						<label class="control-label col-lg-3">  اسم المستخدم  [SMTP User] </label>
+						<label class="control-label col-lg-3"> {{l.Email.223}} </label>
 						<div class="col-lg-9">
 							<input type="text" class="form-control" value="{{'SMTP_User'|options}}" name="User" />
 						</div>
 					</div>	
 					<div class="form-group">
-						<label class="control-label col-lg-3">كلمة المرور [SMTP Password]</label>
+						<label class="control-label col-lg-3">{{l.Email.224}}</label>
 						<div class="col-lg-9">
 							<input type="text" class="form-control" value="{{'SMTP_Password'|options}}" name="Password" />
 						</div>
@@ -54,7 +54,7 @@
 				</fieldset>
 				<div class="text-right">
 					<input type="hidden" name="validate" value="email_settings">
-					<button type="submit" class="btn btn-primary">تحديث المعلومات<i class="icon-arrow-left13 position-right"></i></button>
+					<button type="submit" class="btn btn-primary">{{l.Email.225}}<i class="icon-arrow-left13 position-right"></i></button>
 				</div>
 			</form>
 		</div>

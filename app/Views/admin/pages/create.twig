@@ -1,6 +1,6 @@
 {% extends "admin/layout.twig" %}
 
-{% block title %} اضافة صفحة جديدة {% endblock %}
+{% block title %} {{l.pagescreate.91}} {% endblock %}
 
 
 {% block content %}
@@ -32,7 +32,7 @@
 				<div class="page-header page-header-transparent">
 					<div class="page-header-content">
 						<div class="page-title">
-							<h1> <span class="text-semibold">الصفحات - اضافة صفحة جديدة</span></h1>
+							<h1> <span class="text-semibold">{{l.pagescreate.92}}</span></h1>
 						</div>
 
 						
@@ -51,39 +51,27 @@
 
 <div class="col-md-9">								
 <div class="form-group">
-        <label class="control-label">عنوان المقالة</label>
-        <input type="text" id="postitlte" class="form-control" name="title" placeholder="عنوان المقالة" value="{{old.title}}" />
+        <label class="control-label">{{l.pagescreate.93}}</label>
+        <input type="text" id="postitlte" class="form-control" name="title" placeholder="{{l.pagescreate.93}}" value="{{old.title}}" />
 </div>
 <textarea name="post_content" id="posteditor" >{{old.post_content}}</textarea>
 </div>					
 					
 <div class="col-md-3">
-<button type="submit" class="btn btn-block btn-primary">نشر المقالة <i class="icon-arrow-left13 position-right"></i></button>
+<button type="submit" class="btn btn-block btn-primary">{{l.pagescreate.94}}<i class="icon-arrow-left13 position-right"></i></button>
 <br>
      
-<div class="panel panel-white">
-    <div class="panel-heading">
-        <h6 class="panel-title"> تصنيف المقالة </h6>
-    </div>
-    <div class="panel-body">
-         <select  name="postCategory" style="width:100%;" class="postCategory">
-            <option value="not_speci">غير محدد بعد</option>
-                {% for categorie in categories %}
-                <option value="{{categorie.id}}">{{categorie.name}}</option>
-                {% endfor %} 
-          </select>
-    </div>
-</div>
+
             
             <div class="panel panel-white">
                 <div class="panel-heading ">
-                    <h6 class="panel-title">الصورة البارزة </h6>
+                    <h6 class="panel-title">{{l.pagescreate.97}} </h6>
                 </div>
                 <div class="panel-body ">
                 <div class="preview-thumbnail">
                     <img src="" id="profile_avatar"  />
                 </div>
-                <label for="Upload-thumbnail" ><i class="icon-image2 position-left"></i> اختيار الصورة </label>
+                <label for="Upload-thumbnail" ><i class="icon-image2 position-left"></i> {{l.pagescreate.98}} </label>
             <input name="post_thumbnail" id="Upload-thumbnail" accept="image/jpg, image/jpeg, image/png" style="visibility:hidden;" type="file" />
                 </div>
             </div>
@@ -126,12 +114,10 @@ readURL(this);
 </script>
 
 <!-- set the select -->		
-<script> $('.postCategory').select2({ placeholder: 'تحديد تصنيف المنتوج',}); </script>
 
 
  <script src="{{ admin_assets }}ckeditor/ckeditor.js"></script>
       <script>
-//                          CKEDITOR.replace('posteditor');
 
 CKEDITOR.replace( 'posteditor', {
     language: 'ar',

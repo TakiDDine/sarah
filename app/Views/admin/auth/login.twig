@@ -6,7 +6,7 @@
 	<meta http-equiv="content-type" content="text/html;charset=UTF-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>لوحة التحكم</title>
-	
+
 	<!-- Global stylesheets -->
 	<link href="{{ admin_assets }}/css/icons/icomoon/styles.css" rel="stylesheet" type="text/css">
 	<link href="{{ admin_assets }}/css/bootstrap.css" rel="stylesheet" type="text/css">
@@ -36,7 +36,7 @@
                 <div class="panel panel-body login-form">
                     
                     <div id="result">{% include "admin/elements/flash.twig" %}</div>
-                  
+                
                     <!-- To Disable auto saving Password -->
                     <input style="opacity: 0;position: absolute;">
                     <input type="password" style="opacity: 0;position: absolute;">
@@ -44,67 +44,62 @@
                     
                     <div class="text-center">
                         <div class="icon-object border-slate-300 text-slate-300"><i class="icon-reading"></i></div>
-                        <h5 class="content-group"> تسجيل الدخول للمديرين <small class="display-block">أدخل المعلومات أسفله</small></h5>
+                        <h5 class="content-group"><small class="display-block">{{l.Auau.2}}</small></h5>
                     </div>
                     <div class="form-group has-feedback has-feedback-left">
-                        <input type="text" class="form-control frequired" id='user_login' name="user_login" placeholder="إسم المستخدم أو البريد الإلكتروني" size="35" maxlength="35" />
+                        <input type="text" class="form-control frequired" name="user_login" placeholder="{{l.Auau.0}}" size="35" maxlength="35" />
                         <div class="form-control-feedback">
                             <i class="icon-user text-muted"></i>
                         </div>
                     </div>
                     <div class="form-group has-feedback has-feedback-left">
-                        <input type="password" class="form-control frequired" id="pass_login"  name="pass_login" placeholder="كلمة السر" size="35" maxlength="35" />
+                        <input type="password" class="form-control frequired" name="pass_login" placeholder="{{l.Auau.9}}" size="35" maxlength="35" />
                         <div class="form-control-feedback">
                             <i class="icon-lock2 text-muted"></i>
                         </div>
                     </div>
                     <div class="form-group">
                     <input type="hidden" name="validate" value="users_login" >
-                    <input type="submit" name="submit" id='login' class="btn btn-primary btn-block" value="تسجيل الدخول" >
+                    <input type="submit" name="submit" id='login' class="btn btn-primary btn-block" value="{{l.Auau.10}}" >
                     </div>
-                    <div class="text-center"><a href="javascript:void(0);" id="ShowforgetForm" >نسيت كلمة المرور ؟</a></div>
+                    <div class="text-center"><a href="javascript:void(0);" id="ShowforgetForm" >{{l.Auau.3}}</a></div>
                 </div>
             </form>
-            
-            
-            
+
             
                     <!-- Password recovery -->
 					<form  action="{{ path_for('recover')}}" style="display:none;"  id="passwordRecoverForm" method="post" autocomplete="off">
 						<div class="panel panel-body login-form" >
-                                 	<div id="resultRecover">{% include "admin/elements/flash.twig" %}</div>										
+                            <div id="resultRecover">{% include "admin/elements/flash.twig" %}</div>
 							<div class="text-center">
 								<div class="icon-object border-warning text-warning"><i class="icon-spinner11"></i></div>
-								<h5 class="content-group">استرجاع كلمة المرور <br><br>
+								<h5 class="content-group">{{l.Auau.4}}<br><br>
 								<small class="display-block">
-								    أدخل بريدك الإلكتروني وستصلك ارشادات استرجاع <br><br>
-								    الحساب في بريدك
+								    {{l.Auau.5}}<br><br>
+								    {{l.Auau.6}}
 								</small>
 								</h5>
 							</div>
 
 							<div class="form-group has-feedback">
-								<input type="text" class="form-control frequired" name="email" placeholder="بريدك الإلكتروني">
+								<input type="text" class="form-control frequired" name="email" placeholder="">
 								<div class="form-control-feedback">
 									<i class="icon-mail5 text-muted"></i>
 								</div>
 							</div>
 
-							<button type="submit" class="btn bg-blue btn-block">استرجاع كلمة المرور <i class="icon-arrow-left13 position-right"></i></button>
+							<button type="submit" class="btn bg-blue btn-block">{{l.Auau.4}} <i class="icon-arrow-left13 position-right"></i></button>
 							<br>
-							<div class="text-center"><a id="ShowLoginForm" href="javascript:void(0);">تذكرت كلمة المرور ، تسجيل الدخول </a></div>
+							<div class="text-center"><a id="ShowLoginForm" href="javascript:void(0);">{{l.Auau.8}}</a></div>
 						</div>
 					</form>
 					<!-- /password recovery -->
-            
-            
-            
             
         </div>
     </div>
 </div>
 </div>
-	<script type="text/javascript" src="{{ admin_assets }}/js/main.js"></script>
+<script type="text/javascript" src="{{ admin_assets }}/js/main.js"></script>
 
 </body>
 </html>

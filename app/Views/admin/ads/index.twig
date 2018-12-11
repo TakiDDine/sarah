@@ -1,5 +1,5 @@
 {% extends "admin/layout.twig" %}
-{% block title %} الإعلانات {% endblock %}
+{% block title %} {{l.ads.1}} {% endblock %}
 
 {% block content %}	
 
@@ -12,14 +12,14 @@
 				<div class="page-header page-header-transparent">
 					<div class="page-header-content">
 						<div class="page-title">
-							<h1> <span class="text-semibold">الإعلانات</span></h1>
+							<h1> <span class="text-semibold">{{l.ads.1}}</span></h1>
 						</div>
                     
 <div class="heading-elements">
 {% if ads is not empty %}
-<a href="{{ path_for('ads.create') }}" class="btn bg-blue btn-labeled heading-btn"><b><i class="icon-plus3"></i></b> اضافة اعلان جديد</a>
+<a href="{{ path_for('ads.create') }}" class="btn bg-blue btn-labeled heading-btn"><b><i class="icon-plus3"></i></b>{{l.ads.2}}</a>
 
-                        <a href="javascript:void(0);" data-toggle="modal" data-target="#modal_iconified" class="btn bg-danger btn-labeled heading-btn"><b><i class="icon-trash"></i></b> حذف كل الإعلانات</a>
+                        <a href="javascript:void(0);" data-toggle="modal" data-target="#modal_iconified" class="btn bg-danger btn-labeled heading-btn"><b><i class="icon-trash"></i></b> {{l.ads.3}}</a>
 
 
 
@@ -96,10 +96,12 @@
 			    
 			<i class="icon-folder-open2 empty_state_icon"></i>
 		<h4> 
-        مرحبا !
-		    لا توجد لديك أية اعلانات حالياً ، يمكنك اضافة إعلانات جديدة 
+        {{l.ads.5}}
+        
 		</h4>
-		<a href="{{ path_for('ads.create') }}" class="btn bg-blue btn-labeled heading-btn"><b><i class="icon-plus3"></i></b> اضافة اعلان جديد</a>
+		<a href="{{ path_for('ads.create') }}" class="btn bg-blue btn-labeled heading-btn"><b><i class="icon-plus3"></i></b>
+        {{l.ads.6}}
+             </a>
 
 			</div>
 		
@@ -116,10 +118,10 @@
         <thead>
             <tr>
                 <th><b>#</b></th>
-                <th class="col-md-2"><b>عنوان الإعلان</b></th>
-                <th><b>تاريخ الإنشاء</b></th>
-                <th><b>الحالة</b></th>
-                <th class="text-center"><b>تعديل</b></th>
+                <th class="col-md-2"><b>{{l.ads.7}}</b></th>
+                <th><b>{{l.ads.8}}</b></th>
+                <th><b>{{l.ads.9}}</b></th>
+                <th class="text-center"><b>{{l.ads.10}}</b></th>
             </tr>
         </thead>
         <tbody>  
@@ -133,10 +135,10 @@
              <td>{{ ad.statue|adsatue }}</td>
              <td class="text-center">
               <a href="{{ path_for('ads.show', {'id': ad.id}) }}" class="text-primary-600">
-                  <i class="icon-pencil7 position-left"></i>تعديل </a>
+                  <i class="icon-pencil7 position-left"></i>{{l.ads.11}} </a>
                   
                <a href="{{ path_for('ads.delete', {'id': ad.id}) }}" class="text-danger-600" style="margin-right:15px;">
-                  <i class="icon-cross2 position-left"></i>حذف  </a>
+                  <i class="icon-cross2 position-left"></i>{{l.ads.12}}  </a>
              </td>
          </tr>
          {% endfor %}   
@@ -144,10 +146,10 @@
         <tfoot>
             <tr>
                 <th><b>#</b></th>
-                <th class="col-md-2"><b>عنوان الإعلان</b></th>
-                <th><b>تاريخ الإنشاء</b></th>
-                <th><b>الحالة</b></th>
-                <th class="text-center"><b>تعديل</b></th>
+                <th class="col-md-2"><b>{{l.ads.7}}</b></th>
+                <th><b>{{l.ads.8}}</b></th>
+                <th><b>{{l.ads.9}}</b></th>
+                <th class="text-center"><b>{{l.ads.10}}</b></th>
             </tr>
         </tfoot>
     </table>

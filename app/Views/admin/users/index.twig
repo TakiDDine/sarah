@@ -1,8 +1,34 @@
 {% extends "admin/layout.twig" %}
-{% block title %} الأعضاء {% endblock %}
+{% block title %} {{l.users.1}} {% endblock %}
 
 {% block content %}
            
+          
+<!--
+    
+    {{l.users.1}}
+    {{l.users.1}}
+    {{l.users.1}}
+    {{l.users.1}}
+    {{l.users.1}}
+    {{l.users.1}}
+    {{l.users.1}}
+    {{l.users.1}}
+    {{l.users.1}}
+    {{l.users.1}}
+    {{l.users.1}}
+    {{l.users.1}}
+    {{l.users.1}}
+    {{l.users.1}}
+         
+-->
+         
+         
+         
+         
+         
+         
+         
          
 <!-- Main content -->
 <div class="content-wrapper">
@@ -11,18 +37,18 @@
 				<div class="page-header page-header-transparent">
 					<div class="page-header-content">
 						<div class="page-title">
-							<h1> <span class="text-semibold">الأعضاء</span></h1>
+							<h1> <span class="text-semibold">{{l.users.1}}</span></h1>
 							<ul class="breadcrumb position-left">
 								    {% if searchView != true %}
-                                    <p>عدد الأعضاء : {{ pagination.count }} عضو</p>
+                                    <p>{{l.users.3}} {{ pagination.count }} {{l.users.2}}</p>
                                     {% endif %}
 							</ul>
 						</div>
 
 						<div class="heading-elements">
-							<a href="{{ path_for('users.create') }}" class="btn bg-blue btn-labeled heading-btn"><b><i class="icon-plus3"></i></b> اضافة عضو جديد</a>
+							<a href="{{ path_for('users.create') }}" class="btn bg-blue btn-labeled heading-btn"><b><i class="icon-plus3"></i></b>{{l.users.4}}</a>
                         
-                        <a href="javascript:void(0);" data-toggle="modal" data-target="#modal_iconified" class="btn bg-danger btn-labeled heading-btn"><b><i class="icon-trash"></i></b> حذف كل الأعضاء</a>
+                        <a href="javascript:void(0);" data-toggle="modal" data-target="#modal_iconified" class="btn bg-danger btn-labeled heading-btn"><b><i class="icon-trash"></i></b> {{l.users.5}}</a>
                         
                         
 		            <!-- Iconified modal -->
@@ -64,8 +90,12 @@
 					<!-- /iconified modal -->
                                             
 				            <div class="btn-group">
-                                <a class="btn bg-teal-400" href="{{ path_for('usersToPdf') }}"><i class="icon-file-pdf" ></i>  تحميل نسخة  pdf </a>
-                                <a class="btn bg-teal-400" href="{{ path_for('usersToCsv') }}"><i class="icon-file-excel" ></i>  تحميل نسخة csv</a>
+                                <a class="btn bg-teal-400" href="{{ path_for('usersToPdf') }}"><i class="icon-file-pdf" ></i>  
+                                {{l.users.6}}
+                                </a>
+                                <a class="btn bg-teal-400" href="{{ path_for('usersToCsv') }}"><i class="icon-file-excel" ></i> 
+                                {{l.users.7}}
+                                </a>
                             </div>
 						</div>
 					</div>
@@ -81,7 +111,7 @@
 <!-- Search field -->
 <div class="panel panel-flat">
     <div class="panel-heading">
-        <h5 class="panel-title">البحث عن الأعضاء</h5>
+        <h5 class="panel-title">{{l.users.8}}</h5>
         <div class="heading-elements">
             <ul class="icons-list">
                 <li><a data-action="collapse"></a></li>
@@ -95,14 +125,14 @@
             <div class="input-group content-group">
                 <div class="has-feedback has-feedback-left">
                     <input type="text" class="form-control input-xlg" value="" 
-                    placeholder="ابحث عن العضو عن طريق الإميل / اسم المستخدم" name="search" />
+                    placeholder="{{l.users.91}}" name="search" />
                     <div class="form-control-feedback">
                         <i class="icon-search4 text-muted text-size-base"></i>
                     </div>
                 </div>
 
                 <div class="input-group-btn">
-                    <button type="submit" class="btn btn-primary btn-xlg">بحث</button>
+                    <button type="submit" class="btn btn-primary btn-xlg">{{l.users.9}}</button>
                 </div>
             </div>
         </form>
@@ -115,8 +145,8 @@
 {% if users is  empty %}
 
 <center>
-<h1>لا توجد أية نتائج للكلمة التي تبحث عنها</h1>
-<h6>المرجوا ادخال كلمات أكثر دقة والمحاولة مرة أخرى</h6>
+<h1>{{l.users.10}}</h1>
+<h6>{{l.users.11}}</h6>
 </center>
 
 {% endif %}
@@ -126,6 +156,7 @@
 {% if users is not empty %}
 <form action="{{path_for('users.mutliAction')}}" method="POST">
 
+<!--
 <div class=" navbar navbar-default navbar-component navbar-xs transparent">
     <div class="col-md-2">
         <select name="takeAction" id="" class="form-control takeAction">
@@ -137,30 +168,25 @@
        <input type="submit" class='btn btn-primary' name="delete" value="تطبيق" /> 
     </div>
 </div>
+-->
 <div class="panel panel-flat">
     <table class="table table-striped datatable userstable" >
         <thead>
             <tr>
                <th class='checkboxall'><input type="checkbox"></th>
                 <th><b>#</b></th>
-                <th class="col-md-2"><b>اسم المستخدم</b></th>
-                <th><b>الإميل</b></th>
-                <th><b>تاريخ التسجيل</b></th>
-                <th><b>الرتبة</b></th>
-                <th><b>حالة الحساب</b></th>
-                <th class="text-center"><b>تعديل</b></th>
+                <th class="col-md-2"><b>{{l.users.15}}</b></th>
+                <th><b>{{l.users.16}}</b></th>
+                <th><b>{{l.users.17}}</b></th>
+                <th><b>{{l.users.18}}</b></th>
+                <th><b>{{l.users.19}}</b></th>
+                <th class="text-center"><b>{{l.users.20}}</b></th>
             </tr>
         </thead>
         <tbody>  
         {% for user in users %}
         
         {% if user.statue != 'supper' %}
-        
-       
-        
-        
-        
-        
          <tr>
             <td class="checkit"><input type="checkbox" name="checkaction[]" value="{{user.id}}"></td>
              <td>{{ user.id }}</td>
@@ -178,7 +204,7 @@
              <td>{{ user.statue() }}</td>
              <td>
               <a href="{{ path_for('users.edit', {'username': user.username}) }}" class="text-primary-600">
-                  <i class="icon-pencil7 position-left"></i>تعديل </a>
+                  <i class="icon-pencil7 position-left"></i>{{l.users.20}} </a>
              </td>
          </tr>
          {% endif %}

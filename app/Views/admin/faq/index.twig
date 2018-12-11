@@ -1,4 +1,7 @@
 {% extends "admin/layout.twig" %}
+
+{% block title %} {{l.faqs.3}} {% endblock %}
+
 {% block content %}
 
 
@@ -11,15 +14,15 @@
 <div class="page-header page-header-transparent">
     <div class="page-header-content">
         <div class="page-title">
-            <h1><i class="icon-arrow-right6 position-left"></i> <span class="text-semibold">الأسئلة الشائعة</span></h1>
+            <h1><i class="icon-arrow-right6 position-left"></i> <span class="text-semibold">{{l.faqs.3}}</span></h1>
         </div>
 
         <div class="heading-elements">
-           {% if posts is not empty %}
+           {% if faqs is not empty %}
             <a href="{{ path_for('faqs.create') }}" class="btn bg-blue btn-labeled heading-btn"><b>
-            <i class="icon-plus3"></i></b> اضافة سؤال جديد</a>
+            <i class="icon-plus3"></i></b> {{l.faqs.4}}</a>
             
- <a href="javascript:void(0);" data-toggle="modal" data-target="#modal_iconified" class="btn bg-danger btn-labeled heading-btn"><b><i class="icon-trash"></i></b> حذف كل الأسئلة الشائعة</a>
+ <a href="javascript:void(0);" data-toggle="modal" data-target="#modal_iconified" class="btn bg-danger btn-labeled heading-btn"><b><i class="icon-trash"></i></b> {{l.faqs.5}}</a>
                         
                         
 		            <!-- Iconified modal -->
@@ -80,10 +83,11 @@
 			    
 			<i class="icon-question3 empty_state_icon"></i>
 		<h4> 
-        مرحبا !
-		    لا توجد لديك أية أسئلة حالياً ، يمكنك اضافة أسئلة جديدة 
+        {{l.faqs.6}}
 		</h4>
-		<a href="{{ path_for('faqs.create') }}" class="btn bg-blue btn-labeled heading-btn"><b><i class="icon-plus3"></i></b> اضافة سؤال جديد</a>
+		<a href="{{ path_for('faqs.create') }}" class="btn bg-blue btn-labeled heading-btn"><b><i class="icon-plus3"></i></b>
+		{{l.faqs.8}}
+		</a>
 		
 		
 		
@@ -95,14 +99,6 @@
 
 {% if faqs is not empty %}
 
-
-
-
-
-<h4 class="text-center content-group">
-						جميع الأسئلة الشائعة تم الإجابة عنها
-						<small class="display-block">ان لم تجد أي سؤال ، تواصل معنا </small>
-					</h4>
 
 
 
@@ -155,16 +151,16 @@
 
 										<div class="panel-footer panel-footer-transparent">
 											<div class="heading-elements">
-												<span class="text-muted heading-text">تاريخ الإنشاء : {{item.created_at.toDateTimeString()|makeNiceTime}}</span>
+												<span class="text-muted heading-text">{{l.faqs.11}} : {{item.created_at.toDateTimeString()|makeNiceTime}}</span>
 
 												<ul class="list-inline list-inline-condensed heading-text pull-right">
 												
 												
-												    <li><a href="{{path_for('faqs.edit', {id : item.id})}}" class="text-primary"><i class="icon-pencil7"></i>  تعديل  </a></li>
-                                    <li><a href="{{path_for('faqs.delete', {id : item.id})}}" class="text-danger"><i class="icon-trash"></i>  حذف  </a></li>
+												    <li><a href="{{path_for('faqs.edit', {id : item.id})}}" class="text-primary"><i class="icon-pencil7"></i>  {{l.faqs.12}}  </a></li>
+                                    <li><a href="{{path_for('faqs.delete', {id : item.id})}}" class="text-danger"><i class="icon-trash"></i>  {{l.faqs.13}}  </a></li>
                                      <li>
                         <a href="{{path_for('faqs.duplicate', {id : item.id})}}" class="text-muted">
-                  <i class="icon-stack-plus position-left"></i> تكرار 
+                  <i class="icon-stack-plus position-left"></i> {{l.faqs.14}} 
               </a>
 												
 

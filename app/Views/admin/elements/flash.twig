@@ -4,17 +4,12 @@
      {{ flash.success }}
 </div>				
 {%  endif %}
-
-
 {%  if flash.error %}
 <div class="alert alert-danger alert-styled-left alert-bordered">
     <button type="button" class="close" data-dismiss="alert"><span>×</span><span class="sr-only">Close</span></button>
     {{ flash.error }}
 </div>  
 {%  endif %}
-
-
-
 {%  if flash('error') %}
 <ul class="alert alert-danger" style="list-style:none;">
     {% for msg in flash('error') %}
@@ -22,8 +17,6 @@
     {% endfor %}
 </ul>
 {%  endif %}
-
-
 {%  if flash('success') %}
 <ul class="alert alert-success" style="list-style:none;">
     {% for msg in flash('success') %}
@@ -31,13 +24,10 @@
     {% endfor %}
 </ul>
 {%  endif %}
-
-
 {%  if flash('success_cart') %}
 <ul class="alert alert-success" style="list-style:none;">
     <li>تم اضافة المنتوج للسلة <a class="pull-right show-cart" href='{{path_for("website.cart")}}'>عرض السلة</a></li>
 </ul>
-
 <style>
 a.pull-right.show-cart {
     top: -10px;

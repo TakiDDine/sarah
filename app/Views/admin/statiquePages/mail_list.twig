@@ -1,4 +1,8 @@
 {% extends "admin/layout.twig" %}
+
+{% block title %} {{l.emailist.405}} {% endblock %}
+
+
 {% block content %}
 
 
@@ -11,7 +15,7 @@
 <div class="page-header page-header-transparent">
     <div class="page-header-content">
         <div class="page-title">
-            <h1><i class="icon-arrow-right6 position-left"></i> <span class="text-semibold">القائمة البريدية</span></h1>
+            <h1><i class="icon-arrow-right6 position-left"></i> <span class="text-semibold">{{l.emailist.405}}</span></h1>
         </div>
 
         <div class="heading-elements">
@@ -19,7 +23,7 @@
             <a href="{{ path_for('posts.create') }}" class="btn bg-blue btn-labeled heading-btn"><b>
             <i class="icon-plus3"></i></b>     </a>
             
- <a href="javascript:void(0);" data-toggle="modal" data-target="#modal_iconified" class="btn bg-danger btn-labeled heading-btn"><b><i class="icon-trash"></i></b> حذف كل المقالات</a>
+ <a href="javascript:void(0);" data-toggle="modal" data-target="#modal_iconified" class="btn bg-danger btn-labeled heading-btn"><b><i class="icon-trash"></i></b> {{l.emailist.406}}</a>
                         
                         
 		            <!-- Iconified modal -->
@@ -78,10 +82,7 @@
 			<div class="empty_state text-center">
 			    
 			<i class=" icon-mail-read empty_state_icon"></i>
-		<h4> 
-        مرحبا !
-		    عند اشتراك المتابعين في القائمة البريدية ستظهر هنا اميلاتهم 
-		</h4>
+		<h4> {{l.emailist.408}}</h4>
 	
 		
 		
@@ -96,8 +97,8 @@
         <table class="table datatable-basic">
             <thead>
                 <tr>
-                    <th><b>الإميل</b></th>
-                    <th><b>تاريخ الإشتراك</b></th>
+                    <th><b>{{l.emailist.409}}</b></th>
+                    <th><b>{{l.emailist.4010}}</b></th>
                 </tr>
             </thead>
             <tbody>

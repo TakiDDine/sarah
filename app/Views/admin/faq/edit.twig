@@ -1,6 +1,6 @@
 {% extends "admin/layout.twig" %}
 
-{% block title %} اضافة سؤال جديد {% endblock %}
+{% block title %} {{l.faqsedit.25}} {% endblock %}
 
 
 {% block content %}
@@ -12,7 +12,7 @@
 				<div class="page-header page-header-transparent">
 					<div class="page-header-content">
 						<div class="page-title">
-							<h1> <span class="text-semibold"> تحديث </span></h1>
+							<h1> <span class="text-semibold"> {{l.faqsedit.26}} </span></h1>
 						</div>
 					</div>
 				</div>
@@ -26,22 +26,22 @@
 <form method='post' action="{{ path_for('faqs.edit',{id : post.id}) }}">
 <div class="col-md-9">								
     <div class="form-group">
-            <label class="control-label">عنوان السؤال</label>
+            <label class="control-label">{{l.faqsedit.27}}</label>
             <input type="text" id="postitlte" class="form-control" name="question" placeholder="عنوان السؤال" value="{{post.question}}" />
     </div>
     <textarea name="answer" id="posteditor"  >{{post.answer}}</textarea>
 </div>					
 
 <div class="col-md-3">
-<button type="submit" class="btn btn-block btn-primary">نشر السؤال <i class="icon-arrow-left13 position-right"></i></button>
+<button type="submit" class="btn btn-block btn-primary">{{l.faqsedit.28}} <i class="icon-arrow-left13 position-right"></i></button>
 <br>
 <div class="panel panel-white">
     <div class="panel-heading">
-        <h6 class="panel-title"> تصنيف السؤال </h6>
+        <h6 class="panel-title">{{l.faqsedit.29}}</h6>
     </div>
     <div class="panel-body">
          <select  name="postCategory" style="width:100%;" class="postCategory">
-            <option value="not_speci">غير محدد بعد</option>
+            <option value="not_speci">{{l.faqsedit.30}}</option>
                 {% for categorie in categories %}
                 <option value="{{categorie.id}}">{{categorie.name}}</option>
                 {% endfor %} 
@@ -69,11 +69,6 @@ CKEDITOR.replace( 'posteditor', {
     language: 'ar',
 }); 
 </script>
-    
-    
-    
-    
-    
     
     
 

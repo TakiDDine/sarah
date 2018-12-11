@@ -1,4 +1,7 @@
 {% extends "admin/layout.twig" %}
+{% block title %} {{l.media.0}} {% endblock %}
+
+
 {% block content %}
 
 <!-- Main content -->
@@ -12,9 +15,9 @@
         <div class="heading-elements">
            {% if media is not empty %}
             <a href="javascript:void(0);" class="btn bg-blue btn-labeled heading-btn showUploader"><b>
-            <i class="icon-plus3"></i></b> رفع ملف جديد</a>
+            <i class="icon-plus3"></i></b> {{l.media.1}}</a>
             <a href="javascript:void(0);"  data-toggle="modal" data-target="#modal_iconified" class="btn bg-danger btn-labeled heading-btn">
-            <b><i class="icon-trash"></i></b> حذف كل الملفات في الوسائط </a>
+            <b><i class="icon-trash"></i></b> {{l.media.2}} </a>
                         
 		            <!-- Iconified modal -->
 					<div id="modal_iconified" class="modal fade">
@@ -56,9 +59,9 @@
 <!-- empty state -->
 <div class="empty_state text-center">
     <i class="icon-library2 empty_state_icon"></i>
-    <h4> مرحبا ! يبدوا انك لم ترفع اية وسائط لحد الآن ، او انك قمت بحذفها <br> عند رفعك لوسائط جديدة ستظهر هنا</h4>
+    <h4>{{l.media.3}}</h4>
     <a href="javascript:void(0);" class="btn bg-blue btn-labeled heading-btn showUploader2"><b>
-    <i class="icon-plus3"></i></b> رفع ملف جديد</a>
+    <i class="icon-plus3"></i></b> {{l.media.4}} </a>
 </div>
 <!-- empty state -->
 {% endif %} 
@@ -71,7 +74,7 @@
            <center>
            <div id="submitResult"></div>
             <input type="file" name="file" class='uploader_input' />
-            <input type="submit" value="رفع الملف" class="btn btn-primary btn-ladda-spinner ladda-button" />
+            <input type="submit" value="{{l.media.23}}" class="btn btn-primary" />
             </center>
         </form>
     </div>
@@ -98,14 +101,13 @@ Launch
     <table class="table media-table">
         <thead>
             <tr>
-                                <th><b>اسم الملف</b></th>
-
-                <th><b>نوع الملف</b></th>
-                <th><b>تاريخ الرفع</b></th>
-                <th><b>حجم الملف</b></th>
-                <th><b>الرابط المباشر </b></th>
-                <th><b>تحميل</b></th>
-                <th class="text-center"><b>حذف</b></th>
+                <th><b>{{l.media.15}}</b></th>
+                <th><b>{{l.media.16}}</b></th>
+                <th><b>{{l.media.17}}</b></th>
+                <th><b>{{l.media.18}}</b></th>
+                <th><b>{{l.media.19}}</b></th>
+                <th><b>{{l.media.20}}</b></th>
+                <th><b>{{l.media.21}}</b></th>
             </tr>
         </thead>
         <tbody>
@@ -118,10 +120,10 @@ Launch
                 <td>Format: {{item.ext()}}</td>
                 <td>{{item.created_at.toDateTimeString()|makeNiceTime}}</td>
                 <td>{{item.name|file_size}}</td>
-                <td><a href="{{url.media}}{{item.name}}" target="_blank">اضغط هنا</a></td>
-                <td><a href="{{path_for('media.download',{id: item.id})}}">  <i class="icon-download"></i>    تحميل الملف</a></td>
+                <td><a href="{{url.media}}{{item.name}}" target="_blank"> {{l.media.12}} </a></td>
+                <td><a href="{{path_for('media.download',{id: item.id})}}">  <i class="icon-download"></i> {{l.media.13}} </a></td>
                 <td class="text-center">
-                    <a id='DeleteMedia' data-id='{{item.id}}' class="text-danger"><i class="icon-trash"></i><b> حذف  </b></a>
+                    <a id='DeleteMedia' data-id='{{item.id}}' class="text-danger"><i class="icon-trash"></i><b> {{l.media.14}} </b></a>
                 </td>
             </tr>
             {% endfor  %}
@@ -129,14 +131,13 @@ Launch
         
          <thead>
             <tr>
-                                <th><b>اسم الملف</b></th>
-
-                <th><b>نوع الملف</b></th>
-                <th><b>تاريخ الرفع</b></th>
-                <th><b>حجم الملف</b></th>
-                <th><b>الرابط المباشر </b></th>
-                <th><b>تحميل</b></th>
-                <th class="text-center"><b>حذف</b></th>
+                <th><b>{{l.media.15}}</b></th>
+                <th><b>{{l.media.16}}</b></th>
+                <th><b>{{l.media.17}}</b></th>
+                <th><b>{{l.media.18}}</b></th>
+                <th><b>{{l.media.19}}</b></th>
+                <th><b>{{l.media.20}}</b></th>
+                <th><b>{{l.media.21}}</b></th>
             </tr>
         </thead>
         

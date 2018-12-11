@@ -1,5 +1,5 @@
 {% extends "admin/layout.twig" %}
-{% block title %} اضافة عضو جديد {% endblock %}
+{% block title %} {{l.productsCreate.260}} {% endblock %}
 {% block content %}
 
 <!-- Main content -->
@@ -14,33 +14,33 @@
             <div class="panel panel-flat ">
                 <div class="panel-body">
                         <fieldset class="content-group">
-                            <legend class="text-bold">اضافة منتج جديد</legend>
+                            <legend class="text-bold">{{l.productsCreate.260}}</legend>
                             <div class="form-group">
-                                <label class="control-label col-lg-2">اسم المنتوج</label>
+                                <label class="control-label col-lg-2">{{l.productsCreate.261}}</label>
                                 <div class="col-lg-10">
                                     <input type="text" class="form-control" name="title"  value="{{ old.title }}">
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="control-label col-lg-2">الرابط</label>
+                                <label class="control-label col-lg-2">{{l.productsCreate.262}}</label>
                                 <div class="col-lg-10">
                                     <input type="text" class="form-control" name="slug" value="{{ old.title }}">
                                 </div>
                             </div>                            
                             <div class="form-group">
-                                <label class="control-label col-lg-2">الوصف</label>
+                                <label class="control-label col-lg-2">{{l.productsCreate.263}}</label>
                                 <div class="col-lg-10">
                                    <textarea rows="5" name="description" class="form-control" placeholder="المرجوا ادخال وصف المنتوج">{{ old.price }}</textarea>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="control-label col-lg-2">سعر المنتوج</label>
+                                <label class="control-label col-lg-2">{{l.productsCreate.264}}</label>
                                 <div class="col-lg-10">
                                     <input type="text" class="form-control" name="price" value="{{ old.price }}">
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="control-label col-lg-2"> سعر المنتوج بعد التخفيض</label>
+                                <label class="control-label col-lg-2"> {{l.productsCreate.265}}</label>
                                 <div class="col-lg-10">
                                     <input type="text" class="form-control" name="discount_price" value="{{ old.discount_price }}">
                                 </div>
@@ -60,11 +60,11 @@
    
    
 <div class="col-md-3">
-   <button type="submit" class="btn btn-block btn-primary">اضافة منتوج جديد <i class="icon-arrow-left13 position-right"></i></button>
+   <button type="submit" class="btn btn-block btn-primary">{{l.productsCreate.266}} <i class="icon-arrow-left13 position-right"></i></button>
    <br>
     <div class="panel panel-white">
         <div class="panel-heading">
-        الصورة الخارجية للمنتوج
+        {{l.productsCreate.267}}
         </div>
         <div class="panel-body">
           <div class="preview-thumbnail">
@@ -72,16 +72,18 @@
             </div>
                 
                 
-           <label for="ProductThumbnail" class="btn btn-danger btn-rounded"><i class="icon-image2 position-left"></i> اختيار الصورة </label>
+           <label for="ProductThumbnail" class="btn btn-danger btn-rounded"><i class="icon-image2 position-left"></i> {{l.productsCreate.268}} </label>
 			<input name="ProductThumbnail" id="ProductThumbnail" accept="image/jpg, image/jpeg, image/png" style="visibility:hidden;" type="file" />
         </div>
     </div>
      <div class="panel panel-white">
         <div class="panel-heading">
-        معرض صور المنتوج
+        {{l.productsCreate.269}}
         </div>
         <div class="panel-body">
-           <label for="gallery-photo-add" class="btn btn-danger btn-rounded"><i class="icon-image2 position-left"></i> اختيار الصور </label>
+           <label for="gallery-photo-add" class="btn btn-danger btn-rounded"><i class="icon-image2 position-left"></i>
+           {{l.productsCreate.270}}
+            </label>
            
        <div class="gallery"></div>
         </div>
@@ -127,12 +129,12 @@
     </div>
     <div class="panel panel-white">
 								<div class="panel-heading">
-									<h6 class="panel-title"> تصنيف المنتوج </h6>
+									<h6 class="panel-title"> {{l.productsCreate.271}} </h6>
 								</div>
 
 								<div class="panel-body">
 									 <select  name="category" style="width:100%;" class="areaUndetected">
-                                        <option value="NOTDEFFINED">غير محدد</option>
+                                        <option value="NOTDEFFINED">{{l.productsCreate.272}}</option>
                                         {% for categorie in categories %}
                                         <option value="{{categorie.id}}">{{categorie.name}}</option>
                                         {% endfor %} 

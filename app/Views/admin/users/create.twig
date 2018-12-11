@@ -1,5 +1,5 @@
 {% extends "admin/layout.twig" %}
-{% block title %} اضافة عضو جديد {% endblock %}
+{% block title %} {{l.userscreate.1}} {% endblock %}
 {% block content %}
 
 <!-- Main content -->
@@ -10,59 +10,60 @@
         {% include "admin/elements/flash.twig" %}
         
         <h1>اضافة عضو جديد</h1>
-        <p class="text-muted">* كل الحقول مطلوبة ، المرجوا ملأ كل الحقول بالمعلومات المطلوبة</p>
+        <p class="text-muted">{{l.userscreate.3}}</p>
         <div class="col-md-12">
             <div class="panel panel-flat col-md-12">
                 <div class="panel-body">
                    <div id="result"></div>
                     <form class="form-horizontal" id="createuser" method='post' action="{{path_for('users.create')}}" autocomplete="off">
                         <fieldset class="content-group">
-                            <legend class="text-bold">اضافة عضو جديد</legend>
+                            <legend class="text-bold">{{l.userscreate.4}}</legend>
                             <div class="form-group">
-                                <label class="control-label col-lg-2">اسم المستخدم</label>
+                                <label class="control-label col-lg-2">{{l.userscreate.5}}</label>
                                 <div class="col-lg-10">
                                     <input type="text" class="form-control frequired" autocomplete="new-password" name="username" placeholder="@username" value="{{ old.username }}" required >
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="control-label col-lg-2">البريد الإلكتروني</label>
+                                <label class="control-label col-lg-2">{{l.userscreate.6}}</label>
                                 <div class="col-lg-10">
                                     <input type="email" class="form-control frequired" autocomplete="new-password" value="{{ old.email }}" name="email" placeholder="البريد الإلكتروني" required>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="control-label col-lg-2">كلمة المرور</label>
+                                <label class="control-label col-lg-2">{{l.userscreate.7}}</label>
                                 <div class="col-lg-10">
                                     <input type="password" autocomplete="new-password" value="{{ old.password }}" class="form-control frequired" name="password" id="password" placeholder="كلمة المرور" required> 
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="control-label col-lg-2">الرتبة</label>
+                                <label class="control-label col-lg-2">{{l.userscreate.8}}</label>
                                 <div class="col-lg-10">
                                    
                                    {% if old.role is not empty %}
                                        <select name="role" class="form-control">
                                             {% if old.role =='1' %}
-                                                <option value="1" class="form-control">مستخدم عادي</option>
-                                                <option value="2" class="form-control">مدير</option>
+                                                <option value="1" class="form-control">{{l.userscreate.9}}</option>
+                                                <option value="2" class="form-control">{{l.userscreate.10}}</option>
                                             {% else  %}
-                                                <option value="2" class="form-control">مدير</option>
-                                                <option value="1" class="form-control">مستخدم عادي</option>
+                                                <option value="2" class="form-control">{{l.userscreate.10}}</option>
+                                                <option value="1" class="form-control">{{l.userscreate.9}}</option>
                                             {% endif  %}
                                         </select>
                                    {% endif  %}
                                    
                                    {% if old.role is empty %}
                                         <select name="role" class="form-control">
-                                            <option value="1" class="form-control">مستخدم عادي</option>
-                                            <option value="2" class="form-control">مدير</option>
+                                                <option value="1" class="form-control">{{l.userscreate.9}}</option>
+                                                <option value="2" class="form-control">{{l.userscreate.10}}</option>
                                         </select>  
                                    {% endif  %}   
                                 </div>
                             </div>
                         </fieldset>
                         <div class="text-right">
-                            <button type="submit" class="btn btn-primary" id="Submit_Add_User">اضافة عضو جديد 
+                            <button type="submit" class="btn btn-primary" id="Submit_Add_User">
+                               {{l.userscreate.15}}
                                 <i class="icon-arrow-left13 position-right"></i>
                             </button>
                         </div>

@@ -1,5 +1,5 @@
 {% extends "admin/layout.twig" %}
-{% block title %} الطبات {% endblock %}
+{% block title %} {{l.orders.2}} {% endblock %}
 
 
 
@@ -30,9 +30,9 @@
 					<div class="page-header-content">
 						<div class="page-title">
 						{% if orders is not empty %}
-							<h1> <span class="text-semibold">الطلبات</span></h1>
+							<h1> <span class="text-semibold">{{l.orders.2}}</span></h1>
 							<ul class="breadcrumb position-left">
-                                    <p>عدد الطلبات : {{ pagination.count }} طلبات</p>
+                                    <p>{{l.orders.4}} : {{ pagination.count }} {{l.orders.3}}</p>
 							</ul>
 						</div>
 						
@@ -40,7 +40,7 @@
 						
 				        <div class="heading-elements">
 		
- <a href="javascript:void(0);" data-toggle="modal" data-target="#modal_iconified" class="btn bg-danger btn-labeled heading-btn"><b><i class="icon-trash"></i></b> حذف كل الطلبات</a>
+ <a href="javascript:void(0);" data-toggle="modal" data-target="#modal_iconified" class="btn bg-danger btn-labeled heading-btn"><b><i class="icon-trash"></i></b>{{l.orders.5}}</a>
                         
                         </div>
 		            <!-- Iconified modal -->
@@ -106,7 +106,7 @@
 			<i class="icon-basket empty_state_icon"></i>
 		<h4 style="color: #ababab;"> 
       <br>
-		عند تلقيك لطلب جديد، سوف يظهر هنا.
+		{{l.orders.6}}
 
 		</h4>
 	
@@ -120,10 +120,10 @@
     <table class="table table-striped trclikable" >
         <thead>
             <tr>
-                <th><b>الطلب</b></th>
-                <th><b>تاريخ الإضافة</b></th>
-                <th><b>الحالة</b></th>
-                <th><b>الإجمالي</b></th>
+                <th><b>{{l.orders.7}}</b></th>
+                <th><b>{{l.orders.8}}</b></th>
+                <th><b>{{l.orders.9}}</b></th>
+                <th><b>{{l.orders.10}}</b></th>
             </tr>
         </thead>
         <tbody>  
@@ -138,10 +138,10 @@
         </tbody>
         <tfoot>
             <tr>
-                <th><b>الطلب</b></th>
-                <th><b>تاريخ الإضافة</b></th>
-                <th><b>الحالة</b></th>
-                <th><b>الإجمالي</b></th>
+                <th><b>{{l.orders.7}}</b></th>
+                <th><b>{{l.orders.8}}</b></th>
+                <th><b>{{l.orders.9}}</b></th>
+                <th><b>{{l.orders.10}}</b></th>
             </tr>
         </tfoot>        
     </table>

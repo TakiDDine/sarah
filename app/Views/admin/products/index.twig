@@ -1,5 +1,5 @@
 {% extends "admin/layout.twig" %}
-{% block title %} المنتجات {% endblock %}
+{% block title %} {{l.products.232}} {% endblock %}
 
 
 
@@ -54,10 +54,10 @@
 				<div class="page-header page-header-default">
 					<div class="page-header-content">
 						<div class="page-title">
-							<h4><i class="icon-arrow-right6 position-left"></i>المنتجات</h4>
+							<h4><i class="icon-arrow-right6 position-left"></i>{{l.products.232}}</h4>
 							<ul class="breadcrumb position-left">
 								    {% if searchView != true %}
-                                    <p>عدد المنتجات : {{ pagination.count }} منتج</p>
+                                    <p>{{l.products.234}} : {{ pagination.count }} {{l.products.232}}</p>
                                     {% endif %}
 							</ul>
 						</div>
@@ -66,9 +66,9 @@
 							<div class="heading-btn-group">
 								
 								
-								<a href="{{ path_for('products.create') }}" class="btn bg-blue btn-labeled heading-btn"><b><i class="icon-plus3"></i></b> اضافة منتج جديد</a>
+								<a href="{{ path_for('products.create') }}" class="btn bg-blue btn-labeled heading-btn"><b><i class="icon-plus3"></i></b> {{l.products.235}}</a>
 				            
-				             <a href="" data-toggle="modal" data-target="#modal_iconified" class="btn bg-danger btn-labeled heading-btn"><b><i class="icon-trash"></i></b> حذف كل المنتجات</a>
+				             <a href="" data-toggle="modal" data-target="#modal_iconified" class="btn bg-danger btn-labeled heading-btn"><b><i class="icon-trash"></i></b> {{l.products.236}}</a>
 							
 							
 							
@@ -87,8 +87,8 @@
 
 					<div class="breadcrumb-line">
 						<ul class="breadcrumb">
-							<li><a href="index.html"><i class="icon-home2 position-left"></i> الرئيسية</a></li>
-							<li class="active">المنتجات</li>
+							<li><a href="{{path_for('admin.index')}}"><i class="icon-home2 position-left"></i> {{l.products.237}}</a></li>
+							<li class="active">{{l.products.238}}</li>
 						</ul>
 
 						
@@ -123,11 +123,11 @@
 			<div class="empty_state text-center">
 			    
 			<i class="icon-basket empty_state_icon"></i>
-		<h4> 
-        مرحبا !
-		    لا توجد لديك أية منتجات حالياً ، يمكنك اضافة منتجات جديدة 
+		<h4> {{l.products.240}}
 		</h4>
-		<a href="{{ path_for('products.create') }}" class="btn bg-blue btn-labeled heading-btn"><b><i class="icon-plus3"></i></b> اضافة منتج جديد</a>
+		<a href="{{ path_for('products.create') }}" class="btn bg-blue btn-labeled heading-btn"><b><i class="icon-plus3"></i></b>
+		{{l.products.241}}
+		</a>
 			</div>
 {% endif %}
 {% endif %}
@@ -145,7 +145,7 @@
 <!-- Search field -->
 <div class="panel panel-flat">
     <div class="panel-heading">
-        <h5 class="panel-title">البحث عن المنتجات</h5>
+        <h5 class="panel-title">{{l.products.242}}</h5>
         <div class="heading-elements">
             <ul class="icons-list">
                 <li><a data-action="collapse"></a></li>
@@ -166,7 +166,7 @@
                 </div>
 
                 <div class="input-group-btn">
-                    <button type="submit" class="btn btn-primary btn-xlg">بحث</button>
+                    <button type="submit" class="btn btn-primary btn-xlg">{{l.products.243}}</button>
                 </div>
             </div>
         </form>
@@ -197,11 +197,11 @@
             <tr>
                 <th><b>#</b></th>
                 <th width="60" ><i class="icon-image2"></i></th>
-                <th><b>اسم المنتوج</b></th>
-                <th><b>تاريخ الإضافة</b></th>
-                <th><b>السعر</b></th>
-                <th><b>التصنيف</b></th>
-                <th class="text-center"><b>تعديل</b></th>
+                <th><b>{{l.products.247}}</b></th>
+                <th><b>{{l.products.248}}</b></th>
+                <th><b>{{l.products.249}}</b></th>
+                <th><b>{{l.products.250}}</b></th>
+                <th class="text-center"><b>{{l.products.251}}</b></th>
             </tr>
         </thead>
         <tbody>  
@@ -230,23 +230,23 @@
                     <ul class="dropdown-menu dropdown-menu-right">
                      
                      
-                     <li><a target="_blank" href="{{ path_for('website.product', {'id': product.id }) }}" class="text-success-600"><i class="icon-eye position-left"></i> معاينة </a></li>
+                     <li><a target="_blank" href="{{ path_for('website.product', {'id': product.id }) }}" class="text-success-600"><i class="icon-eye position-left"></i> {{l.products.252}} </a></li>
                       <li>
                       <a href="{{ path_for('products.edit', {'id': product.id }) }}" class="text-primary-600">
-                  <i class="icon-pencil7 position-left"></i>تعديل 
+                  <i class="icon-pencil7 position-left"></i>{{l.products.253}} 
               </a>
                        
                        </li>
                         <li>
                         <a href="{{ path_for('products.delete', {'id': product.id }) }}" class="text-danger-600">
-                  <i class="icon-cross2 position-left"></i>حذف 
+                  <i class="icon-cross2 position-left"></i>{{l.products.254}} 
               </a>
                         
                         </li>
                         
                          <li>
                         <a href="{{ path_for('products.duplicate', {'id': product.id }) }}" class="text-bg-info">
-                  <i class="icon-stack-plus position-left"></i>تكرار 
+                  <i class="icon-stack-plus position-left"></i>{{l.products.255}} 
               </a>
                         
                         </li>
@@ -324,9 +324,9 @@
 					<!-- /iconified modal -->
 
 {% include "admin/elements/pagination.twig" %}
-{{pagination|raw}}
+
    
-   {{products.links()}}
+
    
     </div>
 </div>
