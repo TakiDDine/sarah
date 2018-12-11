@@ -167,7 +167,9 @@ return  [
         '5' => 'sent ',
         '6' => 'edit',
         '7' => 'preview ',
-        '8' => 'delete'
+        '8' => 'delete',
+        '9' => 'send new email',
+        '10'=> 'delete all emails'
     ],
     
     'ads' => [
@@ -705,6 +707,15 @@ return  [
         '7' => 'close '
     ],
     
+    
+    'Emails' => [
+        '219' => 'Great , you inbox is zero ',
+        '220' => 'whene you recieve new email , will appear here',
+        '221' => 'full name',
+        '222' => 'from',
+        '223' => 'message',
+        '224' => 'sent at'
+    ],
     
     
     /******************************************************************************/

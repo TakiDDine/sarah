@@ -334,6 +334,7 @@ if(isset($_GET['lang'])) {
     header('Location: http://sarah.local/dashboard/'); 
     $file = BASEPATH.'/app/lang/admin/'.$_GET['lang'].'.php';
     $container['view']->getEnvironment()->addGlobal('l', Config::load($file));
+    $container['view']->getEnvironment()->addGlobal('l', Config::load($file));
 }
 $lg = !isset($_COOKIE['lang']) ? 'en' : $_COOKIE['lang'];
 
