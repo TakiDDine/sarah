@@ -6,6 +6,29 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Helper {
     
+    
+    
+
+    /*
+	*	Clean POST data
+	*/
+	public function cleanData($post)
+	{
+		$clean = [];
+		foreach ($post as $key => $value):
+			$clean[$key] = $this->clean(($value));
+		endforeach;
+		return $clean;
+	}
+
+    
+    
+    
+    
+    
+    
+    
+    
 /**
  * Created by IntelliJ IDEA.
  * User: hefang

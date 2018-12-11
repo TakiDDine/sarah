@@ -40,52 +40,38 @@ class PostsController extends Controller {
         }
     
     
-        public function create($request,$response) {
+    
+    public function create($request,$response) {
 
-            if($request->getMethod() == 'GET'){
-                $categories = PostsCategories::all();
-                return $this->container->view->render($response,'admin/posts/create.twig',['categories'=>$categories]);
-            }
-            
             if($request->getMethod() == 'POST'){
-                
+
                 // initialize the helper & the uploader clean post form
                 $helper   = $this->helper;
-                $post     = $request->getParams();
-                $uploader = $this->files;
-                
-                $title        = $helper->clean($post['title']);
-                $post_content = $helper->clean($post['post_content']);
-                $categories   = $helper->clean($post['postCategory']);
-                
-                
-                $post_thumbnail = " ";
-                
+                $post = $helper->cleanData($request->getParams());
+                $up = $this->files;
+
                 // upload the post thumbnail
                 $file = $_FILES['post_thumbnail'];
-                if(isset($file) and !empty($file['name'])) {
+                $thumbnail = !empty($file['name']) ? $up->up($this->dir('posts'),$file) : " ";
 
-                 // upload the thumbnail
-                 $post_thumbnail =  $uploader->upload_avatar($this->dir('posts'),$file);
-
-                }  
-                
                 // create the post
                 Post::create([
-                    'title' => $title,
-                    'content'  => $post_content,
-                    'thumbnail' => $post_thumbnail,
+                    'title' => $post['title'] ,
+                    'content'  => $post['post_content'],
+                    'thumbnail' => $thumbnail,
                     'author' => $_SESSION['auth-admin'],
                     'statue' => '1',
                     'type' => 'post',
-                    'categoryID' => $categories
+                    'categoryID' => $post['postCategory']
                 ]);
-                
+
                 // flash success & redirect
                 $this->flashsuccess('تم اضافة المقالة بنجاح');
                 return $response->withRedirect($this->router->pathFor('posts'));        
           }
-        
+
+          $categories = PostsCategories::all();
+          return $this->container->view->render($response,'admin/posts/create.twig',compact('categories')); 
     }
     
     
@@ -93,60 +79,44 @@ class PostsController extends Controller {
     public function edit($request,$response,$args) {
         $categories = PostsCategories::all();
         $id = rtrim($args['id'], '/');
-        $Post = Post::find($id);
-        
+        $post = Post::find($id);
+
         if($request->getMethod() == 'GET'){       
-            if($Post){
-                return $this->container->view->render($response,'admin/posts/edit.twig',['post'=>$Post,'categories'=>$categories]);
+            if($post){
+                return $this->view->render($response,'admin/posts/edit.twig',compact('post','categories'));
             }
             return $response->withRedirect($this->router->pathFor('posts'));        
         }
         
         if($request->getMethod() == 'POST'){
-           
+
+                // initialize the helper & the uploader clean post form
+                $helper   = $this->helper;
+                $form     = $helper->cleanData($request->getParams());
+                $up       = $this->files;
+                $file     = $_FILES['post_thumbnail'];
+                $dir      = $this->dir('posts');
             
-            // initialize the helper & the uploader clean post form
-            $helper   = $this->helper;
-            $form     = $request->getParams();
-            $uploader = $this->files;
+                if($form['thumbnailChanged'] == 'true') {
+                    // Upload
+                    $Post->thumbnail = !empty($file['name']) ? $up->up($dir,$file) : ' ';
+
+                    // delete the old thumbnail 
+                    $old = $dir.$post->thumbnail; if(file_exists($old)){unlink($old);}
+                }        
+
             
-            // get & clean the content
-            $title = $helper->clean($form['title']);
-            $content = $helper->clean($form['post_content']);
-            $slug = $helper->clean($form['slug']); 
-            $categories   = $helper->clean($form['postCategory']);
-            
-            
-           if($post['thumbnailChanged'] == 'true') {
-              
-                $thumbnail = " ";
-                // get the thumbnail
-                $file = $_FILES['post_thumbnail'];
-               
-                // Upload
-                if(isset($file) and !empty($file['name'])) { $thumbnail =  $uploader->upload_avatar($this->dir('posts'),$file);}  
-                
-                // delete the old thumbnail 
-                $old = $this->dir('posts').$Post->thumbnail;
-                if(file_exists($old)){unlink($old);}
-                
-                // change the post thumbnail to the new one
-                $Post->thumbnail = $thumbnail;
-  
-            }        
-            
-            // edit the post & save
-            $Post->title                = $title;
-            $Post->content              = $content;
-            $Post->statue               = '1';
-            $Post->slug                 = $slug;
-            $Post->categoryID           = $categories;
-            $Post->save();
-            
-            // flash success & redirect
-            $this->flashsuccess( 'تم تعديل المقالة بنجاح');
-            return $response->withRedirect($this->router->pathFor('posts.edit',['id'=>$id]));   
-            
+                // edit the post & save
+                $post->title                = $form['title'];
+                $post->content              = $form['post_content'];
+                $post->statue               = '1';
+                $post->slug                 = $form['slug'];
+                $post->categoryID           = $form['postCategory'];
+                $post->save();
+
+                // flash success & redirect
+                $this->flashsuccess( 'تم تعديل المقالة بنجاح');
+                return $response->withRedirect($this->router->pathFor('posts.edit',['id'=>$id]));   
         }
         
         
@@ -169,11 +139,8 @@ class PostsController extends Controller {
         
         return $response->withRedirect($this->router->pathFor('posts'));  
     }
-    
-    
-    
-    
-    // Dupli
+
+    // Duplicate the post
     public function duplicate($request,$response,$args) {
         
         // get the id

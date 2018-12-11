@@ -14,12 +14,6 @@ class HomeController extends Controller{
   
     public function home($request,$response) {
         
-
-      
-        
-       
-
-        
         $count = [];
         
         // info
@@ -82,13 +76,11 @@ class HomeController extends Controller{
     }
     
     public function page404($request,$response){
-        return $this->container->view->render($response,'admin/errors/404.twig');
+        return $this->view->render($response,'admin/errors/404.twig');
     }
    
     public function FileManager($request,$response){
-        
-     return $this->container->view->render($response,'FileManager.php');
-//        echo 'zabiiiiiiiiiiiiii';
+        return $this->view->render($response,'FileManager.php');
     }
    
      

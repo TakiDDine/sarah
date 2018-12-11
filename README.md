@@ -13,6 +13,12 @@
 ```
 
 
+
+// fixed
+* admin when open any inside page redirect to index when the user is not logged in
+* make the routes more clean and perfect
+
+
 ## النسخة 1.1
 * تم اضافة العلبة البريدية ، ارسال البريد ، معاينة وحذف
 * اضافة خاصية اضافة أكواد html/css/js في الهيدر والفوتر
@@ -30,6 +36,8 @@
 * تم اضافة امكانية حذف القائمة
 * امكانية حذف عدة حقول في آن واحد  [للصفحات والمقالات والأعضاء]
 * تم اضافة ملف خاص بحفظ الأخطاء البرمجية ،
+
+
 
 # المميزات
 * سهل التثبيت
@@ -49,16 +57,45 @@
 
 
 
+## to do in version 1.2.3 
+
+* check all repeated code & enhance it , dry the code
+* show the user ip, country , system in the dashboard
+
+
+
+
 ## To do in version 1.2 ()
 
 
 
 
+delete all the libraries from github
+update carte
+add font awesome to menu
+add font awesome picker
+
+تسمية مثالية breadcrumbsbreadcrumb
+عرض شرائح مثالي
+قم بتحسين admin.js
+
+قم بزيادة الحد الأقصى لطول كلمة مرور المسؤول أثناء التثبيت
+عند حذف كل الأعضاء ، مسح كل صور الأعضاء بالاستثناء صورة الأدمن ونفس الشيء مع تلك البيانات الأخرى
+اضافة رابط تحميل كافة ملفات الموقع
+تذكير المستخدم بالقياسات في مكان رفع الصور
+تذكير المستخدم بضغط الصور  قبل رفعها
+جعل جداول لوحة التحكم متجاوبة
+https://www.youtube.com/watch?v=spoNYvTdH64https://drive.google.com/file/d/0B7gM8rl_j5nsakpxOFlSSlZvbnc/view
+https://www.youtube.com/watch?v=ktUOY0OAFmA
 
 ## To do in version 1.3 ( 20 Decembre 2018 )
+* use and create assets helper 
+* add dropzone in mediauploader
 * add maintenace mode
 * add Time Zone in settings general
 * add Date Format in settings general
+* add reCAPTCHA public key to settings general
+* add reCAPTCHA private key to settings general
 * add google maps api input in settings general
 * add file manager allawed files extension
 * add more social media to social media links in settings
@@ -105,6 +142,10 @@
 * Creating a comment and reply system PHP and MySQL ->http://codewithawa.com/posts/creating-a-comment-and-reply-system-php-and-mysql
 * photo gallery
 * send email to user
+* new registred users default role
+
+
+
 
 
 ## To do in version 1.5 ( 1/1/2019 )
@@ -122,7 +163,11 @@
 * add a Ticket Support System
 
 
+## To do in version 1.7 ( 10/1/2019 )
+* Database management -> Making backup - 
 
+## To do in version 1.8 ( 10/1/2019 )
+* add the editor https://github.com/ajaxorg/ace
 
 
 

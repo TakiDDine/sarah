@@ -2,8 +2,34 @@
 
 use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
+use \App\Controllers as admin;
 
-defined('BASEPATH') OR exit('No direct script access allowed');
+// make namespace short
+use \App\Controllers\AuthController as auth;
+use \App\Controllers\UsersController as users;
+use \App\Controllers\MenusController as menus;
+use \App\Controllers\CommentsController as comment;
+use \App\Controllers\MediaController as media;
+use \App\Controllers\PagesController as pages;
+use \App\Controllers\FaqsController as faqs;
+use \App\Controllers\AdsController as ads;
+use \App\Controllers\PostsController as posts;
+use \App\Controllers\PostsCategoriesController as postscats;
+use \App\Controllers\EmailController as inbox;
+use \App\Controllers\MailController as mail;
+use \App\Controllers\settingsController as settings;
+use \App\Controllers\PermissionsController as role;
+use \App\Controllers\CouponsController as copons;
+use \App\Controllers\ProductsController as products;
+use \App\Controllers\ProductsCategoriesController as productscats;
+use \App\Controllers\OrdersController as orders;
+use \App\Controllers\EmailsController as emails;
+use \App\Controllers\SliderController as slider;
+
+
+
+// security , disable direct access
+defined('BASEPATH') or exit('No direct script access allowed');
 
 
 /*
@@ -12,303 +38,217 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $app->group('/dashboard', function () use($app) {
 
     
+    // Dashboard index
+    $this->get('[/]', admin\HomeController::class .':home')->setName('admin.index');
     
-    $app->get('/FileManager[/]', \App\Controllers\HomeController::class .':FileManager')->setName('FileManager');
     
-
-    /*
-    *    Statique Pages
-    */
-    $app->get('[/]', \App\Controllers\HomeController::class .':home')->setName('admin.index');
-    $app->get('/statistiques[/]', \App\Controllers\StatiqueController::class .':statistiques')->setName('statistiques');
-    $app->get('/account[/]', \App\Controllers\HomeController::class .':account')->setName('account');
-
-    
-    /*
-    *    users System
-    */
-    $app->group('/users', function () use ($app) {
-        $app->get('[/]', \App\Controllers\UsersController::class .':index')->setName('users');
-        $app->any('/create[/]', \App\Controllers\UsersController::class .':create')->setName('users.create');
-        $app->any('/mutliAction[/]', \App\Controllers\UsersController::class .':mutliAction')->setName('users.mutliAction');        
-        $app->get('/export/csv[/]', \App\Controllers\UsersController::class .':export_csv')->setName('usersToCsv');
-        $app->get('/export/pdf[/]', \App\Controllers\UsersController::class .':export_pdf')->setName('usersToPdf');
-        $app->get('/blukdelete[/]', \App\Controllers\UsersController::class .':blukdelete')->setName('users.blukdelete');
-        $app->any('/{username}[/]', \App\Controllers\UsersController::class .':edit')->setName('users.edit');
+    // users System
+    $this->group('/users', function () {
+        $this->get('[/]', users::class .':index')->setName('users');
+        $this->any('/create[/]', users::class .':create')->setName('users.create');
+        $this->any('/mutliAction[/]', users::class .':mutliAction')->setName('users.mutliAction');        
+        $this->get('/export/csv[/]', users::class .':export_csv')->setName('usersToCsv');
+        $this->get('/export/pdf[/]', users::class .':export_pdf')->setName('usersToPdf');
+        $this->get('/blukdelete[/]', users::class .':blukdelete')->setName('users.blukdelete');
+        $this->any('/{username}[/]', users::class .':edit')->setName('users.edit');
     });
     
     
-    /*
-    *    Ads System
-    */
-    $app->group('/ads', function () use ($app) {
-        $app->get('[/]', \App\Controllers\AdsController::class .':index')->setName('ads');
-        $app->any('/create[/]', \App\Controllers\AdsController::class .':create')->setName('ads.create');
-        $app->get('/blukdelete[/]', \App\Controllers\AdsController::class .':blukdelete')->setName('ads.blukdelete');
-        $app->any('/{id}[/]', \App\Controllers\AdsController::class .':show')->setName('ads.show');
-        $app->get('/delete/{id}[/]', \App\Controllers\AdsController::class .':delete')->setName('ads.delete');
-       
+    // Menu System
+    $this->group('/menus', function (){
+        $this->any('[/]', menus::class .':index')->setName('menus');
+        $this->any('/create[/]', menus::class .':create')->setName('menus.create');
+        $this->any('/edit/{id}[/]', menus::class .':edit')->setName('menus.edit');
+        $this->any('/delete/{id}[/]', menus::class .':delete')->setName('menus.delete');
+        $this->any('/blukdelete[/]', menus::class .':blukdelete')->setName('menus.blukdelete');
     });
     
     
-    /*
-    *   Mail System
-    */
-    $app->group('/mail', function () use ($app) {
-        $app->get('[/]', \App\Controllers\MailController::class .':index')->setName('mail');
-        $app->get('/{id}[/]', \App\Controllers\MailController::class .':show')->setName('getMail');
-        $app->post('/{id}[/]', \App\Controllers\MailController::class .':Action')->setName('Mail.action');
-        $app->get('blukdelete[/]', \App\Controllers\MailController::class .':blukdelete')->setName('Mail.blukdelete');
-    });
-    
-
-    /*
-    *   INBOX System
-    */
-    $app->group('/inbox', function () use ($app) {
-        $app->get('[/]', \App\Controllers\EmailController::class .':index')->setName('inbox');
-        $app->any('/create[/]', \App\Controllers\EmailController::class .':create')->setName('inbox.create');
-        $app->any('/edit/{id}[/]', \App\Controllers\EmailController::class .':edit')->setName('inbox.edit');
-        $app->any('/delete/{id}[/]', \App\Controllers\EmailController::class .':delete')->setName('inbox.delete');
-        $app->any('/blukdelete[/]', \App\Controllers\EmailController::class .':blukdelete')->setName('inbox.blukdelete');
-    });
-
-
-
-    /*
-    *    Settings System
-    */
-    $app->group('/settings', function () use ($app) {
-        $app->get('[/]', \App\Controllers\settingsController::class .':index')->setName('settings');
-        $app->post('', \App\Controllers\settingsController::class .':general')->setName('settings.general');
-        $app->get('/social[/]', \App\Controllers\settingsController::class .':socialGet')->setName('settings.social');
-        $app->post('/social[/]', \App\Controllers\settingsController::class .':socialPost')->setName('settings.social');
-        $app->get('/users[/]', \App\Controllers\settingsController::class .':users')->setName('settings.users');
-        $app->map(['GET', 'POST'],'/email[/]', \App\Controllers\settingsController::class .':email')->setName('settings.email');
-        $app->get('/links[/]', \App\Controllers\settingsController::class .':links')->setName('settings.links');
-        $app->any('/home[/]', \App\Controllers\settingsController::class .':home')->setName('settings.home');
-        $app->any('/account[/]', \App\Controllers\settingsController::class .':account')->setName('settings.account');
-        $app->any('/footer[/]', \App\Controllers\settingsController::class .':footer')->setName('settings.footer');
-        $app->any('/others[/]', \App\Controllers\settingsController::class .':others')->setName('settings.others');
-        $app->any('/connect[/]', \App\Controllers\settingsController::class .':connect')->setName('settings.connect');
+    // Comments System
+    $this->group('/comments', function (){
+       $this->get('[/]', comment::class .':index')->setName('comments');
+       $this->any('/edit/{id}[/]', comment::class .':edit')->setName('comments.edit');
+       $this->any('/create[/]', comment::class .':create')->setName('comments.create');
+       $this->get('/delete/{id}[/]', comment::class .':delete')->setName('comments.delete');
+       $this->get('/blukdelete[/]', comment::class .':blukdelete')->setName('comments.blukdelete');
     });
     
     
-    
-    /*
-    *    Slider System
-    */
-    $app->group('/slider', function () use ($app) {
-       $app->any('[/]', \App\Controllers\SliderController::class .':index')->setName('slider');
-       $app->any('/create', \App\Controllers\SliderController::class .':create')->setName('slider.create');
-       $app->any('/edit/{id}[/]', \App\Controllers\SliderController::class .':edit')->setName('slider.edit');
-       $app->get('/delete/{id}[/]', \App\Controllers\SliderController::class .':delete')->setName('slider.delete');
+    // Media System
+    $this->group('/media', function (){
+        $this->get('[/]', media::class .':index')->setName('media');
+        $this->any('/view/{id}[/]', media::class .':view')->setName('media.view');
+        $this->post('/upload[/]', media::class .':upload')->setName('media.upload');
+        $this->any('/delete[/]', media::class .':delete')->setName('media.delete');
+        $this->get('/blukdelete[/]', media::class .':blukdelete')->setName('media.blukdelete');
+        $this->any('/uploader[/]', media::class .':modal_uploader')->setName('media.modal_uploader');
+        $this->any('/download/{id}[/]', media::class .':download')->setName('media.download');
     });
     
-    $app->any('/beside-slider[/]', \App\Controllers\settingsController::class .':slider')->setName('beside-slider');
-
-
     
-    /*
-    *    Comments System
-    */
-    $app->group('/comments', function () use ($app) {
-       $app->get('[/]', \App\Controllers\CommentsController::class .':index')->setName('comments');
-       $app->any('/edit/{id}[/]', \App\Controllers\CommentsController::class .':edit')->setName('comments.edit');
-       $app->any('/create[/]', \App\Controllers\CommentsController::class .':create')->setName('comments.create');
-       $app->get('/delete/{id}[/]', \App\Controllers\CommentsController::class .':delete')->setName('comments.delete');
-       $app->get('/blukdelete[/]', \App\Controllers\CommentsController::class .':blukdelete')->setName('comments.blukdelete');
+    // Pages System
+    $this->group('/pages', function (){
+        $this->get('[/]', pages::class .':index')->setName('pages');
+        $this->any('{id}[/]', pages::class .':create')->setName('pages.view');
+        $this->any('/create[/]', pages::class .':create')->setName('pages.create');
+        $this->any('/edit/{id}[/]', pages::class .':edit')->setName('pages.edit');
+        $this->get('/delete/{id}[/]', pages::class .':delete')->setName('pages.delete');
+        $this->get('/duplicate/{id}[/]', pages::class .':duplicate')->setName('pages.duplicate');
+        $this->get('/blukdelete[/]', pages::class .':blukdelete')->setName('pages.blukdelete');
+        $this->any('/mutliAction[/]', pages::class .':mutliAction')->setName('pages.mutliAction');
     });
-
-
-  
-    /*
-    *   Menu System
-    */
-    $app->group('/menus', function () use ($app) {
-        $app->any('[/]', \App\Controllers\MenusController::class .':index')->setName('menus');
-        $app->any('/create[/]', \App\Controllers\MenusController::class .':create')->setName('menus.create');
-        $app->any('/edit/{id}[/]', \App\Controllers\MenusController::class .':edit')->setName('menus.edit');
-        $app->any('/delete/{id}[/]', \App\Controllers\MenusController::class .':delete')->setName('menus.delete');
-        $app->any('/blukdelete[/]', \App\Controllers\MenusController::class .':blukdelete')->setName('menus.blukdelete');
-    });
-
-
-    /*
-    *   Statique Pages System
-    */
-    $app->get('/javascript-Disabled[/]', \App\Controllers\javascriptDisabled::class .':jsDisabled')->setName('javascript-Disabled');
-    $app->get('/logs[/]', \App\Controllers\StatiqueController::class .':logs')->setName('logs');
-    $app->get('/mailist[/]', \App\Controllers\MailListsController::class .':index')->setName('mailist');
-    $app->post('/mailist/add[/]', \App\Controllers\MailListsController::class .':add')->setName('mailist.add');
     
-    /*
-    *    posts System
-    */
-    $app->group('/posts', function () use ($app) {
-        $app->get('[/]', \App\Controllers\PostsController::class .':index')->setName('posts');
-        $app->any('/create[/]', \App\Controllers\PostsController::class .':create')->setName('posts.create');
-        $app->any('/edit/{id}[/]', \App\Controllers\PostsController::class .':edit')->setName('posts.edit');
-        $app->get('/delete/{id}[/]', \App\Controllers\PostsController::class .':delete')->setName('posts.delete');
-        $app->get('/duplicate/{id}[/]', \App\Controllers\PostsController::class .':duplicate')->setName('posts.duplicate');
-        $app->get('/blukdelete[/]', \App\Controllers\PostsController::class .':blukdelete')->setName('posts.blukdelete');
-        $app->any('/mutliAction[/]', \App\Controllers\PostsController::class .':mutliAction')->setName('posts.mutliAction');
-
+    
+    // Ads System
+    $this->group('/ads', function () {
+        $this->get('[/]', ads::class .':index')->setName('ads');
+        $this->any('/create[/]', ads::class .':create')->setName('ads.create');
+        $this->get('/blukdelete[/]', ads::class .':blukdelete')->setName('ads.blukdelete');
+        $this->any('/{id}[/]', ads::class .':show')->setName('ads.show');
+        $this->get('/delete/{id}[/]', ads::class .':delete')->setName('ads.delete');
+    });
+    
+    
+    // Faqs System
+    $this->group('/faqs', function (){
+        $this->get('[/]', faqs::class .':index')->setName('faqs');
+        $this->any('/create[/]', faqs::class .':create')->setName('faqs.create');
+        $this->any('/edit/{id}[/]', faqs::class .':edit')->setName('faqs.edit');
+        $this->get('/delete/{id}[/]', faqs::class .':delete')->setName('faqs.delete');
+        $this->get('/duplicate/{id}[/]', faqs::class .':duplicate')->setName('faqs.duplicate');
+        $this->get('/blukdelete[/]', faqs::class .':blukdelete')->setName('faqs.blukdelete');
         
-        $app->group('/categories', function () use ($app) {
-            $app->any('[/]', \App\Controllers\PostsCategoriesController::class .':index')->setName('posts.categories');
-            $app->get('/edit/{id}[/]', \App\Controllers\PostsCategoriesController::class .':edit')->setName('posts.categories.edit');
-            $app->post('/edit/{id}[/]', \App\Controllers\PostsCategoriesController::class .':edit')->setName('posts.categories.edit');
-            $app->get('/delete/{id}[/]', \App\Controllers\PostsCategoriesController::class .':delete')->setName('posts.categories.delete');
-        });
-        
-    });
-    
-    
-    
-    
-    /*
-    *   permissions System
-    */
-    $app->group('/permissions', function () use ($app) {
-        $app->any('[/]', \App\Controllers\PermissionsController::class .':index')->setName('permissions');
-        $app->post('/create[/]', \App\Controllers\PermissionsController::class .':create')->setName('permissions.create');
-        $app->any('/edit/{id}[/]', \App\Controllers\PermissionsController::class .':edit')->setName('permissions.edit');
-        $app->any('/delete/{id}[/]', \App\Controllers\PermissionsController::class .':delete')->setName('permissions.delete');
-        $app->any('/blukdelete[/]', \App\Controllers\PermissionsController::class .':blukdelete')->setName('permissions.blukdelete');
-    });
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    /*
-    *    Faqs System
-    */
-    $app->group('/faqs', function () use ($app) {
-        $app->get('[/]', \App\Controllers\FaqsController::class .':index')->setName('faqs');
-        $app->any('/create[/]', \App\Controllers\FaqsController::class .':create')->setName('faqs.create');
-        $app->any('/edit/{id}[/]', \App\Controllers\FaqsController::class .':edit')->setName('faqs.edit');
-        $app->get('/delete/{id}[/]', \App\Controllers\FaqsController::class .':delete')->setName('faqs.delete');
-        $app->get('/duplicate/{id}[/]', \App\Controllers\FaqsController::class .':duplicate')->setName('faqs.duplicate');
-        $app->get('/blukdelete[/]', \App\Controllers\FaqsController::class .':blukdelete')->setName('faqs.blukdelete');
-        
-        $app->group('/categories', function () use ($app) {
-            $app->any('[/]', \App\Controllers\FaqsController::class .':categories')->setName('faqs.categories');
-            $app->any('/edit/{id}[/]', \App\Controllers\FaqsController::class .':categories_edit')->setName('faqs.cat.edit');
-            $app->any('/delete/{id}[/]', \App\Controllers\FaqsController::class .':categories_delete')->setName('faqs.cat.delete');
-            $app->any('/create[/]', \App\Controllers\FaqsController::class .':categories_create')->setName('faqs.cat.create');
-        });
-        
-    });
-    
-    
-    /*
-    ===========================================================================================================
-    */
-    
-    /*
-    *    Media System
-    */
-    $app->group('/media', function () use ($app) {
-        $app->get('[/]', \App\Controllers\MediaController::class .':index')->setName('media');
-        $app->any('/view/{id}[/]', \App\Controllers\MediaController::class .':view')->setName('media.view');
-        $app->post('/upload[/]', \App\Controllers\MediaController::class .':upload')->setName('media.upload');
-        $app->any('/delete[/]', \App\Controllers\MediaController::class .':delete')->setName('media.delete');
-        $app->get('/blukdelete[/]', \App\Controllers\MediaController::class .':blukdelete')->setName('media.blukdelete');
-        $app->any('/uploader[/]', \App\Controllers\MediaController::class .':modal_uploader')->setName('media.modal_uploader');
-        $app->any('/download/{id}[/]', \App\Controllers\MediaController::class .':download')->setName('media.download');
-    });
-    
-    
-    /*
-    *    Media System
-    */
-    $app->group('/emails', function () use ($app) {
-        $app->get('[/]', \App\Controllers\EmailsController::class .':index')->setName('emails');
-        $app->any('/create[/]', \App\Controllers\EmailsController::class .':send')->setName('emails.create');
-        $app->any('/delete/{id}[/]', \App\Controllers\EmailsController::class .':delete')->setName('emails.delete');
-        $app->get('blukdelete[/]', \App\Controllers\EmailsController::class .':blukdelete')->setName('emails.blukdelete');
-    });
-    
-    /*
-    *    Coupons System
-    */
-    $app->group('/coupons', function () use ($app) {
-        $app->get('[/]', \App\Controllers\CouponsController::class .':index')->setName('coupons');
-        $app->any('/create[/]', \App\Controllers\CouponsController::class .':create')->setName('coupons.create');
-        $app->any('/edit/{id}[/]', \App\Controllers\CouponsController::class .':edit')->setName('coupons.edit');
-        $app->any('/delete/{id}[/]', \App\Controllers\CouponsController::class .':delete')->setName('coupons.delete');
-        $app->get('blukdelete[/]', \App\Controllers\CouponsController::class .':blukdelete')->setName('coupons.blukdelete');
-    });
-    
-    /*
-    ===========================================================================================================
-    */
-    
-    
-    /*
-    *    Pages System
-    */
-    $app->group('/pages', function () use ($app) {
-        $app->get('[/]', \App\Controllers\PagesController::class .':index')->setName('pages');
-        $app->any('{id}[/]', \App\Controllers\PagesController::class .':create')->setName('pages.view');
-        $app->any('/create[/]', \App\Controllers\PagesController::class .':create')->setName('pages.create');
-        $app->any('/edit/{id}[/]', \App\Controllers\PagesController::class .':edit')->setName('pages.edit');
-        $app->get('/delete/{id}[/]', \App\Controllers\PagesController::class .':delete')->setName('pages.delete');
-        $app->get('/duplicate/{id}[/]', \App\Controllers\PagesController::class .':duplicate')->setName('pages.duplicate');
-        $app->get('/blukdelete[/]', \App\Controllers\PagesController::class .':blukdelete')->setName('pages.blukdelete');
-        $app->any('/mutliAction[/]', \App\Controllers\PagesController::class .':mutliAction')->setName('pages.mutliAction');
-        
-    });
-    
-    
-    /*
-    *    Orders System
-    */
-    $app->group('/orders', function () use ($app) {
-        $app->get('[/]', \App\Controllers\OrdersController::class .':index')->setName('orders');
-        $app->any('/view/{id}[/]', \App\Controllers\OrdersController::class .':edit')->setName('orders.edit');
-        $app->any('/delete/{id}[/]', \App\Controllers\OrdersController::class .':delete')->setName('orders.delete');
-        $app->get('blukdelete[/]', \App\Controllers\OrdersController::class .':blukdelete')->setName('orders.blukdelete');
-    });
-    
-    
-
-    
-    
-    
-    
-   
-    
-    /*
-    *    Products system
-    */
-    $app->group('/products', function () use ($app) {
-        $app->get('[/]', \App\Controllers\ProductsController::class .':index')->setName('products');
-        $app->any('/create[/]', \App\Controllers\ProductsController::class .':create')->setName('products.create');
-        $app->any('/edit/{id}[/]', \App\Controllers\ProductsController::class .':edit')->setName('products.edit');
-        $app->get('/delete/{id}[/]', \App\Controllers\ProductsController::class .':delete')->setName('products.delete');
-        $app->get('/duplicate/{id}[/]', \App\Controllers\ProductsController::class .':duplicate')->setName('products.duplicate');
-        $app->get('/blukdelete[/]', \App\Controllers\ProductsController::class .':blukdelete')->setName('products.blukdelete');
-        $app->group('/categories', function () use ($app) {
-            $app->any('[/]', \App\Controllers\ProductsCategoriesController::class .':index')->setName('products.categories');
-            $app->get('/edit/{id}[/]', \App\Controllers\ProductsCategoriesController::class .':edit')->setName('products.categories.edit');
-            $app->post('/edit/{id}[/]', \App\Controllers\ProductsCategoriesController::class .':edit')->setName('products.categories.edit');
-            $app->get('/delete/{id}[/]', \App\Controllers\ProductsCategoriesController::class .':delete')->setName('products.categories.delete');
+        // Faqs Categories
+        $this->group('/categories', function (){
+            $this->any('[/]', faqs::class .':categories')->setName('faqs.categories');
+            $this->any('/edit/{id}[/]', faqs::class .':categories_edit')->setName('faqs.cat.edit');
+            $this->any('/delete/{id}[/]', faqs::class .':categories_delete')->setName('faqs.cat.delete');
+            $this->any('/create[/]', faqs::class .':categories_create')->setName('faqs.cat.create');
         });
     });
     
+    
+    //  posts System
+    $this->group('/posts', function (){
+        $this->get('[/]', posts::class .':index')->setName('posts');
+        $this->any('/create[/]', posts::class .':create')->setName('posts.create');
+        $this->any('/edit/{id}[/]', posts::class .':edit')->setName('posts.edit');
+        $this->get('/delete/{id}[/]', posts::class .':delete')->setName('posts.delete');
+        $this->get('/duplicate/{id}[/]', posts::class .':duplicate')->setName('posts.duplicate');
+        $this->get('/blukdelete[/]', posts::class .':blukdelete')->setName('posts.blukdelete');
+        $this->any('/mutliAction[/]', posts::class .':mutliAction')->setName('posts.mutliAction');
 
-    $app->get('/{404}[/]', \App\Controllers\HomeController::class .':home');
+        // posts categories
+        $this->group('/categories', function (){
+            $this->any('[/]', postscats::class .':index')->setName('posts.categories');
+            $this->get('/edit/{id}[/]', postscats::class .':edit')->setName('posts.categories.edit');
+            $this->post('/edit/{id}[/]', postscats::class .':edit')->setName('posts.categories.edit');
+            $this->get('/delete/{id}[/]', postscats::class .':delete')->setName('posts.categories.delete');
+        });
+    });
+    
+    
+    // inbox System
+    $this->group('/inbox', function (){
+        $this->get('[/]', inbox::class .':index')->setName('inbox');
+        $this->any('/create[/]', inbox::class .':create')->setName('inbox.create');
+        $this->any('/edit/{id}[/]', inbox::class .':edit')->setName('inbox.edit');
+        $this->any('/delete/{id}[/]', inbox::class .':delete')->setName('inbox.delete');
+        $this->any('/blukdelete[/]', inbox::class .':blukdelete')->setName('inbox.blukdelete');
+    });
+    
+    
+    // Mail System
+    $this->group('/mail', function (){
+        $this->get('[/]', mail::class .':index')->setName('mail');
+        $this->get('/{id}[/]', mail::class .':show')->setName('getMail');
+        $this->post('/{id}[/]', mail::class .':Action')->setName('Mail.action');
+        $this->get('blukdelete[/]', mail::class .':blukdelete')->setName('Mail.blukdelete');
+    });
+    
+    
+    // Settings System
+    $this->group('/settings', function (){
+        $this->get('[/]', settings::class .':index')->setName('settings');
+        $this->post('', settings::class .':general')->setName('settings.general');
+        $this->get('/social[/]', settings::class .':socialGet')->setName('settings.social');
+        $this->post('/social[/]', settings::class .':socialPost')->setName('settings.social');
+        $this->get('/users[/]', settings::class .':users')->setName('settings.users');
+        $this->map(['GET', 'POST'],'/email[/]', settings::class .':email')->setName('settings.email');
+        $this->get('/links[/]', settings::class .':links')->setName('settings.links');
+        $this->any('/home[/]', settings::class .':home')->setName('settings.home');
+        $this->any('/account[/]', settings::class .':account')->setName('settings.account');
+        $this->any('/footer[/]', settings::class .':footer')->setName('settings.footer');
+        $this->any('/others[/]', settings::class .':others')->setName('settings.others');
+        $this->any('/connect[/]', settings::class .':connect')->setName('settings.connect');
+    });
+    
+    
+    // permissions System
+    $this->group('/permissions', function (){
+        $this->any('[/]', role::class .':index')->setName('permissions');
+        $this->post('/create[/]', role::class .':create')->setName('permissions.create');
+        $this->any('/edit/{id}[/]', role::class .':edit')->setName('permissions.edit');
+        $this->any('/delete/{id}[/]', role::class .':delete')->setName('permissions.delete');
+        $this->any('/blukdelete[/]', role::class .':blukdelete')->setName('permissions.blukdelete');
+    });
+    
+    
+    // Coupons System
+    $this->group('/coupons', function (){
+        $this->get('[/]', copons::class .':index')->setName('coupons');
+        $this->any('/create[/]', copons::class .':create')->setName('coupons.create');
+        $this->any('/edit/{id}[/]', copons::class .':edit')->setName('coupons.edit');
+        $this->any('/delete/{id}[/]', copons::class .':delete')->setName('coupons.delete');
+        $this->get('blukdelete[/]', copons::class .':blukdelete')->setName('coupons.blukdelete');
+    });
+    
+    
+    // Products system
+    $this->group('/products', function (){
+        $this->get('[/]', products::class .':index')->setName('products');
+        $this->any('/create[/]', products::class .':create')->setName('products.create');
+        $this->any('/edit/{id}[/]', products::class .':edit')->setName('products.edit');
+        $this->get('/delete/{id}[/]', products::class .':delete')->setName('products.delete');
+        $this->get('/duplicate/{id}[/]', products::class .':duplicate')->setName('products.duplicate');
+        $this->get('/blukdelete[/]', products::class .':blukdelete')->setName('products.blukdelete');
+        
+        // products cateogies
+        $this->group('/categories', function (){
+            $this->any('[/]', productscats::class .':index')->setName('products.categories');
+            $this->any('/edit/{id}[/]', productscats::class .':edit')->setName('products.categories.edit');
+            $this->get('/delete/{id}[/]', productscats::class .':delete')->setName('products.categories.delete');
+        });
+    });
+    
+    
+    // Orders System
+    $this->group('/orders', function (){
+        $this->get('[/]', orders::class .':index')->setName('orders');
+        $this->any('/edit/{id}[/]', orders::class .':edit')->setName('orders.edit');
+        $this->any('/delete/{id}[/]', orders::class .':delete')->setName('orders.delete');
+        $this->get('blukdelete[/]', orders::class .':blukdelete')->setName('orders.blukdelete');
+    });
+    
+    
+    // Slider System
+    $this->group('/slider', function (){
+       $this->any('[/]', slider::class .':index')->setName('slider');
+       $this->any('/create', slider::class .':create')->setName('slider.create');
+       $this->any('/edit/{id}[/]', slider::class .':edit')->setName('slider.edit');
+       $this->get('/delete/{id}[/]', slider::class .':delete')->setName('slider.delete');
+       $this->any('/beside-slider[/]', settings::class .':slider')->setName('beside-slider');
+    });
+
+
+    // Statique Pages System
+    $this->get('/account[/]', admin\HomeController::class .':account')->setName('account');
+    $this->get('/javascript-Disabled[/]', admin\javascriptDisabled::class .':jsDisabled')->setName('javascript-Disabled');
+    $this->get('/logs[/]', admin\StatiqueController::class .':logs')->setName('logs');
+    $this->get('/mailist[/]', admin\MailListsController::class .':index')->setName('mailist');
+    $this->post('/mailist/add[/]', admin\MailListsController::class .':add')->setName('mailist.add');
+    $this->get('/FileManager[/]', admin\HomeController::class .':FileManager')->setName('FileManager');
+
 
 
 })->add( new App\Middleware\authMiddleware($container) );
@@ -316,14 +256,13 @@ $app->group('/dashboard', function () use($app) {
     /*
     *    Authentication System
     */
-    $app->group('/auth', function () use ($app) {
-        $app->post('/login[/]', \App\Controllers\AuthController::class .':login')->setName('login');
-        $app->get('/recover[/]', \App\Controllers\AuthController::class .':recover')->setName('recover');
-        $app->post('/recover[/]', \App\Controllers\AuthController::class .':recover');
-        $app->get('/logout[/]', \App\Controllers\AuthController::class .':logout')->setName('logout');
-        $app->get('/reset[/]', \App\Controllers\AuthController::class .':resetPasswordGet')->setName('resetPassword');
-        $app->post('/reset[/]', \App\Controllers\AuthController::class .':resetPasswordPost')->setName('postNewPassword');        
-        $app->get('/rested', \App\Controllers\AuthController::class .':reseted')->setName('rested');        
+    $app->group('/auth', function (){
+        $this->post('/login[/]', auth::class .':login')->setName('login');
+        $this->any('/recover[/]', auth::class .':recover')->setName('recover');
+        $this->get('/logout[/]', auth::class .':logout')->setName('logout');
+        $this->get('/reset[/]', auth::class .':resetPasswordGet')->setName('resetPassword');
+        $this->post('/reset[/]', auth::class .':resetPasswordPost')->setName('postNewPassword');        
+        $this->get('/rested', auth::class .':reseted')->setName('rested');        
     });
 
 

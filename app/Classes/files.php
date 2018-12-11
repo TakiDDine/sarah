@@ -63,6 +63,25 @@ class files {
         }
     }
     
+    
+    public function up($path,$file){
+        $handle = new \upload($file);
+        if ($handle->uploaded) {
+            
+        $nameimmg = $this->helper->str_random();
+        $handle->file_new_name_body   = $nameimmg;
+
+        $handle->process($path);
+          if ($handle->processed) {
+            $avatar = $nameimmg.'.'.$handle->file_src_name_ext;
+            $handle->clean();
+            return $avatar;
+              
+          } else {
+            return false;
+          }
+        }
+    }    
      public function media_uploader($path,$file){
         $handle = new \upload($file);
         if ($handle->uploaded) {

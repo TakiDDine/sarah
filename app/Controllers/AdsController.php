@@ -5,12 +5,12 @@ use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
 use \App\Models\Ads;
 use \App\Classes\files;
-
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class AdsController extends Controller {
     
     public function index($request,$response) {
+        
         
             $searchview     = false;
             $count          = ads::count();   // Count of all available users      
@@ -44,145 +44,99 @@ class AdsController extends Controller {
     
     
     public function show($request,$response,$args) {
+        $id = rtrim($args['id'], '/');
+        $ads = ads::find($id); 
         
-        $ads = ads::find($args['id']);
-        $post = $request->getParams();
-        $helper = $this->helper;
-        
+        if(!$ads) { return $response->withRedirect($this->router->pathFor('ads')); }
         
         if($request->getMethod() == 'POST'){ 
-             
             
-            
-            
-            
-            
-        $statue = 0;
-        $url = " ";
-        $htmlCode = " ";
-        
-        $name =  " ";
-        if($post['isAdChanged'] == 'true') {
-                $ad = " ";
-                $file = $_FILES['image'];
-                
-                // Upload
-                if(isset($file) and !empty($file['name'])) { $ad =  $this->files->upload_avatar($this->dir('ads'),$file);  }  
-                
-                unlink($this->dir('ads').$ads->image);
-                $ads->image = $ad;
+            $helper = $this->helper;
+            $up = $this->files;
+            $post = $helper->cleanData($request->getParams());       
+            $file = $_FILES['image'];
+     
+            if($post['isAdChanged'] == 'true') {
+                $old = $this->dir('ads').$ads->image;
+                $ads->image = !empty($file['name']) ? $up->up($this->dir('ads'),$file) : ' ';
+                if(file_exists($old)) { unlink($old); }          
             }
 
+            $statue  = $post['active'] == 'active' ? 1 : 0;
+            $url = !empty($post['link']) ? $post['link'] : '';    
+            $htmlCode = !empty($post['codehtml']) ? $post['codehtml'] : '';    
+            $name = !empty($post['name']) ? $post['name'] : ' ';
 
-        if($post['active'] == 'active') {
-            $statue = 1;
+            $ads->name = $name;
+            $ads->url = $url;
+            $ads->statue = $statue;
+            $ads->htmlcode = $htmlCode;
+            $ads->area = $post['areaUndetected'];
+
+            $ads->save();
+            $this->flashsuccess('تم تحديث الإعلان بنجاح');
+            return $response->withRedirect($this->router->pathFor('ads.show', compact('id','ads') ));
+
         }
         
-        // do not forget to clean this one before sending
-        if(!empty(clean($request->getParam('link')))){
-            $url = clean($request->getParam('link'));
-        }
-        
-        // do not forget to clean this one before sending
-        if(!empty($request->getParam('codehtml'))){
-            $htmlCode = clean($request->getParam('codehtml'));
-        }
-        if(!empty($request->getParam('name'))){
-            $name = clean($request->getParam('name'));
-        }
-        
-        $ads->name = $name;
-        $ads->url = $url;
-        $ads->statue = $statue;
-        $ads->htmlcode = $htmlCode;
-        $ads->area = clean($request->getParam('areaUndetected'));
-        $ads->save();
-        $this->flash->addMessage('success','تم تحديث الإعلان بنجاح');
-        return $response->withRedirect($this->router->pathFor('ads.show', ['id'=> $ads->id , 'ads' => $ads]));
-        }
-        
-        return $this->container->view->render($response,'admin/ads/show.twig',['ads'=>$ads]); 
+        return $this->view->render($response,'admin/ads/show.twig',['ads'=>$ads]); 
     }
     
     
   
     
+    // create the ads
     public function create($request,$response) {
         
-        if($request->getMethod() == 'GET'){ 
-        return $this->container->view->render($response,'admin/ads/create.twig'); 
-        }
-        
-        
-        $statue = 0;
-        
-        if($request->getParam('active') == 'active') {
-            $statue = 1;
-        }
-        
-        $url = " ";
-        // do not forget to clean this one before sending
-        if(!empty($request->getParam('link'))){
-            $url = clean($request->getParam('link'));
-        }
-        
-        
-        
-        $htmlCode = " ";
-        // do not forget to clean this one before sending
-        if(!empty($request->getParam('codehtml'))){
-            $htmlCode = clean($request->getParam('codehtml'));
-        }
-        
-        $ads = " ";
-        // check if there is a file
-        if(isset($_FILES['image']) and !empty($_FILES['image']['name'])) {
+        if($request->getMethod() == 'POST'){ 
+            $helper = $this->helper;
+            $up = new files();
+            $post = $helper->cleanData($request->getParams());
+            $image = $_FILES['image'];
+            $statue  = $post['active'] == 'active' ? 1 : 0;
+            $url = !empty($post['link']) ? $post['link'] : '';
+            $htmlCode = !empty($post['codehtml']) ? $post['codehtml'] : '';
+            $ads = !empty($image['name']) ? $up->up($this->dir('ads'),$image) : ' ';
+            $area = $post['areaUndetected'];
 
-            $ads = new files();
-            $path = $this->container->conf['dir.ads'];
-            $file = $_FILES['image'];
-            
-            // Upload
-            $ads =  $ads->upload_avatar($path,$file);
-            
-        }
-        
-        
-        $area = $request->getParam('areaUndetected');
+            Ads::create([
+                'name' => $post['name'],
+                'image' => $ads,
+                'statue' => $statue,
+                'url'   => $url,
+                'area'   => $area,
+                'htmlcode' => $htmlCode
+            ]);
 
-        Ads::create([
-        'name' => $request->getParam('name'),
-        'image' => $ads,
-        'statue' => $statue,
-        'url'   => $url,
-        'area'   => $area,
-        'htmlcode' => $htmlCode
-        ]);
-        
-        $this->flash->addMessage('success','تم اضافة الإعلان بنجاح');
-        return $response->withStatus(302)->withHeader('Location', $this->router->urlFor('ads'));
-        
+            $this->flashsuccess('تم اضافة الإعلان بنجاح');
+            return $response->withRedirect($this->router->pathFor('ads'));
+        }
+
+        return $this->view->render($response,'admin/ads/create.twig'); 
     }
     
 
+    // Delete the ad by id , and delete the ad images in ads Directory
     public function delete($request,$response,$args) {
-        $ad = ads::find(rtrim($args['id'], '/'));
-        unlink($this->container->conf['dir.ads'].$ad->image);
-        $ad->delete();
-        $this->flash->addMessage('success','تم حذف الإعلان بنجاح');
-        return $response->withStatus(302)->withHeader('Location', $this->router->urlFor('ads'));
+        $id = rtrim($args['id'], '/');
+        $ad = ads::find($id);
+        
+        if($ad) {
+            $img = $this->dir('ads').$ad->image;
+            if(file_exists($img)) { unlink($img); }
+            $ad->delete();
+            $this->flashsuccess('تم حذف الإعلان بنجاح');
+        }
+        return $response->withRedirect($this->router->pathFor('ads'));
     }
+
     
+    // Delete All Ads , and delete all the images in ads Directory
     public function blukdelete($request,$response){
         ads::truncate();
-        delete_folders_files($this->container->conf['dir.undetected']);
-        return $response->withStatus(302)->withHeader('Location', $this->router->urlFor('ads'));
+        $this->helper->delete_folders_files($this->dir('ads'));
+        return $response->withRedirect($this->router->pathFor('ads'));
     }
     
-    
-    
-    
-    
-   
-}
 
+}

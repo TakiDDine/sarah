@@ -11,7 +11,8 @@ class authMiddleware extends Middleware {
     public function __invoke($request, $response, $next)
     {
         if(!isset($_SESSION['auth-admin'])) {
-            return $this->view->render($response,'admin/auth/login.twig');
+//            return $response->withRedirect($this->container->router->pathFor('admin.index'));
+            return $this->container->view->render($response,'admin/auth/login.twig');
         }else {
         $response = $next($request, $response);
         return $response;

@@ -37,111 +37,61 @@ class PagesController extends Controller {
                 ]);
         }
  
-    
-
     public function create($request,$response) {
 
-            if($request->getMethod() == 'GET'){
-                return $this->container->view->render($response,'admin/pages/create.twig');
-            }
-            
             if($request->getMethod() == 'POST'){
-        
-                $title = $request->getParam('title');
-                $post_content = $request->getParam('post_content');
 
-                $post_thumbnail = " ";
-                
-                
-                  if(isset($_FILES['post_thumbnail']) and !empty($_FILES['post_thumbnail']['name'])) {
-                            $files = new files();
-                            $path = $this->container->conf['dir.pages'];
-                            $file = $_FILES['post_thumbnail'];
-                            $post_thumbnail =  $files->upload_avatar($path,$file);
-                   }  
-                
+                // initialize the helper & the uploader clean post form
+                $helper   = $this->helper;
+                $post = $helper->cleanData($request->getParams());
+                $up = $this->files;
 
+                // upload the post thumbnail
+                $file = $_FILES['post_thumbnail'];
+                $thumbnail = !empty($file['name']) ? $up->up($this->dir('posts'),$file) : " ";
+
+                // create the post
                 Page::create([
-                    'title' => $title,
-                    'content'  => $post_content,
-                    'thumbnail' => $post_thumbnail,
+                    'title' => $post['title'] ,
+                    'content'  => $post['post_content'],
+                    'thumbnail' => $thumbnail,
                     'author' => $_SESSION['auth-admin'],
                     'statue' => '1',
                     'type' => 'post',
-                    'categoryID' => $request->getParam('postCategory')
+                    'categoryID' => $post['postCategory']
                 ]);
-                
-                $this->flash->addMessage('success','تم اضافة المقالة بنجاح');
-                return $response->withRedirect($this->router->pathFor('pages'));        
+
+                // flash success & redirect
+                $this->flashsuccess('تم اضافة الصفحة بنجاح');
+                return $response->withRedirect($this->router->pathFor('posts'));        
           }
-        
+
+          $categories = PostsCategories::all();
+          return $this->view->render($response,'admin/posts/create.twig',compact('categories')); 
     }
-    
- public function edit($request,$response,$args) {
-        $id = rtrim($args['id'], '/');
-        $Post = Page::find($id);
-        $files = new files();
-      
-        
-        if($request->getMethod() == 'GET'){       
-            return $this->container->view->render($response,'admin/pages/edit.twig',['post'=>$Post]);
-        }
-        
-        if($request->getMethod() == 'POST'){
-           
-           if($request->getParam('thumbnailChanged') == 'true') {
-              
-                $thumbnail = " ";
-                if(isset($_FILES['post_thumbnail']) and !empty($_FILES['post_thumbnail']['name'])) {
-                    
-                    // Upload
-                    $thumbnail =  $files->upload_avatar($this->container->conf['dir.pages'],$_FILES['post_thumbnail']);
-                }  
-                
-                unlink($this->container->conf['dir.pages'].$Post->thumbnail);
-                $Post->thumbnail = $thumbnail;
-  
-            }        
-            
-            $Post->title                = $request->getParam('title');
-            $Post->content              = $request->getParam('post_content');
-            $Post->statue               = '1';
-            $Post->slug                 = $request->getParam('slug');
-            $Post->categoryID           = $request->getParam('postCategory');
-            $Post->save();
-            
-            $this->flash->addMessage('success', 'تم تعديل المقالة بنجاح');
-            return $response->withRedirect($this->container->router->pathFor('pages.edit',['id'=>$id]));   
-            
-        }
-        
-        
-    }
-    
     
     public function delete($request,$response,$args) {
-        $Post = Page::find(rtrim($args['id'], '/'));
-        unlink($this->container->conf['dir.pages'].$Post->thumbnail);
+        $page = Page::find(rtrim($args['id'], '/'));
+        unlink($this->dir('pages').$page->thumbnail);
         $Post->delete();
-        $this->flash->addMessage('success','تم حذف المقالة بنجاح');
-        return $response->withStatus(302)->withHeader('Location', $this->router->urlFor('pages'));
+        $this->flashsuccess('تم حذف الصفحة بنجاح');
+        return $response->withHeader('Location', $this->router->urlFor('pages'));
     }
     
     public function duplicate($request,$response,$args) {
         $product = Page::find(rtrim($args['id'], '/'));
         $new = $product->replicate();
         $new->save();
-        $this->flash->addMessage('success','تم تكرار المقالة بنجاح');
-        return $response->withStatus(302)->withHeader('Location', $this->router->urlFor('pages'));
+        $this->flashsuccess('تم تكرار الصفحة بنجاح');
+        return $response->withHeader('Location', $this->router->urlFor('pages'));
     }  
     
     public function blukdelete($request,$response){
         $users = Page::truncate();
-        delete_folders_files($this->container->conf['dir.pages']);
-        $this->flash->addMessage('success', 'تم حذف كل الصفحات بنجاح');
-        return $response->withStatus(302)->withHeader('Location', $this->router->urlFor('pages'));
+        $this->delete_folders_files($this->dir('pages'));
+        $this->flashsuccess('تم حذف كل الصفحات بنجاح');
+        return $response->withHeader('Location', $this->router->urlFor('pages'));
     }
-    
     
     
     /*
@@ -157,24 +107,9 @@ class PagesController extends Controller {
         if($request->getParam('takeAction') == 'delete'){ $selected->delete(); }
 
         // Redirect To Pages
-        $this->flash->addMessage('success', 'تم تنفيذ الأمر بنجاح');
-        return $response->withStatus(302)->withHeader('Location', $this->router->urlFor('pages'));
-    
+        $this->flashsuccess('تم تنفيذ الأمر بنجاح');
+        return $response->withHeader('Location', $this->router->urlFor('pages'));
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+     
    
 }
-

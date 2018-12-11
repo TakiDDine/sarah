@@ -12,11 +12,14 @@ class OldInputMidddleware extends Middleware {
     public function __invoke($request, $response, $next)
     {
         
+        if(isset($_SESSION['auth-admin'])):
+        
         $this->container->view->getEnvironment()->addGlobal('old', $_SESSION['old']);
         $_SESSION['old'] = $request->getParams();
-        
+        endif;
         $response = $next($request, $response);
         return $response;
+        
     }
     
     

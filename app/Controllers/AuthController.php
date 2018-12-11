@@ -27,14 +27,15 @@ class AuthController extends Controller {
     public function login($request,$response) {
         
         
-        $post = $request->getParams();
         $helper = $this->helper;
+        $post = $helper->cleanData($request->getParams());
+        
         $mode = $this->container->conf['app.debug'];
         
         // get the login credentials
-        $user = $helper->clean($post['user_login']);
-        $pass = $helper->clean($post['pass_login']);
-        $form = $helper->clean($post['validate']);
+        $user = $post['user_login'];
+        $pass = $post['pass_login'];
+        $form = $post['validate'];
         
         
         // Limit The login after 3 times to attempt
