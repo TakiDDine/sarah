@@ -286,11 +286,15 @@ if(isset($_SESSION['auth-user'])) {
 $cart = Cart::where('user_id',$_SESSION['auth-user'])->get()->toArray();
 
         foreach($cart as $item ) {
-           $product = Product::where('id',$item['productID'])->first()->toArray();
+           $product = Product::where('id',$item['productID'])->first();
+            if($product){
+                $product = $product->toArray();
                 $product['productID'] = $product['id'];
                 $item['cartID'] = $item['id'];
-
-           $maincart[] =  array_merge($product,$item);
+                $maincart[] =  array_merge($product,$item);
+            }
+                
+                
         }
 }    
 // the cart end

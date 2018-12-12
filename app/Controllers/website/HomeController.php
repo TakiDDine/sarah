@@ -13,14 +13,13 @@ use \App\Models\Product;
 use \App\Models\options;
 use \App\Models\ProductCategories;
 use \App\Models\Cart;
+use \App\Controllers\Controller as base;
 
-
-class HomeController extends \App\Controllers\Controller{
+class HomeController extends base{
     public function index($request,$response) {
        $ads = ads::All();
        $menus = Menus::All();
        $slider = Slider::All();
-       
        $options =  new options();
         
         $maincart = [];
@@ -30,11 +29,13 @@ class HomeController extends \App\Controllers\Controller{
         
         $maincart = [];
         foreach($cart as $item ) {
-           $product = Product::where('id',$item['productID'])->first()->toArray();
+           $product = Product::where('id',$item['productID'])->first();
+            if($product) {
+                $product = $product->toArray();
                 $product['productID'] = $product['id'];
                 $item['cartID'] = $item['id'];
-
-           $maincart[] =  array_merge($product,$item);
+                $maincart[] =  array_merge($product,$item);
+            }
         }
     }
         
