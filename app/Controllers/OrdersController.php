@@ -169,12 +169,20 @@ class OrdersController extends Controller {
         $id = rtrim($args['id'], '/');
         $order = Order::find($id);
         
-        $products = $this->db->table('orderproducts')->where('order_id',$id)->get();
         
-        if($request->getMethod() == 'GET'){
-            return $this->view->render($response, 'admin/orders/edit.twig',['order'=>$order,'products'=>$products]);
+        
+        $result = $order->merge($b);
+
+        
+        
+        
+        
+        
+        
+        $products = $this->db->table('orderproducts')->whereOrder_id($id)->get();
+        if($request->getMethod() == 'GET') {
+            return $this->view->render($response, 'admin/orders/edit.twig', compact('order','products'));
         }
-    
     }
     
     

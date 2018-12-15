@@ -40,14 +40,14 @@ class HomeController extends base{
     }
         
         
-$BLOCK_CAT_1 = Product::where('categoryID','=', $options->get_option('BLOCK_CAT_1') )->get();
-$BLOCK_CAT_2 = Product::where('categoryID','=', $options->get_option('BLOCK_CAT_2') )->get();
-$BLOCK_CAT_3 = Product::where('categoryID','=', $options->get_option('BLOCK_CAT_3') )->get();
-$BLOCK_CAT_4 = Product::where('categoryID','=', $options->get_option('BLOCK_CAT_4') )->get();
-$BLOCK_CAT_5 = Product::where('categoryID','=', $options->get_option('BLOCK_CAT_5') )->get();
-$BLOCK_CAT_6 = Product::where('categoryID','=', $options->get_option('BLOCK_CAT_6') )->get();
-                
-        
+//$BLOCK_CAT_1 = Product::whereCategoryID($options->get_option('BLOCK_CAT_1') )->get();
+//$BLOCK_CAT_2 = Product::whereCategoryID($options->get_option('BLOCK_CAT_2') )->get();
+//$BLOCK_CAT_3 = Product::whereCategoryID($options->get_option('BLOCK_CAT_3') )->get();
+//$BLOCK_CAT_4 = Product::whereCategoryID($options->get_option('BLOCK_CAT_4') )->get();
+//$BLOCK_CAT_5 = Product::whereCategoryID($options->get_option('BLOCK_CAT_5') )->get();
+//$BLOCK_CAT_6 = Product::whereCategoryID($options->get_option('BLOCK_CAT_6') )->get();
+//                
+//        
         
        $products = Product::All();
 
@@ -59,12 +59,12 @@ $BLOCK_CAT_6 = Product::where('categoryID','=', $options->get_option('BLOCK_CAT_
                                               'menus'=>$menus,
                                               'slider'=>$slider,
                                               'products'=>$products,
-                                                'BLOCK_CAT_1' => $BLOCK_CAT_1,
-                                                'BLOCK_CAT_2' => $BLOCK_CAT_2,
-                                                'BLOCK_CAT_3' => $BLOCK_CAT_3,
-                                                'BLOCK_CAT_4' => $BLOCK_CAT_4,
-                                                'BLOCK_CAT_5' => $BLOCK_CAT_5,'cart'=>$maincart,
-                                                'BLOCK_CAT_6' => $BLOCK_CAT_6
+//                                                'BLOCK_CAT_1' => $BLOCK_CAT_1,
+//                                                'BLOCK_CAT_2' => $BLOCK_CAT_2,
+//                                                'BLOCK_CAT_3' => $BLOCK_CAT_3,
+//                                                'BLOCK_CAT_4' => $BLOCK_CAT_4,
+//                                                'BLOCK_CAT_5' => $BLOCK_CAT_5,'cart'=>$maincart,
+//                                                'BLOCK_CAT_6' => $BLOCK_CAT_6
 //                                                'cartcount' => count()
        ]
                                             );

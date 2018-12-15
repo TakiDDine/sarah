@@ -20,22 +20,26 @@ class FaqsController  extends Controller {
                 $skip           = ($page - 1) * $limit;
                 $posts          = Faqs::skip($skip)->take($limit)->orderBy('created_at', 'desc')->get();
 
+          
            
-    $result = array();
+           
+  $posts = Faqs::leftJoin('faqscategories', 'faqscategories.id', '=', 'faqs.category')->select('faqscategories.name', 'faqs.*')
+        ->get();
+           
+
+           
+           
+    $faqs = array();
     foreach ($posts->toArray() as $element) {
-        $result[$element['category']][] = $element;
-        
-        // هادي غير انا اللي زدتها ، باش تميز كل وحدة بالأيدي ديالها ، وأصلا راه فكرة ساهلة ، مالك محمقنا
-//        $result[$element['category']]['category'] = $element['category'];
+        $faqs[$element['name']][] = $element;
     }
            
            
-//           st($result,1);
            
            
            
            
-                return $this->view->render($response, 'admin/faq/index.twig', ['faqs'=>$result]);
+                return $this->view->render($response, 'admin/faq/index.twig',compact('faqs'));
            
 
         

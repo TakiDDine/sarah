@@ -17,50 +17,51 @@ class UsersController extends Controller{
     public function index($request,$response) {
         
 
-//        st(User::paginate(15),1);
+       $users = User::paginate(15);
+          return $this->view->render($response, 'admin/users/index.twig', compact('users'));
 //        ?page=2
     
         
-            $searchview     = false;
-            $count          = User::count();  
-            $page           = ($request->getParam('page', 0) > 0) ? $request->getParam('page') : 1;
-            $limit          = 10; 
-            $lastpage       = (ceil($count / $limit) == 0 ? 1 : ceil($count / $limit));    
-            $skip           = ($page - 1) * $limit;
-            $users          = User::skip($skip)->take($limit)->orderBy('created_at', 'desc')->get();
-
-            // Search Logic
-            if($request->getParam('search')){
-               $search = $request->getParam('search');
-               $users  = $this->db->table('users')
-                    ->orderBy('created_at', 'desc')
-                    ->where('username', 'LIKE', "%$search%")
-                    ->orWhere('email', 'LIKE', "%$search%")
-                    ->skip($skip)
-                    ->take($limit)
-                    ->get();    
-                $count =    $this->db->table('users')->orderBy('created_at', 'desc')->where('username', 'LIKE', "%$search%")
-                    ->orWhere('email', 'LIKE', "%$search%")->count(); 
-               $lastpage       = (ceil($count / $limit) == 0 ? 1 : ceil($count / $limit));    // the number of the pages
-               $searchview = true;
-            }
-
-            return $this->view->render($response, 'admin/users/index.twig', [
-                'pagination'    => [
-                    'needed'        => $count > $limit,
-                    'count'         => $count,
-                    'page'          => $page,
-                    'lastpage'      => $lastpage,
-                    'limit'         => $limit,
-                    'prev'          => $page-1,
-                    'next'          => $page+1,
-                    'start'          => max(1, $page - 4),
-                    'end'          => min($page + 4, $lastpage),
-                ],
-              'users'=>$users ,
-              'searchView'=>$searchview,
-              'searchQuery'=>$request->getParam('search')
-            ]);
+//            $searchview     = false;
+//            $count          = User::count();  
+//            $page           = ($request->getParam('page', 0) > 0) ? $request->getParam('page') : 1;
+//            $limit          = 10; 
+//            $lastpage       = (ceil($count / $limit) == 0 ? 1 : ceil($count / $limit));    
+//            $skip           = ($page - 1) * $limit;
+//            $users          = User::skip($skip)->take($limit)->orderBy('created_at', 'desc')->get();
+//
+//            // Search Logic
+//            if($request->getParam('search')){
+//               $search = $request->getParam('search');
+//               $users  = $this->db->table('users')
+//                    ->orderBy('created_at', 'desc')
+//                    ->where('username', 'LIKE', "%$search%")
+//                    ->orWhere('email', 'LIKE', "%$search%")
+//                    ->skip($skip)
+//                    ->take($limit)
+//                    ->get();    
+//                $count =    $this->db->table('users')->orderBy('created_at', 'desc')->where('username', 'LIKE', "%$search%")
+//                    ->orWhere('email', 'LIKE', "%$search%")->count(); 
+//               $lastpage       = (ceil($count / $limit) == 0 ? 1 : ceil($count / $limit));    // the number of the pages
+//               $searchview = true;
+//            }
+//
+//            return $this->view->render($response, 'admin/users/index.twig', [
+//                'pagination'    => [
+//                    'needed'        => $count > $limit,
+//                    'count'         => $count,
+//                    'page'          => $page,
+//                    'lastpage'      => $lastpage,
+//                    'limit'         => $limit,
+//                    'prev'          => $page-1,
+//                    'next'          => $page+1,
+//                    'start'          => max(1, $page - 4),
+//                    'end'          => min($page + 4, $lastpage),
+//                ],
+//              'users'=>$users ,
+//              'searchView'=>$searchview,
+//              'searchQuery'=>$request->getParam('search')
+//            ]);
 
     }
     

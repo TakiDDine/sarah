@@ -11,14 +11,12 @@ class AdsController extends Controller {
     
     public function index($request,$response) {
         
-        
-            $searchview     = false;
-            $count          = ads::count();   // Count of all available users      
+            $count          = ads::count();   
             $page           = ($request->getParam('page', 0) > 0) ? $request->getParam('page') : 1;
-            $limit          = 10; // Number of Users on one page   
-            $lastpage       = (ceil($count / $limit) == 0 ? 1 : ceil($count / $limit));    // the number of the pages
+            $limit          = 10;
+            $lastpage       = (ceil($count / $limit) == 0 ? 1 : ceil($count / $limit));  
             $skip           = ($page - 1) * $limit;
-            $ads          = $this->db->table('ads')->skip($skip)->take($limit)->orderBy('created_at', 'desc')->get();
+            $ads            = Ads::skip($skip)->take($limit)->orderBy('created_at', 'desc')->get();
 
 
             return $this->view->render($response, 'admin/ads/index.twig', [
@@ -33,9 +31,7 @@ class AdsController extends Controller {
                     'start'          => max(1, $page - 4),
                     'end'          => min($page + 4, $lastpage),
                 ],
-              'ads'=>$ads ,
-              'searchView'=>$searchview,
-              'searchQuery'=>$request->getParam('search')
+              'ads'=>$ads
             ]);
         
         

@@ -4,6 +4,9 @@
 use \App\Classes\Helper;
 
 
+function view (){
+    
+}
 
     /*
     *    Debug

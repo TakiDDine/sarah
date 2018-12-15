@@ -34,7 +34,7 @@ class SearchController extends \App\Controllers\Controller{
             if($request->getParam('q') or $request->getParam('collection')){
                   
                $search = $request->getParam('q');
-               $products  = Product::where('categoryID',$category)
+               $products  = Product::whereCategoryID($category)
                     ->orWhere('description', 'LIKE', "%$search%")
                     ->orWhere('name', 'LIKE', "%$search%")
                     ->skip($skip)

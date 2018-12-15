@@ -12,7 +12,25 @@
     <div class="navbar-collapse collapse" id="navbar-mobile">
         <ul class="nav navbar-nav">
             <li><a class="sidebar-control sidebar-main-toggle hidden-xs "><i class="icon-paragraph-justify3"></i></a></li>
-            <li><a target="_blank" href="{{path_for('website.home')}}">{{l.navbar.2}}</a></li>
+            <li><a target="_blank" href="{{path_for('website.home')}}">
+            <i class="icon-enter"></i>
+            {{l.navbar.2}}</a></li>
+            
+           <li class="dropdown language-switch">
+					<a class="dropdown-toggle" data-toggle="dropdown">
+					<i class="icon-plus3"></i>	انشاء جديد
+				
+						<span class="caret"></span>
+					</a>
+
+					<ul class="dropdown-menu">
+                            <li><a href="{{path_for('users.create')}}">عضو جديد</a></li>
+                            <li><a href="{{path_for('pages.create')}}"> صفحة جديدة</a></li>
+                            <li><a href="{{path_for('posts.create')}}">مقالة جديدة </a></li>
+                            <li><a href="{{path_for('products.create')}}"> منتج جديد </a></li>
+					</ul>
+				</li>
+            
         </ul>
         <ul class="nav navbar-nav navbar-right">
            

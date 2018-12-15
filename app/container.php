@@ -14,13 +14,13 @@ use \App\Models\ProductCategories;
 use \App\Models\Menus;
 use \App\Models\Cart;
 use \App\Models\Product;
+use \App\Models\Post;
 use \App\Classes\Helper;
+
 
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
-
-
 
 
 
@@ -70,9 +70,7 @@ $container['view'] = function ($c) {
     $router = $c->get('router');
     $uri = \Slim\Http\Uri::createFromEnvironment(new \Slim\Http\Environment($_SERVER));
     $view->addExtension(new \Slim\Views\TwigExtension($router, $uri));
-    
-    $view->addExtension(new \nochso\HtmlCompressTwig\Extension());
-    
+        
     
     $view->addExtension(new Knlv\Slim\Views\TwigMessages(
     new Slim\Flash\Messages()
@@ -244,14 +242,12 @@ try {
 }
 
 
+
+
 // Setup 404 Handler
 $container['notFoundHandler'] = function ($c) {
     return function ($request, $response) use ($c) {
         global $container;
-       
-//                    return $response->withStatus(302)->withHeader('Location', 'website/404.twig');
-
-        
         return $container->view->render($response->withStatus(404),'website/404.twig');
     };
 };
@@ -269,6 +265,15 @@ $container['User']  = function($container){
 
 
 
+$container['Users'] = function ($container) { return new \App\Controllers\UsersController($container);};
+$container['Menus'] = function ($container) { return new \App\Controllers\MenusController($container);};
+$container['Comments'] = function ($container) { return new \App\Controllers\CommentsController($container);};
+$container['Media'] = function ($container) { return new \App\Controllers\MediaController($container);};
+$container['Pages'] = function ($container) { return new \App\Controllers\PagesController($container);};
+
+
+
+
 
 /*
 *   Add Global Variables to twig view
@@ -279,11 +284,10 @@ $container['view']->getEnvironment()->addGlobal('admin_assets', $container['conf
 $container['view']->getEnvironment()->addGlobal('website_assets', $container['conf']['url.website_assets']);
 
 
-
-// the cart start
-$maincart = [];
-if(isset($_SESSION['auth-user'])) {  
-$cart = Cart::where('user_id',$_SESSION['auth-user'])->get()->toArray();
+        // the cart start
+        $maincart = [];
+        if(isset($_SESSION['auth-user'])) {  
+        $cart = Cart::where('user_id',$_SESSION['auth-user'])->get()->toArray();
 
         foreach($cart as $item ) {
            $product = Product::where('id',$item['productID'])->first();
@@ -293,7 +297,6 @@ $cart = Cart::where('user_id',$_SESSION['auth-user'])->get()->toArray();
                 $item['cartID'] = $item['id'];
                 $maincart[] =  array_merge($product,$item);
             }
-                
                 
         }
 }    
@@ -313,7 +316,12 @@ $container['view']->getEnvironment()->addGlobal('cart', $maincart);
 
 
   
-
+//$post = Post::find(8);
+//echo '<pre>';
+//print_r($post->author()->get()->toArray());
+//exit;
+//
+//
 
 
 /*
@@ -329,23 +337,23 @@ if(isset($_SESSION['auth-admin'])) {
 if(isset($_SESSION['auth-user'])) {   
     $container['view']->getEnvironment()->addGlobal('user',$capsule->table('users')->find($_SESSION['auth-user']) );
 }
+ $file = BASEPATH.'/app/lang/admin/ar.php';
+   $container['view']->getEnvironment()->addGlobal('l', Config::load($file));
 
 
-
-
-if(isset($_GET['lang'])) {
-    setcookie('lang', $_GET['lang'], time()+3600 , '/');
-    header('Location: http://sarah.local/dashboard/'); 
-    $file = BASEPATH.'/app/lang/admin/'.$_GET['lang'].'.php';
-    $container['view']->getEnvironment()->addGlobal('l', Config::load($file));
-    $container['view']->getEnvironment()->addGlobal('l', Config::load($file));
-}
-$lg = !isset($_COOKIE['lang']) ? 'en' : $_COOKIE['lang'];
-
-$file = BASEPATH.'/app/lang/admin/'.$lg.'.php';
-$container['view']->getEnvironment()->addGlobal('l', Config::load($file));
-
-
+//if(isset($_GET['lang'])) {
+//    setcookie('lang', $_GET['lang'], time()+3600 , '/');
+//    header('Location: http://sarah.local/dashboard/'); 
+//    $file = BASEPATH.'/app/lang/admin/'.$_GET['lang'].'.php';
+//    $container['view']->getEnvironment()->addGlobal('l', Config::load($file));
+//    $container['view']->getEnvironment()->addGlobal('l', Config::load($file));
+//}
+//$lg = !isset($_COOKIE['lang']) ? 'en' : $_COOKIE['lang'];
+//
+//$file = BASEPATH.'/app/lang/admin/'.$lg.'.php';
+//$container['view']->getEnvironment()->addGlobal('l', Config::load($file));
+//
+//
 
 
 

@@ -2,7 +2,7 @@
 
 namespace App\Models;
 use illuminate\database\eloquent\model;
-use Illuminate\Database\Eloquent\SoftDeletes;
+
 use Illuminate\Pagination\Paginator;
 use Illuminate\Pagination;
 

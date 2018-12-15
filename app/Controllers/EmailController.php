@@ -12,7 +12,7 @@ class EmailController extends Controller {
     
         public function index($request,$response) {
             $inbox = $this->db->table('inbox')->get();
-            return $this->view->render($response, 'admin/inbox/index.twig', ['inbox'=>$inbox ]);
+            return $this->view->render($response, 'admin/inbox/index.twig',compact('inbox'));
         }
     
 
@@ -23,16 +23,14 @@ class EmailController extends Controller {
             }
             
             if($request->getMethod() == 'POST'){
-            
-                
-                $body       = clean($request->getParam('body'));
-                $reciever   = clean($request->getParam('reciever_email'));
-                $subject    = clean($request->getParam('subject'));
-                
+             
+                $helper = $this->helper;
+                $post = $helper->cleanData($request->getParams());
+             
                 $this->db->table('inbox')->insert([
-                    'reciever_email'=> $reciever,
-                    'subject'=> $subject,
-                    'body'=> $body
+                    'reciever_email'    => $post['reciever_email'],
+                    'subject'           => $post['subject'] ,
+                    'body'              => $post['body']
                 ]);
                 
                  
@@ -64,8 +62,8 @@ class EmailController extends Controller {
                     echo $ex->getMessage();
                 }
                 
-               $this->flash->addMessage('success','تم ارسال الإميل بنجاح');
-                 return $response->withRedirect($this->router->pathFor('inbox'));
+               $this->flashsuccess('تم ارسال الإميل بنجاح');
+               return $response->withRedirect($this->router->pathFor('inbox'));
                 
                  
             
@@ -93,11 +91,9 @@ class EmailController extends Controller {
         }
 
         public function blukdelete($request,$response){
-            
             $this->db->table('inbox')->get()->delete();
             $this->flashsuccess( 'تم حذف كل الإميلات بنجاح');
             return $response->withRedirect($this->router->pathFor('inbox'));
-            
         }
 
 }

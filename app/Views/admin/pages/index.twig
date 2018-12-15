@@ -130,13 +130,7 @@
                 {% for post in posts %}
                 <tr>
                     <td class="checkit"><input type="checkbox" name="checkaction[]" value="{{post.id}}"></td>
-                    <td>
-                        {% if post.title is empty %}
-                        <a href="{{path_for('pages.edit', {id : post.id})}}">{{l.pages.83}}</a>
-                        {% else %}
-                        <a href="{{path_for('pages.edit', {id : post.id})}}">{{ post.title}}</a>
-                        {% endif %}
-                    </td>
+                    <td><a href="{{path_for('pages.edit', {id : post.id})}}">{{ post.title ?? l.pages.83 }}</a></td>
                     <td>{{post.author}}</td>
                     <td>{{post.created_at.toDateTimeString()|makeNiceTime}}</td>
                     <td class="text-center">

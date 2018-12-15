@@ -21,6 +21,9 @@ class PostsCategoriesController extends Controller {
                 $lastpage       = (ceil($count / $limit) == 0 ? 1 : ceil($count / $limit));    // the number of the pages
                 $skip           = ($page - 1) * $limit;
                 $categories     = PostsCategories::skip($skip)->take($limit)->orderBy('created_at', 'desc')->get();
+                    
+//    PostsCategories::leftJoin('posts', 'posts.categoryID', '=', 'postscategories.id')
+//  ->selectRaw('postscategories.*, count(posts.categoryID) as postsCount')->skip($skip)->take($limit)->orderBy('created_at', 'desc')->get();
 
                 return $this->view->render($response, 'admin/posts/categories/index.twig', [
                     'pagination'    => [
@@ -31,11 +34,13 @@ class PostsCategoriesController extends Controller {
                         'limit'         => $limit,
                         'prev'          => $page-1,
                         'next'          => $page+1,
-                        'start'          => max(1, $page - 4),
+                        'start'          => max(1, $page- 4),
                         'end'          => min($page + 4, $lastpage),
                     ],
                   'categories'=> $categories ,
                 ]);
+                           
+     
         }
         
         

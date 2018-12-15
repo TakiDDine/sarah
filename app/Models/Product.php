@@ -5,7 +5,7 @@
 
 namespace App\Models;
 use illuminate\database\eloquent\model;
-use Illuminate\Database\Eloquent\SoftDeletes;
+
 use Illuminate\Pagination\Paginator;
 use Illuminate\Pagination;
 use \App\Models\ProductCategories;
@@ -41,15 +41,9 @@ class Product extends model{
     }
     
     
-public function category(){
-    
-    $product = ProductCategories::where('id',$this->categoryID)->first();
-    
-    if($product){    
-        return $product->name;
-    }
-    return 'N/A';
-    
+    // Get Post User
+    public function categorie(){
+        return $this->belongsTo('\App\Models\ProductCategories','categoryID');
     }
     
     

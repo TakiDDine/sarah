@@ -4,7 +4,6 @@ namespace App\Controllers;
 use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
 use \App\Models\Menus;
-use \App\Classes\files;
 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
@@ -16,6 +15,16 @@ class MenusController extends Controller {
             $pages = $this->db->table('pages')->take(7)->get()->toArray();
             $posts = $this->db->table('posts')->take(7)->get()->toArray();
             $menu  = $menus->first()->toArray();
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
         
             return $this->container->view->render($response,'admin/menus/index.twig',[
                 'menus'=>$menus,

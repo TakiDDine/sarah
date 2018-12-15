@@ -29,7 +29,7 @@
 <div class="content">
 			        {% include "admin/elements/flash.twig" %}
 			  
-			      <div class="col-md-6">
+			      <div class="col-md-5">
 			          <div class="panel panel-flat">
  
         <div class="panel-body">
@@ -59,16 +59,16 @@
         </div>
     </div>        
 			      </div>
-			      
-			      
-			      <div class="col-md-6">
+			                      
+      
+			      <div class="col-md-7">
 			          <div class="panel panel-flat">
     <table class="table datatable datatable-basic">
         <thead>
             <tr>
                 <th><b> # </b></th>
                 <th><b>الإسم</b></th>
-                <th><b>الرابط</b></th>
+                <th><b>الرابط</b></th><th><b>عدد المنتوجات</b></th>
                 <th class="text-center"><b>تعديل</b></th>
             </tr>
         </thead>
@@ -78,7 +78,7 @@
             <td>{{categorie.id}}</td>
             <td>{{categorie.name}}</td>
             <td>{{categorie.slug}}</td>
-
+            <td>{{categorie.posts.count()}}</td>
             <td class="text-center">
                 <ul class="icons-list">
                 <li class="dropdown">
@@ -102,8 +102,6 @@
 </div>
               {% include "admin/elements/pagination.twig" %}
 			      </div>                    
-			
-			        
 
     </div>
 </div>

@@ -21,21 +21,31 @@ class ProductsController extends Controller{
             $lastpage       = (ceil($count / $limit) == 0 ? 1 : ceil($count / $limit));   
             $skip           = ($page - 1) * $limit;
             $products          =  Product::skip($skip)->take($limit)->orderBy('created_at', 'desc')->get();
-
-            // Search Logic
-            if($request->getParam('search')){
-               $search = $request->getParam('search');
-               $products  = Product::orderBy('created_at', 'desc')
-                    ->where('name', 'LIKE', "%$search%")
-                    ->orWhere('description', 'LIKE', "%$search%")
-                    ->skip($skip)
-                    ->take($limit)
-                    ->get();    
-                $count = count($products);
-               $lastpage       = (ceil($count / $limit) == 0 ? 1 : ceil($count / $limit)); 
-               $searchview = true;
-            }
-
+//
+//        
+//        
+//                   
+//  $products = Product::leftJoin('productscategories', 'productscategories.id', '=', 'products.categoryID')->select('products.*', 'productscategories.name as category','productscategories.slug')
+//        ->skip($skip)->take($limit)->orderBy('created_at', 'desc')->get();
+//        
+        
+//        st($posts,1);
+        
+        
+//            // Search Logic
+//            if($request->getParam('search')){
+//               $search = $request->getParam('search');
+//               $products  = Product::orderBy('created_at', 'desc')
+//                    ->where('name', 'LIKE', "%$search%")
+//                    ->orWhere('description', 'LIKE', "%$search%")
+//                    ->skip($skip)
+//                    ->take($limit)
+//                    ->get();    
+//                $count = count($products);
+//               $lastpage       = (ceil($count / $limit) == 0 ? 1 : ceil($count / $limit)); 
+//               $searchview = true;
+//            }
+//
             return $this->view->render($response, 'admin/products/index.twig', [
                 'pagination'    => [
                     'needed'        => $count > $limit,

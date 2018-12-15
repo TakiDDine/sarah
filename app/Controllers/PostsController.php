@@ -20,7 +20,16 @@ class PostsController extends Controller {
                 $lastpage       = (ceil($count / $limit) == 0 ? 1 : ceil($count / $limit));    
                 $skip           = ($page - 1) * $limit;
                 $posts          = Post::skip($skip)->take($limit)->orderBy('created_at', 'desc')->get();
-
+           
+           
+           
+           
+           // get the posts, get the posts categories , get the posts authors
+           
+//           $posts = Post::leftJoin('postscategories','postscategories.id','posts.categoryID')
+//                ->leftJoin('users','users.id','=','posts.author')
+//               ->select('posts.*','postscategories.name as category','users.username')->skip($skip)->take($limit)->orderBy('created_at', 'desc')->get();
+               
                 return $this->view->render($response, 'admin/posts/index.twig', [
                     'pagination'    => [
                         'needed'        => $count > $limit,
@@ -81,6 +90,12 @@ class PostsController extends Controller {
         $id = rtrim($args['id'], '/');
         $post = Post::find($id);
 
+        
+//        $post =Post::findOrFail($id);
+//        
+//        st($post,1);
+//        
+        
         if($request->getMethod() == 'GET'){       
             if($post){
                 return $this->view->render($response,'admin/posts/edit.twig',compact('post','categories'));

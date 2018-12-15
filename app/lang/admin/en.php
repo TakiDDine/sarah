@@ -14,6 +14,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 return  [
     
+    'lang' => 'en',
     
     'navbar' => [
         '1' => 'control panel',
@@ -58,7 +59,6 @@ return  [
         '12' => 'the new password',
         '13' => 'repeat the new password',
         '14' => 'update the password'
-    
     ],
     
     'home' => [

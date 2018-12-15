@@ -2,10 +2,11 @@
 
 namespace App\Models;
 use illuminate\database\eloquent\model;
-use Illuminate\Database\Eloquent\SoftDeletes;
+
 use Illuminate\Pagination\Paginator;
 use Illuminate\Pagination;
 use \App\Classes\Helper;
+use \App\Model\Comments as comment;
 
 class Post extends model{
 
@@ -58,4 +59,26 @@ public function timestamps()
             echo '<span class="label border-left-danger label-striped">محظور </span>';
         }        
     }
+    
+    
+    // Get post Comments 
+    public function comments() {
+        return $this->hasMany('\App\Models\Comments');
+    }
+    
+  
+    
+    // Get Post User
+    public function writer(){
+        return $this->belongsTo('\App\Models\User','author');
+    }
+    
+    // Get Post User
+    public function categorie(){
+        return $this->belongsTo('\App\Models\PostsCategories','categoryID');
+    }
+    
+    
+    
+
 }

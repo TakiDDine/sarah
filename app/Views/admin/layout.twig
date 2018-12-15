@@ -1,9 +1,5 @@
-{% spaceless %}
-
-
-
 <!DOCTYPE html>
-<html lang="en" dir="rtl">
+<html lang="" dir="rtl" >
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -15,19 +11,18 @@
 
 	<!-- Global stylesheets -->
 	<link href="https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900" rel="stylesheet" type="text/css" />
-	<link href="{{ admin_assets }}css/icons/icomoon/styles.css" rel="stylesheet" type="text/css" />
-	<link href="{{ admin_assets }}css/bootstrap.css" rel="stylesheet" type="text/css" />
-	<link href="{{ admin_assets }}css/core.css" rel="stylesheet" type="text/css" />
-	<link href="{{ admin_assets }}css/components.css" rel="stylesheet" type="text/css" />
-	<link href="{{ admin_assets }}css/colors.css" rel="stylesheet" type="text/css" />
-	<link href="{{ admin_assets }}css/arfont/font.css" rel="stylesheet" type="text/css" />
-	<link href="{{ admin_assets }}css/main.css" rel="stylesheet" type="text/css" />
+	<link href="{{ admin_assets }}/css/icons/icomoon/styles.css" rel="stylesheet" type="text/css" />
+	<link href="{{ admin_assets }}css/ar/bootstrap.css" rel="stylesheet" type="text/css" />
+	<link href="{{ admin_assets }}css/ar/core.css" rel="stylesheet" type="text/css" />
+	<link href="{{ admin_assets }}css/ar/components.css" rel="stylesheet" type="text/css" />
+	<link href="{{ admin_assets }}css/ar/colors.css" rel="stylesheet" type="text/css" />
+	<link href="{{ admin_assets }}/css/arfont/font.css" rel="stylesheet" type="text/css" />
+	<link href="{{ admin_assets }}css/ar/main.css" rel="stylesheet" type="text/css" />
 	<!-- /global stylesheets -->
-
+	
 	<!-- Core JS files -->
 	<script type="text/javascript" src="{{ admin_assets }}js/plugins/loaders/pace.min.js"></script>
 	<script type="text/javascript" src="{{ admin_assets }}js/core/libraries/jquery.min.js"></script>
-	
 	<script type="text/javascript" src="{{ admin_assets }}js/core/libraries/bootstrap.min.js"></script>
 	<script type="text/javascript" src="{{ admin_assets }}js/plugins/loaders/blockui.min.js"></script>
 	<!-- /core JS files -->
@@ -42,58 +37,13 @@
 
     <!-- check for javascript -->
     <noscript>
-        <meta http-equiv="refresh" content="0; url={{path_for('javascript-Disabled')}}" />
+        <meta http-equiv="refresh" content="0; url=http://www.google.com" />
     </noscript>
     
     <!-- costum css -->
-    <link href="{{ admin_assets }}css/costum.css" rel="stylesheet" type="text/css" />
+    <link href="{{ admin_assets }}css/{{l.lang}}/costum.css" rel="stylesheet" type="text/css" />
 
-<style>
-    .empty_state_icon {
-    font-size: 176px;
-    opacity: 0.1;
-}
-    </style>
-      <style>
-    @media all and (min-width:0px) and (max-width: 600px) {
-
-.table-striped tr th {
-    display: none;
-}
-.table-striped tr td {
-    display: none;
-    border:none !important;
-}
-
-.table-striped tr th:nth-child(2) {
-    display: inline-block;
-    width:20% !important;
-}
-.table-striped tr th:nth-child(3) {
-    display: inline-block;
-    width:60% !important;
-}
-.table-striped tr th:last-child {
-    display: inline-block;
-    width:20% !important;
-}
-
-
-
-.table-striped tr td:nth-child(2) {
-    display: inline-block;
-    width:20% !important;
-}
-.table-striped tr td:nth-child(3) {
-    display: inline-block;
-    width:60% !important;
-}
-.table-striped tr td:last-child{
-    display: inline-block;
-    width:20% !important;
-}    
-    }
-</style> 
+ 
 
 
 <!-- Full width modal -->
@@ -637,5 +587,8 @@ readURL(this);
 
 
 </body>
-</html>
+
+
+</html>{% spaceless %}
+
 {% endspaceless %}

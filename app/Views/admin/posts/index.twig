@@ -119,11 +119,13 @@
                     <th><b>{{l.posts.7}}</b></th>
                     <th><b>{{l.posts.8}}</b></th>
                     <th><b>{{l.posts.9}}</b></th>
+                    <th><b>{{l.posts.16}}</b></th>
                     <th class="text-center"><b>{{l.posts.10}}</b></th>
                 </tr>
             </thead>
             <tbody>
                 {% for post in posts %}
+                
                 <tr>
                    <td class="checkit"><input type="checkbox" name="checkaction[]" value="{{post.id}}"></td>
                     <td>
@@ -134,8 +136,11 @@
                     {% endif %}
                                                 
                     </td>
-                    <td>{{post.author}}</td>
+                    <td>{{post.writer.username}}</td>
                     <td>{{post.created_at.toDateTimeString()|makeNiceTime}}</td>
+                    <td>
+                    <span class="label bg-indigo-300">{{post.categorie.name}}</span>
+                    </td>
                     <td class="text-center">
                         <ul class="icons-list">
                             <li class="dropdown">

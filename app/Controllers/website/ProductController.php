@@ -54,8 +54,8 @@ class ProductController extends \App\Controllers\Controller{
         }
         
         
-        $wishlist = WishList::where('productID', $product->id)->where('user_id', $_SESSION['auth-user'])->first();
-        $reviews = Reviews::where('productID', $product->id)->get();
+        $wishlist = WishList::whereProductID($product->id)->whereUser_id($_SESSION['auth-user'])->first();
+        $reviews = Reviews::whereProductID($product->id)->get();
 
         
        $related = Product::where('categoryID', $product->categoryID)->get();

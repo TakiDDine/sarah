@@ -22,7 +22,22 @@ class Helper {
 	}
 
     
-    
+  public  function obj_to_array($object): array
+    {
+        $array = [
+            // Intentionally left blank...
+        ];
+        foreach ($object as $key => $value) {
+            if (\is_object($value)) {
+                $array[$key] = $this->obj_to_array($value);
+            } elseif (\is_array($value)) {
+                $array[$key] = $this->obj_to_array($value);
+            } else {
+                $array[$key] = $value;
+            }
+        }
+        return $array;
+    }
     
     
     

@@ -16,7 +16,7 @@ class WishListController extends \App\Controllers\Controller{
     
     // display all my wishlist Products
     public function index($request,$response) {
-       $wishlist = WishList::where('user_id',$_SESSION['auth-user'])->get()->toArray();
+       $wishlist = WishList::whereUser_id($_SESSION['auth-user'])->get()->toArray();
         $maincart = [];
         foreach($wishlist as $item ) {
             $product = Product::where('id',$item['productID'])->first()->toArray();

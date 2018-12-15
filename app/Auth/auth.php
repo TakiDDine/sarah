@@ -69,7 +69,11 @@ class Auth {
     
     
     public function attempt($email,$password,$type) {
-        $user = User::where('email','=',$email)->orWhere('username','=',$email)->first();
+        
+        
+//        $user = User::where('email','=',$email)->orWhere('username','=',$email)->first();
+        
+        $user = User::whereEmail($email)->orWhere('username','=',$email)->first();
         
         if($type == 'user'){
             
@@ -96,12 +100,10 @@ class Auth {
         return false;
     }
     
+    
     public function recover($email){
-        $user = User::where('email','=',$email)->first();
-        if($user){
-            return $user;
-        }
-        return false;
+        $user = User::whereEmail($email)->first();
+        return !empty($user) ? $user : false;
     }
     
     public function register(){

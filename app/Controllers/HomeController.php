@@ -6,6 +6,7 @@ use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
 use \App\Classes\files;
 use \App\Models\Emails;
+use Illuminate\Database\Capsule\Manager as Capsule;
 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
@@ -14,9 +15,17 @@ class HomeController extends Controller{
   
     public function home($request,$response) {
         
-        $count = [];
-        
-        // info
+              
+        $count = Capsule::select("SELECT 
+         (SELECT COUNT(*) FROM products) as products, 
+         (SELECT COUNT(*) FROM users) as users, 
+         (SELECT COUNT(*) FROM emails) as emails,
+         (SELECT COUNT(*) FROM posts) as posts, 
+         (SELECT COUNT(*) FROM orders) as orders, 
+         (SELECT COUNT(*) FROM pages) as pages
+        ");
+
+ 
         $pdo = $this->db->connection()->getPdo();
         $version = $pdo->query('select version()')->fetchColumn();
         
@@ -54,14 +63,7 @@ class HomeController extends Controller{
         
         
         
-        
-      $count['products'] = $this->db->table('products')->count(); 
-      $count['users'] = $this->db->table('users')->count(); 
-      $count['emails'] = $this->db->table('emails')->count(); 
-      $count['posts'] = $this->db->table('posts')->count(); 
-      $count['orders'] = $this->db->table('orders')->count(); 
-      $count['pages'] = $this->db->table('pages')->count(); 
-  
+
         $info['phpversion'] = phpversion();
         $info['mysqlversion'] = $version;
         $info['filesize'] = $this->helper->formatBytes($this->helper->foldersize(BASEPATH.'/'));
@@ -70,7 +72,7 @@ class HomeController extends Controller{
         
         
        return $this->container->view->render($response,'admin/home.twig',[
-           'count'=>$count, 'info' =>$info , 'temp' => $meteo
+           'count'=>$count[0], 'info' =>$info , 'temp' => $meteo
                                                                          
         ]);
     }

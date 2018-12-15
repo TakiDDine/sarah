@@ -25,12 +25,20 @@ use \App\Controllers\ProductsCategoriesController as productscats;
 use \App\Controllers\OrdersController as orders;
 use \App\Controllers\EmailsController as emails;
 use \App\Controllers\SliderController as slider;
+use \App\Controllers\StatiqueController as statique;
+use \App\Controllers\MailListsController as mailist;
+use \App\Controllers\FileManagerController as FileManager;
+use \App\Controllers\HomeController as home;
 
-
-
+// flash
+use \App\Middleware\flashMiddleware as flash;
+use \App\Middleware\OldInputMidddleware as old;
+    
+    
 // security , disable direct access
 defined('BASEPATH') or exit('No direct script access allowed');
 
+//users::class .
 
 /*
 *  Admin Routes
@@ -44,58 +52,58 @@ $app->group('/dashboard', function () use($app) {
     
     // users System
     $this->group('/users', function () {
-        $this->get('[/]', users::class .':index')->setName('users');
-        $this->any('/create[/]', users::class .':create')->setName('users.create');
-        $this->any('/mutliAction[/]', users::class .':mutliAction')->setName('users.mutliAction');        
-        $this->get('/export/csv[/]', users::class .':export_csv')->setName('usersToCsv');
-        $this->get('/export/pdf[/]', users::class .':export_pdf')->setName('usersToPdf');
-        $this->get('/blukdelete[/]', users::class .':blukdelete')->setName('users.blukdelete');
-        $this->any('/{username}[/]', users::class .':edit')->setName('users.edit');
+        $this->get('[/]', 'Users:index')->setName('users');
+        $this->any('/create[/]', 'Users:create')->setName('users.create');
+        $this->any('/mutliAction[/]','Users:mutliAction')->setName('users.mutliAction');        
+        $this->get('/export/csv[/]', 'Users:export_csv')->setName('usersToCsv');
+        $this->get('/export/pdf[/]', 'Users:export_pdf')->setName('usersToPdf');
+        $this->get('/blukdelete[/]', 'Users:blukdelete')->setName('users.blukdelete');
+        $this->any('/{username}[/]', 'Users:edit')->setName('users.edit');
     });
     
     
     // Menu System
     $this->group('/menus', function (){
-        $this->any('[/]', menus::class .':index')->setName('menus');
-        $this->any('/create[/]', menus::class .':create')->setName('menus.create');
-        $this->any('/edit/{id}[/]', menus::class .':edit')->setName('menus.edit');
-        $this->any('/delete/{id}[/]', menus::class .':delete')->setName('menus.delete');
-        $this->any('/blukdelete[/]', menus::class .':blukdelete')->setName('menus.blukdelete');
+        $this->any('[/]', 'Menus:index')->setName('menus');
+        $this->any('/create[/]', 'Menus:create')->setName('menus.create');
+        $this->any('/edit/{id}[/]', 'Menus:edit')->setName('menus.edit');
+        $this->any('/delete/{id}[/]', 'Menus:delete')->setName('menus.delete');
+        $this->any('/blukdelete[/]', 'Menus:blukdelete')->setName('menus.blukdelete');
     });
     
     
     // Comments System
     $this->group('/comments', function (){
-       $this->get('[/]', comment::class .':index')->setName('comments');
-       $this->any('/edit/{id}[/]', comment::class .':edit')->setName('comments.edit');
-       $this->any('/create[/]', comment::class .':create')->setName('comments.create');
-       $this->get('/delete/{id}[/]', comment::class .':delete')->setName('comments.delete');
-       $this->get('/blukdelete[/]', comment::class .':blukdelete')->setName('comments.blukdelete');
+       $this->get('[/]', 'Comments:index')->setName('comments');
+       $this->any('/edit/{id}[/]', 'Comments:edit')->setName('comments.edit');
+       $this->any('/create[/]', 'Comments:create')->setName('comments.create');
+       $this->get('/delete/{id}[/]', 'Comments:delete')->setName('comments.delete');
+       $this->get('/blukdelete[/]', 'Comments:blukdelete')->setName('comments.blukdelete');
     });
     
     
     // Media System
     $this->group('/media', function (){
-        $this->get('[/]', media::class .':index')->setName('media');
-        $this->any('/view/{id}[/]', media::class .':view')->setName('media.view');
-        $this->post('/upload[/]', media::class .':upload')->setName('media.upload');
-        $this->any('/delete[/]', media::class .':delete')->setName('media.delete');
-        $this->get('/blukdelete[/]', media::class .':blukdelete')->setName('media.blukdelete');
-        $this->any('/uploader[/]', media::class .':modal_uploader')->setName('media.modal_uploader');
-        $this->any('/download/{id}[/]', media::class .':download')->setName('media.download');
+        $this->get('[/]', 'Media:index')->setName('media');
+        $this->any('/view/{id}[/]', 'Media:view')->setName('media.view');
+        $this->any('/upload[/]', 'Media:upload')->setName('media.upload');
+        $this->any('/delete[/]', 'Media:delete')->setName('media.delete');
+        $this->get('/blukdelete[/]', 'Media:blukdelete')->setName('media.blukdelete');
+        $this->any('/uploader[/]', 'Media:modal_uploader')->setName('media.modal_uploader');
+        $this->any('/download/{id}[/]', 'Media:download')->setName('media.download');
     });
     
     
     // Pages System
     $this->group('/pages', function (){
-        $this->get('[/]', pages::class .':index')->setName('pages');
-        $this->any('{id}[/]', pages::class .':create')->setName('pages.view');
-        $this->any('/create[/]', pages::class .':create')->setName('pages.create');
-        $this->any('/edit/{id}[/]', pages::class .':edit')->setName('pages.edit');
-        $this->get('/delete/{id}[/]', pages::class .':delete')->setName('pages.delete');
-        $this->get('/duplicate/{id}[/]', pages::class .':duplicate')->setName('pages.duplicate');
-        $this->get('/blukdelete[/]', pages::class .':blukdelete')->setName('pages.blukdelete');
-        $this->any('/mutliAction[/]', pages::class .':mutliAction')->setName('pages.mutliAction');
+        $this->get('[/]', 'Pages:index')->setName('pages');
+        $this->any('{id}[/]', 'Pages:create')->setName('pages.view');
+        $this->any('/create[/]', 'Pages:create')->setName('pages.create');
+        $this->any('/edit/{id}[/]', 'Pages:edit')->setName('pages.edit');
+        $this->get('/delete/{id}[/]', 'Pages:delete')->setName('pages.delete');
+        $this->get('/duplicate/{id}[/]', 'Pages:duplicate')->setName('pages.duplicate');
+        $this->get('/blukdelete[/]', 'Pages:blukdelete')->setName('pages.blukdelete');
+        $this->any('/mutliAction[/]', 'Pages:mutliAction')->setName('pages.mutliAction');
     });
     
     
@@ -142,7 +150,7 @@ $app->group('/dashboard', function () use($app) {
         $this->group('/categories', function (){
             $this->any('[/]', postscats::class .':index')->setName('posts.categories');
             $this->get('/edit/{id}[/]', postscats::class .':edit')->setName('posts.categories.edit');
-            $this->post('/edit/{id}[/]', postscats::class .':edit')->setName('posts.categories.edit');
+            $this->post('/edit/{id}[/]', postscats::class .':edit')->setName('posts.categories');
             $this->get('/delete/{id}[/]', postscats::class .':delete')->setName('posts.categories.delete');
         });
     });
@@ -242,12 +250,11 @@ $app->group('/dashboard', function () use($app) {
 
 
     // Statique Pages System
-    $this->get('/account[/]', admin\HomeController::class .':account')->setName('account');
-    $this->get('/javascript-Disabled[/]', admin\javascriptDisabled::class .':jsDisabled')->setName('javascript-Disabled');
-    $this->get('/logs[/]', admin\StatiqueController::class .':logs')->setName('logs');
-    $this->get('/mailist[/]', admin\MailListsController::class .':index')->setName('mailist');
-    $this->post('/mailist/add[/]', admin\MailListsController::class .':add')->setName('mailist.add');
-    $this->get('/FileManager[/]', admin\HomeController::class .':FileManager')->setName('FileManager');
+    $this->get('/account[/]', home::class .':account')->setName('account');
+    $this->get('/logs[/]', statique::class .':logs')->setName('logs');
+    $this->get('/mailist[/]', mailist::class .':index')->setName('mailist');
+    $this->post('/mailist/add[/]', mailist::class .':add')->setName('mailist.add');
+    $this->get('/FileManager[/]', FileManager::class .':index')->setName('FileManager');
 
 
 
@@ -266,11 +273,6 @@ $app->group('/dashboard', function () use($app) {
     });
 
 
-/*
-*   Middlewares
-*/
-$app->add( new App\Middleware\flashMiddleware($container) );
-$app->add( new App\Middleware\OldInputMidddleware($container) );
-
-
-
+//   Middlewares
+$app->add( new flash($container) );
+$app->add( new old($container) );

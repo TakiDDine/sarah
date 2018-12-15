@@ -65,7 +65,10 @@
             <tr>
                 <th><b> # </b></th>
                 <th><b>الإسم</b></th>
-                <th><b>الرابط</b></th>
+                <th><b>الرابط</b></th>                <th><b>عدد المقالات</b></th>
+
+            
+
                 <th class="text-center"><b>تعديل</b></th>
             </tr>
         </thead>
@@ -74,7 +77,10 @@
             <tr id=''>
             <td>{{categorie.id}}</td>
             <td>{{categorie.name}}</td>
-            <td>{{categorie.slug}}</td>
+            <td>{{categorie.slug}}</td>              
+
+            <td>{{categorie.posts.count()}}</td>
+
 
             <td class="text-center">
                 <ul class="icons-list">
