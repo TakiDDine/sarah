@@ -24,7 +24,7 @@ define( 'YEAR_IN_SECONDS',  365 * DAY_IN_SECONDS    );
 // Load the libraries
 require INC_ROOT.'/vendor/autoload.php';
 
-$config = ['settings' => [ 'displayErrorDetails' => true, ], ];
+$config = ['settings' => [ 'displayErrorDetails' => true,  'log.enable' => true], ];
 
 // initialize the slim
 $app = new \Slim\App($config);

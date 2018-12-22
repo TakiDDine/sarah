@@ -8,6 +8,15 @@ class Helper {
     
     
     
+public function downloadFromURLToUSerCompuer ($url) { 
+$file = ($url);
+$file_name = str_replace('https://i.imgur.com/','' , $file);
+header('Content-Type: application/octet-stream');
+header("Content-Transfer-Encoding: Binary"); 
+header("Content-disposition: attachment; filename=\"".$file_name."\""); 
+readfile($file);
+exit;
+}
 
     /*
 	*	Clean POST data

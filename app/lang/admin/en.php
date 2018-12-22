@@ -258,7 +258,7 @@ return  [
         '56' => 'save menu',
         '57' => 'menu area',
         '64' => 'delete menu',
-        '65' => 'تحديد مكان ad'
+        '65' => 'Display location'
     ],
     
     

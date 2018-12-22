@@ -1,5 +1,25 @@
-<?php 
+<?php
 
+
+/*
+        usage example
+        ----------------------------------------------------------------
+        ----------------------------------------------------------------
+        include_once dirname(__DIR__).'/Classes/database_exporter.php';
+        $world_dumper = \Shuttle_Dumper::create(array(
+            'host' => $this->conf['db.host'],
+            'username' => $this->conf['db.username'],
+            'password' => $this->conf['db.password'],
+            'db_name' => $this->conf['db.name'],
+        ));
+
+        $file_url = 'database.sql';
+        header('Content-Type: application/octet-stream');
+        header("Content-Transfer-Encoding: Binary"); 
+        header("Content-disposition: attachment; filename=\"" . basename($file_url) . "\""); 
+        readfile($file_url); // do the double-download-dance (dirty but worky)
+        unlink($file_url);
+*/
 
 defined('BASEPATH') OR exit('No direct script access allowed');
 

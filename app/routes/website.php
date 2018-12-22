@@ -18,6 +18,7 @@ use \App\Controllers\website\ProductController as product;
 use \App\Controllers\website\CartController as cart;
 use \App\Controllers\OrdersController as order;
 use \App\Controllers\installController as install;
+use \App\Controllers\website\PagesController as pages;
 
 
 
@@ -37,7 +38,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $app->group('/', function () use($app) {
     
         // website installer 
-        $app->get('/install[/]', install::class .':index')->setName('website.install');
+        $app->get('install[/]', install::class .':index')->setName('website.install');
         
         // Home Page
         $app->get('', home::class .':index')->setName('website.home');
@@ -51,6 +52,7 @@ $app->group('/', function () use($app) {
         $app->any('resetPassword', auth::class .':resetForm')->setName('website.resetpassword');
         $app->get('account[/]', auth::class .':account')->setName('website.account');
 
+        $app->get('page/{id}', pages::class .':page')->setName('website.page');
     
         // Statique Pages
         $app->get('about-us[/]', statique::class .':about')->setName('website.about-us');
@@ -91,6 +93,4 @@ $app->group('/', function () use($app) {
         // Faq , Frequented Asked Questions
         $app->get('faqs', faq::class .':front')->setName('website.faqs');
    
-});
-
-
+})->add( new App\Middleware\downMiddleware($container) );

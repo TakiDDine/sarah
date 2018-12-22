@@ -53,7 +53,7 @@
 * عرض الإحصائيات والتفاصيل عن لوحة التحكم 
 * رابط الإسترجاع لكلمة المرور صالح لمدة 30 دقيقة فقط 
 * تستخدم تقنية جد آمنة في حفظ كلمات المرور
-
+* صفحة الموقع في حالة الصيانة ، احترافية
 
 
 
@@ -73,7 +73,7 @@
 delete all the libraries from github
 update carte
 add font awesome to menu
-add font awesome picker
+add font awesome picker --> https://farbelous.io/fontawesome-iconpicker/
 
 تسمية مثالية breadcrumbsbreadcrumb
 عرض شرائح مثالي
@@ -88,15 +88,22 @@ add font awesome picker
 https://www.youtube.com/watch?v=spoNYvTdH64https://drive.google.com/file/d/0B7gM8rl_j5nsakpxOFlSSlZvbnc/view
 https://www.youtube.com/watch?v=ktUOY0OAFmA
 
+a hin pibih
+
+
+
 ## To do in version 1.3 ( 20 Decembre 2018 )
+* add fake data
+* Follow this instruction --> https://github.com/php-pds/skeleton
+* add Published * Not published / Published
 * use and create assets helper 
 * add dropzone in mediauploader
-* add maintenace mode
-* add Time Zone in settings general
-* add Date Format in settings general
-* add reCAPTCHA public key to settings general
-* add reCAPTCHA private key to settings general
-* add google maps api input in settings general
+* add maintenace mode - Done
+* add Time Zone in settings general - Done
+* add Date Format in settings general - Done
+* add reCAPTCHA public key to settings general - Done
+* add reCAPTCHA private key to settings general - Done
+* add google maps api input in settings general - Done
 * add file manager allawed files extension
 * add more social media to social media links in settings
 * add nice_time() function to each model
@@ -140,6 +147,7 @@ https://www.youtube.com/watch?v=ktUOY0OAFmA
 * you are offline --> http://github.hubspot.com/offline/docs/welcome/
 * secure the website from httrack & similar -> https://stackoverflow.com/questions/10453306/how-can-i-protect-my-site-from-httrack-or-other-softwares-ripping
 * Creating a comment and reply system PHP and MySQL ->http://codewithawa.com/posts/creating-a-comment-and-reply-system-php-and-mysql
+* this-> https://i.imgur.com/kZjjy1I.png
 * photo gallery
 * send email to user
 * new registred users default role
@@ -168,7 +176,12 @@ https://www.youtube.com/watch?v=ktUOY0OAFmA
 
 ## To do in version 1.8 ( 10/1/2019 )
 * add the editor https://github.com/ajaxorg/ace
-
+* import from wordpress  --> 
+https://royduineveld.nl/creating-your-own-wordpress-import/
+https://gist.github.com/royduin/69ff94b68c28419dbd9a8e07dcf13187
+* import and export 
+* resize preview images --> http://image.intervention.io/
+* add this helpers to your helper --> https://laravel-admin.org/docs/#/en/extension-helpers?id=helpers
 
 
 

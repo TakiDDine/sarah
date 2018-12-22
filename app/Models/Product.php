@@ -14,7 +14,7 @@ use \App\Models\ProductCategories;
 class Product extends model{
 
 
-    protected $admin_role = 2;
+    
     protected $table = 'products';
     
     protected $guarded = ['id', 'created_at', 'updated_at'];

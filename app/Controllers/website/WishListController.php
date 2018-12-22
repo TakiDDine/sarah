@@ -13,20 +13,26 @@ use \App\Models\Cart;
 
 class WishListController extends \App\Controllers\Controller{
   
-    
-    // display all my wishlist Products
     public function index($request,$response) {
-       $wishlist = WishList::whereUser_id($_SESSION['auth-user'])->get()->toArray();
-        $maincart = [];
-        foreach($wishlist as $item ) {
-            $product = Product::where('id',$item['productID'])->first()->toArray();
-            $product['productID'] = $product['id'];
-            $item['wishID'] = $item['id'];
-            $mainwish[] =  array_merge($product,$item);
-        }
-   
-       return $this->view->render($response,'website/wish-list.twig',['wishlist'=>$mainwish]);
+       $wishlist = [];
+       if(isset($_SESSION['auth-user'])){ $wishlist = WishList::where('user_id',$_SESSION['auth-user'])->get(); }
+       return $this->container->view->render($response,'website/cart.twig',compact('wishlist'));
     }
+    
+//    
+//    // display all my wishlist Products
+//    public function index($request,$response) {
+//       $wishlist = WishList::whereUser_id($_SESSION['auth-user'])->get()->toArray();
+//        $maincart = [];
+//        foreach($wishlist as $item ) {
+//            $product = Product::where('id',$item['productID'])->first()->toArray();
+//            $product['productID'] = $product['id'];
+//            $item['wishID'] = $item['id'];
+//            $mainwish[] =  array_merge($product,$item);
+//        }
+//   
+//       return $this->view->render($response,'website/wish-list.twig',['wishlist'=>$mainwish]);
+//    }
     
     
     // add all the products to wish list

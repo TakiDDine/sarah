@@ -12,34 +12,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class CommentsController extends Controller {
     
+        // index Page, Get all ads
     public function index($request,$response) {
-        
-            $searchview     = false;
-            $count          = Comments::count();
-            $page           = ($request->getParam('page', 0) > 0) ? $request->getParam('page') : 1;
-            $limit          = 10;
-            $lastpage       = (ceil($count / $limit) == 0 ? 1 : ceil($count / $limit));
-            $skip           = ($page - 1) * $limit;
-            $comments       = Comments::skip($skip)->take($limit)->orderBy('created_at', 'desc')->get();
-
-            return $this->view->render($response, 'admin/comments/index.twig', [
-                'pagination'    => [
-                    'needed'        => $count > $limit,
-                    'count'         => $count,
-                    'page'          => $page,
-                    'lastpage'      => $lastpage,
-                    'limit'         => $limit,
-                    'prev'          => $page-1,
-                    'next'          => $page+1,
-                    'start'          => max(1, $page - 4),
-                    'end'          => min($page + 4, $lastpage),
-                ],
-              'comments'=>$comments ,
-              'searchView'=>$searchview,
-              'searchQuery'=>$request->getParam('search')
-            ]);
+        $r = $this->paginate('Comments',$request);
+        return $this->view->render($response, 'admin/comments/index.twig', ['users'=>$r[0],'p'=>$r[1]]);    
     }
-    
+
     
         // edit a comment
         public function edit($request,$response,$args) {

@@ -19,10 +19,22 @@
 			<form class="form-horizontal" method="post" action="{{path_for('settings.social')}}" >
 				<fieldset class="content-group">
 					<legend class="text-bold"></legend>
+					
+					<div class="form-group has-feedback has-feedback-left">
+                       <label class="control-label col-lg-3">{{l.socialLinks.191}}</label>
+                       <div class="col-lg-9">
+                        <input type="text" class="form-control input-xlg" placeholder="{{l.socialLinks.191}}">
+                        <div class="form-control-feedback">
+                            <i class="icon-facebook"></i>
+                        </div>
+                        </div>
+                    </div>
+					
+					
 					<div class="form-group">
 						<label class="control-label col-lg-3">{{l.socialLinks.191}}</label>
 						<div class="col-lg-9">
-							<input type="text" class="form-control" value='{{"facebook"|options}}' name="facebook" placeholder="{{l.socialLinks.191}}" />
+							<input type="text" class="form-control" value='{{"facebook"|options}}' name="facebook" placeholder="" />
 						</div>
 					</div>
 					<div class="form-group">
@@ -43,6 +55,45 @@
 							<input type="text" class="form-control" value='{{"youtube"|options}}' name="youtube" placeholder="{{l.socialLinks.194}}" />
 						</div>
                     </div>
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+					<div class="form-group">
+						<label class="control-label col-lg-3">{{l.socialLinks.192}}</label>
+						<div class="col-lg-9">
+							<input type="text" class="form-control" value='{{"twitter"|options}}' name="twitter" placeholder="{{l.socialLinks.192}}" />
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="control-label col-lg-3">{{l.socialLinks.193}}</label>
+						<div class="col-lg-9">
+							<input type="text" class="form-control" value='{{"instagram"|options}}' name="instagram" placeholder="{{l.socialLinks.193}}" />
+						</div>
+					</div>		
+					<div class="form-group">
+						<label class="control-label col-lg-3">{{l.socialLinks.194}}</label>
+						<div class="col-lg-9">
+							<input type="text" class="form-control" value='{{"youtube"|options}}' name="youtube" placeholder="{{l.socialLinks.194}}" />
+						</div>
+                    </div>
+                    
+                    
+                    
+                    
+                    
+                    
 				</fieldset>
 				<div class="text-right">
 					<input type="hidden" name="validate" value="social_settings">

@@ -36,7 +36,49 @@ class PagesController extends Controller {
                   'searchQuery'=>$request->getParam('search')
                 ]);
         }
- 
+     public function edit($request,$response,$args) {
+        $id = rtrim($args['id'], '/');
+        $post = Page::find($id);
+        if($request->getMethod() == 'GET'){       
+            if($post){
+                return $this->view->render($response,'admin/pages/edit.twig',compact('post','categories'));
+            }
+            return $response->withRedirect($this->router->pathFor('pages'));        
+        }
+        
+        if($request->getMethod() == 'POST'){
+
+                // initialize the helper & the uploader clean post form
+                $helper   = $this->helper;
+                $form     = $helper->cleanData($request->getParams());
+                $up       = $this->files;
+                $file     = $_FILES['post_thumbnail'];
+                $dir      = $this->dir('pages');
+            
+                if($form['thumbnailChanged'] == 'true') {
+                    // Upload
+                    $Post->thumbnail = !empty($file['name']) ? $up->up($dir,$file) : ' ';
+
+                    // delete the old thumbnail 
+                    $old = $dir.$post->thumbnail; if(file_exists($old)){unlink($old);}
+                }        
+          
+                // edit the post & save
+                $post->title                = $form['title'];
+                $post->content              = $form['post_content'];
+                $post->statue               = '1';
+                $post->slug                 = $form['slug'];
+                $post->categoryID           = $form['postCategory'];
+                $post->save();
+
+                // flash success & redirect
+                $this->flashsuccess( 'تم تعديل المقالة بنجاح');
+                return $response->withRedirect($this->router->pathFor('pages.edit',['id'=>$id]));   
+        }
+        
+        
+    }
+    
     public function create($request,$response) {
 
             if($request->getMethod() == 'POST'){

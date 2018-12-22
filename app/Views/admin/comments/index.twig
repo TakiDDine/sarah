@@ -71,6 +71,7 @@
 			<thead>
 				<tr>
 					<th><b>{{l.comment.3}}</b></th>
+					<th><b>{{l.comment.10}}</b></th>
 					<th><b>{{l.comment.4}}</b></th>
 					<th><b>{{l.comment.5}}</b></th>
 					<th class="col-md-1 text-center"><b>{{l.comment.6}}</b></th>
@@ -79,7 +80,8 @@
 			<tbody>
             {% for comment in comments %}
 				<tr id=''>
-					<td>{{comment.author}}</td>
+					<td>{{comment.by.username}}</td>
+					<td>{{comment.post.title}}</td>
 					<td>{{comment.content}}</td>
 					<td>{{comment.created_at|makeNiceTime}}</td>
 					<td class="text-center">

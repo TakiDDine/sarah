@@ -1,27 +1,12 @@
 <?php
-/**
- * Created by IntelliJ IDEA.
- * User: hefang
- * Date: 2018/12/6
- * Time: 09:58
- */
-
-namespace link\hefang\helpers;
 
 
-use link\hefang\exceptions\ExtensionNotLoadException;
 
-final class ZipHelper
-{
-    /**
-     * 解压文件
-     * @param string $zipFile 要解压的zip文件
-     * @param string $extractTo 要解压到的路径
-     * @param string|null $password zip文件密码
-     * @return bool 是否成功
-     */
-    public static function unCompress(string $zipFile, string $extractTo, string $password = null): bool
-    {
+namespace App\Helpers;
+
+ class Zip {
+    
+    public static function unCompress(string $zipFile, string $extractTo, string $password = null) {
         self::checkEnv();
         if (!file_exists($zipFile) || !is_dir($extractTo) || !is_writable($extractTo)) {
             return false;
@@ -38,19 +23,12 @@ final class ZipHelper
         return $res;
     }
 
-    /**
-     * 压缩文件
-     * @param string $srcFileOrDir 要压缩的文件或目录
-     * @param string $destFile 压缩文件保存位置
-     * @param string|null $password 密码
-     * @param string|null $comment 注释
-     * @return bool
-     */
+    
     public static function compress(
         string $srcFileOrDir,
         string $destFile,
         string $password = null,
-        string $comment = null): bool
+        string $comment = null)
     {
         self::checkEnv();
         if (!file_exists($srcFileOrDir)) {
@@ -93,14 +71,11 @@ final class ZipHelper
     }
 
 
-    private static function checkEnv()
-    {
+    private static function checkEnv() {
         if (!extension_loaded("zip")) {
             throw new ExtensionNotLoadException("zip");
         }
     }
 
-    private function __construct()
-    {
-    }
+    
 }

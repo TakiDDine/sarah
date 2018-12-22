@@ -60,17 +60,17 @@
 																	<li class="image">
 																		<a href="{{path_for}}">
 																		
-																			<img  style='width:150px;' src="{{url.products}}{{item.thumbnail}}">
+																			<img  style='width:150px;' src="{{url.products}}{{item.product.thumbnail}}">
 																		</a>
 																	</li>
 																	<li class="link">
 																		<a href="product.html">
-																			<p>{{item.name}}</p>
+																			<p>{{item.product.name}}</p>
 																		</a>
 																	</li>
 																</ul>
 															</td>
-															<td class="price"><span class="money" >{{item.price}}</span></td>
+															<td class="price"><span class="money" >{{item.product.discount_price}}</span></td>
 															<td class="qty">
 																<div class="quantity-wrapper">
 																	<div class="wrapper">

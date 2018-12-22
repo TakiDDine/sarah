@@ -22,6 +22,7 @@ return  [
         'debug'              => true,
     ],
     
+    
     'db' => [
         'driver'             => 'mysql',
         'host'               => 'localhost',
@@ -34,6 +35,7 @@ return  [
         'prefix'             => 'na_'
     ],
     
+        'views'              => '',
     
     'region' => [
             'time_format' => 'g:i a',

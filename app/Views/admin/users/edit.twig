@@ -226,14 +226,16 @@
         <div class="panel-heading ">
             <h6 class="panel-title">{{l.usersedit.27}}</h6>
         </div>
-
         <div class="list-group no-border no-padding-top">
-
-            <a onclick="document.getElementById('blockuserForm').submit();" class="list-group-item text-indigo-400"><i class="icon-user-cancel"></i> {{l.usersedit.28}}</a>
-
-            <a onclick="document.getElementById('ActivateuserForm').submit();" class="list-group-item text-success"><i class="icon-user-check"></i> {{l.usersedit.29}}</a>
-            <a onclick="document.getElementById('DeleteuserForm').submit();" class="list-group-item text-danger"><i class="icon-user-minus"></i>  {{l.usersedit.30}}</a>
-
+            <a class="list-group-item text-indigo-400" href="{{path_for('users.block',{id : user.id })}}"> 
+                <i class="icon-user-cancel"></i> {{l.usersedit.28}} 
+            </a>
+            <a class="list-group-item text-success" href="{{path_for('users.activate',{id : user.id })}}"> 
+                <i class="icon-user-check"></i> {{l.usersedit.29}} 
+            </a>
+            <a class="list-group-item text-danger" href="{{path_for('users.delete',{id : user.id })}}"> 
+                <i class="icon-user-minus"></i> {{l.usersedit.30}} 
+            </a>
         </div>
     </div>
 
@@ -273,19 +275,7 @@
     </div>
 
 
-    <form action="{{ path_for('users.edit', {'username': user.username}) }}" id="ActivateuserForm" method="post">
-       <input type="hidden" name="validate" value="ActivateUser">
-    </form>
-
-
-    <form action="{{ path_for('users.edit', {'username': user.username}) }}" id="blockuserForm" method="post">
-       <input type="hidden" name="validate" value="blockUser">
-    </form>
-
-
-    <form action="{{ path_for('users.edit', {'username': user.username}) }}" id="DeleteuserForm" method="post">
-        <input type="hidden" name="validate" value="DeleteUser">
-    </form>
+   
         
 
         </div>

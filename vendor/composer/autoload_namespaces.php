@@ -6,12 +6,10 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
-    'YUI' => array($vendorDir . '/jalle19/php-yui-compressor/lib'),
     'Twig_Extensions_' => array($vendorDir . '/twig/extensions/lib'),
     'Twig_' => array($vendorDir . '/twig/twig/lib'),
     'Svg\\' => array($vendorDir . '/phenx/php-svg-lib/src'),
     'Sabberworm\\CSS' => array($vendorDir . '/sabberworm/php-css-parser/lib'),
     'Pimple' => array($vendorDir . '/pimple/pimple/src'),
-    'PayPal' => array($vendorDir . '/paypal/rest-api-sdk-php/lib'),
-    'JShrink' => array($vendorDir . '/tedivm/jshrink/src'),
+    'JasonGrimes' => array($vendorDir . '/jasongrimes/paginator/src'),
 );

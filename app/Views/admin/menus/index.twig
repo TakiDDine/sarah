@@ -64,7 +64,11 @@
 
 
 
-
+<style>
+    .hdoi .panel-heading {
+    cursor: pointer;
+}
+</style>
 
 
 
@@ -169,9 +173,10 @@
 							<!-- Accordion widget -->
 							<div class="panel-group content-group" id="menu-accordion">
 								<div class="panel panel-default">
-									<div class="panel-heading">
+								
+									<div class="panel-heading" data-toggle="collapse" data-parent="#menu-accordion" href="#accordion1">
 										<h6 class="panel-title text-semibold">
-											<a data-toggle="collapse" data-parent="#menu-accordion" href="#accordion1"> {{l.menus.49}}</a>
+											{{l.menus.49}}
 										</h6>
 									</div>
 
@@ -180,13 +185,11 @@
 										
 										<form  id="menu-add-pages">
 										<ul style="list-style:none;">
-                                           
-                                           
                                            {% for i in 0..4 %}
 										    <li>
 										      <div class="checkbox">
                                                 <label>
-                                                    <input type="checkbox" value="{{url.base}}{{path_for('pages.view',{id: pages[i].id})}}" class="styled" data-name='{{pages[i].title}}' data-slug="{{url.base}}{{path_for('website.post',{id: pages[i].id})}}" />
+                                                    <input type="checkbox" value="{{url.base}}{{path_for('website.page',{id: pages[i].id})}}" class="styled" data-name='{{pages[i].title}}' data-slug="{{url.base}}{{path_for('website.page',{id: pages[i].id})}}" />
                                                     {{pages[i].title}}
                                                 </label>
 										        </div>
@@ -196,44 +199,52 @@
                                         <div class="form-group">
                                             <button class="btn btn-info" id="addButtonPages">{{l.menus.50}}</button>
                                         </div>
-                                            </form>
+                                        </form>
 										
 										</div>
 									</div>
 								</div>
 
 								<div class="panel panel-default">
-									<div class="panel-heading">
+									<div class="panel-heading" data-toggle="collapse" data-parent="#menu-accordion" href="#accordion2">
 										<h6 class="panel-title text-semibold">
-											<a data-toggle="collapse" data-parent="#menu-accordion" href="#accordion2">{{l.menus.51}}</a>
+										    {{l.menus.51}}
 										</h6>
 									</div>
 
 									<div id="accordion2" class="panel-collapse collapse">
-										<div class="panel-body">										<ul style="list-style:none;">
-
-									
-
-										    {% for i in 0..4 %}
+										<div class="panel-body">										
+										
+										<form  id="menu-add-posts">
+										<ul style="list-style:none;">
+                                           {% for i in 0..4 %}
 										    <li>
 										      <div class="checkbox">
                                                 <label>
-                                                    <input type="checkbox" value="{{url.base}}{{path_for('website.post',{id: posts[i].id})}}" class="styled" data-name='{{posts[i].title}}' data-slug="{{url.base}}{{path_for('website.post',{id: posts[i].id})}}" />
+                                                    <input type="checkbox" value="{{url.base}}{{path_for('website.post',{id: posts[i].id})}}" class="styled2" data-name='{{posts[i].title}}' data-slug="{{url.base}}{{path_for('website.post',{id: posts[i].id})}}" />
                                                     {{posts[i].title}}
                                                 </label>
 										        </div>
 										  </li>
-										  {% endfor %}	</ul>
+										  {% endfor %}
+										</ul>
+                                        <div class="form-group">
+                                            <button class="btn btn-info" id="addButtonPages">{{l.menus.50}}</button>
+                                        </div>
+                                        </form>
+										
+										
+									
 										</div>
 									</div>
 								</div>
 
 								<div class="panel panel-default">
-									<div class="panel-heading">
+									<div class="panel-heading" data-toggle="collapse" data-parent="#menu-accordion" href="#accordion3">
 										<h6 class="panel-title text-semibold">
-											<a data-toggle="collapse" data-parent="#menu-accordion" href="#accordion3">
+											
 											    {{l.menus.52}}
-											</a>
+											
 										</h6>
 									</div>
 

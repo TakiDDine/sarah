@@ -79,6 +79,13 @@ class Auth {
             
 
             if(password_verify($password,$user->password)) {
+				
+				
+				if($user->statue == 3) {
+                    return false;
+                }
+				
+				
                     session_start();
                     $_SESSION['auth-user'] = $user->id;
                     return true;

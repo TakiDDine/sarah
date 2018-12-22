@@ -23,7 +23,8 @@ class PostsController extends Controller {
            
            
            
-           
+//                   st($posts,1);
+
            // get the posts, get the posts categories , get the posts authors
            
 //           $posts = Post::leftJoin('postscategories','postscategories.id','posts.categoryID')

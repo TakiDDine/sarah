@@ -10,6 +10,8 @@ return array(
     '320cde22f66dd4f5d3fd621d3e88b98f' => $vendorDir . '/symfony/polyfill-ctype/bootstrap.php',
     '72579e7bd17821bb1321b87411366eae' => $vendorDir . '/illuminate/support/helpers.php',
     '253c157292f75eb38082b5acb06f3f01' => $vendorDir . '/nikic/fast-route/src/functions.php',
-    '52e181473ddd523a649d74860143e341' => $vendorDir . '/meenie/javascript-packer/class.JavaScriptPacker.php',
-    'da253f61703e9c22a5a34f228526f05a' => $vendorDir . '/wixel/gump/gump.class.php',
+    '25072dd6e2470089de65ae7bf11d3109' => $vendorDir . '/symfony/polyfill-php72/bootstrap.php',
+    '667aeda72477189d0494fecd327c3641' => $vendorDir . '/symfony/var-dumper/Resources/functions/dump.php',
+    'fe62ba7e10580d903cc46d808b5961a4' => $vendorDir . '/tightenco/collect/src/Collect/Support/helpers.php',
+    'caf31cc6ec7cf2241cb6f12c226c3846' => $vendorDir . '/tightenco/collect/src/Collect/Support/alias.php',
 );

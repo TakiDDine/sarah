@@ -3,125 +3,60 @@
 namespace App\Controllers;
 use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
-use \App\Models\Product;
+use \App\Models\Product ;
 use \App\Models\ProductCategories;
 use \App\Classes\files;
-
+use JasonGrimes\Paginator;
 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class ProductsController extends Controller{
     
     
+    // index Page
     public function index($request,$response) {
-            $searchview     = false;
-            $count          = Product::count();         
-            $page           = ($request->getParam('page', 0) > 0) ? $request->getParam('page') : 1;
-            $limit          = 10; 
-            $lastpage       = (ceil($count / $limit) == 0 ? 1 : ceil($count / $limit));   
-            $skip           = ($page - 1) * $limit;
-            $products          =  Product::skip($skip)->take($limit)->orderBy('created_at', 'desc')->get();
-//
-//        
-//        
-//                   
-//  $products = Product::leftJoin('productscategories', 'productscategories.id', '=', 'products.categoryID')->select('products.*', 'productscategories.name as category','productscategories.slug')
-//        ->skip($skip)->take($limit)->orderBy('created_at', 'desc')->get();
-//        
-        
-//        st($posts,1);
-        
-        
-//            // Search Logic
-//            if($request->getParam('search')){
-//               $search = $request->getParam('search');
-//               $products  = Product::orderBy('created_at', 'desc')
-//                    ->where('name', 'LIKE', "%$search%")
-//                    ->orWhere('description', 'LIKE', "%$search%")
-//                    ->skip($skip)
-//                    ->take($limit)
-//                    ->get();    
-//                $count = count($products);
-//               $lastpage       = (ceil($count / $limit) == 0 ? 1 : ceil($count / $limit)); 
-//               $searchview = true;
-//            }
-//
-            return $this->view->render($response, 'admin/products/index.twig', [
-                'pagination'    => [
-                    'needed'        => $count > $limit,
-                    'count'         => $count,
-                    'page'          => $page,
-                    'lastpage'      => $lastpage,
-                    'limit'         => $limit,
-                    'prev'          => $page-1,
-                    'next'          => $page+1,
-                    'start'          => max(1, $page - 4),
-                    'end'          => min($page + 4, $lastpage),
-                ],
-              'products'=>$products ,              
-              'searchView'=>$searchview,
-              'searchQuery'=>$request->getParam('search')
-            ]);    
+        $r = $this->paginate('Product',$request);
+        return $this->view->render($response, 'admin/products/index.twig', ['products'=>$r[0],'p'=>$r[1]]);    
     }
-    
     
     public function create($request,$response){
         
         if($request->getMethod() == 'GET'){ 
           $categories = ProductCategories::all();
-          return $this->container->view->render($response,'admin/products/create.twig',['categories'=>$categories]);
+          return $this->view->render($response,'admin/products/create.twig',compact('categories'));
         }
           
         
         if($request->getMethod() == 'POST'){ 
             
             // Get the Form data & initialize the fileUploader & helper
-            $post   = $request->getParams();
-            $files  = new files();
+            $up     = $this->files;
             $helper = $this->helper;
-            $path = $this->container->conf['dir.products'];
+            $post   = $helper->cleanData($request->getParams());
+            $path   = $this->dir('products');
+            $thumb  = $_FILES['ProductThumbnail'];
+            $galle  = $_FILES['ProductGallery'];
             
-            // Clean the Variables
-            $title              = $helper->clean($post['title']);
-            $description        = $helper->clean($post['description']);
-            $price              = $helper->clean($post['price']);
-            $category           = $helper->clean($post['category']);
-            $discount_price     = $helper->clean($post['discount_price']);
-            $slug               = $helper->string_To_Uri($helper->clean($post['slug']));
+            // creating the description
+            $description = !empty($post['description']) ? $post['description'] : ' ';
             
-            // check if the thumnail is empty
-            if(empty($_FILES['ProductThumbnail']['name'])) {
-                $this->flasherror('الصورة الخارجة للمنتوج ضرورية ، لا يمكن تركها فارغة');
-                return $response->withRedirect($this->router->pathFor('products.create'));
-            }
-            
-            if(is_null($description) or empty($description)){
-                $description = " ";
-            }
-
             // upload the thumbnail
-            $ProductThumbnail  = '';
-            if(isset($_FILES['ProductThumbnail']) and !empty($_FILES['ProductThumbnail']['name'])) {
-                $ProductThumbnail =  $files->upload_avatar($path,$_FILES['ProductThumbnail']);
-            } 
+            $thumbnail = !empty($thumb['name']) ? $up->up($path,$thumb) : ' ';
 
-            // upload product Gallery
-            $gallery = '';
-            if(isset($_FILES['ProductGallery']) and !empty($_FILES['ProductGallery'])) {
-               $gallery = $files->multiple_upload($path,$_FILES['ProductGallery']);
-               $gallery = implode('//',$gallery);
-            }
+            // upload the gallery
+            $gallery = !empty($galle) ? implode('//',$up->multiple_upload($path,$galle)) : ' ';
 
+            
             // adding the product
             Product::create([
-                'name'           => $title ,
+                'name'           => $post['title'] ,
                 'description'    => $description,
-                'thumbnail'      => $ProductThumbnail ,
+                'thumbnail'      => $thumbnail ,
                 'gallery'        => $gallery ,
-                'price'          => $price,
-                'discount_price' => $discount_price,
-                'categoryID'     => $category,
-                'slug'           => $slug
+                'price'          => $post['price'],
+                'discount_price' => $post['discount_price'],
+                'categoryID'     => $post['category'],
+                'slug'           => $helper->string_To_Uri($post['slug'])
             ]);
             
             // success & redirect
@@ -142,9 +77,10 @@ class ProductsController extends Controller{
             // get the products categories
             $categories = ProductCategories::all();
 
-            // show the edit page
+            // show the edit page 
             if($request->getMethod() == 'GET'){ 
-              return $this->container->view->render($response,'admin/products/edit.twig',['product'=>$product,'categories'=>$categories]);
+                
+              return $this->view->render($response,'admin/products/edit.twig',['product'=>$product,'categories'=>$categories]);
             }
         
         

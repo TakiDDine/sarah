@@ -66,8 +66,6 @@ public function timestamps()
         return $this->hasMany('\App\Models\Comments');
     }
     
-  
-    
     // Get Post User
     public function writer(){
         return $this->belongsTo('\App\Models\User','author');

@@ -15,21 +15,12 @@ class CartController extends \App\Controllers\Controller{
     
     
     public function index($request,$response) {
-        
-       $maincart = [];
-       if(isset($_SESSION['auth-user'])){
-       $cart = Cart::where('user_id',$_SESSION['auth-user'])->get()->toArray();
-            foreach($cart as $item ) {
-               $product = Product::where('id',$item['productID'])->first()->toArray();
-                    $product['productID'] = $product['id'];
-                    $item['cartID'] = $item['id'];
-
-               $maincart[] =  array_merge($product,$item);
-            }
-       }
-       return $this->container->view->render($response,'website/cart.twig',['cart'=>$maincart]);
+       $cart = [];
+       if(isset($_SESSION['auth-user'])){ $cart = Cart::where('user_id',$_SESSION['auth-user'])->get(); }
+       return $this->container->view->render($response,'website/cart.twig',compact('cart'));
     }
  
+    
     
     public function add($request,$response,$args) {
         $id = rtrim($args['id'], '/');
@@ -50,7 +41,7 @@ class CartController extends \App\Controllers\Controller{
             $Cart = Cart::find($id);
             if($Cart) {
                 $Cart->delete();
-                $this->flash->addMessage('success','تم ازالة المنتوج من السلة بنجاح');
+                $this->flashsuccess('تم ازالة المنتوج من السلة بنجاح');
             }
         }
         return $response->withHeader('Location', $this->router->urlFor('website.cart'));

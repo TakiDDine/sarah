@@ -14,56 +14,92 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class UsersController extends Controller{
   
-    public function index($request,$response) {
-        
-
-       $users = User::paginate(15);
-          return $this->view->render($response, 'admin/users/index.twig', compact('users'));
-//        ?page=2
     
-        
-//            $searchview     = false;
-//            $count          = User::count();  
-//            $page           = ($request->getParam('page', 0) > 0) ? $request->getParam('page') : 1;
-//            $limit          = 10; 
-//            $lastpage       = (ceil($count / $limit) == 0 ? 1 : ceil($count / $limit));    
-//            $skip           = ($page - 1) * $limit;
-//            $users          = User::skip($skip)->take($limit)->orderBy('created_at', 'desc')->get();
-//
-//            // Search Logic
-//            if($request->getParam('search')){
-//               $search = $request->getParam('search');
-//               $users  = $this->db->table('users')
-//                    ->orderBy('created_at', 'desc')
-//                    ->where('username', 'LIKE', "%$search%")
-//                    ->orWhere('email', 'LIKE', "%$search%")
-//                    ->skip($skip)
-//                    ->take($limit)
-//                    ->get();    
-//                $count =    $this->db->table('users')->orderBy('created_at', 'desc')->where('username', 'LIKE', "%$search%")
-//                    ->orWhere('email', 'LIKE', "%$search%")->count(); 
-//               $lastpage       = (ceil($count / $limit) == 0 ? 1 : ceil($count / $limit));    // the number of the pages
-//               $searchview = true;
-//            }
-//
-//            return $this->view->render($response, 'admin/users/index.twig', [
-//                'pagination'    => [
-//                    'needed'        => $count > $limit,
-//                    'count'         => $count,
-//                    'page'          => $page,
-//                    'lastpage'      => $lastpage,
-//                    'limit'         => $limit,
-//                    'prev'          => $page-1,
-//                    'next'          => $page+1,
-//                    'start'          => max(1, $page - 4),
-//                    'end'          => min($page + 4, $lastpage),
-//                ],
-//              'users'=>$users ,
-//              'searchView'=>$searchview,
-//              'searchQuery'=>$request->getParam('search')
-//            ]);
-
+    // index Page, Get all users
+    public function index($request,$response) {
+        $r = $this->paginate('User',$request);
+        return $this->view->render($response, 'admin/users/index.twig', ['users'=>$r[0],'p'=>$r[1]]);    
     }
+    
+    
+    // Delete all users at once 
+    public function blukdelete($request,$response){
+        
+        // get all the users exept the supper admin
+        User::where('statue', '!=', 'supper')->delete();
+        
+        // flash succes and redirect
+        $this->flashsuccess('تم حذف كل الأعضاء بنجاح');
+        return $response->withHeader('Location', $this->router->urlFor('users'));
+    }
+    
+    
+    // Delete the user
+    public function delete($request,$response,$args) {
+        
+        // get the id & the post
+        $id = rtrim($args['id'], '/');
+        $user = User::find($id);
+        if($user) {
+            
+         if($user->statue == 'supper') {
+                    $this->flasherror('لا يمكن حذف هذا العضو ');
+                    return $response->withHeader('Location', $this->router->urlFor('users'));
+                }
+            else{
+                    // get the avatar
+                    $thumbnail = $this->dir('avatars').$user->avatar;
+             
+                     // if the thumbnail exist delete it
+                    if(file_exists($thumbnail)){unlink($thumbnail);}
+             
+             
+                    $user->delete();
+                    $this->flashsuccess('تم حذف العضو بنجاح');
+                    return $response->withHeader('Location', $this->router->urlFor('users'));
+            }       
+        }
+        
+        // redirect to users Home
+        return $response->withRedirect($this->router->pathFor('users'));  
+    }
+    
+    
+    // Activate the user
+    public function activate($request,$response,$args) {
+        
+        // get the id & the post
+        $id = rtrim($args['id'], '/');
+        $user = User::find($id);
+
+        // if the user exist delete it & flash success
+        if($user) { $user->statue = 1; $user->save(); $this->flashsuccess('تم تفعيل العضو العضو بنجاح'); }
+        
+        // redirect to users Home
+        return $response->withRedirect($this->router->pathFor('users'));  
+    }
+    
+    
+    // Block the user
+    public function block($request,$response,$args) {
+        
+        // get the id & the post
+        $id = rtrim($args['id'], '/');
+        $user = User::find($id);
+
+        // if the user exist delete it & flash success
+        if($user) { $user->statue = 3 ; $user->save(); $this->flashsuccess('تم حظر العضو بنجاح'); }
+        
+        // redirect to users Home
+        return $response->withRedirect($this->router->pathFor('users'));  
+    }
+    
+ 
+           
+                
+              
+    
+    
     
     public function account($request,$response) {
        return $this->container->view->render($response,'admin/account.twig');
@@ -164,7 +200,7 @@ class UsersController extends Controller{
             // Get the parameters Sent by the Form & initialize the helper & the fileupldader
             $helper = $this->helper;
             $post = $helper->cleanData($request->getParams());
-            $up  =  $this->files();
+            $up  =  $this->files;
             
             $route = $response->withRedirect($this->router->pathFor('users.edit', ['username'=> $user->username , 'user'=>$user]));
             
@@ -234,32 +270,13 @@ class UsersController extends Controller{
                 
             }
             
-            // block user  حظر العضو
-            if($request->getParam('validate') == 'blockUser'){
-                $user->statue = 3;
-                $user->save(); 
-                $this->flashsuccess('تم حظر العضو بنجاح');
-                return $route;
-            }
+          
             
-            // activate user
-            if($request->getParam('validate') == 'ActivateUser'){
-                $user->statue = 1;
-                $user->save(); 
-                $this->flashsuccess('تم تفعيل العضو العضو بنجاح');
-                return $route;
-            }
+            
             
             // Delete user
             if($request->getParam('validate') == 'DeleteUser'){
-                if($user->statue == 'supper') {
-                    $this->flasherror('لا يمكن حذف هذا العضو ');
-                    return $route;
-                }else{
-                    $user->delete();
-                    $this->flasherror('تم حذف العضو بنجاح');
-                    return $response->withHeader('Location', $this->router->urlFor('users'));
-                }
+               
             }
         
         }
@@ -370,11 +387,7 @@ class UsersController extends Controller{
             return $response->withBody(new \Slim\Http\Stream($stream));     
     }  
     
-    public function blukdelete($request,$response){
-        User::where('statue', '!=', 'supper')->delete();
-        $this->flashsuccess('تم حذف كل الأعضاء بنجاح');
-        return $response->withHeader('Location', $this->router->urlFor('users'));
-    }
+
     
     public function mutliAction($request,$response){
     

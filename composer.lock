@@ -4,67 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "5f11e56ed4a8f5d1388ddcaf247f93be",
+    "content-hash": "6977485f631376bc2e74387cf2071dc4",
     "packages": [
-        {
-            "name": "catfan/medoo",
-            "version": "v1.6.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/catfan/Medoo.git",
-                "reference": "53a02b300d673f716cb06bf0e24fd774ec53939f"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/catfan/Medoo/zipball/53a02b300d673f716cb06bf0e24fd774ec53939f",
-                "reference": "53a02b300d673f716cb06bf0e24fd774ec53939f",
-                "shasum": ""
-            },
-            "require": {
-                "ext-pdo": "*",
-                "php": ">=5.4"
-            },
-            "suggest": {
-                "ext-pdo_dblib": "For MSSQL or Sybase database on Linux/UNIX platform",
-                "ext-pdo_mysql": "For MySQL or MariaDB database",
-                "ext-pdo_oci": "For Oracle database",
-                "ext-pdo_oci8": "For Oracle version 8 database",
-                "ext-pdo_pqsql": "For PostgreSQL database",
-                "ext-pdo_sqlite": "For SQLite database",
-                "ext-pdo_sqlsrv": "For MSSQL database"
-            },
-            "type": "framework",
-            "autoload": {
-                "psr-4": {
-                    "Medoo\\": "/src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Angel Lai",
-                    "email": "angel@catfan.me"
-                }
-            ],
-            "description": "The lightest PHP database framework to accelerate development",
-            "homepage": "https://medoo.in",
-            "keywords": [
-                "database",
-                "lightweight",
-                "mariadb",
-                "mssql",
-                "mysql",
-                "oracle",
-                "php framework",
-                "postgresql",
-                "sql",
-                "sqlite"
-            ],
-            "time": "2018-12-08T20:24:23+00:00"
-        },
         {
             "name": "container-interop/container-interop",
             "version": "1.2.0",
@@ -325,7 +266,7 @@
         },
         {
             "name": "illuminate/container",
-            "version": "v5.7.15",
+            "version": "5.7.17",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/container.git",
@@ -370,7 +311,7 @@
         },
         {
             "name": "illuminate/contracts",
-            "version": "v5.7.15",
+            "version": "5.7.17",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/contracts.git",
@@ -414,16 +355,16 @@
         },
         {
             "name": "illuminate/database",
-            "version": "v5.7.15",
+            "version": "5.7.17",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/database.git",
-                "reference": "9e430b6172f11b10dd324f16342878607e36f00b"
+                "reference": "3594b0c207795acc78d666087ff4269c3a3ad738"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/database/zipball/9e430b6172f11b10dd324f16342878607e36f00b",
-                "reference": "9e430b6172f11b10dd324f16342878607e36f00b",
+                "url": "https://api.github.com/repos/illuminate/database/zipball/3594b0c207795acc78d666087ff4269c3a3ad738",
+                "reference": "3594b0c207795acc78d666087ff4269c3a3ad738",
                 "shasum": ""
             },
             "require": {
@@ -469,11 +410,11 @@
                 "orm",
                 "sql"
             ],
-            "time": "2018-11-26T13:47:24+00:00"
+            "time": "2018-12-11T14:08:37+00:00"
         },
         {
             "name": "illuminate/pagination",
-            "version": "v5.7.15",
+            "version": "5.7.17",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/pagination.git",
@@ -517,16 +458,16 @@
         },
         {
             "name": "illuminate/support",
-            "version": "v5.7.15",
+            "version": "5.7.17",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/support.git",
-                "reference": "249de04ac08676aa509b8b0f391858535b4e06bb"
+                "reference": "f8b9387034e11980d3953c814b6ad65e2cd244e3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/support/zipball/249de04ac08676aa509b8b0f391858535b4e06bb",
-                "reference": "249de04ac08676aa509b8b0f391858535b4e06bb",
+                "url": "https://api.github.com/repos/illuminate/support/zipball/f8b9387034e11980d3953c814b6ad65e2cd244e3",
+                "reference": "f8b9387034e11980d3953c814b6ad65e2cd244e3",
                 "shasum": ""
             },
             "require": {
@@ -572,64 +513,32 @@
             ],
             "description": "The Illuminate Support package.",
             "homepage": "https://laravel.com",
-            "time": "2018-11-15T13:49:08+00:00"
+            "time": "2018-12-08T15:33:10+00:00"
         },
         {
-            "name": "jalle19/php-yui-compressor",
-            "version": "1.0.1",
+            "name": "jasongrimes/paginator",
+            "version": "1.0.3",
             "source": {
                 "type": "git",
-                "url": "https://github.com/Jalle19/php-yui-compressor.git",
-                "reference": "eb88c4f7fd8d7c8bd15a1970611d67cca11f71a0"
+                "url": "https://github.com/jasongrimes/php-paginator.git",
+                "reference": "3411e3cd0c6479a0b514f26e4358f0273552f221"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Jalle19/php-yui-compressor/zipball/eb88c4f7fd8d7c8bd15a1970611d67cca11f71a0",
-                "reference": "eb88c4f7fd8d7c8bd15a1970611d67cca11f71a0",
+                "url": "https://api.github.com/repos/jasongrimes/php-paginator/zipball/3411e3cd0c6479a0b514f26e4358f0273552f221",
+                "reference": "3411e3cd0c6479a0b514f26e4358f0273552f221",
                 "shasum": ""
             },
             "require": {
-                "nervo/yuicompressor": "2.4.*",
                 "php": ">=5.3.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~4.2"
             },
             "type": "library",
             "autoload": {
                 "psr-0": {
-                    "YUI": "lib/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "BSD-2-Clause"
-            ],
-            "description": "A modern PHP wrapper for the YUI compressor",
-            "homepage": "https://github.com/Jalle19/php-yui-compressor",
-            "keywords": [
-                "JS",
-                "css",
-                "minify",
-                "yui"
-            ],
-            "time": "2014-06-03T12:02:11+00:00"
-        },
-        {
-            "name": "jnjxp/pagination",
-            "version": "0.1.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/jnjxp/jnjxp.pagination.git",
-                "reference": "8ef6f7643a7c8f215c48fd661319df0226522904"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/jnjxp/jnjxp.pagination/zipball/8ef6f7643a7c8f215c48fd661319df0226522904",
-                "reference": "8ef6f7643a7c8f215c48fd661319df0226522904",
-                "shasum": ""
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Jnjxp\\Pagination\\": "src/"
+                    "JasonGrimes": "src/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -638,69 +547,18 @@
             ],
             "authors": [
                 {
-                    "name": "jake johns",
-                    "email": "jake@jakejohns.net"
+                    "name": "Jason Grimes",
+                    "email": "jason@grimesit.com"
                 }
             ],
-            "description": "Pagination helper",
-            "time": "2018-11-29T19:38:15+00:00"
-        },
-        {
-            "name": "josantonius/file",
-            "version": "1.1.7",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/Josantonius/PHP-File.git",
-                "reference": "32ebebe5f58a7c5cd3eb56c42becd08aa61a6cd5"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/Josantonius/PHP-File/zipball/32ebebe5f58a7c5cd3eb56c42becd08aa61a6cd5",
-                "reference": "32ebebe5f58a7c5cd3eb56c42becd08aa61a6cd5",
-                "shasum": ""
-            },
-            "require": {
-                "php": "^5.6 || ^7.0"
-            },
-            "require-dev": {
-                "friendsofphp/php-cs-fixer": "^2.3 || ^2.8",
-                "phpmd/phpmd": "^2.6",
-                "phpunit/phpunit": "^5.7 || ^6.0",
-                "squizlabs/php_codesniffer": "^3.0"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.0-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Josantonius\\File\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Josantonius",
-                    "email": "hello@josantonius.com",
-                    "homepage": "https://josantonius.com",
-                    "role": "Developer"
-                }
-            ],
-            "description": "PHP library for file management.",
+            "description": "A lightweight PHP paginator, for generating pagination controls in the style of Stack Overflow and Flickr. The 'first' and 'last' page links are shown inline as page numbers, and excess page numbers are replaced by ellipses.",
+            "homepage": "http://github.com/jasongrimes/php-paginator",
             "keywords": [
-                "File handler",
-                "Search words in file",
-                "file",
-                "hhvm",
-                "php",
-                "strings"
+                "pager",
+                "pagination",
+                "paginator"
             ],
-            "time": "2018-01-06T10:00:15+00:00"
+            "time": "2018-07-11T18:11:49+00:00"
         },
         {
             "name": "kanellov/slim-twig-flash",
@@ -756,283 +614,6 @@
                 "view"
             ],
             "time": "2016-12-29T22:07:19+00:00"
-        },
-        {
-            "name": "linkorb/jsmin-php",
-            "version": "1.0.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/linkorb/jsmin-php.git",
-                "reference": "be85d87fc9c27730e7e9ced742b13010dafc1026"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/linkorb/jsmin-php/zipball/be85d87fc9c27730e7e9ced742b13010dafc1026",
-                "reference": "be85d87fc9c27730e7e9ced742b13010dafc1026",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.0.0"
-            },
-            "type": "library",
-            "autoload": {
-                "classmap": [
-                    "src/"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Joost Faassen",
-                    "email": "j.faassen@linkorb.com",
-                    "role": "Packaging for Composer"
-                },
-                {
-                    "name": "Ryan Grove",
-                    "email": "ryan@wonko.com",
-                    "role": "PHP port"
-                },
-                {
-                    "name": "Adam Gofort",
-                    "email": "aag@adamgoforth.com",
-                    "role": "Updates to the PHP port"
-                },
-                {
-                    "name": "Douglas Crockford",
-                    "email": "douglas@crockford.com"
-                }
-            ],
-            "description": "Unofficial package of jsmin-php",
-            "homepage": "http://www.github.com/linkorb/jsmin-php",
-            "keywords": [
-                "javascript",
-                "jsmin",
-                "minify"
-            ],
-            "time": "2013-03-15T13:16:35+00:00"
-        },
-        {
-            "name": "matthiasmullie/minify",
-            "version": "1.3.61",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/matthiasmullie/minify.git",
-                "reference": "d5acb8ce5b6acb7d11bafe97cecc533f6e4fd751"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/matthiasmullie/minify/zipball/d5acb8ce5b6acb7d11bafe97cecc533f6e4fd751",
-                "reference": "d5acb8ce5b6acb7d11bafe97cecc533f6e4fd751",
-                "shasum": ""
-            },
-            "require": {
-                "ext-pcre": "*",
-                "matthiasmullie/path-converter": "~1.1",
-                "php": ">=5.3.0"
-            },
-            "require-dev": {
-                "friendsofphp/php-cs-fixer": "~2.0",
-                "matthiasmullie/scrapbook": "~1.0",
-                "phpunit/phpunit": "~4.8"
-            },
-            "suggest": {
-                "psr/cache-implementation": "Cache implementation to use with Minify::cache"
-            },
-            "bin": [
-                "bin/minifycss",
-                "bin/minifyjs"
-            ],
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "MatthiasMullie\\Minify\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Matthias Mullie",
-                    "email": "minify@mullie.eu",
-                    "homepage": "http://www.mullie.eu",
-                    "role": "Developer"
-                }
-            ],
-            "description": "CSS & JavaScript minifier, in PHP. Removes whitespace, strips comments, combines files (incl. @import statements and small assets in CSS files), and optimizes/shortens a few common programming patterns.",
-            "homepage": "http://www.minifier.org",
-            "keywords": [
-                "JS",
-                "css",
-                "javascript",
-                "minifier",
-                "minify"
-            ],
-            "time": "2018-11-26T23:10:39+00:00"
-        },
-        {
-            "name": "matthiasmullie/path-converter",
-            "version": "1.1.2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/matthiasmullie/path-converter.git",
-                "reference": "5e4b121c8b9f97c80835c1d878b0812ba1d607c9"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/matthiasmullie/path-converter/zipball/5e4b121c8b9f97c80835c1d878b0812ba1d607c9",
-                "reference": "5e4b121c8b9f97c80835c1d878b0812ba1d607c9",
-                "shasum": ""
-            },
-            "require": {
-                "ext-pcre": "*",
-                "php": ">=5.3.0"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "~4.8"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "MatthiasMullie\\PathConverter\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Matthias Mullie",
-                    "email": "pathconverter@mullie.eu",
-                    "homepage": "http://www.mullie.eu",
-                    "role": "Developer"
-                }
-            ],
-            "description": "Relative path converter",
-            "homepage": "http://github.com/matthiasmullie/path-converter",
-            "keywords": [
-                "converter",
-                "path",
-                "paths",
-                "relative"
-            ],
-            "time": "2018-10-25T15:19:41+00:00"
-        },
-        {
-            "name": "meenie/javascript-packer",
-            "version": "1.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/meenie/javascript-packer.git",
-                "reference": "dcab0159ae1ed9d7535c034fb8afe1e4c3495d22"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/meenie/javascript-packer/zipball/dcab0159ae1ed9d7535c034fb8afe1e4c3495d22",
-                "reference": "dcab0159ae1ed9d7535c034fb8afe1e4c3495d22",
-                "shasum": ""
-            },
-            "type": "library",
-            "autoload": {
-                "files": [
-                    "class.JavaScriptPacker.php"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "LGPL 2.1"
-            ],
-            "authors": [
-                {
-                    "name": "Nicolas Martin",
-                    "role": "Developer"
-                }
-            ],
-            "description": "Composer hosted mirror of the PHP Version of Dean Edwards' JavaScript Packer",
-            "homepage": "http://joliclic.free.fr/php/javascript-packer/en/",
-            "keywords": [
-                "javascript packer"
-            ],
-            "time": "2013-03-25T21:54:33+00:00"
-        },
-        {
-            "name": "natxet/CssMin",
-            "version": "v3.0.6",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/natxet/CssMin.git",
-                "reference": "d5d9f4c3e5cedb1ae96a95a21731f8790e38f1dd"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/natxet/CssMin/zipball/d5d9f4c3e5cedb1ae96a95a21731f8790e38f1dd",
-                "reference": "d5d9f4c3e5cedb1ae96a95a21731f8790e38f1dd",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.0"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "3.0-dev"
-                }
-            },
-            "autoload": {
-                "classmap": [
-                    "src/"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Joe Scylla",
-                    "email": "joe.scylla@gmail.com",
-                    "homepage": "https://profiles.google.com/joe.scylla"
-                }
-            ],
-            "description": "Minifying CSS",
-            "homepage": "http://code.google.com/p/cssmin/",
-            "keywords": [
-                "css",
-                "minify"
-            ],
-            "time": "2018-01-09T11:15:01+00:00"
-        },
-        {
-            "name": "nervo/yuicompressor",
-            "version": "2.4.8",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/nervo/yuicompressor.git",
-                "reference": "e6e3b215c3998cf6092613c002ae533ae75d7ada"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/nervo/yuicompressor/zipball/e6e3b215c3998cf6092613c002ae533ae75d7ada",
-                "reference": "e6e3b215c3998cf6092613c002ae533ae75d7ada",
-                "shasum": ""
-            },
-            "type": "library",
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "BSD"
-            ],
-            "description": "YUI Compressor is an open source tool that supports the compression of both JavaScript and CSS files. The JavaScript compression removes comments and white-spaces as well as obfuscates local variables using the smallest possible variable name. CSS compression is done using a regular-expression-based CSS minifier.",
-            "homepage": "https://github.com/yui/yuicompressor",
-            "keywords": [
-                "java",
-                "yui"
-            ],
-            "time": "2013-09-13T10:26:14+00:00"
         },
         {
             "name": "nesbot/carbon",
@@ -1139,249 +720,6 @@
             "time": "2018-02-13T20:26:39+00:00"
         },
         {
-            "name": "nochso/html-compress-twig",
-            "version": "2.0.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/nochso/html-compress-twig.git",
-                "reference": "56d658cebf2852ed455c5af0ee2196037acb2581"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/nochso/html-compress-twig/zipball/56d658cebf2852ed455c5af0ee2196037acb2581",
-                "reference": "56d658cebf2852ed455c5af0ee2196037acb2581",
-                "shasum": ""
-            },
-            "require": {
-                "twig/twig": "^1.26 || ^2.0",
-                "wyrihaximus/html-compress": "^1.1"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "^5.0"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "nochso\\HtmlCompressTwig\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "ISC"
-            ],
-            "authors": [
-                {
-                    "name": "Marcel Voigt",
-                    "email": "mv@noch.so"
-                }
-            ],
-            "description": "Twig extension for compressing HTML and inline CSS/Javascript",
-            "keywords": [
-                "compress",
-                "css",
-                "extension",
-                "html",
-                "javascript",
-                "minify",
-                "twig"
-            ],
-            "time": "2017-02-06T17:52:16+00:00"
-        },
-        {
-            "name": "oscarotero/psr7-middlewares",
-            "version": "v3.21.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/oscarotero/psr7-middlewares.git",
-                "reference": "639c87ddf9647224b9d3f93899276cc25a7a1aa9"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/oscarotero/psr7-middlewares/zipball/639c87ddf9647224b9d3f93899276cc25a7a1aa9",
-                "reference": "639c87ddf9647224b9d3f93899276cc25a7a1aa9",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.5.0"
-            },
-            "require-dev": {
-                "aura/router": "^3.0",
-                "aura/session": "2.*",
-                "ext-mcrypt": "*",
-                "filp/whoops": "2.*",
-                "friendsofphp/php-cs-fixer": "^1.12",
-                "google/recaptcha": "^1.1",
-                "imagecow/imagecow": "^2.0",
-                "justinrainbow/json-schema": ">=3.0",
-                "league/route": "^2.0",
-                "m6web/firewall": "~1.0",
-                "matthiasmullie/scrapbook": "^1.0.1",
-                "maximebf/debugbar": "~1.11",
-                "micheh/psr7-cache": "^0.5.0",
-                "mikey179/vfsstream": "^1.6",
-                "mobiledetect/mobiledetectlib": "^2.8",
-                "monolog/monolog": "^1.17",
-                "mrclay/minify": "^2.2",
-                "neomerx/cors-psr7": "^1.0",
-                "nikic/fast-route": "^0.7",
-                "paragonie/csp-builder": "^1.3",
-                "phpunit/phpunit": ">=4.8",
-                "piwik/referrer-spam-blacklist": "^1.0",
-                "ramsey/uuid": "^3.1",
-                "relay/relay": "1.*",
-                "willdurand/geocoder": "^3.2",
-                "willdurand/negotiation": "~2.0",
-                "zendframework/zend-diactoros": "1.*"
-            },
-            "suggest": {
-                "aura/router": "To use AuraRouter",
-                "aura/session": "To use AuraSession",
-                "filp/whoops": "To use Whoops",
-                "google/recaptcha": "To use Recaptcha",
-                "imagecow/imagecow": "To use ImageTransformer",
-                "justinrainbow/json-schema": "To validate JSON with route-matched schemas.",
-                "league/route": "To use LeagueRoute",
-                "m6web/firewall": "To use Firewall",
-                "maximebf/debugbar": "To use DebugBar",
-                "micheh/psr7-cache": "To use Cache",
-                "mobiledetect/mobiledetectlib": "To use DetectDevice",
-                "mrclay/minify": "To use Minify",
-                "neomerx/cors-psr7": "To use Cors",
-                "nikic/fast-route": "To use FastRoute",
-                "paragonie/csp-builder": "To use Csp",
-                "piwik/referrer-spam-blacklist": "To use BlockSpam",
-                "psr/cache-implementation": "To use Cache",
-                "psr/log-implementation": "To use AccessLog",
-                "ramsey/uuid": "To use Uuid",
-                "willdurand/geocoder": "To use Geolocate",
-                "willdurand/negotiation": "To use FormatNegotiator, LanguageNegotiator and EncodingNegotiator"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Psr7Middlewares\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Oscar Otero",
-                    "email": "oom@oscarotero.com",
-                    "homepage": "http://oscarotero.com",
-                    "role": "Developer"
-                }
-            ],
-            "description": "Collection of HTTP middlewares compatible with PSR-7",
-            "homepage": "https://github.com/oscarotero/psr7-middlewares",
-            "keywords": [
-                "http",
-                "middlewares",
-                "psr-7",
-                "psr-messages"
-            ],
-            "abandoned": "middlewares/*",
-            "time": "2017-09-28T21:21:24+00:00"
-        },
-        {
-            "name": "patchwork/jsqueeze",
-            "version": "v2.0.5",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/tchwork/jsqueeze.git",
-                "reference": "693d64850eab2ce6a7c8f7cf547e1ab46e69d542"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/tchwork/jsqueeze/zipball/693d64850eab2ce6a7c8f7cf547e1ab46e69d542",
-                "reference": "693d64850eab2ce6a7c8f7cf547e1ab46e69d542",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.3.0"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "2.0-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Patchwork\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "(Apache-2.0 or GPL-2.0)"
-            ],
-            "authors": [
-                {
-                    "name": "Nicolas Grekas",
-                    "email": "p@tchwork.com"
-                }
-            ],
-            "description": "Efficient JavaScript minification in PHP",
-            "homepage": "https://github.com/tchwork/jsqueeze",
-            "keywords": [
-                "compression",
-                "javascript",
-                "minification"
-            ],
-            "time": "2016-04-19T09:28:22+00:00"
-        },
-        {
-            "name": "paypal/rest-api-sdk-php",
-            "version": "1.13.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/paypal/PayPal-PHP-SDK.git",
-                "reference": "192e217beed14c8e75624e821fdc8ec51e2a21f5"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/paypal/PayPal-PHP-SDK/zipball/192e217beed14c8e75624e821fdc8ec51e2a21f5",
-                "reference": "192e217beed14c8e75624e821fdc8ec51e2a21f5",
-                "shasum": ""
-            },
-            "require": {
-                "ext-curl": "*",
-                "ext-json": "*",
-                "php": ">=5.3.0",
-                "psr/log": "^1.0.0"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "^4.8.35"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-0": {
-                    "PayPal": "lib/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "Apache-2.0"
-            ],
-            "authors": [
-                {
-                    "name": "PayPal",
-                    "homepage": "https://github.com/paypal/rest-api-sdk-php/contributors"
-                }
-            ],
-            "description": "PayPal's PHP SDK for REST APIs",
-            "homepage": "http://paypal.github.io/PayPal-PHP-SDK/",
-            "keywords": [
-                "payments",
-                "paypal",
-                "rest",
-                "sdk"
-            ],
-            "time": "2017-11-13T19:21:59+00:00"
-        },
-        {
             "name": "phenx/php-font-lib",
             "version": "0.5.1",
             "source": {
@@ -1457,72 +795,6 @@
             "description": "A library to read, parse and export to PDF SVG files.",
             "homepage": "https://github.com/PhenX/php-svg-lib",
             "time": "2018-06-03T10:10:03+00:00"
-        },
-        {
-            "name": "phpmailer/phpmailer",
-            "version": "v6.0.6",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/PHPMailer/PHPMailer.git",
-                "reference": "8190d73eb5def11a43cfb020b7f36db65330698c"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/PHPMailer/PHPMailer/zipball/8190d73eb5def11a43cfb020b7f36db65330698c",
-                "reference": "8190d73eb5def11a43cfb020b7f36db65330698c",
-                "shasum": ""
-            },
-            "require": {
-                "ext-ctype": "*",
-                "ext-filter": "*",
-                "php": ">=5.5.0"
-            },
-            "require-dev": {
-                "doctrine/annotations": "1.2.*",
-                "friendsofphp/php-cs-fixer": "^2.2",
-                "phpdocumentor/phpdocumentor": "2.*",
-                "phpunit/phpunit": "^4.8 || ^5.7",
-                "zendframework/zend-eventmanager": "3.0.*",
-                "zendframework/zend-i18n": "2.7.3",
-                "zendframework/zend-serializer": "2.7.*"
-            },
-            "suggest": {
-                "ext-mbstring": "Needed to send email in multibyte encoding charset",
-                "hayageek/oauth2-yahoo": "Needed for Yahoo XOAUTH2 authentication",
-                "league/oauth2-google": "Needed for Google XOAUTH2 authentication",
-                "psr/log": "For optional PSR-3 debug logging",
-                "stevenmaguire/oauth2-microsoft": "Needed for Microsoft XOAUTH2 authentication",
-                "symfony/polyfill-mbstring": "To support UTF-8 if the Mbstring PHP extension is not enabled (^1.2)"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "PHPMailer\\PHPMailer\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "LGPL-2.1"
-            ],
-            "authors": [
-                {
-                    "name": "Jim Jagielski",
-                    "email": "jimjag@gmail.com"
-                },
-                {
-                    "name": "Marcus Bointon",
-                    "email": "phpmailer@synchromedia.co.uk"
-                },
-                {
-                    "name": "Andy Prevost",
-                    "email": "codeworxtech@users.sourceforge.net"
-                },
-                {
-                    "name": "Brent R. Matzelle"
-                }
-            ],
-            "description": "PHPMailer is a full-featured email creation and transfer class for PHP",
-            "time": "2018-11-16T00:41:32+00:00"
         },
         {
             "name": "pimple/pimple",
@@ -1672,53 +944,6 @@
                 "response"
             ],
             "time": "2016-08-06T14:39:51+00:00"
-        },
-        {
-            "name": "psr/log",
-            "version": "1.1.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/php-fig/log.git",
-                "reference": "6c001f1daafa3a3ac1d8ff69ee4db8e799a654dd"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/php-fig/log/zipball/6c001f1daafa3a3ac1d8ff69ee4db8e799a654dd",
-                "reference": "6c001f1daafa3a3ac1d8ff69ee4db8e799a654dd",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.3.0"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.0.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Psr\\Log\\": "Psr/Log/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "PHP-FIG",
-                    "homepage": "http://www.php-fig.org/"
-                }
-            ],
-            "description": "Common interface for logging libraries",
-            "homepage": "https://github.com/php-fig/log",
-            "keywords": [
-                "log",
-                "psr",
-                "psr-3"
-            ],
-            "time": "2018-11-20T15:27:04+00:00"
         },
         {
             "name": "psr/simple-cache",
@@ -2168,6 +1393,61 @@
             "time": "2018-09-21T13:07:52+00:00"
         },
         {
+            "name": "symfony/polyfill-php72",
+            "version": "v1.10.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/polyfill-php72.git",
+                "reference": "9050816e2ca34a8e916c3a0ae8b9c2fccf68b631"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/polyfill-php72/zipball/9050816e2ca34a8e916c3a0ae8b9c2fccf68b631",
+                "reference": "9050816e2ca34a8e916c3a0ae8b9c2fccf68b631",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.9-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Polyfill\\Php72\\": ""
+                },
+                "files": [
+                    "bootstrap.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Nicolas Grekas",
+                    "email": "p@tchwork.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony polyfill backporting some PHP 7.2+ features to lower PHP versions",
+            "homepage": "https://symfony.com",
+            "keywords": [
+                "compatibility",
+                "polyfill",
+                "portable",
+                "shim"
+            ],
+            "time": "2018-09-21T13:07:52+00:00"
+        },
+        {
             "name": "symfony/translation",
             "version": "v4.2.1",
             "source": {
@@ -2241,50 +1521,129 @@
             "time": "2018-12-06T10:45:32+00:00"
         },
         {
-            "name": "tedivm/jshrink",
-            "version": "v1.3.1",
+            "name": "symfony/var-dumper",
+            "version": "v4.2.1",
             "source": {
                 "type": "git",
-                "url": "https://github.com/tedious/JShrink.git",
-                "reference": "21254058dc3ce6aba6bef458cff4bfa25cf8b198"
+                "url": "https://github.com/symfony/var-dumper.git",
+                "reference": "db61258540350725f4beb6b84006e32398acd120"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/tedious/JShrink/zipball/21254058dc3ce6aba6bef458cff4bfa25cf8b198",
-                "reference": "21254058dc3ce6aba6bef458cff4bfa25cf8b198",
+                "url": "https://api.github.com/repos/symfony/var-dumper/zipball/db61258540350725f4beb6b84006e32398acd120",
+                "reference": "db61258540350725f4beb6b84006e32398acd120",
                 "shasum": ""
             },
             "require": {
-                "php": "^5.6|^7.0"
+                "php": "^7.1.3",
+                "symfony/polyfill-mbstring": "~1.0",
+                "symfony/polyfill-php72": "~1.5"
+            },
+            "conflict": {
+                "phpunit/phpunit": "<4.8.35|<5.4.3,>=5.0",
+                "symfony/console": "<3.4"
             },
             "require-dev": {
-                "friendsofphp/php-cs-fixer": "^2.8",
-                "php-coveralls/php-coveralls": "^1.1.0",
-                "phpunit/phpunit": "^6"
+                "ext-iconv": "*",
+                "symfony/process": "~3.4|~4.0",
+                "twig/twig": "~1.34|~2.4"
+            },
+            "suggest": {
+                "ext-iconv": "To convert non-UTF-8 strings to UTF-8 (or symfony/polyfill-iconv in case ext-iconv cannot be used).",
+                "ext-intl": "To show region name in time zone dump",
+                "symfony/console": "To use the ServerDumpCommand and/or the bin/var-dump-server script"
+            },
+            "bin": [
+                "Resources/bin/var-dump-server"
+            ],
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "4.2-dev"
+                }
+            },
+            "autoload": {
+                "files": [
+                    "Resources/functions/dump.php"
+                ],
+                "psr-4": {
+                    "Symfony\\Component\\VarDumper\\": ""
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Nicolas Grekas",
+                    "email": "p@tchwork.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony mechanism for exploring and dumping PHP variables",
+            "homepage": "https://symfony.com",
+            "keywords": [
+                "debug",
+                "dump"
+            ],
+            "time": "2018-11-25T12:50:42+00:00"
+        },
+        {
+            "name": "tightenco/collect",
+            "version": "v5.7.16",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/tightenco/collect.git",
+                "reference": "52a7b56dc0a9d265dd5911dff433dedd3417dcc4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/tightenco/collect/zipball/52a7b56dc0a9d265dd5911dff433dedd3417dcc4",
+                "reference": "52a7b56dc0a9d265dd5911dff433dedd3417dcc4",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.1.3",
+                "symfony/var-dumper": ">=3.4 <5"
+            },
+            "require-dev": {
+                "mockery/mockery": "^1.0",
+                "nesbot/carbon": "^1.26.3",
+                "phpunit/phpunit": "^7.0"
             },
             "type": "library",
             "autoload": {
-                "psr-0": {
-                    "JShrink": "src/"
+                "files": [
+                    "src/Collect/Support/helpers.php",
+                    "src/Collect/Support/alias.php"
+                ],
+                "psr-4": {
+                    "Tightenco\\Collect\\": "src/Collect"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
-                "BSD-3-Clause"
+                "MIT"
             ],
             "authors": [
                 {
-                    "name": "Robert Hafner",
-                    "email": "tedivm@tedivm.com"
+                    "name": "Taylor Otwell",
+                    "email": "taylorotwell@gmail.com"
                 }
             ],
-            "description": "Javascript Minifier built in PHP",
-            "homepage": "http://github.com/tedious/JShrink",
+            "description": "Collect - Illuminate Collections as a separate package.",
             "keywords": [
-                "javascript",
-                "minifier"
+                "collection",
+                "laravel"
             ],
-            "time": "2018-09-16T00:02:51+00:00"
+            "time": "2018-12-07T15:32:04+00:00"
         },
         {
             "name": "twig/extensions",
@@ -2414,12 +1773,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/verot/class.upload.php.git",
-                "reference": "6a4bcb5383634ebf3e802e0eae51af553988c7e8"
+                "reference": "3d19633c6fe4315a999957741acca56eddddfbed"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/verot/class.upload.php/zipball/6a4bcb5383634ebf3e802e0eae51af553988c7e8",
-                "reference": "6a4bcb5383634ebf3e802e0eae51af553988c7e8",
+                "url": "https://api.github.com/repos/verot/class.upload.php/zipball/3d19633c6fe4315a999957741acca56eddddfbed",
+                "reference": "3d19633c6fe4315a999957741acca56eddddfbed",
                 "shasum": ""
             },
             "require": {
@@ -2447,154 +1806,7 @@
                 "gd",
                 "upload"
             ],
-            "time": "2018-10-31T20:29:58+00:00"
-        },
-        {
-            "name": "websharks/css-minifier",
-            "version": "150820",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/websharks/css-minifier.git",
-                "reference": "da1d0254c41e1f59c7337aa444d743e6056046ff"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/websharks/css-minifier/zipball/da1d0254c41e1f59c7337aa444d743e6056046ff",
-                "reference": "da1d0254c41e1f59c7337aa444d743e6056046ff",
-                "shasum": ""
-            },
-            "require": {
-                "ext-mbstring": "*",
-                "php": ">=5.3"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "WebSharks\\CssMinifier\\": "src/includes/classes"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "GPL-3.0+"
-            ],
-            "authors": [
-                {
-                    "name": "websharks",
-                    "homepage": "http://websharks-inc.com/",
-                    "role": "company"
-                },
-                {
-                    "name": "jaswsinc",
-                    "homepage": "http://jaswsinc.com/",
-                    "role": "developer"
-                },
-                {
-                    "name": "raamdev",
-                    "homepage": "http://raam.org/",
-                    "role": "developer"
-                }
-            ],
-            "description": "Compresses CSS.",
-            "homepage": "https://github.com/websharks/css-minifier",
-            "keywords": [
-                "compressor",
-                "css",
-                "websharks"
-            ],
-            "time": "2015-08-21T03:19:25+00:00"
-        },
-        {
-            "name": "wixel/gump",
-            "version": "v1.5.7",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/Wixel/GUMP.git",
-                "reference": "b32c92206fb7014a40179b8468ba8bab90b3f879"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/Wixel/GUMP/zipball/b32c92206fb7014a40179b8468ba8bab90b3f879",
-                "reference": "b32c92206fb7014a40179b8468ba8bab90b3f879",
-                "shasum": ""
-            },
-            "type": "library",
-            "autoload": {
-                "files": [
-                    "gump.class.php"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Sean Nieuwoudt",
-                    "homepage": "https://wixelhq.com"
-                },
-                {
-                    "name": "Filis Futsarov",
-                    "homepage": "https://filis.me"
-                }
-            ],
-            "description": "A fast, extensible & stand-alone PHP input validation class that allows you to validate any data",
-            "homepage": "https://wixelhq.com/",
-            "time": "2018-06-02T23:09:34+00:00"
-        },
-        {
-            "name": "wyrihaximus/html-compress",
-            "version": "1.4.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/WyriHaximus/HtmlCompress.git",
-                "reference": "0c2207ceaa711b93e1d33551cbb7b1ba6cd1e975"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/WyriHaximus/HtmlCompress/zipball/0c2207ceaa711b93e1d33551cbb7b1ba6cd1e975",
-                "reference": "0c2207ceaa711b93e1d33551cbb7b1ba6cd1e975",
-                "shasum": ""
-            },
-            "require": {
-                "jalle19/php-yui-compressor": "^1.0",
-                "linkorb/jsmin-php": "1.0.0",
-                "matthiasmullie/minify": "^1.3",
-                "meenie/javascript-packer": "1.1",
-                "natxet/cssmin": "^3.0",
-                "patchwork/jsqueeze": "~1.0|~2.0",
-                "php": "^7.0 || ^5.6",
-                "tedivm/jshrink": "^1.3",
-                "websharks/css-minifier": "150820"
-            },
-            "require-dev": {
-                "phake/phake": "^1.0",
-                "phpunit/phpunit": "^4.0",
-                "squizlabs/php_codesniffer": "^1.0",
-                "vectorface/dunit": "^2.0"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "WyriHaximus\\HtmlCompress\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Cees-Jan Kiewiet",
-                    "email": "ceesjank@gmail.com",
-                    "homepage": "http://wyrihaximus.net/"
-                }
-            ],
-            "description": "Compress/minify your HTML",
-            "keywords": [
-                "compress",
-                "html"
-            ],
-            "time": "2018-01-03T21:15:44+00:00"
+            "time": "2018-12-15T00:31:29+00:00"
         }
     ],
     "packages-dev": [],

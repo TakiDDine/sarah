@@ -15,7 +15,7 @@ class ProductCategories extends model{
     protected $table = 'productscategories';
     protected $guarded = ['id', 'created_at', 'updated_at'];
     
-    public function posts() {
+    public function products() {
         return $this->hasMany('\App\Models\Product','categoryID');
     }
     

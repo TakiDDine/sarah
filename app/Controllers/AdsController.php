@@ -9,33 +9,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class AdsController extends Controller {
     
+        
+    // index Page, Get all ads
     public function index($request,$response) {
-        
-            $count          = ads::count();   
-            $page           = ($request->getParam('page', 0) > 0) ? $request->getParam('page') : 1;
-            $limit          = 10;
-            $lastpage       = (ceil($count / $limit) == 0 ? 1 : ceil($count / $limit));  
-            $skip           = ($page - 1) * $limit;
-            $ads            = Ads::skip($skip)->take($limit)->orderBy('created_at', 'desc')->get();
-
-
-            return $this->view->render($response, 'admin/ads/index.twig', [
-                'pagination'    => [
-                    'needed'        => $count > $limit,
-                    'count'         => $count,
-                    'page'          => $page,
-                    'lastpage'      => $lastpage,
-                    'limit'         => $limit,
-                    'prev'          => $page-1,
-                    'next'          => $page+1,
-                    'start'          => max(1, $page - 4),
-                    'end'          => min($page + 4, $lastpage),
-                ],
-              'ads'=>$ads
-            ]);
-        
-        
+        $r = $this->paginate('ads',$request);
+        return $this->view->render($response, 'admin/ads/index.twig', ['users'=>$r[0],'p'=>$r[1]]);    
     }
+    
+   
     
     
     

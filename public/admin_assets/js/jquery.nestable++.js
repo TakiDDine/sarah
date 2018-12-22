@@ -190,8 +190,54 @@ var checks = document.getElementsByClassName('styled');
                      
                 }
 
+};
+
+var addPostsToMenu = function () {
     
-    
+var checks = document.getElementsByClassName('styled2');
+                var str = '';
+                 
+                for ( i = 0; i < 10; i++) {
+                     
+                    if ( checks[i].checked === true ) {
+                        
+                          var newName = checks[i].dataset.name;
+                          var newSlug = checks[i].dataset.slug;
+                          var newId = 'new-' + newIdCount;
+
+                          nestableList.append(
+                            '<li class="dd-item" ' +
+                            'data-id="' + newId + '" ' +
+                            'data-name="' + newName + '" ' +
+                            'data-slug="' + newSlug + '" ' +
+                            '' +
+                            '>' +
+                            '<div class="dd-handle">' + newName + '</div> ' +
+                            '<span class="button-delete btn btn-default btn-xs pull-right" ' +
+                            'data-owner-id="' + newId + '"> ' +
+                            '<i class="icon-cross3"></i> ' +
+                            '</span>' +
+                            '<span class="button-edit btn btn-default btn-xs pull-right" ' +
+                            'data-owner-id="' + newId + '" data-toggle="modal" data-target="#edit_modal">' +
+                            '<i class="icon-pencil7"></i>' +
+                            '</span>' +
+                            '</li>'
+                          );
+
+                          newIdCount++;
+
+                          // update JSON
+                          updateOutput($('.dd.nestable').data('output', $('#json-output')));
+
+                          // set events
+                          $(".dd.nestable .button-delete").on("click", deleteFromMenu);
+                          $(".dd.nestable .button-edit").on("click", prepareEdit);       
+                        
+                
+                    }
+                     
+                }
+
 };
 
 
@@ -217,11 +263,23 @@ $(function () {
     addToMenu();
   });
     
+    
+    
     // jjdd
     $("#menu-add-pages").submit(function (e) {
         e.preventDefault();
         addPageToMenu();
     }); 
+    
+    
+        
+    // jjdd
+    $("#menu-add-posts").submit(function (e) {
+        e.preventDefault();
+        addPostsToMenu();
+    }); 
+    
+    
 
 });
 

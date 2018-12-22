@@ -54,6 +54,17 @@ if($container['conf']['app.debug'] == false ):
     error_reporting(0);
     @ini_set('display_errors',0);
 endif;
+//
+//
+//$function = new Twig_SimpleFunction('square', function () {
+//    if param2 present?
+//     return param1*param2;
+//    else
+//     return param1;
+//});
+
+
+
 
 
 // Register Flash Messages
@@ -76,6 +87,8 @@ $container['view'] = function ($c) {
     new Slim\Flash\Messages()
     ));
     $view->getEnvironment()->addglobal('flash',$c->flash);
+    
+
     
     
     $filter = new Twig_SimpleFilter('displayStatue', function ($username) {
@@ -195,6 +208,11 @@ $container['view'] = function ($c) {
     });
     $view->getEnvironment()->addFilter($filter);
     
+    $filter = new Twig_SimpleFilter('st', function ($username) {
+        return st($username);
+    });
+    $view->getEnvironment()->addFilter($filter);
+    
     
     
     
@@ -278,10 +296,11 @@ $container['Pages'] = function ($container) { return new \App\Controllers\PagesC
 /*
 *   Add Global Variables to twig view
 */
-
+$search = $_GET['search'] ?? '';
 
 $container['view']->getEnvironment()->addGlobal('admin_assets', $container['conf']['url.admin_assets']);
 $container['view']->getEnvironment()->addGlobal('website_assets', $container['conf']['url.website_assets']);
+$container['view']->getEnvironment()->addGlobal('search', $search);
 
 
         // the cart start

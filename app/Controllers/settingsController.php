@@ -3,8 +3,6 @@
 namespace App\Controllers;
 use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\Exception;
 use \App\Email\Email;
 use \App\Models\options;
 use \App\Models\User;
@@ -189,43 +187,27 @@ class settingsController extends Controller {
     
     public function general($request,$response) {
        
-        if($request->getParam('validate') == 'general_settings'){
-        if($request->getParam('logochanged') == 'true') {
-            if(isset($_FILES['logo']) and !empty($_FILES['logo']['name'])) {
-                $logo = new files();
-                $logo =  $logo->upload_avatar($this->container->conf['dir.general'],$_FILES['logo']);
-                Options::update_option('logo',$logo); 
-            }
-        }
+        $helper = $this->helper;
+        $post   = $helper->cleanData($request->getParams());
+        $up     = $this->files;
+        $path = $this->dir('general');
+        $options = new options();
+        $logo    = $_FILES['logo'];
+        $favicon = $_FILES['favicon'];
         
-        if($request->getParam('faviconchanged') == 'true') {
-            if(isset($_FILES['favicon']) and !empty($_FILES['favicon']['name'])) {
-                $favicon = new files();
-                $favicon =  $favicon->upload_avatar($this->container->conf['dir.general'],$_FILES['favicon']);
-                Options::update_option('favicon',$favicon);
-            }    
-        }
-            
-            
-            
-            
+        if( $post['logochanged'] == 'true' and isset($logo['name']) )  { 
+            $options->update_option('logo', $up->up($path,$logo)) ; 
+        } 
         
-        $options = Options::all();
-        $options = $options->pluck('name');
-        $options =  array_combine($options->toArray(),$options->toArray());
+        if( $post['faviconchanged'] == 'true' and isset($favicon['name']) )  { 
+            $options->update_option('favicon', $up->up($path,$logo)) ; 
+        } 
         
-        
-             Options::update_option('name',$request->getParam('name'));
-             Options::update_option('description',$request->getParam('description'));
-             Options::update_option('keywords',$request->getParam('keywords'));
-             Options::update_option('mode',$request->getParam('mode'));
-             Options::update_option('phone',$request->getParam('phone'));
-             Options::update_option('email',$request->getParam('email'));
-             Options::update_option('adress',$request->getParam('adress'));
-             Options::update_option('ganalitycs',$request->getParam('ganalitycs'));
-            $this->flash->addMessage('success','تم تحديث المعلومات بنجاح');
-            return $response->withRedirect($this->router->pathFor('settings', ['options'=>$options ]));
-        }
+        $settings = ['name','description','keywords','mode','phone','email','adress','ganalitycs'];
+        foreach( $settings as $item ) {  $options->update_option($item, $post[$item]);   }
+
+        $this->flashsuccess('تم تحديث المعلومات بنجاح');
+        return $response->withRedirect($this->router->pathFor('settings', compact('options')));
 
     }  
     
@@ -351,8 +333,7 @@ class settingsController extends Controller {
     
     
     
-    
-    
+        
     
 }
 

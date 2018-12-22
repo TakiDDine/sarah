@@ -54,6 +54,9 @@ $app->group('/dashboard', function () use($app) {
     $this->group('/users', function () {
         $this->get('[/]', 'Users:index')->setName('users');
         $this->any('/create[/]', 'Users:create')->setName('users.create');
+        $this->any('/delete/{id}[/]', 'Users:delete')->setName('users.delete');
+        $this->any('/activate/{id}[/]', 'Users:delete')->setName('users.activate');
+        $this->any('/block/{id}[/]', 'Users:block')->setName('users.block');
         $this->any('/mutliAction[/]','Users:mutliAction')->setName('users.mutliAction');        
         $this->get('/export/csv[/]', 'Users:export_csv')->setName('usersToCsv');
         $this->get('/export/pdf[/]', 'Users:export_pdf')->setName('usersToPdf');

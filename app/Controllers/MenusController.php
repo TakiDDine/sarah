@@ -4,7 +4,7 @@ namespace App\Controllers;
 use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
 use \App\Models\Menus;
-
+Use DB;
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class MenusController extends Controller {
@@ -17,11 +17,8 @@ class MenusController extends Controller {
             $menu  = $menus->first()->toArray();
         
         
-        
-        
-        
-        
-        
+
+ 
         
         
         
