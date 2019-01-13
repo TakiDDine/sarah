@@ -186,6 +186,14 @@ https://gist.github.com/royduin/69ff94b68c28419dbd9a8e07dcf13187
 
 
 
+Thank you :
+Special thanks
+<hr>
+- <a href='https://www.slimframework.com/'>Slim framework </a>
+- <a href='https://themeforest.net/item/limitless-responsive-web-application-kit/13080328'>limitless admin template</a> 
+- 
+
+
 
 
 للتواصل / contact
