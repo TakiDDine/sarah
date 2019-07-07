@@ -89,7 +89,7 @@ https://www.youtube.com/watch?v=spoNYvTdH64https://drive.google.com/file/d/0B7gM
 https://www.youtube.com/watch?v=ktUOY0OAFmA
 
 a hin pibih
-
+shipping methods
 
 
 ## To do in version 1.3 ( 20 Decembre 2018 )
