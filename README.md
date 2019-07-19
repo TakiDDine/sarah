@@ -184,6 +184,9 @@ https://gist.github.com/royduin/69ff94b68c28419dbd9a8e07dcf13187
 * add this helpers to your helper --> https://laravel-admin.org/docs/#/en/extension-helpers?id=helpers
 
 
+To do later
+Virtual products support
+
 
 
 ##  Special thanks :
