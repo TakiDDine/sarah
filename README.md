@@ -254,10 +254,23 @@ https://rudrastyh.com/mailchimp-api/subscription.html
 * <a href='https://github.com/scottconnerly/timezone'> TimeZoneSelect </a>
 
 Bug tracker
-
-
-
+https://github.com/drewm/mailchimp-api
+https://github.com/umpirsky/country-list/blob/master/data/en/country.php
+https://github.com/umpirsky/locale-list
 https://demo.fastadmin.net/admin/dashboard?ref=addtabs
+http://morrisjs.github.io/morris.js/
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 للتواصل / contact
