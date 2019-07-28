@@ -245,7 +245,7 @@ https://gist.github.com/royduin/69ff94b68c28419dbd9a8e07dcf13187
 
 To do later
 Virtual products support
-
+https://rudrastyh.com/mailchimp-api/subscription.html
 
 
 ##  Special thanks :
